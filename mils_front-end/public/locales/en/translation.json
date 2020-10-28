@@ -1,6 +1,16 @@
 {
   "vietnamese": "Tiếng Việt",
   "english": "English111",
+  "DASHBOARD": "Dashboard",
+  "SYSTEM":"System",
+  "DATA_DICTIONARY":"Data Dictionary",
+  "HOUSEHOLD_MANAGEMENT":"Household Management",
+  "CCT_PROGRAM":"CTT Program",
+  "PAYMENT":"Payment",
+  "GRIEVANCE_MANAGEMENT":"Grievance Management",
+  "REPORT_BI":"Report BI",
+  "SMS_BROADCAST":"SMS Broadcast",
+  "LOGOUT":"Logout",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

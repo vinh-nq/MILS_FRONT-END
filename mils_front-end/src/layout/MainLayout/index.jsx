@@ -1,15 +1,9 @@
 import React from "react";
 import "./styles.scss";
-import { Layout, Menu, Breadcrumb } from "antd";
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-} from "@ant-design/icons";
+import { Layout, Breadcrumb } from "antd";
 import MenuComponent from "../../components/MenuComponent";
 
 export default function MainLayout(props) {
-  const { SubMenu } = Menu;
   const { Header, Content, Sider } = Layout;
   return (
     <Layout style={{ height: "100vh" }}>
@@ -18,6 +12,7 @@ export default function MainLayout(props) {
       </Header>
       <Layout>
         <Sider width={250} className="site-layout-background" breakpoint="lg">
+          <div style={{ backgroundColor: "#fff" }}>AAAA</div>
           <MenuComponent />
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
