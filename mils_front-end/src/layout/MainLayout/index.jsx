@@ -7,15 +7,14 @@ import {
   NotificationOutlined,
 } from "@ant-design/icons";
 import MenuComponent from "../../components/MenuComponent";
+import NavbarComponent from "../../components/NavbarComponent";
 
 export default function MainLayout(props) {
   const { SubMenu } = Menu;
   const { Header, Content, Sider } = Layout;
   return (
     <Layout style={{ height: "100vh" }}>
-      <Header className="header">
-        <div className="logo" />
-      </Header>
+      <NavbarComponent />
       <Layout>
         <Sider width={250} className="site-layout-background" breakpoint="lg">
           <MenuComponent />
