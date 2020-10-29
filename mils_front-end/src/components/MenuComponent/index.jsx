@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Menu } from "antd";
 import {
-  LogoutOutlined,
   DesktopOutlined,
   MailOutlined,
   SettingOutlined,
@@ -14,11 +13,9 @@ import {
   FileDoneOutlined,
 } from "@ant-design/icons";
 import "./styles.scss";
-import UserOutlined from "@ant-design/icons/lib/icons/UserOutlined";
 
 export default function MenuComponent(props) {
   const { t } = useTranslation();
-  const {onBreakpoint} = props;
   return (
     <Menu
       mode="inline"
@@ -53,16 +50,6 @@ export default function MenuComponent(props) {
       <Menu.Item key="SMS_BROADCAST" icon={<MailOutlined />}>
         {t("SMS_BROADCAST")}
       </Menu.Item>
-      {
-        onBreakpoint ? <>
-          <Menu.Item key="LOGOUT" icon={<LogoutOutlined />}>
-            {t("LOGOUT")}
-          </Menu.Item>
-          <Menu.Item key="PROFILE" icon={<UserOutlined />}>
-            {t("PROFILE")}
-          </Menu.Item>
-        </> : null
-      }
     </Menu>
   );
 }

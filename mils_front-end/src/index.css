@@ -33,3 +33,7 @@
 .ant--icon__middle{
   transform: translateY(-3px);
 }
+
+.pointer {
+  cursor: pointer;
+}
