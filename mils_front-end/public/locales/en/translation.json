@@ -12,6 +12,8 @@
   "SMS_BROADCAST":"SMS Broadcast",
   "LOGOUT":"Logout",
   "PROFILE": "Profile",
+  "BACK_HOME_SCREEN":"Back Home",
+  "404_PAGE":"Sorry, the page you visited does not exist.",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

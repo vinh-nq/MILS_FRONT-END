@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import { bookingReducer } from "./bookingReducer";
+import { historyReducer } from "./historyReducer";
 
 const appReducers = combineReducers({
-  bookingReducer: bookingReducer,
+  historyReducer,
 });
 
 export default appReducers;
