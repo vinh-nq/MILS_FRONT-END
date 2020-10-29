@@ -1,5 +1,5 @@
-import React from "react";
-import {Button, Col, Input, Row, Select, Table, Typography, Tag, Space, Divider, Tooltip} from "antd";
+import React, {useState} from "react";
+import {Button, Col, Input, Row, Select, Table, Typography, Divider, Tooltip} from "antd";
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined";
 import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 import {columnsTableIndex} from "./tableObject";
