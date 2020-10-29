@@ -23,10 +23,10 @@ export default function MenuComponent(props) {
       mode="inline"
       defaultSelectedKeys={["1"]}
       defaultOpenKeys={["sub1"]}
-      style={{ height: "100%", borderRight: 0 }}
+      style={{ flex: 1, borderRight: 0 }}
     >
       <Menu.Item key="DASHBOARD" icon={<DesktopOutlined />}>
-          {t("DASHBOARD")}
+        {t("DASHBOARD")}
       </Menu.Item>
       <Menu.Item key="SYSTEM" icon={<SettingOutlined />}>
         {t("SYSTEM")}

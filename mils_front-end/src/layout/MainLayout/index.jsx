@@ -5,14 +5,17 @@ import MenuComponent from "../../components/MenuComponent";
 import NavbarComponent from "../../components/NavbarComponent";
 
 export default function MainLayout(props) {
-  const { Header, Content, Sider } = Layout;
+  const { Content, Sider } = Layout;
+  // Header,
   return (
     <Layout style={{ height: "100vh" }}>
       <NavbarComponent />
       <Layout>
-        <Sider width={250} className="site-layout-background" breakpoint="lg">
-          <div style={{ backgroundColor: "#fff" }}>AAAA</div>
-          <MenuComponent />
+        <Sider width={230} className="site-layout-background" breakpoint="lg">
+          <div style={{ height: "100%" }} className="d-flex flex-column">
+            <div style={{ height: "100px", backgroundColor: "red" }}>AAAA</div>
+            <MenuComponent />
+          </div>
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>

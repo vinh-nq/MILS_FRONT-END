@@ -127,7 +127,7 @@ function Login(props) {
           >
             <div className="form-intro d-flex flex-column align-items-center h-100">
               <div className="w-100 d-flex align-items-center justify-content-center mt-5">
-                <Link to="dang-nhap" className="logo logo-dark text-center">
+                <Link to="dang-nhap" className="">
                   <img src={imageLogo} alt={"logo-dark"} height={170} />
                 </Link>
               </div>
@@ -354,7 +354,7 @@ function Login(props) {
               style={{ overflow: "auto" }}
             >
               <div className="w-100 d-flex align-items-center justify-content-center mt-4">
-                <Link to="dang-nhap" className="logo logo-dark text-center">
+                <Link to="dang-nhap" className="text-center">
                   <img src={imageLogo} alt={"logo-dark"} height={170} />
                 </Link>
               </div>
