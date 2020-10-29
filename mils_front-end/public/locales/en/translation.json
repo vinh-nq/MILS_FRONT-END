@@ -11,6 +11,7 @@
   "REPORT_BI":"Report BI",
   "SMS_BROADCAST":"SMS Broadcast",
   "LOGOUT":"Logout",
+  "PROFILE": "Profile",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."
