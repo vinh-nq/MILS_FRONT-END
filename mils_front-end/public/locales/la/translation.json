@@ -12,6 +12,9 @@
   "SMS_BROADCAST":"SMS_BROADCAST",
   "LOGOUT":"LOGOUT",
   "PROFILE": "PROFILE",
+  "BACK_HOME_SCREEN":"BACK_HOME_SCREEN",
+  "404_PAGE":"404_PAGE",
+  "HOUSEHOLD MANAGEMENT":"AAA",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

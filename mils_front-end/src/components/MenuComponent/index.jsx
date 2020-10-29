@@ -13,26 +13,52 @@ import {
   FileDoneOutlined,
 } from "@ant-design/icons";
 import "./styles.scss";
+import { useHistory } from "react-router-dom";
+import { PATH } from "../../routers/Path";
+import { useSelector } from "react-redux";
 
 export default function MenuComponent(props) {
   const { t } = useTranslation();
+  const history = useHistory();
+  const listBreadcrumb = useSelector(
+    (state) => state.historyReducer.listBreadcrumb
+  );
+
   return (
     <Menu
       mode="inline"
-      defaultSelectedKeys={["1"]}
+      selectedKeys={[`${listBreadcrumb[0]}`]}
       defaultOpenKeys={["sub1"]}
       style={{ flex: 1, borderRight: 0 }}
     >
-      <Menu.Item key="DASHBOARD" icon={<DesktopOutlined />}>
+      <Menu.Item
+        key={"dashboard"}
+        icon={<DesktopOutlined />}
+        onClick={() => {
+          history.push(PATH.DASHBOARD);
+        }}
+      >
         {t("DASHBOARD")}
       </Menu.Item>
-      <Menu.Item key="SYSTEM" icon={<SettingOutlined />}>
+      <Menu.Item
+        key={"system"}
+        icon={<SettingOutlined />}
+        onClick={() => {
+          history.push(PATH.SYSTEM);
+        }}
+      >
         {t("SYSTEM")}
       </Menu.Item>
       <Menu.Item key="DATA_DICTIONARY" icon={<DatabaseOutlined />}>
         {t("DATA_DICTIONARY")}
       </Menu.Item>
-      <Menu.Item key="HOUSEHOLD_MANAGEMENT" icon={<HomeOutlined />}>
+      <Menu.Item
+        key={"householdManagement"}
+        icon={<HomeOutlined />}
+        onClick={() => {
+          history.push(PATH.HOUSEHOLD_MANAGEMENT);
+        }}
+      >
         {t("HOUSEHOLD_MANAGEMENT")}
       </Menu.Item>
       <Menu.Item key="CCT_PROGRAM" icon={<GroupOutlined />}>
