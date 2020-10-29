@@ -4,12 +4,12 @@ import {Breadcrumb, Drawer, Layout} from "antd";
 import MenuComponent from "../../components/MenuComponent";
 import NavbarComponent from "../../components/NavbarComponent";
 import SiderUserInformation from "../../components/SiderUserInfo";
+import ManageAssessment from "../../screens/ManageAssessment";
 
 export default function MainLayout(props) {
     const [onBroken, setBroken] = useState(false);
     const [visible, setVisible] = useState(false);
     const {Content, Sider} = Layout;
-
     return (
         <>
             <Layout style={{height: "100vh"}}>
@@ -35,12 +35,12 @@ export default function MainLayout(props) {
                         <Content
                             className="site-layout-background"
                             style={{
-                                padding: 24,
+                                padding: 16,
                                 margin: 0,
                                 minHeight: 280
                             }}
                         >
-                            Content
+                            <ManageAssessment />
                         </Content>
                     </Layout>
                 </Layout>

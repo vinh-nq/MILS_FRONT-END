@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
+import "./style.scss"
 import LoadingSpinner from "./components/LoadingSpinner";
 import MainLayout from "./layout/MainLayout";
 import LoginScreen from "./screens/loginScreen";
