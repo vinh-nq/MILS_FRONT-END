@@ -15,17 +15,25 @@
   background: #fff;
 }
 
-.user-info-sidebar{
+.user-info-sidebar {
   height: 150px;
-  background-image: url("./images/user-img-background.jpg");
+  background-image: url("./images/wolff.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   padding: 12px;
   width: 100%;
-  & img{
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 5px;
+
+  .imageLogo {
+    .ant-image {
+      .ant-image-img {
+        border-radius: 50% !important;
+      }
+    }
   }
+  // & img{
+  //   width: 40px;
+  //   height: 40px;
+  //   object-fit: cover;
+  //   border-radius: 5px;
+  // }
 }

@@ -9,4 +9,5 @@ export const PATH = {
   REPORT_BI: "reportBI",
   SMS_BROADCAST: "SMSBroadcast",
   PROFILE: "/profile",
+  PAGE_403: "/error-authentication",
 };

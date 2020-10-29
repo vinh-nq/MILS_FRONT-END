@@ -14,6 +14,10 @@
   "PROFILE": "Profile",
   "BACK_HOME_SCREEN":"Back Home",
   "404_PAGE":"Sorry, the page you visited does not exist.",
+  "403_PAGE":"Sorry, you are not authorized to access this page.",
+  "password": "Password",
+  "is_not_empty": "is not empty.",
+  "LOGIN_SUCCESS":"Login Success !",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import upperCase from "lodash/upperCase";
 import { useTranslation } from "react-i18next";
+import { actionRedux } from "../../redux/actions";
 // import { PATH } from "../../routers/Path";
 
 export default function MainLayout(props) {
@@ -26,12 +27,12 @@ export default function MainLayout(props) {
     const linkURL = history.location.pathname;
     if (linkURL && linkURL !== "/") {
       dispatch({
-        type: "FETCH_DATA_BREADCRUMB",
+        type: actionRedux.FETCH_DATA_BREADCRUMB,
         payload: history.location.pathname.split("/").filter((el) => el),
       });
     } else {
       dispatch({
-        type: "FETCH_DATA_BREADCRUMB",
+        type: actionRedux.FETCH_DATA_BREADCRUMB,
         payload: ["dashboard"],
       });
     }
@@ -71,7 +72,6 @@ export default function MainLayout(props) {
                   key={el}
                   className="pointer"
                   onClick={() => {
-
                     history.push(`/${el}`);
                   }}
                 >

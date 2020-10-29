@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./login.scss";
-import { Alert, Form, Input, Button } from "antd";
+import { Alert, Form, Input, Button, message } from "antd";
 import * as _ from "lodash";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import imageLogo from "./images/apisLogo.jpg";
+import getTokenApi from "../../api/getTokenApi";
+import Cookies from "universal-cookie";
+import upperCase from "lodash/upperCase";
 
 function Login(props) {
   const [isHover, setIsHover] = useState("");
@@ -20,7 +23,7 @@ function Login(props) {
   const [formReset] = Form.useForm();
   const [formNewPassword] = Form.useForm();
   // const [userId, setUserId] = useState(null);
-  // const history = useHistory();
+  const history = useHistory();
   const [className, setClassName] = useState("login-container");
   const { t } = useTranslation();
   const [visibleModal, setVisibleModal] = useState(false);
@@ -29,30 +32,37 @@ function Login(props) {
   useEffect(() => {
     form.resetFields();
     formReset.resetFields();
-  });
+  }, [form, formReset]);
 
   const onSubmit = async (value) => {
     setLoading(true);
-    // const cookies = new Cookies();
-    // await getTokenApi
-    //   .getToken({
-    //     username: value.username,
-    //     password: value.password,
-    //     grant_type: "password",
-    //   })
-    //   .then((res) => {
-    //     cookies.set(
-    //       "user",
-    //       { token: res.access_token, userId: res.NguoiDungId, userName: res.TenNguoiDung },
-    //       { path: "/", maxAge: 60 * 60 * 24 * 7 }
-    //     );
-    //     setLoading(false);
-    //     history.push("/");
-    //   })
-    //   .catch((err) => {
-    //     setLoading(false);
-    //     setError(err.response.data.error_description);
-    //   });
+    const cookies = new Cookies();
+    await getTokenApi
+      .getToken({
+        username: value.username,
+        password: value.password,
+        grant_type: "password",
+      })
+      .then((res) => {
+        console.log(res);
+        cookies.set(
+          "user",
+          {
+            token: res.access_token,
+            userId: res.UserId,
+            fullName: res.FullName,
+            UserName: res.UserName
+          },
+          { path: "/", maxAge: 60 * 60 * 24 * 7 }
+        );
+        message.success(t("LOGIN_SUCCESS"));
+        setLoading(false);
+        history.push("/");
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(upperCase(err.response.data.error_description));
+      });
   };
 
   const onReset = async (value) => {
@@ -367,24 +377,19 @@ function Login(props) {
                 >
                   <div>
                     <span htmlFor="username" className="text-style">
-                      Email
+                      Username
                     </span>
                     <Form.Item
                       name="username"
                       rules={[
                         {
-                          type: "email",
-                          message: t("required_email"),
-                        },
-                        {
                           required: true,
-                          message: `${t("email")} ${t("is_not_empty")}`,
+                          message: `${t("username")} ${t("is_not_empty")}`,
                         },
                       ]}
                       className="mt-1"
                     >
                       <Input
-                        type="username"
                         style={{ fontSize: "15px" }}
                         onChange={() => {
                           setError();
@@ -407,11 +412,15 @@ function Login(props) {
                     </div>
                     <Form.Item
                       name="password"
-                      rules={[{ required: true }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t("password")} ${t("is_not_empty")}`,
+                        },
+                      ]}
                       className="mt-1"
                     >
                       <Input.Password
-                        type="password"
                         style={{ fontSize: "15px" }}
                         onChange={() => {
                           setError();
@@ -438,6 +447,7 @@ function Login(props) {
                     <span
                       style={{
                         fontSize: "16px",
+                        paddingTop: "5px",
                       }}
                     >
                       Login
@@ -467,22 +477,6 @@ function Login(props) {
                   >
                     Apis Tech
                   </span>
-                  {/* <span
-                    className="content-child-style"
-                    onMouseEnter={() => {
-                      setIsHover(true);
-                    }}
-                    onMouseLeave={() => {
-                      setIsHover(false);
-                    }}
-                    style={{
-                      textShadow: `${
-                        isHover ? "0 0 6px #fff" : "0 0 4px #7b7b7b"
-                      }`,
-                    }}
-                  >
-                    Cùng nhau bước vào kỷ nguyên số hoá.
-                  </span> */}
                 </div>
               </div>
               <div className="overlay-panel overlay-right d-flex flex-column align-items-center justify-content-end pb-4">
@@ -503,22 +497,6 @@ function Login(props) {
                   >
                     Apis Tech
                   </span>
-                  {/* <span
-                    className="content-child-style"
-                    onMouseEnter={() => {
-                      setIsHover(true);
-                    }}
-                    onMouseLeave={() => {
-                      setIsHover(false);
-                    }}
-                    style={{
-                      textShadow: `${
-                        isHover ? "0 0 6px #fff" : "0 0 4px #7b7b7b"
-                      }`,
-                    }}
-                  >
-                    Cùng nhau bước vào kỷ nguyên số hoá.
-                  </span> */}
                 </div>
               </div>
             </div>

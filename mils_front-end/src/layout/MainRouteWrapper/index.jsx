@@ -1,42 +1,38 @@
 import React from "react";
-import { Route } from "react-router-dom";
-// import Cookies from "universal-cookie";
+import { Route, Redirect } from "react-router-dom";
+import Cookies from "universal-cookie";
 // import { useTranslation } from "react-i18next";
 import MainLayout from "../MainLayout";
+import { PATH } from "../../routers/Path";
 
 const MainRouteWrapper = ({ component: ComponentData, ...rest }) => {
-  // const [check, setCheck] = useState(false);
+  // const [check, setCheck] = useState(true);
   // const { t } = useTranslation();
-  // let cookies = new Cookies();
-  // cookies = cookies.get("user");
+  let cookies = new Cookies();
+  cookies = cookies.get("user");
 
   return (
     <Route
       {...rest}
-      render={
-        (props) => (
-          <MainLayout>
-            <ComponentData {...props} />
-          </MainLayout>
+      render={(props) =>
+        cookies && cookies.token && cookies.userId ? (
+          true ? (
+            true ? (
+              <MainLayout>
+                <ComponentData {...props} />
+              </MainLayout>
+            ) : (
+              <Redirect to={{ pathname: PATH.PAGE_403 }} />
+            )
+          ) : null
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location },
+            }}
+          />
         )
-        // cookies && cookies.token && cookies.userId ? (
-        //   check ? (
-        //     1 == 1 ? (
-        //       <Layout>
-        //         <Component {...props} />
-        //       </Layout>
-        //     ) : (
-        //       <Redirect to={{ pathname: "/error-authentication" }} />
-        //     )
-        //   ) : null
-        // ) : (
-        //   <Redirect
-        //     to={{
-        //       pathname: "/login",
-        //       state: { from: props.location },
-        //     }}
-        //   />
-        // )
       }
     />
   );

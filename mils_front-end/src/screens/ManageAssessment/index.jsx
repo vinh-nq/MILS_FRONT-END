@@ -141,8 +141,8 @@ function ManageAssessment(props) {
             {/*Body của trang content*/}
             <section>
                 {/*Tìm kiếm */}
-                <Row  gutter={16}>
-                    <Col span={4}>
+                <Row  gutter={24}>
+                    <Col span={6}>
                         <Text>Province</Text>
                         <Select className="w-100" placeholder="Select a province">
                             <Option value="jack">Jack</Option>
@@ -150,7 +150,7 @@ function ManageAssessment(props) {
                             <Option value="tom">Tom</Option>
                         </Select>
                     </Col>
-                    <Col span={4}>
+                    <Col span={6}>
                         <Text>District</Text>
                         <Select className="w-100" placeholder="Select a district">
                             <Option value="jack">Jack</Option>
@@ -158,7 +158,7 @@ function ManageAssessment(props) {
                             <Option value="tom">Tom</Option>
                         </Select>
                     </Col>
-                    <Col span={4}>
+                    <Col span={6}>
                         <Text>Village</Text>
                         <Select className="w-100" placeholder="Select a village">
                             <Option value="jack">Jack</Option>
@@ -166,7 +166,7 @@ function ManageAssessment(props) {
                             <Option value="tom">Tom</Option>
                         </Select>
                     </Col>
-                    <Col span={4}>
+                    <Col span={6}>
                         <Text>Unit</Text>
                         <Select className="w-100" placeholder="Select a unit">
                             <Option value="jack">Jack</Option>
