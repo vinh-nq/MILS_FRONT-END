@@ -3,18 +3,15 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import "./style.scss"
 import LoadingSpinner from "./components/LoadingSpinner";
-import MainLayout from "./layout/MainLayout";
-import LoginScreen from "./screens/loginScreen";
 import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/js/all.js";
-import LoadingSpinner from "./components/LoadingSpinner";
 import MainRouteWrapper from "./layout/MainRouteWrapper";
 import LoginScreen from "./screens/loginScreen";
 import Page404 from "./components/404Page";
 import { PATH } from "./routers/Path";
 import MenuRedirect from "./components/MenuRedirect";
-
+import ManageAssessment from "./screens/ManageAssessment";
 class App extends React.Component {
   render() {
     return (
@@ -36,7 +33,7 @@ class App extends React.Component {
             />
 
             <MainRouteWrapper
-              component={() => <div>AAA</div>}
+              component={ManageAssessment}
               path={`${PATH.HOUSEHOLD_MANAGEMENT}/householdregistration`}
               exact
             />
