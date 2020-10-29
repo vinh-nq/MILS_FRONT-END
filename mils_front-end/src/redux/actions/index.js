@@ -1,0 +1,4 @@
+export const actionRedux = {
+  FETCH_DATA_BREADCRUMB: "FETCH_DATA_BREADCRUMB",
+  FETCH_DATA_USER: "FETCH_DATA_USER",
+};

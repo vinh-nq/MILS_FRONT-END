@@ -25,7 +25,7 @@ export default function MenuRedirect(props) {
 
   return (
     <div className="menu-breadcrum-container">
-      <span className="title-content">{t("DATA_DICTIONARY")}</span>
+      <span className="h5">{t("DATA_DICTIONARY")}</span>
       <Divider />
       <List
         header={null}

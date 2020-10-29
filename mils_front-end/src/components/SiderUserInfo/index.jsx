@@ -1,13 +1,19 @@
-import { Dropdown, Menu } from "antd";
-import CaretDownOutlined from "@ant-design/icons/lib/icons/CaretDownOutlined";
 import React from "react";
-import UserOutlined from "@ant-design/icons/lib/icons/UserOutlined";
-import LogoutOutlined from "@ant-design/icons/lib/icons/LogoutOutlined";
+import { Dropdown, Menu, Image } from "antd";
+import {
+  LogoutOutlined,
+  UserOutlined,
+  CaretDownOutlined,
+} from "@ant-design/icons/lib/icons";
 import { useTranslation } from "react-i18next";
 import linkImageLogo from "./apisLogo.jpg";
+import Cookies from "universal-cookie";
 
 function SiderUserInformation() {
   const { t } = useTranslation();
+  let cookies = new Cookies();
+  cookies = cookies.get("user");
+
   const menu = (
     <Menu>
       <Menu.Item key="0">
@@ -22,16 +28,25 @@ function SiderUserInformation() {
   );
   return (
     <div className="user-info-sidebar w-100">
-      <div className="mb-5">
-        <img src={linkImageLogo} alt="apisLogo" />
+      <div className="w-100 d-flex flex-row align-items-center justify-content-center imageLogo">
+        <Image
+          width={100}
+          style={{ borderRadius: "50%" }}
+          src={linkImageLogo}
+          alt="apisLogo"
+          className="pointer"
+        />
       </div>
-      <p className="text-white font-12 mb-0 font-weight-500">admin</p>
-      <div className="d-flex">
-        <span className="text-white font-12 mb-0 font-weight-500">
-          admin@apislaos.com
-        </span>
+      <div className="d-flex align-items-center justify-content-center mt-1">
         <Dropdown className="ml-auto" overlay={menu}>
-          <CaretDownOutlined className="text-white font-weight-bold" />
+          <span
+            className="d-flex w-100 align-items-center justify-content-center pointer"
+            onClick={(e) => e.preventDefault()}
+            style={{ color: "#fff", fontWeight: "500", fontSize: "17px" }}
+          >
+            {cookies.fullName}
+            <CaretDownOutlined className="text-white font-weight-bold pointer ml-2" />
+          </span>
         </Dropdown>
       </div>
     </div>
