@@ -1,87 +1,42 @@
-import React from "react";
-import {Button, Col, Input, Row, Select, Table, Typography, Tag, Space, Divider, Tooltip} from "antd";
+import React, {useState} from "react";
+import {Button, Col, Input, Row, Select, Table, Typography, Divider, Tooltip} from "antd";
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined";
 import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
-import UserOutlined from "@ant-design/icons/lib/icons/UserOutlined";
-import InfoOutlined from "@ant-design/icons/lib/icons/InfoOutlined";
-import PictureOutlined from "@ant-design/icons/lib/icons/PictureOutlined";
+import {columnsTableIndex} from "./tableObject";
+import HouseHoldMemberList from "./component/HHMemberList";
+import PlotLandList from "./component/PlotLandList";
 
 function ManageAssessment(props) {
+    const [visibleMemberList,setVisibleMemberList] = useState(false);
+    const [visiblePlotLand,setVisiblePlotLand] = useState(false);
     const {Option} = Select;
     const {Text} = Typography;
 
-    const columns = [
-        {
-            title: '#',
-            dataIndex: 'index',
-            key: 'index',
-        },
-        {
-            title: 'Village',
-            dataIndex: 'home',
-            key: 'home ',
-        },
-        {
-            title: 'Unit',
-            dataIndex: 'serial',
-            key: 'serial',
-        },
-        {
-            title: 'HH Level',
-            dataIndex: 'familyLevel',
-            key: 'familyLevel',
-        },
-        {
-            title: 'Head of HH Name',
-            dataIndex: 'headOfFamily',
-            key: 'headOfFamily',
-        },
-        {
-            title: 'Number of HH',
-            dataIndex: 'familyNumber',
-            key: 'familyNumber',
-        },
-        {
-            title: 'Number plots',
-            dataIndex: 'landPlot',
-            key: 'landPlot',
-        },
-        {
-            title: 'Number pregnant',
-            dataIndex: 'theGirlWasTaken',
-            key: 'theGirlWasTaken',
-        },
-        {
-            title: 'Number child',
-            dataIndex: 'Children',
-            key: 'Children',
-        },
-        {
-            title: 'Actions',
-            key: 'actions',
-            align: "center",
-            dataIndex: 'actions',
-            render: () => (
-                <div className="d-flex justify-content-end">
-                    <Tooltip placement="topLeft" title={"Member in family"}>
-                        <Button type="primary" className="set-center-content mr-1" size="small">
-                            <UserOutlined />
-                        </Button>
-                    </Tooltip>
-                    <Tooltip placement="topLeft" title={"Land plot"}>
-                        <Button type="primary" className="set-center-content mr-1" size="small">
-                            <PictureOutlined />
-                        </Button>
-                    </Tooltip>
-                    <Tooltip placement="topLeft" title={"Description"}>
-                        <Button type="primary" className="set-center-content" size="small">
-                            <InfoOutlined />
-                        </Button>
-                    </Tooltip>
-                </div>
-            ),
-        },
-    ];
+    const columns = [...columnsTableIndex,  {
+        title: 'Actions',
+        key: 'actions',
+        align: "center",
+        dataIndex: 'actions',
+        render: () => (
+            <div className="d-flex justify-content-end">
+                <Tooltip placement="topLeft" title={"Member in family"}>
+                    <Button type="primary" className="set-center-content mr-1" size="small" onClick={()=>{setVisibleMemberList(true)}}>
+                        <i className="fas fa-users"></i>
+                    </Button>
+                </Tooltip>
+                <Tooltip placement="topLeft" title={"Land plot"}>
+                    <Button type="primary" className="set-center-content mr-1" size="small" onClick={()=>{setVisiblePlotLand(true)}}>
+                        <i className="fas fa-mountain"></i>
+                    </Button>
+                </Tooltip>
+                <Tooltip placement="topLeft" title={"Description"}>
+                    <Button type="primary" className="set-center-content" size="small">
+                        <i className="fas fa-info-circle"></i>
+                    </Button>
+                </Tooltip>
+            </div>
+        ),
+    }];
 
     const data = [
         {
@@ -143,7 +98,7 @@ function ManageAssessment(props) {
                 {/*Tìm kiếm */}
                 <Row  gutter={16}>
                     <Col span={4}>
-                        <Text>Province</Text>
+                        <Text className="font-13">Province</Text>
                         <Select className="w-100" placeholder="Select a province">
                             <Option value="jack">Jack</Option>
                             <Option value="lucy">Lucy</Option>
@@ -151,7 +106,7 @@ function ManageAssessment(props) {
                         </Select>
                     </Col>
                     <Col span={4}>
-                        <Text>District</Text>
+                        <Text className="font-13">District</Text>
                         <Select className="w-100" placeholder="Select a district">
                             <Option value="jack">Jack</Option>
                             <Option value="lucy">Lucy</Option>
@@ -159,7 +114,7 @@ function ManageAssessment(props) {
                         </Select>
                     </Col>
                     <Col span={4}>
-                        <Text>Village</Text>
+                        <Text className="font-13">Village</Text>
                         <Select className="w-100" placeholder="Select a village">
                             <Option value="jack">Jack</Option>
                             <Option value="lucy">Lucy</Option>
@@ -167,7 +122,7 @@ function ManageAssessment(props) {
                         </Select>
                     </Col>
                     <Col span={4}>
-                        <Text>Unit</Text>
+                        <Text className="font-13">Unit</Text>
                         <Select className="w-100" placeholder="Select a unit">
                             <Option value="jack">Jack</Option>
                             <Option value="lucy">Lucy</Option>
@@ -177,7 +132,7 @@ function ManageAssessment(props) {
                 </Row>
                 <Row gutter={16} className="mt-2">
                     <Col span={4}>
-                        <Text>Children</Text>
+                        <Text className="font-13">Children</Text>
                         <Select className="w-100" value={""}>
                             <Option value="">All</Option>
                             <Option value={1}>Have children</Option>
@@ -185,7 +140,7 @@ function ManageAssessment(props) {
                         </Select>
                     </Col>
                     <Col span={4}>
-                        <Text>Pregnant woman</Text>
+                        <Text className="font-13">Pregnant woman</Text>
                         <Select className="w-100" value={""}>
                             <Option value="">All</Option>
                             <Option value={1}>There is a pregnant woman</Option>
@@ -193,11 +148,13 @@ function ManageAssessment(props) {
                         </Select>
                     </Col>
                     <Col span={4}>
-                        <Text>Title</Text>
+                        <Text className="font-13">Title</Text>
                         <Input placeholder="Search by title"/>
                     </Col>
                     <Col span={4}>
-                        <Text className="d-block">Search</Text>
+                        <div>
+                            <Text className="font-13">Search</Text>
+                        </div>
                         <Button type="primary" icon={<SearchOutlined className="ant--icon__middle"/>}>
                             Search
                         </Button>
@@ -209,6 +166,9 @@ function ManageAssessment(props) {
                 <Table columns={columns} dataSource={data} />
             </section>
 
+            {/*Modal*/}
+            <HouseHoldMemberList visibleMemberList={visibleMemberList} setVisibleMemberList={setVisibleMemberList}/>
+            <PlotLandList visiblePlotLand={visiblePlotLand} setVisiblePlotLand={setVisiblePlotLand}/>
         </div>
     )
 }
