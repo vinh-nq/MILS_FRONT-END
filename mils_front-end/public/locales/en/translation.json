@@ -18,6 +18,13 @@
   "password": "Password",
   "is_not_empty": "is not empty.",
   "LOGIN_SUCCESS":"Login Success !",
+  "ROLE_ID":"Role ID",
+  "ROLE_NAME":"Role Name",
+  "ACTION":"Action",
+  "SEARCH":"Search",
+  "PLEASE_INPUT_KEYWORD":"Please input keyword",
+  "ROLE MANAGEMENT":"Role Management",
+  "FUNCTION LIST MANAGEMENT":"Function list management",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

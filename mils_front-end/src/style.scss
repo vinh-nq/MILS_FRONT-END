@@ -22,23 +22,23 @@
   font-size: 16px !important;
 }
 
-.font-17{
+.font-17 {
   font-size: 17px !important;
 }
 
-.font-18{
+.font-18 {
   font-size: 18px !important;
 }
 
-.font-20{
+.font-20 {
   font-size: 20px !important;
 }
 
-.font-22{
+.font-22 {
   font-size: 22px !important;
 }
 
-.font-24{
+.font-24 {
   font-size: 24px !important;
 }
 
@@ -74,4 +74,10 @@
   &:focus {
     outline: none !important;
   }
+}
+
+.ant-pagination-item-link {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
