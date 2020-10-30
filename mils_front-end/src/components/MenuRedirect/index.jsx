@@ -59,7 +59,7 @@ export default function MenuRedirect(props) {
         footer={null}
         size="small"
         bordered
-        dataSource={dataSystem.map((el) => el.text)}
+        dataSource={data.map((el) => el.text)}
         renderItem={(item) => {
           return (
             <List.Item
@@ -74,7 +74,7 @@ export default function MenuRedirect(props) {
                 <Button
                   type="link"
                   onClick={() => {
-                    history.push(dataSystem.find((el) => el.text === item).url);
+                    history.push(data.find((el) => el.text === item).url);
                   }}
                 >
                   <span style={{ textDecorationLine: "underline" }}>

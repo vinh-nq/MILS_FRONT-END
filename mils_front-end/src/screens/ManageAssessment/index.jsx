@@ -6,6 +6,7 @@ import HouseHoldMemberList from "./component/HHMemberList";
 import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../api/houseHoldApi";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import {useSelector} from "react-redux";
 
 function ManageAssessment(props) {
     const [visibleMemberList, setVisibleMemberList] = useState(false);
@@ -22,21 +23,23 @@ function ManageAssessment(props) {
     const {Option} = Select;
     const {Text} = Typography;
 
+    //Chuyên đổi ngôn ngữ sang tiếng anh và tiếng lào
+    const dataLanguage = useSelector(
+        (state) => state.languageReducer.objectLanguage.value
+    ) || localStorage.getItem("i18nextLng");
+
+    useEffect(() => {
+        setDataSelect(province.map(el => ({
+            Id: el.Id,
+            text: dataLanguage === "la" ? el.ProvinceName : el.ProvinceNameEng,
+        })))
+    }, [dataLanguage]);
+
     useEffect(() => {
         getDataHouseHold();
         getProvince();
     }, []);
 
-    useEffect(() => {
-        console.log(province.map(el => ({
-            Id: el.Id,
-            text: localStorage.getItem("i18nextLng") === "la" ? el.ProvinceName : el.ProvinceNameEng,
-        })));
-        setDataSelect(province.map(el => ({
-            Id: el.Id,
-            text: localStorage.getItem("i18nextLng") === "la" ? el.ProvinceName : el.ProvinceNameEng,
-        })))
-    }, [localStorage.getItem("i18nextLng")]);
 
     const getDataHouseHold = async () => {
         setLoading(true);
@@ -60,6 +63,10 @@ function ManageAssessment(props) {
     const getProvince = async () => {
         await houseHoldApi.getAllProvince().then(res => {
             setProvince(res.data);
+            setDataSelect(res.data.map(el => ({
+                Id: el.Id,
+                text: dataLanguage === "la" ? el.ProvinceName : el.ProvinceNameEng,
+            })))
         });
     };
 
@@ -175,6 +182,7 @@ function ManageAssessment(props) {
         ))
     };
 
+
     const renderDistrictSelect = () => {
 
     };
@@ -204,7 +212,16 @@ function ManageAssessment(props) {
                     <Col span={4}>
                         <Text className="font-13">Province</Text>
                         <Select className="w-100" placeholder="Select a province">
-                            {renderProvinceSelect()}
+                            {dataSelect.map((value, index) => (
+                                <Option value={value.Id}
+                                        key={index}
+                                        // onChange={() => {
+                                        //     onSelectProvince(value.Id)
+                                        // }}
+                                >
+                                    {value.text}
+                                </Option>
+                            ))}
                         </Select>
                     </Col>
                     <Col span={4}>
