@@ -15,6 +15,7 @@ class SelectLanguage extends React.Component {
   }
 
   componentDidMount() {
+    console.log('123aaaa')
     this.setState({
       value:
         languageList.find(

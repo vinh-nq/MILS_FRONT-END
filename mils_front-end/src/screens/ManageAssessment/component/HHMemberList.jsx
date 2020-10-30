@@ -6,9 +6,9 @@ import HHMemberInfoDetail from "./HHMemberInfoDetail";
 function HouseHoldMemberList(props) {
     const {visibleMemberList, setVisibleMemberList} = props;
     const [showDetailMember, setShowDetailMember] = useState(false);
-    useEffect(()=>{
+    useEffect(() => {
         setShowDetailMember(false);
-    },[visibleMemberList]);
+    }, [visibleMemberList]);
 
     const columns = [...columnsTableHHMember, {
         title: 'View Detail',
@@ -72,14 +72,16 @@ function HouseHoldMemberList(props) {
             onCancel={() => {
                 setVisibleMemberList(false)
             }}
-            width= {showDetailMember ? "800px" : "80%"}
+            width={showDetailMember ? "800px" : "80%"}
         >
             {
-                showDetailMember ? <HHMemberInfoDetail setShowDetailMember={setShowDetailMember} /> :  <Table
-                    columns={columns}
-                    dataSource={data}
-                    pagination= {{ hideOnSinglePage:true }}
-                />
+                showDetailMember ? <HHMemberInfoDetail setShowDetailMember={setShowDetailMember}/> :
+                    <Table
+                        columns={columns}
+                        dataSource={data}
+                        pagination={{hideOnSinglePage: true}}
+                        style={{overflow: "auto"}}
+                    />
             }
         </Modal>
     )

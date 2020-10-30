@@ -9,43 +9,43 @@ export const columnsTableIndex = [
     },
     {
         title: 'Village',
-        dataIndex: 'home',
-        key: 'home ',
+        dataIndex: 'Village',
+        key: 'Village ',
     },
     {
         title: 'Unit',
-        dataIndex: 'serial',
-        key: 'serial',
+        dataIndex: 'Unit',
+        key: 'Unit',
     },
     {
         title: 'HH Level',
-        dataIndex: 'familyLevel',
-        key: 'familyLevel',
+        dataIndex: 'HHLevel',
+        key: 'HHLevel',
     },
     {
         title: 'Head of HH Name',
-        dataIndex: 'headOfFamily',
-        key: 'headOfFamily',
+        dataIndex: 'HeadOfHHName',
+        key: 'HeadOfHHName',
     },
     {
         title: 'Number of HH',
-        dataIndex: 'familyNumber',
-        key: 'familyNumber',
+        dataIndex: 'TotalHHMembers',
+        key: 'TotalHHMembers',
     },
     {
         title: 'Number plots',
-        dataIndex: 'landPlot',
-        key: 'landPlot',
+        dataIndex: 'NumberPlots',
+        key: 'NumberPlots',
     },
     {
         title: 'Number pregnant',
-        dataIndex: 'theGirlWasTaken',
-        key: 'theGirlWasTaken',
+        dataIndex: 'NumberPregnant',
+        key: 'NumberPregnant',
     },
     {
         title: 'Number child',
-        dataIndex: 'Children',
-        key: 'Children',
+        dataIndex: 'NumberChild',
+        key: 'NumberChild',
     }
 ]
 

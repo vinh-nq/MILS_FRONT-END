@@ -55,6 +55,7 @@ function PlotLandList(props) {
             columns={columns}
             dataSource={data}
             pagination={{hideOnSinglePage: true}}
+            style={{overflow: "auto"}}
         />
         </Modal>
     )

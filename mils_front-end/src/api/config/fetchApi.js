@@ -1,5 +1,5 @@
 import axiosClient from "./axiosClient";
-import { openNotification } from "../../components/common/Notification";
+// import { openNotification } from "../../components/common/Notification";
 import Cookies from "universal-cookie";
 
 export const fetchDataAPI = (url, method, params, data) => {
@@ -33,11 +33,11 @@ export const fetchData = (url, method, params, data) => {
             window.location.origin + "/error-authentication";
           return;
         default:
-          openNotification(
-            "error",
-            "Thông báo",
-            `Lỗi xảy ra trong quá trình lấy dữ liệu !`
-          );
+          // openNotification(
+          //   "error",
+          //   "Thông báo",
+          //   `Lỗi xảy ra trong quá trình lấy dữ liệu !`
+          // );
           break;
       }
     }

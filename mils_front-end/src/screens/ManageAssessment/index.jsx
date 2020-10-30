@@ -1,84 +1,188 @@
-import React, {useState} from "react";
-import {Button, Col, Input, Row, Select, Table, Typography, Divider, Tooltip} from "antd";
+import React, {useEffect, useState} from "react";
+import {Button, Col, Divider, Input, Row, Select, Table, Tooltip, Typography} from "antd";
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined";
 import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
-import {columnsTableIndex} from "./tableObject";
 import HouseHoldMemberList from "./component/HHMemberList";
 import PlotLandList from "./component/PlotLandList";
+import houseHoldApi from "../../api/houseHoldApi";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 function ManageAssessment(props) {
-    const [visibleMemberList,setVisibleMemberList] = useState(false);
-    const [visiblePlotLand,setVisiblePlotLand] = useState(false);
+    const [visibleMemberList, setVisibleMemberList] = useState(false);
+    const [visiblePlotLand, setVisiblePlotLand] = useState(false);
+    const [data, setData] = useState([]);
+    const [province, setProvince] = useState([]);
+    const [dataSelect, setDataSelect] = useState([]);
+    const [district, setDistrict] = useState([]);
+    const [village, setVillage] = useState([]);
+    const [unit, setUnit] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(0);
+    const [isLoading, setLoading] = useState(false);
     const {Option} = Select;
     const {Text} = Typography;
 
-    const columns = [...columnsTableIndex,  {
-        title: 'Actions',
-        key: 'actions',
-        align: "center",
-        dataIndex: 'actions',
-        render: () => (
-            <div className="d-flex justify-content-end">
-                <Tooltip placement="topLeft" title={"Member in family"}>
-                    <Button type="primary" className="set-center-content mr-1" size="small" onClick={()=>{setVisibleMemberList(true)}}>
-                        <i className="fas fa-users"></i>
-                    </Button>
-                </Tooltip>
-                <Tooltip placement="topLeft" title={"Land plot"}>
-                    <Button type="primary" className="set-center-content mr-1" size="small" onClick={()=>{setVisiblePlotLand(true)}}>
-                        <i className="fas fa-mountain"></i>
-                    </Button>
-                </Tooltip>
-                <Tooltip placement="topLeft" title={"Description"}>
-                    <Button type="primary" className="set-center-content" size="small">
-                        <i className="fas fa-info-circle"></i>
-                    </Button>
-                </Tooltip>
-            </div>
-        ),
-    }];
+    useEffect(() => {
+        getDataHouseHold();
+        getProvince();
+    }, []);
 
-    const data = [
-        {
-            key: '1',
-            index: '1',
-            home : 'Houay Nam Yun',
-            serial : "01",
-            familyLevel : "01",
-            headOfFamily: 'New York No. 1 Lake Park',
-            familyNumber: "Hello",
-            landPlot: "Hello",
-            theGirlWasTaken: "Hello",
-            Children: "Hello",
-        },
-        {
-            key: '2',
-            index: '2',
-            home : 'Houay Nam Yun',
-            serial : "02",
-            familyLevel : "02",
-            headOfFamily: 'New York No. 1 Lake Park',
-            familyNumber: "Hello",
-            landPlot: "Hello",
-            theGirlWasTaken: "Hello",
-            Children: "Hello",
-        },
-        {
-            key: '3',
-            index: '3',
-            home : 'Houay Nam Yun',
-            serial : "03",
-            familyLevel : "03",
-            headOfFamily: 'New York No. 1 Lake Park',
-            familyNumber: "Hello",
-            landPlot: "Hello",
-            theGirlWasTaken: "Hello",
-            Children: "Hello",
-        },
-    ];
+    useEffect(() => {
+        console.log(province.map(el => ({
+            Id: el.Id,
+            text: localStorage.getItem("i18nextLng") === "la" ? el.ProvinceName : el.ProvinceNameEng,
+        })));
+        setDataSelect(province.map(el => ({
+            Id: el.Id,
+            text: localStorage.getItem("i18nextLng") === "la" ? el.ProvinceName : el.ProvinceNameEng,
+        })))
+    }, [localStorage.getItem("i18nextLng")]);
 
+    const getDataHouseHold = async () => {
+        setLoading(true);
+        await houseHoldApi.searchHouseHold({
+            provinceId: "-1",
+            districtId: "-1",
+            villageId: "-1",
+            unitId: "-1",
+            child: -1,
+            pregnant: "-1",
+            headName: "",
+            currentPage: 1
+        }).then(res => {
+            console.log(res.data.houseHoldViewModels);
+            setData(res.data.houseHoldViewModels);
+            setTotalPage(res.TotalPage);
+        });
+        setLoading(false);
+    };
+
+    const getProvince = async () => {
+        await houseHoldApi.getAllProvince().then(res => {
+            setProvince(res.data);
+        });
+    };
+
+    const getDistrict = async (provinceId) => {
+        await houseHoldApi.getAllDistrict({provinceId}).then(res => {
+            setDistrict(res.data);
+        });
+        setVillage([]);
+        setUnit([]);
+    };
+
+    const getVillage = async (districtId) => {
+        await houseHoldApi.getAllVillage({districtId}).then((res => setVillage(res.data)));
+        setUnit([]);
+    };
+
+    const getUnit = async (villageId) => {
+        await houseHoldApi.getAllUnit({villageId}).then(res => setUnit(res.data));
+    };
+
+
+    const columns = [
+        {
+            title: '#',
+            dataIndex: 'index',
+            key: 'index',
+        },
+        {
+            title: 'Village',
+            dataIndex: 'Village',
+            key: 'Village '
+        },
+        {
+            title: 'Unit',
+            dataIndex: 'Unit',
+            key: 'Unit',
+        },
+        {
+            title: 'HH Level',
+            dataIndex: 'HHLevel',
+            key: 'HHLevel',
+        },
+        {
+            title: 'Head of HH Name',
+            dataIndex: 'HeadOfHHName',
+            key: 'HeadOfHHName',
+        },
+        {
+            title: 'Number of HH',
+            dataIndex: 'TotalHHMembers',
+            key: 'TotalHHMembers',
+        },
+        {
+            title: 'Number plots',
+            dataIndex: 'NumberPlots',
+            key: 'NumberPlots',
+        },
+        {
+            title: 'Number pregnant',
+            dataIndex: 'NumberPregnant',
+            key: 'NumberPregnant',
+        },
+        {
+            title: 'Number child',
+            dataIndex: 'NumberChild',
+            key: 'NumberChild',
+        },
+        {
+            title: 'Actions',
+            key: 'actions',
+            align: "center",
+            dataIndex: 'actions',
+            render: () => (
+                <div className="d-flex justify-content-end">
+                    <Tooltip placement="topLeft" title={"Member in family"}>
+                        <Button type="primary" className="set-center-content mr-1" size="small" onClick={() => {
+                            setVisibleMemberList(true)
+                        }}>
+                            <i className="fas fa-users"></i>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip placement="topLeft" title={"Land plot"}>
+                        <Button type="primary" className="set-center-content mr-1" size="small" onClick={() => {
+                            setVisiblePlotLand(true)
+                        }}>
+                            <i className="fas fa-mountain"></i>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip placement="topLeft" title={"Description"}>
+                        <Button type="primary" className="set-center-content" size="small">
+                            <i className="fas fa-info-circle"></i>
+                        </Button>
+                    </Tooltip>
+                </div>
+            ),
+        }];
+
+    const onSelectProvince = (id) => {
+        getDistrict(id);
+    };
+
+    const renderProvinceSelect = () => {
+        const language = localStorage.getItem("i18nextLng");
+        return province.map((value, index) => (
+            <Option value={value.Id}
+                    key={index}
+                    onChange={() => {
+                        onSelectProvince(value.Id)
+                    }}
+            >
+                {language === "la" ? value.ProvinceName : value.ProvinceNameEng}
+            </Option>
+        ))
+    };
+
+    const renderDistrictSelect = () => {
+
+    };
     return (
         <div className="manage-assessment">
+            {isLoading ? (
+                <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2"/>
+            ) : null}
             {/*Header của trang content*/}
             <section className="border-bottom mb-3">
                 <div className="d-flex align-items-center mb-3">
@@ -96,13 +200,11 @@ function ManageAssessment(props) {
             {/*Body của trang content*/}
             <section>
                 {/*Tìm kiếm */}
-                <Row  gutter={16}>
+                <Row gutter={16}>
                     <Col span={4}>
                         <Text className="font-13">Province</Text>
                         <Select className="w-100" placeholder="Select a province">
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="tom">Tom</Option>
+                            {renderProvinceSelect()}
                         </Select>
                     </Col>
                     <Col span={4}>
@@ -163,7 +265,19 @@ function ManageAssessment(props) {
 
                 {/*Table*/}
                 <Divider orientation="left">Table data</Divider>
-                <Table columns={columns} dataSource={data} />
+                <Table
+                    columns={columns}
+                    dataSource={data}
+                    pagination={{
+                        current: Number(page),
+                        total: totalPage,
+                        onChange: (page) => {
+                            setPage(page);
+                        },
+                        showSizeChanger: false,
+                    }}
+                    rowKey="Id"
+                />
             </section>
 
             {/*Modal*/}
