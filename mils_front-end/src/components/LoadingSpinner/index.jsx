@@ -2,7 +2,7 @@ import React from "react";
 import Loader from "react-loader-spinner";
 import "./styles.scss";
 
-export default function MenuComponent(props) {
+export default function LoadingSpinner(props) {
   const { typeSpinner, colorSpinner } = props;
   return (
     <div className="loader-container">

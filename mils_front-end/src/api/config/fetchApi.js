@@ -23,23 +23,23 @@ export const fetchData = (url, method, params, data) => {
       return response;
     },
     (error) => {
-      switch (error.response.status) {
-        case 401:
-          window.location.href = window.location.origin + "/login";
-          return;
-        case 403:
-          cookies.remove("user");
-          window.location.href =
-            window.location.origin + "/error-authentication";
-          return;
-        default:
-          // openNotification(
-          //   "error",
-          //   "Thông báo",
-          //   `Lỗi xảy ra trong quá trình lấy dữ liệu !`
-          // );
-          break;
-      }
+      // switch (error.response.status) {
+      //   case 401:
+      //     window.location.href = window.location.origin + "/login";
+      //     return;
+      //   case 403:
+      //     cookies.remove("user");
+      //     window.location.href =
+      //       window.location.origin + "/error-authentication";
+      //     return;
+      //   default:
+      //     openNotification(
+      //       "error",
+      //       "Thông báo",
+      //       `Lỗi xảy ra trong quá trình lấy dữ liệu !`
+      //     );
+      //     break;
+      // }
     }
   );
 };

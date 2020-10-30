@@ -10,58 +10,66 @@ function HouseHoldMemberList(props) {
         setShowDetailMember(false);
     }, [visibleMemberList]);
 
-    const columns = [...columnsTableHHMember, {
-        title: 'View Detail',
-        key: 'view',
-        align: "center",
-        dataIndex: 'view',
-        render: () => (
-            <div className="d-flex justify-content-center">
-                <Tooltip placement="topLeft" title={"Member in family"}>
-                    <Button type="primary" className="set-center-content mr-1" size="small" onClick={() => {
-                        setShowDetailMember(true)
-                    }}>
-                        <i className="fas fa-info-circle"></i>
-                    </Button>
-                </Tooltip>
-            </div>
-        ),
-    }];
-    const data = [
-        {
-            key: '1',
-            item: '01',
-            memberName: "Longcudailongthong",
-            maritalStatus: "Married",
-            relationToHousehold: '4.Son,Daughter',
-            gender: "Male",
-            DOB: "21-10-1996",
-            age: "24",
-            numberPregnant: "No",
-        },
-        {
-            key: '2',
-            item: '01',
-            memberName: "Longcudailongthong",
-            maritalStatus: "Married",
-            relationToHousehold: '4.Son,Daughter',
-            gender: "Male",
-            DOB: "21-10-1996",
-            age: "24",
-            numberPregnant: "No",
-        },
-        {
-            key: '3',
-            item: '01',
-            memberName: "Longcudailongthong",
-            maritalStatus: "Married",
-            relationToHousehold: '4.Son,Daughter',
-            gender: "Male",
-            DOB: "21-10-1996",
-            age: "24",
-            numberPregnant: "1",
-        },
-    ];
+  const columns = [
+    ...columnsTableHHMember,
+    {
+      title: "View Detail",
+      key: "view",
+      align: "center",
+      dataIndex: "view",
+      render: () => (
+        <div className="d-flex justify-content-center">
+          <Tooltip placement="topLeft" title={"Member in family"}>
+            <Button
+              type="primary"
+              className="set-center-content mr-1"
+              size="small"
+              onClick={() => {
+                setShowDetailMember(true);
+              }}
+            >
+              <i className="fas fa-info-circle"></i>
+            </Button>
+          </Tooltip>
+        </div>
+      ),
+    },
+  ];
+  const data = [
+    {
+      key: "1",
+      item: "01",
+      memberName: "Longcudailongthong",
+      maritalStatus: "Married",
+      relationToHousehold: "4.Son,Daughter",
+      gender: "Male",
+      DOB: "21-10-1996",
+      age: "24",
+      numberPregnant: "No",
+    },
+    {
+      key: "2",
+      item: "01",
+      memberName: "Longcudailongthong",
+      maritalStatus: "Married",
+      relationToHousehold: "4.Son,Daughter",
+      gender: "Male",
+      DOB: "21-10-1996",
+      age: "24",
+      numberPregnant: "No",
+    },
+    {
+      key: "3",
+      item: "01",
+      memberName: "Longcudailongthong",
+      maritalStatus: "Married",
+      relationToHousehold: "4.Son,Daughter",
+      gender: "Male",
+      DOB: "21-10-1996",
+      age: "24",
+      numberPregnant: "1",
+    },
+  ];
 
     return (
         <Modal

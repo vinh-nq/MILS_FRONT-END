@@ -23,6 +23,33 @@ export default function MenuRedirect(props) {
     },
   ];
 
+  const dataSystem = [
+    {
+      text: "Function list management",
+      url: "/system/functionListManagement",
+    },
+    {
+      text: "Rights Management",
+      url: "/system/rightsManagement",
+    },
+    {
+      text: "Role Management",
+      url: "/system/roleManagement",
+    },
+    {
+      text: "User Management",
+      url: "/system/userManagement",
+    },
+    {
+      text: "System parameters",
+      url: "/system/systemsParameters",
+    },
+    {
+      text: "Backup Database",
+      url: "/system/backupDatabase",
+    },
+  ];
+
   return (
     <div className="menu-breadcrum-container">
       <span className="h5">{t("DATA_DICTIONARY")}</span>
@@ -32,7 +59,7 @@ export default function MenuRedirect(props) {
         footer={null}
         size="small"
         bordered
-        dataSource={data.map((el) => el.text)}
+        dataSource={dataSystem.map((el) => el.text)}
         renderItem={(item) => {
           return (
             <List.Item
@@ -41,13 +68,13 @@ export default function MenuRedirect(props) {
             >
               <div className="d-flex flex-row align-items-center">
                 <i
-                  className="fas fa-paper-plane"
-                  style={{ color: "#82c91e", fontSize: "20px" }}
+                  className="fas fa-file-alt"
+                  style={{ color: "#f79602", fontSize: "20px" }}
                 ></i>
                 <Button
                   type="link"
                   onClick={() => {
-                    history.push(data.find((el) => el.text === item).url);
+                    history.push(dataSystem.find((el) => el.text === item).url);
                   }}
                 >
                   <span style={{ textDecorationLine: "underline" }}>

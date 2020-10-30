@@ -14,6 +14,8 @@ import Page403 from "./components/403Page";
 import { PATH } from "./routers/Path";
 import MenuRedirect from "./components/MenuRedirect";
 import ManageAssessment from "./screens/ManageAssessment";
+import RoleManagement from "./screens/system/RoleManagement";
+import FunctionManagement from "./screens/system/FunctionManagement";
 class App extends React.Component {
   render() {
     return (
@@ -47,6 +49,36 @@ class App extends React.Component {
             <MainRouteWrapper
               component={() => <div>AAA</div>}
               path={`${PATH.HOUSEHOLD_MANAGEMENT}/genarationOfPMT`}
+              exact
+            />
+            <MainRouteWrapper
+              component={FunctionManagement}
+              path={`${PATH.FUNCTION_LIST_MANAGEMENT}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={() => <div>AAA</div>}
+              path={`${PATH.RIGHTS_MANAGEMENT}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={RoleManagement}
+              path={`${PATH.ROLE_MANAGEMENT}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={() => <div>AAA</div>}
+              path={`${PATH.USER_MANAGEMENT}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={() => <div>AAA</div>}
+              path={`${PATH.SYSTEMS_PARAMETERS}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={() => <div>AAA</div>}
+              path={`${PATH.BACKUP_DATABASE}`}
               exact
             />
             {/* <MainRouteWrapper component={Page404} path="/" exact /> */}

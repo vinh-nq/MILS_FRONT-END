@@ -1,10 +1,9 @@
-import {Modal, Table} from "antd";
+import { Modal, Table } from "antd";
 import React from "react";
-import {columnsTablePlotLand} from "../tableObject";
-
+import { columnsTablePlotLand } from "../tableObject";
 
 function PlotLandList(props) {
-    const {visiblePlotLand, setVisiblePlotLand} = props;
+  const { visiblePlotLand, setVisiblePlotLand } = props;
 
     const columns = columnsTablePlotLand;
     const data = [

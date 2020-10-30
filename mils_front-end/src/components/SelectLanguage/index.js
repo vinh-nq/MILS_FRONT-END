@@ -4,6 +4,7 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { languageList } from "./optionValue/optionValue";
 import { withTranslation } from "react-i18next";
 import { upperCase } from "lodash";
+import { connect } from "react-redux";
 import "./style.scss";
 
 class SelectLanguage extends React.Component {
@@ -22,11 +23,17 @@ class SelectLanguage extends React.Component {
           (el) => el.value === localStorage.getItem("i18nextLng")
         ) || languageList[0],
     });
+    this.props.AddLanguage(
+      languageList.find(
+        (el) => el.value === localStorage.getItem("i18nextLng")
+      ) || languageList[0]
+    );
   }
 
   handleChange = (value) => {
     const { i18n } = this.props;
     i18n.changeLanguage(value.value);
+    this.props.AddLanguage(value);
     this.setState({
       value: value,
     });
@@ -35,6 +42,7 @@ class SelectLanguage extends React.Component {
   render() {
     const { t } = this.props;
     const { value } = this.state;
+    console.log(this.props);
     const menuData = (
       <Menu>
         {languageList.map((element, index) => (
@@ -83,4 +91,23 @@ class SelectLanguage extends React.Component {
   }
 }
 
-export default withTranslation()(SelectLanguage);
+const mapStateToProps = (state) => {
+  // const { todos } = state;
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    AddLanguage: (language) => {
+      dispatch({
+        type: "ADD_LANGUAGE",
+        payload: language,
+      });
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(SelectLanguage));
