@@ -14,9 +14,9 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import "./styles.scss";
 import { useState } from "react";
 import { PATH } from "../../../routers/Path";
-import ModalRoleManagement from "./components/ModalRoleManagement";
+import ModalUserManagement from "./components/ModalUserManagement";
 
-export default function RoleManagement(props) {
+export default function UserManagement(props) {
   const { t } = useTranslation();
   const history = useHistory();
   const [keyword, setKeyword] = useState(null);
@@ -54,10 +54,6 @@ export default function RoleManagement(props) {
     {
       title: t("ROLE_NAME"),
       dataIndex: "RoleName",
-      style: {
-        display: "flex",
-        flexDirection: "row",
-      },
       key: "RoleName",
       render: (text) => (
         <div className="d-flex align-items-center">
@@ -72,7 +68,6 @@ export default function RoleManagement(props) {
     },
     {
       title: t("ACTION"),
-      width: "10%",
       render: (text, record) => (
         <div className="d-flex justify-content-start">
           <Tooltip placement="top" title={t("edit permission")}>
@@ -123,7 +118,7 @@ export default function RoleManagement(props) {
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
       ) : null}
       <div className="d-flex flex-row align-items-center justify-content-between">
-        <span className="h5 mb-0">{t("ROLE MANAGEMENT")}</span>
+        <span className="h5 mb-0">{t("USER MANAGEMENT")}</span>
         <Tooltip placement="bottom" title={t("ADD")}>
           <Button
             type="primary"
@@ -158,7 +153,7 @@ export default function RoleManagement(props) {
         style={{ overflow: "auto" }}
         rowKey="RoleId"
       />
-      <ModalRoleManagement
+      <ModalUserManagement
         visible={visileModal}
         objectEdit={objectEdit}
         setVisible={setVisibleModal}

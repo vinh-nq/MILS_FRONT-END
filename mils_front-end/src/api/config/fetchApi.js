@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 // import { openNotification } from "../../components/common/Notification";
-import Cookies from "universal-cookie";
+// import Cookies from "universal-cookie";
 
 export const fetchDataAPI = (url, method, params, data) => {
   switch (method) {
@@ -16,7 +16,7 @@ export const fetchDataAPI = (url, method, params, data) => {
       break;
   }
 };
-let cookies = new Cookies();
+// let cookies = new Cookies();
 export const fetchData = (url, method, params, data) => {
   return fetchDataAPI(url, method, params, data).then(
     (response) => {

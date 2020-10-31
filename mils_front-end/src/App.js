@@ -16,6 +16,8 @@ import MenuRedirect from "./components/MenuRedirect";
 import ManageAssessment from "./screens/ManageAssessment";
 import RoleManagement from "./screens/system/RoleManagement";
 import FunctionManagement from "./screens/system/FunctionManagement";
+import PermissionManagement from "./screens/system/PermissionManagement";
+import UserManagement from "./screens/system/UserManagement";
 class App extends React.Component {
   render() {
     return (
@@ -57,7 +59,7 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={() => <div>AAA</div>}
+              component={PermissionManagement}
               path={`${PATH.RIGHTS_MANAGEMENT}`}
               exact
             />
@@ -67,7 +69,7 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={() => <div>AAA</div>}
+              component={UserManagement}
               path={`${PATH.USER_MANAGEMENT}`}
               exact
             />
@@ -79,6 +81,11 @@ class App extends React.Component {
             <MainRouteWrapper
               component={() => <div>AAA</div>}
               path={`${PATH.BACKUP_DATABASE}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={PermissionManagement}
+              path={`${PATH.PERMISSIONS_MANAGEMENT}`}
               exact
             />
             {/* <MainRouteWrapper component={Page404} path="/" exact /> */}

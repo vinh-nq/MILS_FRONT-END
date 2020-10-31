@@ -8,29 +8,25 @@ export default function MenuRedirect(props) {
   const { t } = useTranslation();
   const history = useHistory();
 
-  const data = [
-    {
-      text: "Household registration",
-      url: "/householdManagement/householdRegistration",
-    },
-    {
-      text: "Household poverty assessment",
-      url: "/householdManagement/householdPoverty",
-    },
-    {
-      text: "Generation of PMT scorecard",
-      url: "/householdManagement/genarationOfPMT",
-    },
-  ];
+  // const dataSystem = [
+  //   {
+  //     text: "Household registration",
+  //     url: "/householdManagement/householdRegistration",
+  //   },
+  //   {
+  //     text: "Household poverty assessment",
+  //     url: "/householdManagement/householdPoverty",
+  //   },
+  //   {
+  //     text: "Generation of PMT scorecard",
+  //     url: "/householdManagement/genarationOfPMT",
+  //   },
+  // ];
 
   const dataSystem = [
     {
       text: "Function list management",
       url: "/system/functionListManagement",
-    },
-    {
-      text: "Rights Management",
-      url: "/system/rightsManagement",
     },
     {
       text: "Role Management",
@@ -59,7 +55,7 @@ export default function MenuRedirect(props) {
         footer={null}
         size="small"
         bordered
-        dataSource={data.map((el) => el.text)}
+        dataSource={dataSystem.map((el) => el.text)}
         renderItem={(item) => {
           return (
             <List.Item
@@ -68,16 +64,19 @@ export default function MenuRedirect(props) {
             >
               <div className="d-flex flex-row align-items-center">
                 <i
-                  className="fas fa-file-alt"
-                  style={{ color: "#f79602", fontSize: "20px" }}
+                  className="far fa-folder"
+                  style={{
+                    color: "#adb5bd",
+                    fontSize: "20px",
+                  }}
                 ></i>
                 <Button
                   type="link"
                   onClick={() => {
-                    history.push(data.find((el) => el.text === item).url);
+                    history.push(dataSystem.find((el) => el.text === item).url);
                   }}
                 >
-                  <span style={{ textDecorationLine: "underline" }}>
+                  <span style={{ fontWeight: "500", fontSize: "15px" }}>
                     {item}
                   </span>
                 </Button>
