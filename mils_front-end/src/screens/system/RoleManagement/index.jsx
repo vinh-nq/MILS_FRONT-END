@@ -71,10 +71,10 @@ export default function RoleManagement(props) {
       ),
     },
     {
-      title: t("ACTION"),
+      // title: t("ACTION"),
       width: "10%",
       render: (text, record) => (
-        <div className="d-flex justify-content-start">
+        <div className="d-flex justify-content-end">
           <Tooltip placement="top" title={t("edit permission")}>
             <Button
               type="default"

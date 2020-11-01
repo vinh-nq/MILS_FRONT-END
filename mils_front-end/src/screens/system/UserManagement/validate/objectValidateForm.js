@@ -3,6 +3,7 @@ export const objectValidateForm = {
     maxLength: 30,
     checkEmpty: true,
     nameLabel: "UserName",
+    checkDuplicate: true,
   },
   FullName: {
     maxLength: 30,
@@ -24,7 +25,7 @@ export const objectValidateForm = {
     nameLabel: "Department",
   },
   Type: {
-    maxLength: 50,
+    maxLength: 1,
     checkEmpty: true,
     nameLabel: "Type",
   },

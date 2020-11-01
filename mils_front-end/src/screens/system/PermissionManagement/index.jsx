@@ -181,13 +181,13 @@ export default function PermissionManagement(props) {
           </span>
         </div>
         <div className="d-flex flex-row align-items-center">
-          <Button className="d-flex align-items-center ml-2" type="primary">
+          <Button
+            className="d-flex align-items-center ml-2"
+            type="primary"
+            onClick={onSavePermission}
+          >
             <SaveOutlined />
-            <span
-              className="ml-1"
-              style={{ paddingTop: "2px" }}
-              onClick={onSavePermission}
-            >
+            <span className="ml-1" style={{ paddingTop: "2px" }}>
               {t("SAVE")}
             </span>
           </Button>

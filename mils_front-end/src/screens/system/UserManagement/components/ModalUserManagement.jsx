@@ -1,39 +1,74 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Modal, Form, Input, message, Select } from "antd";
+import { Modal, Form, Input, message, Select, Switch } from "antd";
 import { objectValidateForm } from "../validate/objectValidateForm";
 import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
 import roleManagementApi from "../../../../api/roleManagementApi";
+import userManagementApi from "../../../../api/userManagementApi";
 import { regexTemplate } from "../../../../utils/regexTemplate";
+import Cookies from "universal-cookie";
 
 function ModalUserManagement(props) {
   const {
     visible,
     setVisible,
     typeModal,
-    objectEdit,
-    fetchDataAllRole,
+    setCheckLoading,
+    fetchDataAllUser,
+    idOject,
+    listFunctionUserName,
   } = props;
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [listRole, setListRole] = useState([]);
+  const [objectEdit, setObjectEdit] = useState({});
+  let cookies = new Cookies();
+  cookies = cookies.get("user");
 
   useEffect(() => {
-    if (typeModal === "edit") {
-      form.setFieldsValue(objectEdit);
-    } else {
-      form.resetFields();
-    }
-    if (visible) {
-      fetchDataRoleUser();
-    }
-  }, [visible, typeModal, form, objectEdit]);
-
-  const fetchDataRoleUser = async () => {
-    return await roleManagementApi.GetAllRole({}).then((res) => {
+    form.resetFields();
+    const fetchDataUserAndRole = async () => {
+      setCheckLoading(true);
+      return await Promise.all([fetchDataUser(), fetchDataRoleUser()])
+        .then(([resUser, resRole]) => {
+          setCheckLoading(false);
+          if (resRole.statusText !== "OK") {
+            message.error("error role fetch");
+          }
+          if (resUser.statusText !== "OK") {
+            message.error("error role function");
+          }
+          return [resUser.data, resRole.data];
+        })
+        .then(([dataUser, dataRole]) => {
+          setListRole(dataRole);
+          setObjectEdit(dataUser);
+          form.setFieldsValue({
+            ...dataUser,
+            Active: dataUser.Active === 1 ? true : false,
+            Enabled: dataUser.Enabled === 1 ? true : false,
+          });
+        });
+    };
+    const fetchDataRoleUserInModeAdd = async () => {
+      const res = await roleManagementApi.GetAllRole({});
       setListRole(res.data);
-    });
-  };
+    };
+    const fetchDataUser = () => {
+      return userManagementApi.GetUserById({
+        id: idOject,
+      });
+    };
+    const fetchDataRoleUser = () => {
+      return roleManagementApi.GetAllRole({});
+    };
+    if (visible && typeModal === "edit") {
+      fetchDataUserAndRole();
+    }
+    if (visible && typeModal === "add") {
+      fetchDataRoleUserInModeAdd();
+    }
+  }, [visible, typeModal, form, idOject, setCheckLoading]);
 
   const handleCanncel = () => {
     form.resetFields();
@@ -41,29 +76,32 @@ function ModalUserManagement(props) {
   };
 
   const handleAddNew = async (value) => {
-    await roleManagementApi
-      .InsertRole(value)
+    await userManagementApi
+      .InsertUser(value)
       .then((res) => {
         handleCanncel();
+        if (!res.data.Status) {
+          throw new Error(res.data.Messages);
+        }
         message.success({
           content: t("ADD_SUCCESS"),
           key: "message-form-user",
           duration: 1,
         });
-        fetchDataAllRole();
+        fetchDataAllUser();
       })
-      .catch((error) =>
+      .catch((error) => {
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-user",
           duration: 1,
-        })
-      );
+        });
+      });
   };
 
   const handleEditItem = async (value) => {
-    await roleManagementApi
-      .UpdateRole(value)
+    await userManagementApi
+      .UpdateUser(value)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -71,31 +109,37 @@ function ModalUserManagement(props) {
           key: "message-form-user",
           duration: 1,
         });
-        fetchDataAllRole();
+        fetchDataAllUser();
       })
-      .catch((error) =>
+      .catch((error) => {
+        handleCanncel();
         message.error({
           content: t("Error"),
           key: "message-form-user",
           duration: 1,
-        })
-      );
+        });
+      });
   };
 
   const handleSubmit = (valueForm) => {
     message.loading({ content: "Loading...", key: "message-form-user" });
     if (typeModal === "add") {
       handleAddNew({
-        RoleId: null,
         ...valueForm,
-        Permissions: [],
+        UserId: null,
+        CreatedBy: cookies.UserName,
+        Active: valueForm.Active ? 1 : 0,
+        Enabled: valueForm.Enabled ? 1 : 0,
       });
     }
     if (typeModal === "edit") {
       handleEditItem({
-        RoleId: objectEdit.RoleId,
         ...valueForm,
-        Permissions: [],
+        UserName: objectEdit.UserName,
+        UserId: objectEdit.UserId,
+        CreatedBy: objectEdit.CreatedBy,
+        Active: valueForm.Active ? 1 : 0,
+        Enabled: valueForm.Enabled ? 1 : 0,
       });
     }
   };
@@ -134,14 +178,21 @@ function ModalUserManagement(props) {
                     return handleValidateFrom(
                       rule,
                       value,
-                      objectValidateForm.UserName,
+                      {
+                        ...objectValidateForm.UserName,
+                        arrayDuplicate: listFunctionUserName || [],
+                        authCodeOld:
+                          typeModal !== "add"
+                            ? objectEdit.UserName.toLowerCase()
+                            : null,
+                      },
                       t
                     );
                   },
                 },
               ]}
             >
-              <Input />
+              <Input disabled={typeModal === "edit"} />
             </Form.Item>
           </div>
           <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
@@ -311,6 +362,22 @@ function ModalUserManagement(props) {
               ]}
             >
               <Input.Password />
+            </Form.Item>
+          </div>
+          <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
+            <Form.Item name="Active" valuePropName="checked">
+              <Switch
+                checkedChildren={t("ACTIVE")}
+                unCheckedChildren={t("DEACTIVE")}
+              />
+            </Form.Item>
+          </div>
+          <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
+            <Form.Item name="Enabled" valuePropName="checked">
+              <Switch
+                checkedChildren={t("ENABLE")}
+                unCheckedChildren={t("DISABLE")}
+              />
             </Form.Item>
           </div>
         </div>

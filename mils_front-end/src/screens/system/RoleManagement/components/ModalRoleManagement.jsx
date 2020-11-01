@@ -112,7 +112,7 @@ function ModalRoleManagement(props) {
         {typeModal === "add" ? null : (
           <>
             <div>
-              <span>{t("RoleId")}</span>
+              <span>{t("ROLE_ID")}</span>
               <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
             </div>
             <Form.Item
@@ -135,7 +135,7 @@ function ModalRoleManagement(props) {
           </>
         )}
         <div>
-          <span>{t("RoleName")}</span>
+          <span>{t("ROLE_NAME")}</span>
           <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
         </div>
         <Form.Item

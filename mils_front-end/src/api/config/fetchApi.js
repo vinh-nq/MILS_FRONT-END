@@ -1,6 +1,7 @@
 import axiosClient from "./axiosClient";
 // import { openNotification } from "../../components/common/Notification";
-// import Cookies from "universal-cookie";
+import Cookies from "universal-cookie";
+import { message } from "antd";
 
 export const fetchDataAPI = (url, method, params, data) => {
   switch (method) {
@@ -16,30 +17,27 @@ export const fetchDataAPI = (url, method, params, data) => {
       break;
   }
 };
-// let cookies = new Cookies();
+
 export const fetchData = (url, method, params, data) => {
+  let cookies = new Cookies();
   return fetchDataAPI(url, method, params, data).then(
     (response) => {
       return response;
     },
     (error) => {
-      // switch (error.response.status) {
-      //   case 401:
-      //     window.location.href = window.location.origin + "/login";
-      //     return;
-      //   case 403:
-      //     cookies.remove("user");
-      //     window.location.href =
-      //       window.location.origin + "/error-authentication";
-      //     return;
-      //   default:
-      //     openNotification(
-      //       "error",
-      //       "Thông báo",
-      //       `Lỗi xảy ra trong quá trình lấy dữ liệu !`
-      //     );
-      //     break;
-      // }
+      switch (error.response.data.StatusCode) {
+        case 401:
+          window.location.href = window.location.origin + "/login";
+          break;
+        case 403:
+          cookies.remove("user");
+          window.location.href =
+            window.location.origin + "/error-authentication";
+          throw new Error(error.response.data.Message);
+        default:
+          message.error("Error");
+          break;
+      }
     }
   );
 };

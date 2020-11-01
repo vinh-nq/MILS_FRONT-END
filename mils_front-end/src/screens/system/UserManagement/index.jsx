@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-import { Tooltip, Button, Divider, Table, message, Input } from "antd";
+import { Tooltip, Button, Divider, Table, message, Input, Tag } from "antd";
 import {
-  // DeleteOutlined,
   PlusSquareOutlined,
-  ControlOutlined,
+  // ControlOutlined,
   EditOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import roleManagementApi from "../../../api/roleManagementApi";
+import { getValueFromLink } from "../../../utils/getValueFromLink";
+import userManagementApi from "../../../api/userManagementApi";
 import Highlighter from "react-highlight-words";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import "./styles.scss";
@@ -16,28 +17,55 @@ import { useState } from "react";
 import { PATH } from "../../../routers/Path";
 import ModalUserManagement from "./components/ModalUserManagement";
 
+let timeOut = "";
 export default function UserManagement(props) {
   const { t } = useTranslation();
   const history = useHistory();
   const [keyword, setKeyword] = useState(null);
-  const [listRole, setListRole] = useState([]);
+  const [listUser, setListUser] = useState([]);
   const [checkLoading, setCheckLoading] = useState(false);
-  //Modal Role
+  //Modal User
   const [visileModal, setVisibleModal] = useState(false);
   const [typeModal, setTypeModal] = useState("add"); // add and edit
   const [objectEdit, setObjectEdit] = useState({});
 
   useEffect(() => {
-    fetchDataAllRole();
-  }, []);
+    return history.listen((location) => {
+      if (`${location.pathname}${location.search}` === PATH.USER_MANAGEMENT) {
+        setKeyword("");
+      }
+    });
+  }, [history]);
 
-  const fetchDataAllRole = async () => {
+  useEffect(() => {
+    const fetchDataAllUser = async () => {
+      setCheckLoading(true);
+      await userManagementApi
+        .GetAllUser({
+          keyword: getValueFromLink(props.location, "keyword", "STRING"),
+        })
+        .then((res) => {
+          setCheckLoading(false);
+          setListUser(res.data);
+        })
+        .catch((error) => {
+          setCheckLoading(false);
+          message.error(error);
+        });
+    };
+    setKeyword(getValueFromLink(props.location, "keyword", "STRING"));
+    fetchDataAllUser(props.location);
+  }, [props.location]);
+
+  const fetchDataAllUserReload = async () => {
     setCheckLoading(true);
-    await roleManagementApi
-      .GetAllRole({})
+    await userManagementApi
+      .GetAllUser({
+        keyword: getValueFromLink(props.location, "keyword", "STRING"),
+      })
       .then((res) => {
         setCheckLoading(false);
-        setListRole(res.data);
+        setListUser(res.data);
       })
       .catch((error) => {
         setCheckLoading(false);
@@ -47,14 +75,9 @@ export default function UserManagement(props) {
 
   const columns = [
     {
-      title: t("ROLE_ID"),
-      dataIndex: "RoleId",
-      key: "RoleId",
-    },
-    {
-      title: t("ROLE_NAME"),
-      dataIndex: "RoleName",
-      key: "RoleName",
+      title: t("UserName"),
+      dataIndex: "UserName",
+      key: "UserName",
       render: (text) => (
         <div className="d-flex align-items-center">
           <Highlighter
@@ -67,32 +90,100 @@ export default function UserManagement(props) {
       ),
     },
     {
-      title: t("ACTION"),
+      title: t("FullName"),
+      dataIndex: "FullName",
+      key: "FullName",
+      render: (text) => (
+        <div className="d-flex align-items-center">
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#96e0f7", padding: 0 }}
+            searchWords={[keyword]}
+            autoEscape
+            textToHighlight={text ? text.toString() : ""}
+          />
+        </div>
+      ),
+    },
+    {
+      title: t("Mobilephone"),
+      dataIndex: "Mobilephone",
+      key: "Mobilephone",
+      render: (text) => (
+        <div className="d-flex align-items-center">
+          <i className="fas fa-phone-alt mr-2" style={{ color: "#40a720" }}></i>
+          <span>{text}</span>
+        </div>
+      ),
+    },
+    {
+      title: t("Email"),
+      dataIndex: "Email",
+      key: "Email",
+      render: (text) => (
+        <div className="d-flex align-items-center">
+          <i
+            className="fas fa-envelope-open-text mr-2"
+            style={{ color: "blue" }}
+          ></i>
+          <span>{text}</span>
+        </div>
+      ),
+    },
+    {
+      title: t("Active"),
+      dataIndex: "Active",
+      key: "Active",
+      render: (text) => (
+        <div className="d-flex align-items-center">
+          {text === 1 ? (
+            <Tag color="green">{t("ACTIVE")}</Tag>
+          ) : (
+            <Tag color="red">{t("DEACTIVE")}</Tag>
+          )}
+        </div>
+      ),
+    },
+    {
+      title: t("Enabled"),
+      dataIndex: "Enabled",
+      key: "Enabled",
+      render: (text) => (
+        <div className="d-flex align-items-center">
+          {text === 1 ? (
+            <Tag color="geekblue">{t("ENABLE")}</Tag>
+          ) : (
+            <Tag color="volcano">{t("DISABLE")}</Tag>
+          )}
+        </div>
+      ),
+    },
+    {
+      title: "",
       render: (text, record) => (
-        <div className="d-flex justify-content-start">
-          <Tooltip placement="top" title={t("edit permission")}>
-            <Button
-              type="default"
-              icon={<ControlOutlined />}
-              size={"small"}
-              className="d-flex align-items-center justify-content-center mr-1"
-              onClick={(event) => {
-                history.push(
-                  `${PATH.PERMISSIONS_MANAGEMENT}?roleID=${record.RoleId}`
-                );
-              }}
-            />
-          </Tooltip>
+        <div className="d-flex justify-content-end">
           <Tooltip placement="top" title={t("edit")}>
             <Button
               type="primary"
               icon={<EditOutlined />}
               size={"small"}
-              className="d-flex align-items-center justify-content-center ml-1"
+              className="d-flex align-items-center justify-content-center mr-2"
               onClick={(event) => {
                 setTypeModal("edit");
                 setVisibleModal(true);
-                setObjectEdit(record);
+                setObjectEdit(record.UserId);
+              }}
+            />
+          </Tooltip>
+          <Tooltip placement="top" title={t("edit permission")}>
+            <Button
+              type="default"
+              icon={<DeleteOutlined />}
+              size={"small"}
+              className="d-flex align-items-center justify-content-center"
+              onClick={(event) => {
+                history.push(
+                  `${PATH.PERMISSIONS_MANAGEMENT}?roleID=${record.RoleId}`
+                );
               }}
             />
           </Tooltip>
@@ -101,15 +192,18 @@ export default function UserManagement(props) {
     },
   ];
 
-  const filterDataTale = (arrayData) => {
-    let arraySearch = arrayData;
-    if (keyword && keyword !== "") {
-      arraySearch = arrayData.filter(
-        (el) =>
-          el.RoleName.toLowerCase().indexOf(keyword.trim().toLowerCase()) >= 0
-      );
-    }
-    return arraySearch;
+  const onSearchChange = (e) => {
+    const value = e.target.value;
+    setKeyword(value);
+    clearTimeout(timeOut);
+    timeOut = setTimeout(() => {
+      // setPage(1);
+      const link = value ? `?keyword=${value}` : ``;
+      props.history.push({
+        pathName: PATH.USER_MANAGEMENT,
+        search: link,
+      });
+    }, 400);
   };
 
   return (
@@ -141,24 +235,24 @@ export default function UserManagement(props) {
           placeholder={t("PLEASE_INPUT_KEYWORD")}
           style={{ width: "200px" }}
           allowClear
-          onChange={(event) => {
-            setKeyword(event.target.value);
-          }}
+          onChange={onSearchChange}
           value={keyword}
         />
       </div>
       <Table
-        dataSource={filterDataTale(listRole || [])}
+        dataSource={listUser || []}
         columns={columns}
         style={{ overflow: "auto" }}
-        rowKey="RoleId"
+        rowKey="UserId"
       />
       <ModalUserManagement
         visible={visileModal}
-        objectEdit={objectEdit}
+        setCheckLoading={setCheckLoading}
         setVisible={setVisibleModal}
         typeModal={typeModal}
-        fetchDataAllRole={fetchDataAllRole}
+        fetchDataAllUser={fetchDataAllUserReload}
+        idOject={objectEdit}
+        listFunctionUserName={(listUser || []).map((el) => el.UserName)}
       />
     </div>
   );

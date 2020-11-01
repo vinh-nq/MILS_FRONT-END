@@ -8,20 +8,20 @@ export default function MenuRedirect(props) {
   const { t } = useTranslation();
   const history = useHistory();
 
-  // const dataSystem = [
-  //   {
-  //     text: "Household registration",
-  //     url: "/householdManagement/householdRegistration",
-  //   },
-  //   {
-  //     text: "Household poverty assessment",
-  //     url: "/householdManagement/householdPoverty",
-  //   },
-  //   {
-  //     text: "Generation of PMT scorecard",
-  //     url: "/householdManagement/genarationOfPMT",
-  //   },
-  // ];
+  const data = [
+    {
+      text: "Household registration",
+      url: "/householdManagement/householdRegistration",
+    },
+    {
+      text: "Household poverty assessment",
+      url: "/householdManagement/householdPoverty",
+    },
+    {
+      text: "Generation of PMT scorecard",
+      url: "/householdManagement/genarationOfPMT",
+    },
+  ];
 
   const dataSystem = [
     {
@@ -46,6 +46,16 @@ export default function MenuRedirect(props) {
     },
   ];
 
+  // console.log();
+
+  const filterData = () => {
+    if (history.location.pathname === "/system") {
+      return dataSystem;
+    } else {
+      return data;
+    }
+  };
+
   return (
     <div className="menu-breadcrum-container">
       <span className="h5">{t("DATA_DICTIONARY")}</span>
@@ -55,7 +65,7 @@ export default function MenuRedirect(props) {
         footer={null}
         size="small"
         bordered
-        dataSource={dataSystem.map((el) => el.text)}
+        dataSource={filterData().map((el) => el.text)}
         renderItem={(item) => {
           return (
             <List.Item
@@ -73,7 +83,9 @@ export default function MenuRedirect(props) {
                 <Button
                   type="link"
                   onClick={() => {
-                    history.push(dataSystem.find((el) => el.text === item).url);
+                    history.push(
+                      filterData().find((el) => el.text === item).url
+                    );
                   }}
                 >
                   <span style={{ fontWeight: "500", fontSize: "15px" }}>
