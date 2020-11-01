@@ -16,4 +16,26 @@ export const PATH = {
   USER_MANAGEMENT: "/system/userManagement",
   SYSTEMS_PARAMETERS: "/system/systemsParameters",
   BACKUP_DATABASE: "/system/backupDatabase",
+  PERMISSIONS_MANAGEMENT: "/system/roleManagement/permissionManagement",
+};
+
+export const PATH_BREADCRUM = {
+  dashboard: "/",
+  system: "/system",
+  datadictionary: "/dataDictionary",
+  householdmanagement: "/householdManagement",
+  CCTProgram: "/CCTProgram",
+  PAYpaymentMENT: "/payment",
+  GRIEVANCE_MANAGEMENT: "/grienvanceManagement",
+  REPORT_BI: "reportBI",
+  SMS_BROADCAST: "SMSBroadcast",
+  PROFILE: "/profile",
+  PAGE_403: "/error-authentication",
+  functionListManagement: "/system/functionListManagement",
+  rightsmanagement: "/system/rightsManagement",
+  roleManagement: "/system/roleManagement",
+  usermanagement: "/system/userManagement",
+  systemsparameters: "/system/systemsParameters",
+  backupdatabase: "/system/backupDatabase",
+  permissionManagement: "/system/roleManagement/permissionManagement",
 };

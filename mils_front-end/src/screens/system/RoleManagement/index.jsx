@@ -1,24 +1,31 @@
 import React, { useEffect } from "react";
 import { Tooltip, Button, Divider, Table, message, Input } from "antd";
 import {
-  DeleteOutlined,
+  // DeleteOutlined,
   PlusSquareOutlined,
+  ControlOutlined,
   EditOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import roleManagementApi from "../../../api/roleManagementApi";
 import Highlighter from "react-highlight-words";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import "./styles.scss";
 import { useState } from "react";
+import { PATH } from "../../../routers/Path";
+import ModalRoleManagement from "./components/ModalRoleManagement";
 
 export default function RoleManagement(props) {
   const { t } = useTranslation();
-  // const history = useHistory();
+  const history = useHistory();
   const [keyword, setKeyword] = useState(null);
   const [listRole, setListRole] = useState([]);
   const [checkLoading, setCheckLoading] = useState(false);
+  //Modal Role
+  const [visileModal, setVisibleModal] = useState(false);
+  const [typeModal, setTypeModal] = useState("add"); // add and edit
+  const [objectEdit, setObjectEdit] = useState({});
 
   useEffect(() => {
     fetchDataAllRole();
@@ -47,6 +54,10 @@ export default function RoleManagement(props) {
     {
       title: t("ROLE_NAME"),
       dataIndex: "RoleName",
+      style: {
+        display: "flex",
+        flexDirection: "row",
+      },
       key: "RoleName",
       render: (text) => (
         <div className="d-flex align-items-center">
@@ -60,26 +71,34 @@ export default function RoleManagement(props) {
       ),
     },
     {
-      title: t("ACTION"),
+      // title: t("ACTION"),
+      width: "10%",
       render: (text, record) => (
-        <div className="d-flex justify-content-start">
+        <div className="d-flex justify-content-end">
+          <Tooltip placement="top" title={t("edit permission")}>
+            <Button
+              type="default"
+              icon={<ControlOutlined />}
+              size={"small"}
+              className="d-flex align-items-center justify-content-center mr-1"
+              onClick={(event) => {
+                history.push(
+                  `${PATH.PERMISSIONS_MANAGEMENT}?roleID=${record.RoleId}`
+                );
+              }}
+            />
+          </Tooltip>
           <Tooltip placement="top" title={t("edit")}>
             <Button
               type="primary"
               icon={<EditOutlined />}
               size={"small"}
               className="d-flex align-items-center justify-content-center ml-1"
-              onClick={(event) => {}}
-            />
-          </Tooltip>
-          <Tooltip placement="top" title={t("delete")}>
-            <Button
-              type="primary"
-              icon={<DeleteOutlined />}
-              size={"small"}
-              danger
-              className="d-flex align-items-center justify-content-center ml-1"
-              onClick={(event) => {}}
+              onClick={(event) => {
+                setTypeModal("edit");
+                setVisibleModal(true);
+                setObjectEdit(record);
+              }}
             />
           </Tooltip>
         </div>
@@ -108,7 +127,10 @@ export default function RoleManagement(props) {
         <Tooltip placement="bottom" title={t("ADD")}>
           <Button
             type="primary"
-            onClick={() => {}}
+            onClick={() => {
+              setTypeModal("add");
+              setVisibleModal(true);
+            }}
             className="d-flex align-items-center justify-content-center"
           >
             <PlusSquareOutlined className="font-20" />
@@ -134,6 +156,14 @@ export default function RoleManagement(props) {
         dataSource={filterDataTale(listRole || [])}
         columns={columns}
         style={{ overflow: "auto" }}
+        rowKey="RoleId"
+      />
+      <ModalRoleManagement
+        visible={visileModal}
+        objectEdit={objectEdit}
+        setVisible={setVisibleModal}
+        typeModal={typeModal}
+        fetchDataAllRole={fetchDataAllRole}
       />
     </div>
   );

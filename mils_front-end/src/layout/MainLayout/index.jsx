@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import upperCase from "lodash/upperCase";
 import { useTranslation } from "react-i18next";
 import { actionRedux } from "../../redux/actions";
-// import { PATH } from "../../routers/Path";
+import { PATH_BREADCRUM } from "../../routers/Path";
 
 export default function MainLayout(props) {
   const [onBroken, setBroken] = useState(false);
@@ -72,7 +72,7 @@ export default function MainLayout(props) {
                   key={el}
                   className="pointer"
                   onClick={() => {
-                    history.push(`/${el}`);
+                    history.push(`${PATH_BREADCRUM[el]}`);
                   }}
                 >
                   {t(upperCase(el))}

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Tooltip, Button, Divider, Table, message, Input } from "antd";
+import { Tooltip, Button, Divider, Table, message, Input, Tag } from "antd";
 import {
-  DeleteOutlined,
+  // DeleteOutlined,
   PlusSquareOutlined,
   EditOutlined,
 } from "@ant-design/icons";
@@ -13,8 +13,8 @@ import functionManagementApi from "../../../api/functionManagementApi";
 import Highlighter from "react-highlight-words";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import { PATH } from "../../../routers/Path";
-import { useSelector } from "react-redux";
-// import "./styles.scss";
+import { colorTagArray } from "../../../utils/colorTagArray";
+import ModalFunctionManagement from "./components/ModalFunctionManagement";
 import { useState } from "react";
 
 let timeOut = "";
@@ -23,13 +23,15 @@ export default function RoleManagement(props) {
   const history = useHistory();
   const pageSize = 8;
   const [keyword, setKeyword] = useState("");
-  const [page, setPage] = useState("2");
+  const [page, setPage] = useState("1");
   const [totalList, setTotalList] = useState(0);
   const [listFunction, setListFunction] = useState([]);
+  const [listGroup, setListGroup] = useState([]);
   const [checkLoading, setCheckLoading] = useState(false);
-  const dataLanguage = useSelector(
-    (state) => state.languageReducer.objectLanguage.value
-  );
+  //Props Modal
+  const [visileModal, setVisibleModal] = useState(false);
+  const [typeModal, setTypeModal] = useState("add"); // add and edit
+  const [objectEdit, setObjectEdit] = useState({});
 
   useEffect(() => {
     let pageCheck = getValueFromLink(props.location, "page");
@@ -39,10 +41,6 @@ export default function RoleManagement(props) {
       setPage(pageCheck);
     }
   }, [props.location, props.history]);
-
-  useEffect(() => {
-    console.log("day ne :", dataLanguage);
-  }, [dataLanguage]);
 
   useEffect(() => {
     return history.listen((location) => {
@@ -57,10 +55,10 @@ export default function RoleManagement(props) {
 
   useEffect(() => {
     setKeyword(getValueFromLink(props.location, "keyword", "STRING"));
-    fetchDataAllRole(props.location);
+    fetchDataAllFunction(props.location);
   }, [props.location]);
 
-  const fetchDataAllRole = async (location) => {
+  const fetchDataAllFunction = async (location) => {
     setCheckLoading(true);
     await functionManagementApi
       .GetAllFunctionet({
@@ -70,6 +68,9 @@ export default function RoleManagement(props) {
       })
       .then((res) => {
         setListFunction(res.data.listOfObj);
+        setListGroup([
+          ...new Set(res.data.listOfObj.map((el) => el.GroupName.trim())),
+        ]);
         setTotalList(res.data.Total);
         setCheckLoading(false);
       })
@@ -79,11 +80,16 @@ export default function RoleManagement(props) {
       });
   };
 
+  const getLastNumber = (value) => {
+    return [...`${value}`].slice(-1)[0];
+  };
+
   const columns = [
     {
       title: t("FunctionCode"),
       dataIndex: "FunctionCode",
       key: "FunctionCode",
+      render: (text) => <span style={{ fontWeight: "600" }}>{text}</span>,
     },
     {
       title: t("FunctionName"),
@@ -105,30 +111,37 @@ export default function RoleManagement(props) {
       dataIndex: "GroupName",
       key: "GroupName",
       render: (text) => (
-        <div className="d-flex align-items-center">
-          <Highlighter
-            highlightStyle={{ backgroundColor: "#96e0f7", padding: 0 }}
-            searchWords={[keyword]}
-            autoEscape
-            textToHighlight={text ? text.toString() : ""}
-          />
-        </div>
+        <Tag
+          key={text}
+          color={`${
+            colorTagArray[
+              getLastNumber(listGroup.findIndex((el) => el === text))
+            ]
+          }`}
+          className="m-1"
+        >
+          {text}
+        </Tag>
       ),
     },
     {
-      title: t("ACTION"),
+      // title: t("ACTION"),
       render: (text, record) => (
-        <div className="d-flex justify-content-start">
+        <div className="d-flex justify-content-end">
           <Tooltip placement="top" title={t("edit")}>
             <Button
               type="primary"
               icon={<EditOutlined />}
               size={"small"}
               className="d-flex align-items-center justify-content-center ml-1"
-              onClick={(event) => {}}
+              onClick={(event) => {
+                setTypeModal("edit");
+                setVisibleModal(true);
+                setObjectEdit(record);
+              }}
             />
           </Tooltip>
-          <Tooltip placement="top" title={t("delete")}>
+          {/* <Tooltip placement="top" title={t("delete")}>
             <Button
               type="primary"
               icon={<DeleteOutlined />}
@@ -137,7 +150,7 @@ export default function RoleManagement(props) {
               className="d-flex align-items-center justify-content-center ml-1"
               onClick={(event) => {}}
             />
-          </Tooltip>
+          </Tooltip> */}
         </div>
       ),
     },
@@ -157,6 +170,14 @@ export default function RoleManagement(props) {
     }, 400);
   };
 
+  const onChangePage = (values) => {
+    const value = keyword ? `keyword=${keyword}&` : "";
+    props.history.push(
+      `${PATH.FUNCTION_LIST_MANAGEMENT}?${value}page=${values}`
+    );
+    setPage(values);
+  };
+
   return (
     <div className="role-management-container">
       {checkLoading ? (
@@ -167,7 +188,10 @@ export default function RoleManagement(props) {
         <Tooltip placement="bottom" title={t("ADD")}>
           <Button
             type="primary"
-            onClick={() => {}}
+            onClick={() => {
+              setTypeModal("add");
+              setVisibleModal(true);
+            }}
             className="d-flex align-items-center justify-content-center"
           >
             <PlusSquareOutlined className="font-20" />
@@ -175,17 +199,19 @@ export default function RoleManagement(props) {
         </Tooltip>
       </div>
       <Divider />
-      <div className="d-flex flex-row align-items-center mb-3">
-        <span className="mr-2">{t("SEARCH")}</span>
-        <Input
-          id="demo-foo-search"
-          type="text"
-          placeholder={t("PLEASE_INPUT_KEYWORD")}
-          style={{ width: "200px" }}
-          allowClear
-          onChange={onSearchChange}
-          value={keyword}
-        />
+      <div className="row">
+        <div className="col-xl-3 col-lg-3 col-12 col-sm-6 d-flex flex-row align-items-center mb-3">
+          <span className="mr-2">{t("SEARCH")}</span>
+          <Input
+            id="demo-foo-search"
+            type="text"
+            placeholder={t("PLEASE_INPUT_KEYWORD")}
+            style={{ width: "200px" }}
+            allowClear
+            onChange={onSearchChange}
+            value={keyword}
+          />
+        </div>
       </div>
       <Table
         dataSource={listFunction || []}
@@ -196,11 +222,21 @@ export default function RoleManagement(props) {
           pageSize: pageSize,
           total: totalList,
           onChange: (page) => {
-            setPage(page);
+            onChangePage(page);
           },
           showSizeChanger: false,
         }}
         rowKey="FunctionCode"
+      />
+
+      <ModalFunctionManagement
+        visible={visileModal}
+        objectEdit={objectEdit}
+        setVisible={setVisibleModal}
+        typeModal={typeModal}
+        listFunctionCode={(listFunction || []).map((el) =>
+          el.FunctionCode.trim().toLowerCase()
+        )}
       />
     </div>
   );

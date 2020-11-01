@@ -29,10 +29,6 @@ export default function MenuRedirect(props) {
       url: "/system/functionListManagement",
     },
     {
-      text: "Rights Management",
-      url: "/system/rightsManagement",
-    },
-    {
       text: "Role Management",
       url: "/system/roleManagement",
     },
@@ -50,6 +46,16 @@ export default function MenuRedirect(props) {
     },
   ];
 
+  // console.log();
+
+  const filterData = () => {
+    if (history.location.pathname === "/system") {
+      return dataSystem;
+    } else {
+      return data;
+    }
+  };
+
   return (
     <div className="menu-breadcrum-container">
       <span className="h5">{t("DATA_DICTIONARY")}</span>
@@ -59,7 +65,7 @@ export default function MenuRedirect(props) {
         footer={null}
         size="small"
         bordered
-        dataSource={data.map((el) => el.text)}
+        dataSource={filterData().map((el) => el.text)}
         renderItem={(item) => {
           return (
             <List.Item
@@ -68,16 +74,21 @@ export default function MenuRedirect(props) {
             >
               <div className="d-flex flex-row align-items-center">
                 <i
-                  className="fas fa-file-alt"
-                  style={{ color: "#f79602", fontSize: "20px" }}
+                  className="far fa-folder"
+                  style={{
+                    color: "#adb5bd",
+                    fontSize: "20px",
+                  }}
                 ></i>
                 <Button
                   type="link"
                   onClick={() => {
-                    history.push(data.find((el) => el.text === item).url);
+                    history.push(
+                      filterData().find((el) => el.text === item).url
+                    );
                   }}
                 >
-                  <span style={{ textDecorationLine: "underline" }}>
+                  <span style={{ fontWeight: "500", fontSize: "15px" }}>
                     {item}
                   </span>
                 </Button>
