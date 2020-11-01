@@ -1,113 +1,180 @@
 import {Button, Col, Row, Tag} from "antd";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import React from "react";
+import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 function HHMemberInfoDetail(props) {
-    const {setShowDetailMember} = props;
+    const {objUser, setShowDetailMember} = props;
+    const {t} = useTranslation();
 
-    const objectMember = [
-        {
-            key:"Photo",
-            value: <Tag color="#337AB7"><i className="fas fa-user"></i></Tag>
-        },
-        {
-            key:"Member Name",
-            value: "Longcudailongthong"
-        },
-        {
-            key:"Gender",
-            value: "Male"
-        },
-        {
-            key:"Marital status",
-            value: "Married"
-        },
-        {
-            key:"Date of birth",
-            value: "01/04/1980"
-        },
-        {
-            key:"Relation to household",
-            value: "4.Son,Daughter"
-        },
-        {
-            key:"Age",
-            value: "40"
-        },
-        {
-            key:"Are you enrolled in school now?",
-            value: "Yes"
-        },
-        {
-            key:"What level and class are you enrolled in now?",
-            value: "Upper secondary"
-        },
-        {
-            key:"During the past 7 days: Have you worked on your own account or in a business belonging to you or someone in your household?",
-            value: "Yes"
-        },
-        {
-            key:"During the past 7 days: Have you performed any activity on agricature by you or member of your household?",
-            value: "Yes"
-        },
-        {
-            key:"During the past 7 days: Have you performed any activity for someone who is not living in this household? For example: An enterprise, the public sector, or any other individual?",
-            value: "2"
-        },
-        {
-            key:"In the main job that you had during the past 7 days are you",
-            value: "5"
-        },
-        {
-            key:"In the main job what are the main goods or services produced at your place of work?",
-            value: "1"
-        },
-        {
-            key:"Are you a member of any public health insurance/social health protection schemes?",
-            value: "Yes"
-        },
-        {
-            key:"Are you a member of a private health insurance?",
-            value: "No"
-        },
-        {
-            key:"Are you currently pregnant?(For only females>=10 y.o.)",
-            value: "No"
-        },
-        {
-            key:"Does this person has any disability",
-            value: "Does this person has any disability"
-        },
-        {
-            key:"if yes, what type of disabilities",
-            value: "0"
-        }
-    ]
-
-    const renderInformationMember = () => {
-        return objectMember.map((value,index) => (
-            <Row gutter={24} className="mx-0 py-2 border-bottom" key={index}>
-                <Col span={12}>
-                    <span className="font-400">{value.key}</span>
-                </Col>
-                <Col span={12}>
-                    {value.value}
-                </Col>
-            </Row>
-        ))
-    }
+    const dataLanguage = useSelector(
+        (state) => state.languageReducer.objectLanguage.value
+    ) || localStorage.getItem("i18nextLng");
 
     return (
         <div className="hhMemberInfo">
             <div className="text-right mb-2">
                 <Button type="primary" onClick={()=>{setShowDetailMember(false)}}>
-                    <BackwardOutlined className="font-16 ant--icon__middle"/> Back
+                    <BackwardOutlined className="font-16 ant--icon__middle"/>
+                    {t("BACK")}
                 </Button>
             </div>
             <div className="bg-primary p-2 font-16 font-500 text-white">
-                Household Member List
+                {t("HOUSEHOLD_MEMBER_LIST")}
             </div>
-            {renderInformationMember()}
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("PHOTO")}</span>
+                </Col>
+                <Col span={12}>
+                    <Tag color="#337AB7"><i className="fas fa-user"></i></Tag>
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("MEMBER_NAME")}</span>
+                </Col>
+                <Col span={12}>
+                    {objUser.MemberName}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("GENDER")}</span>
+                </Col>
+                <Col span={12}>
+                    {dataLanguage === "la" ? objUser.Gender : objUser.GenderEng}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("MARITAL_STATUS")}</span>
+                </Col>
+                <Col span={12}>
+                    {dataLanguage === "la" ? objUser.MaritalStatus : objUser.MaritalStatusEng}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("DOB")}</span>
+                </Col>
+                <Col span={12}>
+                    {objUser.DateOfBirth}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("RELATION_TO_HOUSEHOLD")}</span>
+                </Col>
+                <Col span={12}>
+                    {dataLanguage === "la" ? objUser.RelationToHosueHold : objUser.RelationToHosueHoldEng }
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("AGE")}</span>
+                </Col>
+                <Col span={12}>
+                    {objUser.Age }
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("ARE_YOU_ENROLLED_IN_SCHOOL_NOW")}</span>
+                </Col>
+                <Col span={12}>
+                    {objUser.AreEnrolledInSchool ? "Yes" : "No"}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("WHAT_LEVEL_AND_CLASS_ARE_YOU_ENROLLED_IN_NOW")}</span>
+                </Col>
+                <Col span={12}>
+                    {dataLanguage === "la" ?  objUser.LevelAndClassAreEnrolled : objUser.LevelAndClassAreEnrolledEng}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("HAVE_YOU_WORKED_ON_YOUR_OWN_ACCOUNT_OR_IN_A_BUSINESS_BELONGING_TO_YOU_OR_SOMEONE_IN_YOUR_HOUSEHOLD")}</span>
+                </Col>
+                <Col span={12}>
+                    { objUser.Business ? "Yes": "No"}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("HAVE_YOU_PERFORMED_ANY_ACTIVITY_ON_AGRICATURE_BY_YOU_OR_MEMBER_OF_YOUR_HOUSEHOLD")}</span>
+                </Col>
+                <Col span={12}>
+                    { objUser.Agricature ? "Yes": "No"}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("HAVE_YOU_PERFORMED_ANY_ACTIVITY_FOR_SOMEONE_WHO_IS_NOT_LIVING_IN_THIS_HOUSEHOLD")}</span>
+                </Col>
+                <Col span={12}>
+                    {objUser.Outside ? "Yes" : "No"}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("IN_THE_MAIN_JOB_THAT_YOU_HAD_DURING_THE_PAST_7_DAYS_ARE_YOU")}</span>
+                </Col>
+                <Col span={12}>
+                    {dataLanguage === "la" ? objUser.MainJob : objUser.MainJobEng}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("IN_THE_MAIN_JOB_WHAT_ARE_THE_MAIN_GOODS_OR_SERVICES_PRODUCED_AT_YOUR_PLACE_OF_WORK")}</span>
+                </Col>
+                <Col span={12}>
+                    {dataLanguage === "la" ? objUser.MainGood : objUser.MainGoodEng}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("ARE_YOU_A_MEMBER_OF_ANY_PUBLIC_HEALTH_INSURANCE_SOCIAL_HEALTH_PROTECTION_SCHEMES")}</span>
+                </Col>
+                <Col span={12}>
+                    {objUser.HealthInsurance ? "Yes" : "No"}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("ARE_YOU_A_MEMBER_OF_A_PRIVATE_HEALTH_INSURANCE")}</span>
+                </Col>
+                <Col span={12}>
+                    {objUser.PrivateHealthInsurance ? "Yes" : "No"}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("ARE_YOU_CURRENTLY_PREGNANT")}</span>
+                </Col>
+                <Col span={12}>
+                    {objUser.Pregnant ? "Yes" : "No"}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("DOES_THIS_PERSON_HAS_ANY_DISABILITY")}</span>
+                </Col>
+                <Col span={12}>
+                    {objUser.Disability ? "Yes" : "No"}
+                </Col>
+            </Row>
+            <Row gutter={24} className="mx-0 py-2 border-bottom">
+                <Col span={12}>
+                    <span className="font-400">{t("WHAT_TYPE_OF_DISABILITIES")}</span>
+                </Col>
+                <Col span={12}>
+                    {dataLanguage === "la" ? objUser.DisabilityType : objUser.DisabilityTypeEng}
+                </Col>
+            </Row>
         </div>
     )
 }

@@ -65,7 +65,7 @@ export default function MainLayout(props) {
               <MenuComponent />
             </div>
           </Sider>
-          <Layout style={{ padding: "0 24px 24px" }}>
+          <Layout style={{ padding: "0 24px 24px"}}>
             <Breadcrumb style={{ margin: "16px 0" }}>
               {listBreadcrumb.map((el) => (
                 <Breadcrumb.Item
@@ -84,7 +84,6 @@ export default function MainLayout(props) {
               style={{
                 padding: 24,
                 margin: 0,
-                minHeight: 280,
               }}
             >
               {props.children}

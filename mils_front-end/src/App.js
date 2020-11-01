@@ -16,6 +16,8 @@ import MenuRedirect from "./components/MenuRedirect";
 import ManageAssessment from "./screens/ManageAssessment";
 import RoleManagement from "./screens/system/RoleManagement";
 import FunctionManagement from "./screens/system/FunctionManagement";
+import AddBeneficiaryForm from "./screens/ManageAssessment/AddBeneficiaryForm";
+import DetailBeneficiary from "./screens/ManageAssessment/DetailBeneficiary";
 class App extends React.Component {
   render() {
     return (
@@ -40,6 +42,16 @@ class App extends React.Component {
               component={ManageAssessment}
               path={`${PATH.HOUSEHOLD_MANAGEMENT}/householdregistration`}
               exact
+            />
+            <MainRouteWrapper
+                component={AddBeneficiaryForm}
+                path={`${PATH.HOUSEHOLD_MANAGEMENT}/add-household`}
+                exact
+            />
+            <MainRouteWrapper
+                component={DetailBeneficiary}
+                path={`${PATH.HOUSEHOLD_MANAGEMENT}/detail-household`}
+                exact
             />
             <MainRouteWrapper
               component={() => <div>AAA</div>}

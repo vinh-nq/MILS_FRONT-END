@@ -1,23 +1,104 @@
 import React, {useEffect, useState} from "react";
-import {Button, Modal, Table, Tooltip} from "antd";
-import {columnsTableHHMember} from "../tableObject";
+import {Button, Modal, Table, Tag, Tooltip} from "antd";
 import HHMemberInfoDetail from "./HHMemberInfoDetail";
+import houseHoldApi from "../../../api/houseHoldApi";
+import LoadingSpinner from "../../../components/LoadingSpinner";
+import {useTranslation} from "react-i18next";
 
 function HouseHoldMemberList(props) {
-    const {visibleMemberList, setVisibleMemberList} = props;
+    const {visibleMemberList, setVisibleMemberList, memberInHouseHold, dataLanguage} = props;
     const [showDetailMember, setShowDetailMember] = useState(false);
+    const [isLoading, setLoading] = useState(false);
+    const [informationOfIndividualMember, setInformationOfIndividualMember] = useState({});
+
+    const {t} = useTranslation();
+
     useEffect(() => {
         setShowDetailMember(false);
     }, [visibleMemberList]);
 
+   const getInformationOfIndividualMember = async (id) => {
+     setLoading(true);
+     await houseHoldApi.getInformationOfIndividualMember({memberId: id}).then(res => {
+       setInformationOfIndividualMember(res.data);
+     });
+     setShowDetailMember(true);
+     setLoading(false);
+   };
+
   const columns = [
-    ...columnsTableHHMember,
     {
-      title: "View Detail",
+      title: '#',
+      dataIndex: 'icon',
+      key: 'icon',
+      render: () => (
+          <Tag color="#337AB7"><i className="fas fa-user"></i></Tag>
+      )
+    },
+    {
+      title: t("ITEM"),
+      dataIndex: 'item',
+      key: 'item ',
+      render: (data, record, index) => (
+          <span>{index}</span>
+      )
+    },
+    {
+      title: t("MEMBER_NAME"),
+      dataIndex: 'MemberName',
+      key: 'MemberName',
+      render: (data, record) => (
+          <span>{dataLanguage === "la" ? record.MaritalStatus : record.MaritalStatusEng }</span>
+      )
+    },
+    {
+      title: t("MARITAL_STATUS"),
+      dataIndex: 'maritalStatus',
+      key: 'maritalStatus',
+      render: (data, record) => (
+          <span>{dataLanguage === "la" ? record.MaritalStatus : record.MaritalStatusEng }</span>
+      )
+    },
+    {
+      title: t("RELATION_TO_HOUSEHOLD"),
+      dataIndex: 'RelationToHosueHold',
+      key: 'RelationToHosueHold',
+      render: (data, record) => (
+          <span>{dataLanguage === "la" ? record.RelationToHosueHold : record.RelationToHosueHoldEng }</span>
+      )
+    },
+    {
+      title: t("GENDER"),
+      dataIndex: 'gender',
+      key: 'gender',
+      render: (data, record) => (
+          <span>{dataLanguage === "la" ? record.Gender : record.GenderEng }</span>
+      )
+    },
+    {
+      title: t("DOB"),
+      dataIndex: 'DateOfBirth',
+      key: 'DateOfBirth',
+    },
+    {
+      title: t("AGE"),
+      dataIndex: 'Age',
+      key: 'Age',
+    },
+    {
+      title: t("PREGNANT_WOMAN"),
+      dataIndex: 'Pregnant',
+      key: 'Pregnant',
+      render: (data, record) => (
+          <span>{record.Pregnant ? "Yes" : "No" }</span>
+      )
+    },
+    {
+      title: t("VIEW_DETAIL"),
       key: "view",
       align: "center",
       dataIndex: "view",
-      render: () => (
+      render: (data, record) => (
         <div className="d-flex justify-content-center">
           <Tooltip placement="topLeft" title={"Member in family"}>
             <Button
@@ -25,7 +106,7 @@ function HouseHoldMemberList(props) {
               className="set-center-content mr-1"
               size="small"
               onClick={() => {
-                setShowDetailMember(true);
+                getInformationOfIndividualMember(record.MemberId)
               }}
             >
               <i className="fas fa-info-circle"></i>
@@ -35,60 +116,28 @@ function HouseHoldMemberList(props) {
       ),
     },
   ];
-  const data = [
-    {
-      key: "1",
-      item: "01",
-      memberName: "Longcudailongthong",
-      maritalStatus: "Married",
-      relationToHousehold: "4.Son,Daughter",
-      gender: "Male",
-      DOB: "21-10-1996",
-      age: "24",
-      numberPregnant: "No",
-    },
-    {
-      key: "2",
-      item: "01",
-      memberName: "Longcudailongthong",
-      maritalStatus: "Married",
-      relationToHousehold: "4.Son,Daughter",
-      gender: "Male",
-      DOB: "21-10-1996",
-      age: "24",
-      numberPregnant: "No",
-    },
-    {
-      key: "3",
-      item: "01",
-      memberName: "Longcudailongthong",
-      maritalStatus: "Married",
-      relationToHousehold: "4.Son,Daughter",
-      gender: "Male",
-      DOB: "21-10-1996",
-      age: "24",
-      numberPregnant: "1",
-    },
-  ];
 
     return (
         <Modal
-            title="Household Member List"
+            title={t("HOUSEHOLD_MEMBER_LIST")}
             visible={visibleMemberList}
-            onOk={() => {
-            }}
             onCancel={() => {
                 setVisibleMemberList(false)
             }}
             width={showDetailMember ? "800px" : "80%"}
+            footer={null}
         >
+            {isLoading ? (
+                <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2"/>
+            ) : null}
             {
-                showDetailMember ? <HHMemberInfoDetail setShowDetailMember={setShowDetailMember}/> :
+                showDetailMember ? <HHMemberInfoDetail objUser={informationOfIndividualMember} setShowDetailMember={setShowDetailMember}/> :
                     <Table
                         columns={columns}
-                        dataSource={data}
+                        dataSource={memberInHouseHold}
                         pagination={{hideOnSinglePage: true}}
-                        style={{overflow: "auto"}}
+                        style={{overflowX: "auto", overflowY: "hidden"}}
+                        rowKey="MemberId"
                     />
             }
         </Modal>
