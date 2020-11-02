@@ -16,7 +16,6 @@ class SelectLanguage extends React.Component {
   }
 
   componentDidMount() {
-    console.log('123aaaa')
     this.setState({
       value:
         languageList.find(
@@ -42,7 +41,6 @@ class SelectLanguage extends React.Component {
   render() {
     const { t } = this.props;
     const { value } = this.state;
-    console.log(this.props);
     const menuData = (
       <Menu>
         {languageList.map((element, index) => (

@@ -2,70 +2,62 @@ import React from "react";
 import { Button, Divider, List } from "antd";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import menuManagementApi from "../../api/menuManagementApi";
 import "./styles.scss";
+import { useEffect } from "react";
+import * as _ from "lodash";
 
 export default function MenuRedirect(props) {
   const { t } = useTranslation();
   const history = useHistory();
+  const [checkLoading, setCheckLoading] = useState(false);
+  const [listFunctionOfGroup, setListFunctionOfGroup] = useState([]);
+  const idItem = useSelector((state) => state.historyReducer.id);
+  const dataLanguage =
+    useSelector((state) => state.languageReducer.objectLanguage.value) ||
+    localStorage.getItem("i18nextLng");
+  const listBreadcrumb = useSelector(
+    (state) => state.historyReducer.listBreadcrumb
+  );
 
-  const data = [
-    {
-      text: t("HOUSEHOLD_REGISTRATION"),
-      url: "/householdManagement/householdRegistration",
-    },
-    {
-      text: t("HOUSEHOLD_POVERTY"),
-      url: "/householdManagement/householdPoverty",
-    },
-    {
-      text: t("GENERATION_OF_PMT"),
-      url: "/householdManagement/genarationOfPMT",
-    },
-  ];
-
-  const dataSystem = [
-    {
-      text: "Function list management",
-      url: "/system/functionListManagement",
-    },
-    {
-      text: "Role Management",
-      url: "/system/roleManagement",
-    },
-    {
-      text: "User Management",
-      url: "/system/userManagement",
-    },
-    {
-      text: "System parameters",
-      url: "/system/systemsParameters",
-    },
-    {
-      text: "Backup Database",
-      url: "/system/backupDatabase",
-    },
-  ];
-
-  // console.log();
-
-  const filterData = () => {
-    if (history.location.pathname === "/system") {
-      return dataSystem;
-    } else {
-      return data;
-    }
-  };
+  useEffect(() => {
+    const fetchDataFunction = async () => {
+      setCheckLoading(true);
+      setListFunctionOfGroup([]);
+      await menuManagementApi
+        .GetMenuListByHeader({
+          header_id: idItem,
+        })
+        .then((res) => {
+          setCheckLoading(false);
+          setListFunctionOfGroup(res.data.Data);
+        });
+    };
+    fetchDataFunction();
+  }, [props.location, idItem]);
 
   return (
     <div className="menu-breadcrum-container">
-      <span className="h5">{t("DATA_DICTIONARY")}</span>
+      {checkLoading ? (
+        <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
+      ) : null}
+      <span className="h5">
+        {t(
+          _.upperCase(
+            history.location.pathname.replace(/\//g, "") || "DASHBOARD"
+          )
+        )}
+      </span>
       <Divider />
       <List
         header={null}
         footer={null}
         size="small"
         bordered
-        dataSource={filterData().map((el) => el.text)}
+        dataSource={(listFunctionOfGroup || []).map((el) =>
+          dataLanguage === "la" ? el.list_name_lao : el.list_name_eng
+        )}
         renderItem={(item) => {
           return (
             <List.Item
@@ -83,8 +75,19 @@ export default function MenuRedirect(props) {
                 <Button
                   type="link"
                   onClick={() => {
+                    const textSearch = (listFunctionOfGroup || []).find(
+                      (el) => {
+                        if (dataLanguage === "la") {
+                          return el.list_name_lao === item;
+                        } else {
+                          return el.list_name_eng === item;
+                        }
+                      }
+                    ).list_name_eng;
                     history.push(
-                      filterData().find((el) => el.text === item).url
+                      `/${listBreadcrumb[0]}/${textSearch
+                        .replace(/ /g, "")
+                        .toLowerCase()}`
                     );
                   }}
                 >

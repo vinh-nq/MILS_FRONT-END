@@ -6,7 +6,7 @@ import {
   CaretDownOutlined,
 } from "@ant-design/icons/lib/icons";
 import { useTranslation } from "react-i18next";
-import linkImageLogo from "./apisLogo.jpg";
+import linkImageLogo from "./team-work.jpg";
 import Cookies from "universal-cookie";
 
 function SiderUserInformation() {
@@ -31,6 +31,7 @@ function SiderUserInformation() {
       <div className="w-100 d-flex flex-row align-items-center justify-content-center imageLogo">
         <Image
           width={100}
+          height={100}
           style={{ borderRadius: "50%" }}
           src={linkImageLogo}
           alt="apisLogo"
