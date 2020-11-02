@@ -1,25 +1,15 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Col,
-  Divider,
-  Input,
-  Row,
-  Select,
-  Table,
-  Tooltip,
-  Typography,
-} from "antd";
+import React, {useEffect, useState} from "react";
+import {Button, Col, Input, Row, Select, Table, Tooltip, Typography,} from "antd";
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined";
 import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 import HouseHoldMemberList from "./component/HHMemberList";
 import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../../api/houseHoldApi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { PATH } from "../../../routers/Path";
+import {useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import {PATH} from "../../../routers/Path";
 
 function ManageAssessment(props) {
   const [visibleMemberList, setVisibleMemberList] = useState(false);
@@ -180,35 +170,42 @@ function ManageAssessment(props) {
     }
   };
 
+
+
+  useEffect(() => {
+    getDataHouseHold(checkDataFromUrl());
+    getProvince();
+  }, []);
+
   //Lấy dữ liêu từ URL và check
   const checkDataFromUrl = () => {
     let pageUrl = getValueOfQueryParams(history.location, "page", "PAGE");
     let provinceId = getValueOfQueryParams(
-      history.location,
-      "provinceId",
-      "STRING"
+        history.location,
+        "provinceId",
+        "STRING"
     );
     let districtId = getValueOfQueryParams(
-      history.location,
-      "districtId",
-      "STRING"
+        history.location,
+        "districtId",
+        "STRING"
     );
     let villageId = getValueOfQueryParams(
-      history.location,
-      "villageId",
-      "STRING"
+        history.location,
+        "villageId",
+        "STRING"
     );
     let unitId = getValueOfQueryParams(history.location, "unitId", "STRING");
     let child = getValueOfQueryParams(history.location, "child", "NUMBER");
     let pregnant = getValueOfQueryParams(
-      history.location,
-      "pregnant",
-      "NUMBER"
+        history.location,
+        "pregnant",
+        "NUMBER"
     );
     let headName = getValueOfQueryParams(
-      history.location,
-      "headName",
-      "KEYWORD"
+        history.location,
+        "headName",
+        "KEYWORD"
     );
     setSelectedProvince(provinceId);
     setSelectedDistrict(districtId);
@@ -229,42 +226,37 @@ function ManageAssessment(props) {
     };
   };
 
-  useEffect(() => {
-    getDataHouseHold(checkDataFromUrl());
-    getProvince();
-  }, []);
-
   const getDataHouseHold = async (params) => {
     setLoading(true);
     await houseHoldApi.searchHouseHold(params).then((res) => {
-      setData(res.data.houseHoldViewModels);
-      setTotalPage(res.data.TotalPage);
+      setData(res.data.Data.houseHoldViewModels);
+      setTotalPage(res.data.Data.TotalPage);
     });
     setLoading(false);
   };
 
   const getProvince = async () => {
     await houseHoldApi.getAllProvince().then((res) => {
-      setProvince(res.data);
+      setProvince(res.data.Data);
     });
   };
 
   const getDistrict = async (provinceId) => {
     await houseHoldApi.getAllDistrict({ provinceId }).then((res) => {
-      setDistrict(res.data);
+      setDistrict(res.data.Data);
     });
   };
 
   const getVillage = async (districtId) => {
     await houseHoldApi
       .getAllVillage({ districtId })
-      .then((res) => setVillage(res.data));
+      .then((res) => setVillage(res.data.Data));
   };
 
   const getUnit = async (villageId) => {
     await houseHoldApi
       .getAllUnit({ villageId })
-      .then((res) => setUnit(res.data));
+      .then((res) => setUnit(res.data.Data));
   };
 
   const getMemberInHouseHold = async (HHCode) => {
@@ -272,7 +264,7 @@ function ManageAssessment(props) {
     await houseHoldApi
       .getMembersInHouseHold({ householdId: HHCode })
       .then((res) => {
-        setMemberInHouseHold(res.data);
+        setMemberInHouseHold(res.data.Data);
       });
     setLoading(false);
   };
@@ -282,7 +274,7 @@ function ManageAssessment(props) {
     await houseHoldApi
       .getPlotLandsByHouseHold({ houseHoldId: id })
       .then((res) => {
-        setPlotLandInHouseHold(res.data);
+        setPlotLandInHouseHold(res.data.Data);
       });
     setVisiblePlotLand(true);
     setLoading(false);
@@ -416,7 +408,7 @@ function ManageAssessment(props) {
       {/*Header của trang content*/}
       <section className="border-bottom mb-3">
         <div className="d-flex align-items-center mb-3">
-          <span className="h5 mb-0">{t("POVERTY_ASSESSMENT_LIST")}</span>
+          <span className="h5 mb-0">{t("HOUSEHOLD_LIST")}</span>
           <span className="ml-auto">
             <Button
               className="set-center-content"
@@ -437,9 +429,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("PROVINCE")}</Text>
             <Select
-              className="w-100"
-              value={selectedProvince}
-              onChange={onSelectProvince}
+                className="w-100"
+                value={selectedProvince}
+                onChange={onSelectProvince}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderProvinceSelect()}
@@ -448,9 +440,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("DISTRICT")}</Text>
             <Select
-              className="w-100"
-              value={selectedDistrict}
-              onChange={onSelectDistrict}
+                className="w-100"
+                value={selectedDistrict}
+                onChange={onSelectDistrict}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderDistrictSelect()}
@@ -459,9 +451,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("VILLAGE")}</Text>
             <Select
-              className="w-100"
-              value={selectedVillage}
-              onChange={onSelectVillage}
+                className="w-100"
+                value={selectedVillage}
+                onChange={onSelectVillage}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderVillageSelect()}
@@ -470,9 +462,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("UNIT")}</Text>
             <Select
-              className="w-100"
-              value={selectedUnit}
-              onChange={onSelectUnit}
+                className="w-100"
+                value={selectedUnit}
+                onChange={onSelectUnit}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderUnitSelect()}

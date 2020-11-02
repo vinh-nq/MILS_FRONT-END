@@ -10,15 +10,15 @@ export default function MenuRedirect(props) {
 
   const data = [
     {
-      text: "Household registration",
+      text: t("HOUSEHOLD_REGISTRATION"),
       url: "/householdManagement/householdRegistration",
     },
     {
-      text: "Household poverty assessment",
+      text: t("HOUSEHOLD_POVERTY"),
       url: "/householdManagement/householdPoverty",
     },
     {
-      text: "Generation of PMT scorecard",
+      text: t("GENERATION_OF_PMT"),
       url: "/householdManagement/genarationOfPMT",
     },
   ];

@@ -2,19 +2,19 @@ import React, {useEffect, useState} from "react";
 import {Button, Col, Row, Table} from "antd";
 import {DeleteOutlined, EditOutlined, PlusSquareOutlined} from "@ant-design/icons/lib/icons";
 import {useTranslation} from "react-i18next";
-import houseHoldApi from "../../../api/houseHoldApi";
+import houseHoldApi from "../../../../api/houseHoldApi";
 import {useSelector} from "react-redux";
-import {getValueOfQueryParams} from "../../../utils/getValueOfQueryParams";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import {getValueOfQueryParams} from "../../utils/getValueOfQueryParams";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
 import GoogleMapReact from 'google-map-react';
+import {getValueOfQueryParams} from "../../../../utils/getValueOfQueryParams";
+import { useHistory } from "react-router-dom";
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 function DetailBeneficiary(props) {
     const [detailHouseHold, setDetailHouseHold] = useState({});
     const [isLoading, setLoading] = useState(false);
+    let history = useHistory();
 
     const {t} = useTranslation();
     const dataLanguage = useSelector(
@@ -22,8 +22,7 @@ function DetailBeneficiary(props) {
     ) || localStorage.getItem("i18nextLng");
 
     useEffect(() => {
-        const hh_code = getValueOfQueryParams(props.location, "hh_code", "STRING");
-        console.log(hh_code);
+        const hh_code = getValueOfQueryParams(history.location, "hh_code", "STRING");
         getDetailHouseHold(hh_code);
     }, []);
 
@@ -38,7 +37,7 @@ function DetailBeneficiary(props) {
     const getDetailHouseHold = async (hh_code) => {
         setLoading(true);
         await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
-            setDetailHouseHold(res.data);
+            setDetailHouseHold(res.data.Data);
         });
         setLoading(false);
     };

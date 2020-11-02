@@ -19,7 +19,9 @@ import FunctionManagement from "./screens/system/FunctionManagement";
 import PermissionManagement from "./screens/system/PermissionManagement";
 import UserManagement from "./screens/system/UserManagement";
 import AddHouseHold from "./screens/householdManagement/AddHouseHold";
-import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/DetailBeneficiary";
+import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/component/DetailBeneficiary";
+import UpdateHousehold from "./screens/householdManagement/UpdateHousehold";
+
 class App extends React.Component {
   render() {
     return (
@@ -49,6 +51,11 @@ class App extends React.Component {
               component={AddHouseHold}
               path={`${PATH.ADD_HOUSEHOLD}`}
               exact
+            />
+            <MainRouteWrapper
+                component={UpdateHousehold}
+                path={`${PATH.UPDATE_HOUSEHOLD}`}
+                exact
             />
             <MainRouteWrapper
               component={DetailBeneficiary}

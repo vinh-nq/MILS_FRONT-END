@@ -18,6 +18,7 @@ export const PATH = {
   BACKUP_DATABASE: "/system/backupDatabase",
   PERMISSIONS_MANAGEMENT: "/system/roleManagement/permissionManagement",
   ADD_HOUSEHOLD: "/householdManagement/householdRegistration/addHousehold",
+  UPDATE_HOUSEHOLD: "/householdManagement/householdRegistration/updateHousehold",
 };
 
 export const PATH_BREADCRUM = {

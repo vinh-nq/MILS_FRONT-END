@@ -37,6 +37,10 @@ const houseHoldApi = {
     getDetailHouseHold: (params) => {
         const url = 'api/HouseHold/GetDetailHouseHold';
         return fetchData(url, 'GET', params, null);
+    },
+    updateHouseHold: (data) => {
+        const url = 'api/HouseHold/UpdateHouseHold';
+        return fetchData(url, 'POST', null, data);
     }
 }
 
