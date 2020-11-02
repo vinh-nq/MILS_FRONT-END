@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Button, Modal, Table, Tag, Tooltip} from "antd";
 import HHMemberInfoDetail from "./HHMemberInfoDetail";
-import houseHoldApi from "../../../api/houseHoldApi";
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import houseHoldApi from "../../../../api/houseHoldApi";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
 import {useTranslation} from "react-i18next";
 
 function HouseHoldMemberList(props) {

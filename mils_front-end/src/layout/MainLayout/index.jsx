@@ -65,13 +65,14 @@ export default function MainLayout(props) {
               <MenuComponent />
             </div>
           </Sider>
-          <Layout style={{ padding: "0 24px 24px"}}>
+          <Layout style={{ padding: "0 24px 24px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
               {listBreadcrumb.map((el) => (
                 <Breadcrumb.Item
                   key={el}
                   className="pointer"
                   onClick={() => {
+                    console.log(el);
                     history.push(`${PATH_BREADCRUM[el]}`);
                   }}
                 >

@@ -13,13 +13,13 @@ import Page404 from "./components/404Page";
 import Page403 from "./components/403Page";
 import { PATH } from "./routers/Path";
 import MenuRedirect from "./components/MenuRedirect";
-import ManageAssessment from "./screens/ManageAssessment";
+import ManageAssessment from "./screens/householdManagement/ManageAssessment";
 import RoleManagement from "./screens/system/RoleManagement";
 import FunctionManagement from "./screens/system/FunctionManagement";
 import PermissionManagement from "./screens/system/PermissionManagement";
 import UserManagement from "./screens/system/UserManagement";
-import AddBeneficiaryForm from "./screens/ManageAssessment/AddBeneficiaryForm";
-import DetailBeneficiary from "./screens/ManageAssessment/DetailBeneficiary";
+import AddHouseHold from "./screens/householdManagement/AddHouseHold";
+import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/DetailBeneficiary";
 class App extends React.Component {
   render() {
     return (
@@ -46,14 +46,14 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-                component={AddBeneficiaryForm}
-                path={`${PATH.HOUSEHOLD_MANAGEMENT}/add-household`}
-                exact
+              component={AddHouseHold}
+              path={`${PATH.ADD_HOUSEHOLD}`}
+              exact
             />
             <MainRouteWrapper
-                component={DetailBeneficiary}
-                path={`${PATH.HOUSEHOLD_MANAGEMENT}/detail-household`}
-                exact
+              component={DetailBeneficiary}
+              path={`${PATH.HOUSEHOLD_MANAGEMENT}/detail-household`}
+              exact
             />
             <MainRouteWrapper
               component={() => <div>AAA</div>}

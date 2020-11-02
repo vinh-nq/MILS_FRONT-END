@@ -17,13 +17,14 @@ export const PATH = {
   SYSTEMS_PARAMETERS: "/system/systemsParameters",
   BACKUP_DATABASE: "/system/backupDatabase",
   PERMISSIONS_MANAGEMENT: "/system/roleManagement/permissionManagement",
+  ADD_HOUSEHOLD: "/householdManagement/householdRegistration/addHousehold",
 };
 
 export const PATH_BREADCRUM = {
   dashboard: "/",
   system: "/system",
   datadictionary: "/dataDictionary",
-  householdmanagement: "/householdManagement",
+  householdManagement: "/householdManagement",
   CCTProgram: "/CCTProgram",
   PAYpaymentMENT: "/payment",
   GRIEVANCE_MANAGEMENT: "/grienvanceManagement",
@@ -38,4 +39,6 @@ export const PATH_BREADCRUM = {
   systemsparameters: "/system/systemsParameters",
   backupdatabase: "/system/backupDatabase",
   permissionManagement: "/system/roleManagement/permissionManagement",
+  addHouseHold: "/householdManagement/householdRegistration/addHousehold",
+  householdRegistration: "/householdManagement/householdRegistration",
 };
