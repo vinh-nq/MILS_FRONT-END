@@ -234,6 +234,7 @@ function ManageAssessment(props) {
 
     const onSearchChange = () => {
         history.push(`/householdManagement/householdRegistration?page=1&provinceId=${selectedProvince}&districtId=${selectedDistrict}&villageId=${selectedVillage}&unitId=${selectedUnit}&child=${selectChildren}&pregnant=${selectPregnant}&headName=${headName}`);
+        setPage(1);
         getDataHouseHold({
             provinceId: selectedProvince,
             districtId: selectedDistrict,
@@ -291,17 +292,10 @@ function ManageAssessment(props) {
 
     const onPageChange = (currentPage) => {
         setPage(currentPage);
-        history.push(`/householdManagement/householdRegistration?page=${currentPage}&provinceId=${selectedProvince}&districtId=${selectedDistrict}&villageId=${selectedVillage}&unitId=${selectedUnit}&child=${selectChildren}&pregnant=${selectPregnant}&headName=${headName}`);
-        getDataHouseHold({
-            provinceId: selectedProvince,
-            districtId: selectedDistrict,
-            villageId: selectedVillage,
-            unitId: selectedUnit,
-            child: selectChildren,
-            pregnant: selectPregnant,
-            headName: headName,
-            currentPage: currentPage
-        })
+        const params = checkDataFromUrl();
+        const {child, districtId, headName, pregnant, provinceId, unitId, villageId} = params;
+        history.push(`/householdManagement/householdRegistration?page=${currentPage}&provinceId=${provinceId}&districtId=${districtId}&villageId=${villageId}&unitId=${unitId}&child=${child}&pregnant=${pregnant}&headName=${headName}`);
+        getDataHouseHold(params);
     };
 
     const renderProvinceSelect = () => {

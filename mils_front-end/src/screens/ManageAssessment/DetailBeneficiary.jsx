@@ -6,7 +6,9 @@ import houseHoldApi from "../../api/houseHoldApi";
 import {useSelector} from "react-redux";
 import {getValueOfQueryParams} from "../../utils/getValueOfQueryParams";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import GoogleMapReact from 'google-map-react';
 
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 function DetailBeneficiary(props) {
     const [detailHouseHold, setDetailHouseHold] = useState({});
@@ -22,6 +24,14 @@ function DetailBeneficiary(props) {
         console.log(hh_code);
         getDetailHouseHold(hh_code);
     }, []);
+
+    const defaultProps = {
+        center: {
+            lat: 59.95,
+            lng: 30.33
+        },
+        zoom: 11
+    };
 
     const getDetailHouseHold = async (hh_code) => {
         setLoading(true);
@@ -40,6 +50,7 @@ function DetailBeneficiary(props) {
             return "";
         }
     }
+
     const columns = [
         {
             title: t("ITEM"),
@@ -180,7 +191,10 @@ function DetailBeneficiary(props) {
         GeneralInformationBeneficiary = {},
         Machine = {},
         StableOccupationAndIncome = {},
-        Shelter= {}
+        Shelter= {},
+        WaterAndPermanentEnergyBeneficiary= {},
+        PrimaryPublicServiceForBeneficiary= {},
+        LatLongForBeneficiary= {}
     } = detailHouseHold;
 
     return (
@@ -524,25 +538,29 @@ function DetailBeneficiary(props) {
                 {/*Have stable occupation and income*/}
                 <div className="income-indicator">
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
-                        7.4 Have stable occupation and income
+                        7.4 {t("HAVE_STABLE_OCCUPATION_AND_INCOME")}
                     </div>
 
                     <Row className="mb-2 px-2" gutter={16}>
                         <Col className="mb-2" span={12}>
-                            <span className="font-weight-500">Drinking water facility during rainy</span>:{" "}
+                            <span className="font-weight-500">{t("DURING_RAINING")}</span>:{" "}
+                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.Water : WaterAndPermanentEnergyBeneficiary.WaterEng}
                         </Col>
                         <Col span={12}>
-                            <span
-                                className="font-weight-500">Drinking water facility during dry season</span>:{" "}
+                            <span className="font-weight-500">{t("DURING_DRY")}</span>:{" "}
+                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.WaterDry : WaterAndPermanentEnergyBeneficiary.WaterDryEng}
                         </Col>
                         <Col className="mb-2" span={12}>
-                            <span className="font-weight-500">Type of toilet</span>:{" "}
+                            <span className="font-weight-500">{t("TYPE_OF_TOILET")}</span>:{" "}
+                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.ToiletType : WaterAndPermanentEnergyBeneficiary.ToiletTypeEng}
                         </Col>
                         <Col span={12}>
-                            <span className="font-weight-500">Main source for cooking</span>:{" "}
+                            <span className="font-weight-500">{t("SOURCE_FOR_COOKING")}</span>:{" "}
+                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.CookingSource : WaterAndPermanentEnergyBeneficiary.CookingSouceEng}
                         </Col>
                         <Col className="mb-2" span={12}>
-                            <span className="font-weight-500">Main source of energy for lighting</span>:{" "}
+                            <span className="font-weight-500">{t("SOURCE_FOR_LIGHTING")}</span>:{" "}
+                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.EnergySource : WaterAndPermanentEnergyBeneficiary.EnergySourceEng}
                         </Col>
                     </Row>
                 </div>
@@ -550,40 +568,45 @@ function DetailBeneficiary(props) {
                 {/*Accessing to primary public service*/}
                 <div className="primary-public-service-indicator">
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
-                        7.5 Accessing to primary public service
+                        7.5 {t("ACCESSING_TO_PRIMARY_PUBLIC_SERVICE")}
                     </div>
 
                     <Row className="mb-2 px-2" gutter={16}>
                         <Col className="mb-2" span={12}>
-                            <span className="font-weight-500">Is there a Primary school or Lower secondary school located in this village?</span>:{" "}
+                            <span className="font-weight-500">{t("PRIMARY_SCHOOL_OR_LOWER_SECONDARY_SCHOOL")}</span>:{" "}
+                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.PrimarySchool)}
                         </Col>
                         <Col span={12}>
-                            <span className="font-weight-500"> Is there a permanent (daily) market or at least two times per week in this village? </span>:{" "}
+                            <span className="font-weight-500">{t("A_PERMANENT_(DAILY)_MARKET")}</span>:{" "}
+                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.Market)}
                         </Col>
                         <Col className="mb-2" span={12}>
-                            <span
-                                className="font-weight-500">Is there a dispensary or health post in this village?</span>:{" "}
+                            <span className="font-weight-500">{t("DISPENSARY_OR_HEALTH")}</span>:{" "}
+                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.Dispensary)}
                         </Col>
                         <Col span={12}>
-                            <span className="font-weight-500">How long does it normally take to reach the dispensary/health post?</span>:{" "}
+                            <span className="font-weight-500">{t("HOW_LONG_DOES_IT_NORMALLY_TAKE_TO_REACH_THE_DISPENSARY/HEALTH_POST")}</span>:{" "}
+                            {PrimaryPublicServiceForBeneficiary.TimeDispensary}
                         </Col>
                         <Col className="mb-2" span={12}>
-                            <span className="font-weight-500">Is there a hospital in this village?</span>:{" "}
+                            <span className="font-weight-500">{t("IS_THERE_A_HOSPITAL_IN_THIS_VILLAGE")}</span>:{" "}
+                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.Hospital)}
                         </Col>
                         <Col className="mb-2" span={12}>
-                            <span
-                                className="font-weight-500">If no, How far away is the nearest hospital?</span>:{" "}
+                            <span className="font-weight-500">{t("HOW_FAR_AWAY_IS_THE_NEAREST_HOSPITAL")}</span>:{" "}
+                            {PrimaryPublicServiceForBeneficiary.DistanceNearestHospital}
                         </Col>
                         <Col className="mb-2" span={12}>
-                            <span
-                                className="font-weight-500">How long does it normally take to reach any hospital?</span>:{" "}
+                            <span className="font-weight-500">{t("HOW_LONG_DOES_IT_NORMALLY_TAKE_TO_REACH_ANY_HOSPITAL")}</span>:{" "}
+                            {PrimaryPublicServiceForBeneficiary.TImeNearestHospital}
                         </Col>
                         <Col className="mb-2" span={12}>
-                            <span className="font-weight-500"> Is there any scheduled passenger transport stopping in this village?</span>:{" "}
+                            <span className="font-weight-500">{t("IS_THERE_ANY_SCHEDULED_PASSENGER_TRANSPORT_STOPPING_IN_THIS_VILLAGE")}</span>:{" "}
+                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.TransportStop)}
                         </Col>
                         <Col className="mb-2" span={12}>
-                            <span
-                                className="font-weight-500">Is this village connected to an electric network?</span>:{" "}
+                            <span className="font-weight-500">{t("IS_THIS_VILLAGE_CONNECTED_TO_AN_ELECTRIC_NETWORK")}</span>:{" "}
+                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.ElectricNetwork)}
                         </Col>
                     </Row>
                 </div>
@@ -664,6 +687,40 @@ function DetailBeneficiary(props) {
                                 className="font-weight-500">Being a good family</span>:{" "}
                         </Col>
                     </Row>
+                </div>
+
+                {/*Map*/}
+                <div className="tools-indicator">
+                    <div className="mb-3 p-2 bg-primary text-white font-15 font-weight-500">
+                        7.7 Location in map
+                    </div>
+                  <Row gutter={16}>
+                      <Col span={8}>
+                          <p className="mb-0 font-weight-500 font-16">Data DescriptionSave</p>
+                           <p>
+                               Photo
+                               <img src={LatLongForBeneficiary.ImageUrl} alt="No image"/>
+                           </p>
+                          <p className="mb-0 font-weight-500 font-15">Location(GPS):</p>
+                          <p>Latitude: {LatLongForBeneficiary.Lat}</p>
+                         <p> Longitude:{LatLongForBeneficiary.Long}</p>
+                      </Col>
+                      <Col span={16}>
+                          <div style={{ height: '400px', width: '100%' }}>
+                              <GoogleMapReact
+                                  bootstrapURLKeys={{ key: "AIzaSyAWDFlOfmcwhHzeF06x_dYJBrM2OfUHAjQ" }}
+                                  defaultCenter={defaultProps.center}
+                                  defaultZoom={defaultProps.zoom}
+                              >
+                                  <AnyReactComponent
+                                      lat={59.955413}
+                                      lng={30.337844}
+                                      text="My Marker"
+                                  />
+                              </GoogleMapReact>
+                          </div>
+                      </Col>
+                  </Row>
                 </div>
 
             </section>
