@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Col, Form, Row, Select, Typography} from "antd";
 import {useTranslation} from "react-i18next";
 import SaveFilled from "@ant-design/icons/lib/icons/SaveFilled";
-import houseHoldApi from "../../api/houseHoldApi";
+import houseHoldApi from "../../../api/houseHoldApi";
 import {useSelector} from "react-redux";
 
 function AddBeneficiaryForm(props) {
@@ -151,7 +151,6 @@ function AddBeneficiaryForm(props) {
              <div className="mb-3 p-2 bg-primary text-white font-16 font-weight-500">
                  I. Location
              </div>
-
              <div className="hh-location">
                  <Row className="mb-2" gutter={16}>
                      <Col span={12}>
