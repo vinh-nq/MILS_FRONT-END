@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Tooltip, Button, Divider, Table, message, Input } from "antd";
 import {
-  // DeleteOutlined,
   PlusSquareOutlined,
   ControlOutlined,
   EditOutlined,
@@ -12,7 +11,6 @@ import roleManagementApi from "../../../api/roleManagementApi";
 import Highlighter from "react-highlight-words";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import "./styles.scss";
-import { useState } from "react";
 import { PATH } from "../../../routers/Path";
 import ModalRoleManagement from "./components/ModalRoleManagement";
 

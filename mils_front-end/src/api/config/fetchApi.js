@@ -22,7 +22,14 @@ export const fetchData = (url, method, params, data) => {
   let cookies = new Cookies();
   return fetchDataAPI(url, method, params, data).then(
     (response) => {
-      return response;
+      if (response.data.Status) {
+        return response;
+      } else {
+        if (response.data.Status === false) {
+          throw new Error(response.data.Messages);
+        }
+        return response;
+      }
     },
     (error) => {
       switch (error.response.data.StatusCode) {

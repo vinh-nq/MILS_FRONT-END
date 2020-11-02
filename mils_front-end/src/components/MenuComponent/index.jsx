@@ -1,81 +1,73 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Menu } from "antd";
-import {
-  DesktopOutlined,
-  MailOutlined,
-  SettingOutlined,
-  DatabaseOutlined,
-  HomeOutlined,
-  GroupOutlined,
-  BankOutlined,
-  SnippetsOutlined,
-  FileDoneOutlined,
-} from "@ant-design/icons";
 import "./styles.scss";
 import { useHistory } from "react-router-dom";
 import { PATH } from "../../routers/Path";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionRedux } from "../../redux/actions";
 
 export default function MenuComponent(props) {
   const { t } = useTranslation();
   const history = useHistory();
+  const { listMenu } = props;
+  const dispatch = useDispatch();
   const listBreadcrumb = useSelector(
     (state) => state.historyReducer.listBreadcrumb
   );
+  const dataLanguage =
+    useSelector((state) => state.languageReducer.objectLanguage.value) ||
+    localStorage.getItem("i18nextLng");
 
   return (
     <Menu
       mode="inline"
       selectedKeys={[`${listBreadcrumb[0]}`]}
-      defaultOpenKeys={["sub1"]}
       style={{ flex: 1, borderRight: 0 }}
     >
       <Menu.Item
         key={"dashboard"}
-        icon={<DesktopOutlined />}
         onClick={() => {
           history.push(PATH.DASHBOARD);
+          dispatch({
+            type: actionRedux.FETCH_DATA_BREADCRUMB,
+            payload: {
+              listBreadcrumb: [`dashboard`],
+              id: "dashboard",
+            },
+          });
         }}
       >
-        {t("DASHBOARD")}
+        <i className="fas fa-chart-line"></i>
+        <span className="ml-2">{t("DASHBOARD")}</span>
       </Menu.Item>
-      <Menu.Item
-        key={"system"}
-        icon={<SettingOutlined />}
-        onClick={() => {
-          history.push(PATH.SYSTEM);
-        }}
-      >
-        {t("SYSTEM")}
-      </Menu.Item>
-      <Menu.Item key="DATA_DICTIONARY" icon={<DatabaseOutlined />}>
-        {t("DATA_DICTIONARY")}
-      </Menu.Item>
-      <Menu.Item
-        key={"householdManagement"}
-        icon={<HomeOutlined />}
-        onClick={() => {
-          history.push(PATH.HOUSEHOLD_MANAGEMENT);
-        }}
-      >
-        {t("HOUSEHOLD_MANAGEMENT")}
-      </Menu.Item>
-      <Menu.Item key="CCT_PROGRAM" icon={<GroupOutlined />}>
-        {t("CCT_PROGRAM")}
-      </Menu.Item>
-      <Menu.Item key="PAYMENT" icon={<BankOutlined />}>
-        {t("PAYMENT")}
-      </Menu.Item>
-      <Menu.Item key="GRIEVANCE_MANAGEMENT" icon={<SnippetsOutlined />}>
-        {t("GRIEVANCE_MANAGEMENT")}
-      </Menu.Item>
-      <Menu.Item key="REPORT_BI" icon={<FileDoneOutlined />}>
-        {t("REPORT_BI")}
-      </Menu.Item>
-      <Menu.Item key="SMS_BROADCAST" icon={<MailOutlined />}>
-        {t("SMS_BROADCAST")}
-      </Menu.Item>
+      {(listMenu || []).map((elemente) => {
+        const idMenuString = elemente.header_name_eng
+          .replace(/ /g, "")
+          .toLowerCase();
+        return (
+          <Menu.Item
+            key={idMenuString}
+            onClick={() => {
+              history.push(PATH[idMenuString]);
+              dispatch({
+                type: actionRedux.FETCH_DATA_BREADCRUMB,
+                payload: {
+                  listBreadcrumb: [`${idMenuString}`],
+                  id: elemente.header_id,
+                },
+              });
+            }}
+          >
+            <i className={elemente.icon}></i>
+            <span className="ml-2">
+              {dataLanguage === "la"
+                ? elemente.header_name_lao
+                : elemente.header_name_eng}
+            </span>
+          </Menu.Item>
+        );
+      })}
     </Menu>
   );
 }
