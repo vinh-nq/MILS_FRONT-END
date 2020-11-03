@@ -18,7 +18,6 @@ import FunctionManagement from "./screens/system/FunctionManagement";
 import PermissionManagement from "./screens/system/PermissionManagement";
 import UserManagement from "./screens/system/UserManagement";
 import AddHouseHold from "./screens/householdManagement/AddHouseHold";
-import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/DetailBeneficiary";
 import ListOfProvince from "./screens/dataDictionary/ListOfProvince";
 import ListOfDistrict from "./screens/dataDictionary/ListOfDistrict";
 import ListOfWallMetarail from "./screens/dataDictionary/ListOfWallMetarail";
@@ -199,12 +198,12 @@ class App extends React.Component {
             />
             <MainRouteWrapper
               component={DetailBeneficiary}
-              path={`${PATH.HOUSEHOLD_MANAGEMENT}/detail-household`}
+              path={PATH.DETAIL_HOUSEHOLD}
               exact
             />
             <MainRouteWrapper
               component={() => <div>AAA</div>}
-              path={`${PATH.HOUSEHOLD_MANAGEMENT}/householdPoverty`}
+              path={`${PATH.householdmanagement}/householdPoverty`}
               exact
             />
             <MainRouteWrapper

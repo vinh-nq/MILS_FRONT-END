@@ -138,7 +138,7 @@ function ManageAssessment(props) {
               size="small"
               onClick={() => {
                 history.push(
-                  `${PATH.HOUSEHOLD_MANAGEMENT}/detail-household?hh_code=${record.HHCode}`
+                  `${PATH.DETAIL_HOUSEHOLD}?hh_code=${record.HHCode}`
                 );
               }}
             >
@@ -308,9 +308,9 @@ function ManageAssessment(props) {
       setSelectedDistrict("-1");
       setSelectedVillage("-1");
       setSelectedUnit("-1");
+      setVillage([]);
+      setUnit([]);
     }
-    setVillage([]);
-    setUnit([]);
   };
 
   const onSelectDistrict = (id) => {
@@ -319,8 +319,8 @@ function ManageAssessment(props) {
     if (id === "-1") {
       setSelectedVillage("-1");
       setSelectedUnit("-1");
+      setUnit([]);
     }
-    setUnit([]);
   };
 
   const onSelectVillage = (id) => {

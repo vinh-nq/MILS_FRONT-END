@@ -19,7 +19,7 @@ export const PATH = {
   BACKUP_DATABASE: "/system/backupdatabase",
   PERMISSIONS_MANAGEMENT: "/system/rolemanagement/permissionmanagement",
   ADD_HOUSEHOLD: "/householdmanagement/householdregistration/addhousehold",
-  UPDATE_HOUSEHOLD: "/householdManagement/household
+  UPDATE_HOUSEHOLD: "/householdmanagement/householdregistration/updatehousehold",
   HOUSEHOLD_REGISTRATION: "/householdmanagement/householdregistration",
   LIST_OF_PROVINCE: "/datadictionary/listofprovince",
   LIST_OF_DISTRICT: "/datadictionary/listofdistrict",
@@ -42,6 +42,7 @@ export const PATH = {
   LIST_OF_SCHOOL_TYPE: "/datadictionary/listofschooltype",
   LIST_OF_BORROW_REASON: "/datadictionary/listofborrowreason",
   LIST_OF_MAIN_GOOD_AND_SERVICES: "/datadictionary/listofmaingoodandservices",
+  DETAIL_HOUSEHOLD: "/householdmanagement/householdregistration/detailhousehold",
 };
 
 export const PATH_BREADCRUM = {
@@ -86,4 +87,5 @@ export const PATH_BREADCRUM = {
   listofschooltype: "/datadictionary/listofschooltype",
   listofborrowreason: "/datadictionary/listofborrowreason",
   listofmaingoodandservices: "/datadictionary/listofmaingoodandservices",
+  detailhousehold: "/householdmanagement/householdregistration/detailhousehold",
 };

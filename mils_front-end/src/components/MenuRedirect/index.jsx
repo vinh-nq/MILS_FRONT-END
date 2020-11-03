@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, Divider, List } from "antd";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -7,6 +7,7 @@ import menuManagementApi from "../../api/menuManagementApi";
 import "./styles.scss";
 import { useEffect } from "react";
 import * as _ from "lodash";
+import LoadingSpinner from "../LoadingSpinner";
 
 export default function MenuRedirect(props) {
   const { t } = useTranslation();

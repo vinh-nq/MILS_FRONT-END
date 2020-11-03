@@ -217,6 +217,7 @@ function DetailBeneficiary(props) {
                             className="set-center-content mr-1"
                             type="primary"
                             icon={<EditOutlined className="font-16"/>}
+                            // onClick={()=>{props.history.push(PATH.)}}
                         />
                         <Button
                             className="set-center-content"

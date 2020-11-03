@@ -9,7 +9,7 @@ import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 
 function LocationComponent(props) {
-    const {detailHouseHold} = props;
+    const {detailHouseHold, form} = props;
     const {Text} = Typography;
     const {Option} = Select;
     const {t} = useTranslation();
@@ -143,9 +143,6 @@ function LocationComponent(props) {
                         ]}
                     >
                         <Select className="w-100" value={selectedProvince} onChange={onSelectProvince}>
-                            <Option value={""}>
-                                {""}
-                            </Option>
                             {renderProvinceSelect()}
                         </Select>
                     </Form.Item>
@@ -163,9 +160,6 @@ function LocationComponent(props) {
                         ]}
                     >
                         <Select className="w-100" value={selectedDistrict} onChange={onSelectDistrict}>
-                            <Option value={""}>
-                                {""}
-                            </Option>
                             {renderDistrictSelect()}
                         </Select>
                     </Form.Item>
@@ -185,9 +179,6 @@ function LocationComponent(props) {
                         ]}
                     >
                         <Select className="w-100" value={selectedVillage} onChange={onSelectVillage}>
-                            <Option value={""}>
-                                {""}
-                            </Option>
                             {renderVillageSelect()}
                         </Select>
                     </Form.Item>
@@ -205,9 +196,6 @@ function LocationComponent(props) {
                         ]}
                     >
                         <Select className="w-100" value={selectedUnit}>
-                            <Option value={""}>
-                                {""}
-                            </Option>
                             {renderUnitSelect()}
                         </Select>
                     </Form.Item>

@@ -85,7 +85,7 @@ function UpdateHousehold(props) {
                             <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
                                 I. Location
                             </div>
-                            <LocationComponent detailHouseHold={detailHouseHold}/>
+                            <LocationComponent detailHouseHold={detailHouseHold} form={form}/>
                         </section>
 
                         <section className="mb-3">
