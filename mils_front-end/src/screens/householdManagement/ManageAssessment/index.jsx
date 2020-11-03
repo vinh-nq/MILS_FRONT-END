@@ -10,6 +10,7 @@ import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {PATH} from "../../../routers/Path";
+import PlotLandComponent from "./component/DetailHouseHold/component/PlotLandComponent";
 
 function ManageAssessment(props) {
   const [visibleMemberList, setVisibleMemberList] = useState(false);
@@ -287,7 +288,7 @@ function ManageAssessment(props) {
 
   const onSearchChange = () => {
     history.push(
-      `/householdManagement/householdRegistration?page=1&provinceId=${selectedProvince}&districtId=${selectedDistrict}&villageId=${selectedVillage}&unitId=${selectedUnit}&child=${selectChildren}&pregnant=${selectPregnant}&headName=${headName}`
+      `/householdmanagement/householdregistration?page=1&provinceId=${selectedProvince}&districtId=${selectedDistrict}&villageId=${selectedVillage}&unitId=${selectedUnit}&child=${selectChildren}&pregnant=${selectPregnant}&headName=${headName}`
     );
     getDataHouseHold({
       provinceId: selectedProvince,
@@ -346,7 +347,7 @@ function ManageAssessment(props) {
   const onPageChange = (currentPage) => {
     setPage(currentPage);
     history.push(
-      `/householdManagement/householdRegistration?page=${currentPage}&provinceId=${selectedProvince}&districtId=${selectedDistrict}&villageId=${selectedVillage}&unitId=${selectedUnit}&child=${selectChildren}&pregnant=${selectPregnant}&headName=${headName}`
+      `/householdmanagement/householdregistration?page=${currentPage}&provinceId=${selectedProvince}&districtId=${selectedDistrict}&villageId=${selectedVillage}&unitId=${selectedUnit}&child=${selectChildren}&pregnant=${selectPregnant}&headName=${headName}`
     );
     getDataHouseHold({
       provinceId: selectedProvince,
@@ -480,8 +481,8 @@ function ManageAssessment(props) {
               onChange={onSelectChildren}
             >
               <Option value={-1}>{t("ALL")}</Option>
-              <Option value={1}>{t("HAVE_CHILDREN")}</Option>
-              <Option value={2}>{t("NO_CHILDREN")}</Option>
+              <Option value={0}>{t("HAVE_CHILDREN")}</Option>
+              <Option value={1}>{t("NO_CHILDREN")}</Option>
             </Select>
           </Col>
           <Col span={4}>
@@ -492,8 +493,8 @@ function ManageAssessment(props) {
               onChange={onSelectPregnantWoman}
             >
               <Option value={-1}>{t("ALL")}</Option>
-              <Option value={1}>{t("THERE_IS_A_PREGNANT_WOMAN")}</Option>
-              <Option value={2}>{t("NO_PREGNANT_WOMAN")}</Option>
+              <Option value={0}>{t("THERE_IS_A_PREGNANT_WOMAN")}</Option>
+              <Option value={1}>{t("NO_PREGNANT_WOMAN")}</Option>
             </Select>
           </Col>
           <Col span={4}>

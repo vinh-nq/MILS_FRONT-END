@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Form,} from "antd";
+import {Button, Form, message} from "antd";
 import SaveFilled from "@ant-design/icons/lib/icons/SaveFilled";
 import LocationComponent from "./component/LocationComponent";
 import GeneralInformationComponent from "./component/GeneralInformationComponent";
@@ -14,6 +14,7 @@ import houseHoldApi from "../../../api/houseHoldApi";
 import _ from 'lodash';
 import moment from "moment";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import EnergyUsedComponent from "./component/EneryUsedComponent";
 
 function UpdateHousehold(props) {
     const [isLoading, setLoading] = useState(false);
@@ -28,6 +29,7 @@ function UpdateHousehold(props) {
     }, []);
 
     const onSubmit = async (value) => {
+        message.loading({ content: "Loading...", key: "message-form-role" });
         const objCover = {
             ...detailHouseHold,
             ...value.LocationBeneficiary,
@@ -37,10 +39,27 @@ function UpdateHousehold(props) {
             ...value.StableOccupationAndIncome,
             ...value.WaterAndPermanentEnergyBeneficiary,
             ...value.PrimaryPublicServiceForBeneficiary,
+            ...value.WaterAndPermanentEnergyBeneficiary,
             HHCode: getValueOfQueryParams(props.location, "hh_code", "STRING")
         };
         await houseHoldApi.updateHouseHold(objCover).then(res => {
-
+            if (res.data.Status) {
+                const {DateOfEnumeration} = res.data.Data.GeneralInformationBeneficiary;
+                res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration ? moment(DateOfEnumeration,"DD-MM-YYYY") : undefined;
+                setDetailHouseHold(res.data.Data);
+                form.setFieldsValue(res.data.Data);
+                message.success({
+                    content: t("EDIT_SUCCESS"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            } else {
+                message.error({
+                    content: t("EDIT_FAILED"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            }
         })
     };
 
@@ -48,7 +67,8 @@ function UpdateHousehold(props) {
         setLoading(true);
         await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
             const {DateOfEnumeration} = res.data.Data.GeneralInformationBeneficiary;
-            res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration ? moment(DateOfEnumeration) : undefined;
+            res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration ? moment(DateOfEnumeration,"DD-MM-YYYY") : undefined;
+            console.log(res.data.Status);
             setDetailHouseHold(res.data.Data);
             form.setFieldsValue(res.data.Data);
         });
@@ -92,13 +112,14 @@ function UpdateHousehold(props) {
                             <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
                                 II. General Information
                             </div>
-                            <GeneralInformationComponent detailHouseHold={detailHouseHold}/>
+                            <GeneralInformationComponent detailHouseHold={detailHouseHold} form={form}/>
                         </section>
 
                         <section className="mb-3">
                             <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-                                V . General Information
+                                V. Clean water and permanent energy use
                             </div>
+                            <EnergyUsedComponent />
                         </section>
 
                         <section className="mb-3">

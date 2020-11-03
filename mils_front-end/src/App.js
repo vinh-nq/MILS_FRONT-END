@@ -39,8 +39,10 @@ import ListOfSchoolType from "./screens/dataDictionary/ListOfSchoolType";
 import ListOfBorrowReason from "./screens/dataDictionary/ListOfBorrowReason";
 import ListOfMainGoodAndService from "./screens/dataDictionary/ListOfMainGoodAndService";
 import ListOfVillage from "./screens/dataDictionary/ListOfVillage";
-import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/component/DetailBeneficiary";
 import UpdateHousehold from "./screens/householdManagement/UpdateHousehold";
+import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold";
+import MemberInHouseHold
+  from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold/component/MemberInHouseHoldComponent";
 
 class App extends React.Component {
   render() {
@@ -157,8 +159,13 @@ class App extends React.Component {
                 exact
             />
             <MainRouteWrapper
-              component={ListOfPlotStatus}
-              path={`${PATH.LIST_OF_PLOT_STATUS}`}
+                component={UpdateHousehold}
+                path={`${PATH.UPDATE_HOUSEHOLD}`}
+                exact
+            />
+            <MainRouteWrapper
+              component={MemberInHouseHold}
+              path={`${PATH.MEMBER_IN_HOUSEHOLD}`}
               exact
             />
             <MainRouteWrapper

@@ -12,6 +12,8 @@ import dataDictionaryApi from "../../../../api/dataDictionaryApi";
 function PropertyAndToolsComponent() {
 
     const [borrowingReason, setBorrowingReason] = useState([]);
+    const [lenderType, setLenderType] = useState([]);
+
     const {t} = useTranslation();
     const {Option} = Select;
     const dataLanguage = useSelector(
@@ -19,20 +21,24 @@ function PropertyAndToolsComponent() {
     ) || localStorage.getItem("i18nextLng");
 
     useEffect(() => {
-        getBorrowingReason()
+        getBorrowingReason();
+        getLenderType();
     }, []);
 
     const getBorrowingReason = async () => {
         await dataDictionaryApi.GetAllBorrowReason({keyword: ""}).then(res => {
-            console.log(res);
             setBorrowingReason(res.data.Data);
-        }).catch(error => {
-
         })
     };
 
-    const renderSelect = () => {
-        return borrowingReason.map((value, index) => (
+    const getLenderType = async () => {
+        await dataDictionaryApi.GetAllTypeOfLender({keyword: ""}).then(res => {
+            setLenderType(res.data.Data);
+        })
+    };
+
+    const renderSelect = (array) => {
+        return array.map((value, index) => (
             <Option value={value.Id} key={index}>{dataLanguage === "la" ? value.ValueOfLao : value.ValueOfEng}</Option>
         ));
     };
@@ -197,20 +203,16 @@ function PropertyAndToolsComponent() {
                     <Form.Item
                         name={["StableOccupationAndIncome", "TypeOfLenderId"]}
                         className="mb-0"
-                        // rules={[
-                        //     {
-                        //         validator(rule, value) {
-                        //             return handleValidateFrom(
-                        //                 rule,
-                        //                 value,
-                        //                 objectValidateForm.checkString(50, true, "WHOM_WAS_THE_BORROWING"),
-                        //                 t
-                        //             );
-                        //         },
-                        //     }
-                        // ]}
+                        rules={[
+                            {
+                                require: true,
+                                message: `${t("Type of lender")} ${t("is_not_empty")}`
+                            }
+                        ]}
                     >
-                        <Input/>
+                        <Select>
+                            {renderSelect(lenderType)}
+                        </Select>
                     </Form.Item>
                 </Col>
             </Row>
@@ -229,7 +231,7 @@ function PropertyAndToolsComponent() {
                         ]}
                     >
                         <Select>
-                            {renderSelect()}
+                            {renderSelect(borrowingReason)}
                         </Select>
                     </Form.Item>
                 </Col>

@@ -5,6 +5,7 @@ import {objectValidateForm} from "../validate/objectValidateForm";
 import {regexTemplate} from "../../../../utils/regexTemplate";
 import {useTranslation} from "react-i18next";
 import moment from "moment";
+import InputNumber from "antd/es/input-number";
 
 function GeneralInformationComponent(props) {
     const {Text} = Typography;
@@ -45,6 +46,12 @@ function GeneralInformationComponent(props) {
                         name={["GeneralInformationBeneficiary", "Gender"]}
                         className="mb-0"
                         initialValue={"Male"}
+                        rules = {[
+                            {
+                                require: true,
+                                message: `${t("GENDER")} ${t("is_not_empty")}`
+                            }
+                        ]}
                     >
                         <Select>
                             <Option value="Male">
@@ -94,7 +101,7 @@ function GeneralInformationComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.telephone,
+                                        objectValidateForm.checkString(2, true, "NumberOfHH"),
                                         t
                                     );
                                 },
@@ -105,7 +112,7 @@ function GeneralInformationComponent(props) {
                             }
                         ]}
                     >
-                       <Input />
+                        <Input/>
                     </Form.Item>
                 </Col>
             </Row>
@@ -224,7 +231,7 @@ function GeneralInformationComponent(props) {
                 <Col span={24} md={12}>
                     <Text className="font-13 font-weight-500">{t("TELEPHONE")}</Text>
                     <Form.Item
-                        name={["GeneralInformationBeneficiary", "TelePhone2"]}
+                        name={["GeneralInformationBeneficiary", "TelePhone3"]}
                         className="mb-0"
                         rules={[
                             {

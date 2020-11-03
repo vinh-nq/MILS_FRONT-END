@@ -252,5 +252,13 @@ const dataDictionaryApi = {
     const url = "api/Dictionary/UpdateMainGoodsServices";
     return fetchData(url, "POST", null, data);
   },
+  GetAllCookingSource: (params) => {
+    const url = "api/Dictionary/GetAllCookingSource";
+    return fetchData(url, "GET", params, null);
+  },
+  GetAllTypeOfLender: (params) => {
+    const url = "api/Dictionary/GetAllTypeOfLender";
+    return fetchData(url, "GET", params, null);
+  },
 };
 export default dataDictionaryApi;

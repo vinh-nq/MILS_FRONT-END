@@ -3,6 +3,9 @@ import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import dataDictionaryApi from "../../../../api/dataDictionaryApi";
 import {useSelector} from "react-redux";
+import {handleValidateFrom} from "../../../../utils/handleValidateFrom";
+import {objectValidateForm} from "../validate/objectValidateForm";
+import {regexTemplate} from "../../../../utils/regexTemplate";
 
 function ShelterComponent(props) {
     const {Text} = Typography;
@@ -70,6 +73,22 @@ function ShelterComponent(props) {
                     <Form.Item
                         name={["Shelter","TotalRooms"]}
                         className="mb-0"
+                        rules={[
+                            {
+                                validator(rule, value) {
+                                    return handleValidateFrom(
+                                        rule,
+                                        value,
+                                        objectValidateForm.checkString(2, true, "TOTAL_ROOMS"),
+                                        t
+                                    );
+                                },
+                            },
+                            {
+                                pattern: regexTemplate.PHONE,
+                                message: t("required_phone"),
+                            }
+                        ]}
                     >
                         <InputNumber className="w-100" min={0} max={100}/>
                     </Form.Item>

@@ -20,6 +20,7 @@ export const PATH = {
   PERMISSIONS_MANAGEMENT: "/system/rolemanagement/permissionmanagement",
   ADD_HOUSEHOLD: "/householdmanagement/householdregistration/addhousehold",
   UPDATE_HOUSEHOLD: "/householdmanagement/householdregistration/updatehousehold",
+  MEMBER_IN_HOUSEHOLD: "/householdmanagement/householdregistration/memberinhousehold",
   HOUSEHOLD_REGISTRATION: "/householdmanagement/householdregistration",
   LIST_OF_PROVINCE: "/datadictionary/listofprovince",
   LIST_OF_DISTRICT: "/datadictionary/listofdistrict",
