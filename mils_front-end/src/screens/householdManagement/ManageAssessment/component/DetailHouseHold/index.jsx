@@ -2,18 +2,24 @@ import React, {useEffect, useState} from "react";
 import {Button, Col, Row, Table} from "antd";
 import {DeleteOutlined, EditOutlined, PlusSquareOutlined} from "@ant-design/icons/lib/icons";
 import {useTranslation} from "react-i18next";
-import houseHoldApi from "../../../../api/houseHoldApi";
+import houseHoldApi from "../../../../../api/houseHoldApi";
 import {useSelector} from "react-redux";
-import LoadingSpinner from "../../../../components/LoadingSpinner";
+import LoadingSpinner from "../../../../../components/LoadingSpinner";
 import GoogleMapReact from 'google-map-react';
-import {getValueOfQueryParams} from "../../../../utils/getValueOfQueryParams";
+import {getValueOfQueryParams} from "../../../../../utils/getValueOfQueryParams";
 import { useHistory } from "react-router-dom";
+import {PATH} from "../../../../../routers/Path";
+import PlotLandComponent from "./component/PlotLandComponent";
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 function DetailBeneficiary(props) {
     const [detailHouseHold, setDetailHouseHold] = useState({});
     const [isLoading, setLoading] = useState(false);
+    const [HHCode, setHHCode] = useState("");
+    const [visiblePlotLand, setVisiblePlotLand] = useState(false);
+    const [typeModalPlotLand, setTypeModalPlotLand] = useState("ADD");
+    const [objectPlotLand, setObjectPlotLand] = useState({});
     let history = useHistory();
 
     const {t} = useTranslation();
@@ -23,6 +29,7 @@ function DetailBeneficiary(props) {
 
     useEffect(() => {
         const hh_code = getValueOfQueryParams(history.location, "hh_code", "STRING");
+        setHHCode(hh_code);
         getDetailHouseHold(hh_code);
     }, []);
 
@@ -175,6 +182,7 @@ function DetailBeneficiary(props) {
                         className="set-center-content mr-1"
                         type="primary"
                         icon={<EditOutlined className="font-16"/>}
+                        onClick={()=>{setValuePlotLandModal("UPDATE", record)}}
                     />
                     <Button
                         className="set-center-content"
@@ -198,6 +206,20 @@ function DetailBeneficiary(props) {
         LatLongForBeneficiary= {}
     } = detailHouseHold;
 
+    const setValuePlotLandModal = async (value, obj = {}) => {
+        setTypeModalPlotLand(value);
+        if(value === "UPDATE"){
+            setLoading(true);
+            await houseHoldApi.getInformationOfIndividualPlotLand({plotlandId: obj.PlotLandId}).then(res => {
+              setObjectPlotLand(res.data.Data);
+            })
+            setLoading(false);
+        }else{
+            setObjectPlotLand(obj);
+        }
+        setVisiblePlotLand(true);
+    };
+
     return (
         <div className="detail-beneficiary-form">
             {isLoading ? (
@@ -217,7 +239,7 @@ function DetailBeneficiary(props) {
                             className="set-center-content mr-1"
                             type="primary"
                             icon={<EditOutlined className="font-16"/>}
-                            // onClick={()=>{props.history.push(PATH.)}}
+                            onClick={()=>{props.history.push(`${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`)}}
                         />
                         <Button
                             className="set-center-content"
@@ -351,6 +373,7 @@ function DetailBeneficiary(props) {
                             className="set-center-content mr-1"
                             type="primary"
                             icon={<PlusSquareOutlined className="font-16"/>}
+                            onClick={() => {setValuePlotLandModal("ADD")}}
                         />
                     </div>
                     <Table
@@ -710,13 +733,13 @@ function DetailBeneficiary(props) {
                       <Col span={16}>
                           <div style={{ height: '400px', width: '100%' }}>
                               <GoogleMapReact
-                                  bootstrapURLKeys={{ key: "AIzaSyAWDFlOfmcwhHzeF06x_dYJBrM2OfUHAjQ" }}
+                                  bootstrapURLKeys={{ key: "AIzaSyDFscFGDtZL1daD8iYZKxFrGn2FXdHbMbw" }}
                                   defaultCenter={defaultProps.center}
                                   defaultZoom={defaultProps.zoom}
                               >
                                   <AnyReactComponent
-                                      lat={59.955413}
-                                      lng={30.337844}
+                                      lat={LatLongForBeneficiary.Lat}
+                                      lng={LatLongForBeneficiary.Long}
                                       text="My Marker"
                                   />
                               </GoogleMapReact>
@@ -726,6 +749,14 @@ function DetailBeneficiary(props) {
                 </div>
 
             </section>
+
+            <PlotLandComponent
+                typeModal={typeModalPlotLand}
+                visible={visiblePlotLand}
+                setVisible={setVisiblePlotLand}
+                objectValue={objectPlotLand}
+                HHCode={HHCode}
+            />
         </div>
     )
 }

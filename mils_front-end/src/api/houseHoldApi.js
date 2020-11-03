@@ -41,7 +41,11 @@ const houseHoldApi = {
     updateHouseHold: (data) => {
         const url = 'api/HouseHold/UpdateHouseHold';
         return fetchData(url, 'POST', null, data);
-    }
+    },
+    getInformationOfIndividualPlotLand: (params) => {
+        const url = 'api/HouseHold/GetInformationOfIndividualPlotLand';
+        return fetchData(url, 'GET', params, null);
+    },
 }
 
 export default houseHoldApi;

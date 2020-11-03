@@ -275,6 +275,6 @@ const dataDictionaryApi = {
   UpdateTypeOfLender: (data) => {
     const url = "api/Dictionary/UpdateTypeOfLender";
     return fetchData(url, "POST", null, data);
-  },
+  }
 };
 export default dataDictionaryApi;

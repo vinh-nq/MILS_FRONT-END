@@ -12,25 +12,7 @@ export const objectValidateForm = {
             minValue: minValue,
             nameLabel: nameLabel,
             checkEmpty: checkEmpty,
+            type: "number"
         }
-    ),
-    telephone: {
-        checkEmpty: true,
-        nameLabel: "TELEPHONE",
-    },
-    Department: {
-        maxLength: 50,
-        checkEmpty: true,
-        nameLabel: "Department",
-    },
-    Type: {
-        maxLength: 1,
-        checkEmpty: true,
-        nameLabel: "Type",
-    },
-    Password: {
-        maxLength: 30,
-        checkEmpty: true,
-        nameLabel: "Password",
-    },
+    )
 };

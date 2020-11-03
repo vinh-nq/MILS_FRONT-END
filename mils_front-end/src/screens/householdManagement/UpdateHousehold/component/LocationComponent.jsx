@@ -57,32 +57,47 @@ function LocationComponent(props) {
     const onSelectProvince = (id) => {
         setSelectedProvince(id);
         getDistrict(id);
-        if (id === "-1") {
-            setSelectedDistrict("-1");
-            setSelectedVillage("-1");
-            setSelectedUnit("-1");
-            setVillage([]);
-            setUnit([]);
-        }
+        form.setFields([
+            {
+            name: ["LocationBeneficiary", "DistrictId"],
+            value: null
+            },
+            {
+                name: ["LocationBeneficiary", "VillageId"],
+                value: null
+            },
+            {
+                name: ["LocationBeneficiary", "UnitId"],
+                value: null
+            },
+        ])
     };
 
     const onSelectDistrict = (id) => {
         setSelectedDistrict(id);
         getVillage(id);
-        if (id === "-1") {
-            setSelectedVillage("-1");
-            setSelectedUnit("-1");
-            setUnit([]);
-        }
+        form.setFields([
+            {
+                name: ["LocationBeneficiary", "VillageId"],
+                value: null
+            },
+            {
+                name: ["LocationBeneficiary", "UnitId"],
+                value: null
+            },
+        ])
     };
 
     const onSelectVillage = (id) => {
         setSelectedVillage(id);
-        if (id === "-1") {
-            setSelectedUnit("-1");
-        }
+        form.setFields([
+            {
+                name: ["LocationBeneficiary", "UnitId"],
+                value: null
+            },
+        ])
         getUnit(id);
-    }
+    };
 
     const renderProvinceSelect = () => {
         return province.map((value, index) => (
