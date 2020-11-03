@@ -4,7 +4,7 @@ import {
   PlusSquareOutlined,
   // ControlOutlined,
   EditOutlined,
-  DeleteOutlined,
+  // DeleteOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -174,7 +174,7 @@ export default function UserManagement(props) {
               }}
             />
           </Tooltip>
-          <Tooltip placement="top" title={t("edit permission")}>
+          {/* <Tooltip placement="top" title={t("edit permission")}>
             <Button
               type="default"
               icon={<DeleteOutlined />}
@@ -186,7 +186,7 @@ export default function UserManagement(props) {
                 );
               }}
             />
-          </Tooltip>
+          </Tooltip> */}
         </div>
       ),
     },

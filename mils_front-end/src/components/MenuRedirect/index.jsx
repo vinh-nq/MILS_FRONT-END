@@ -55,7 +55,7 @@ export default function MenuRedirect(props) {
         header={null}
         footer={null}
         size="small"
-        bordered
+        // bordered
         dataSource={(listFunctionOfGroup || []).map((el) =>
           dataLanguage === "la" ? el.list_name_lao : el.list_name_eng
         )}

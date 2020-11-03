@@ -72,7 +72,7 @@ class SelectLanguage extends React.Component {
           />
           <span
             className="text-Container"
-            style={{ color: "#fff", fontWeight: "500" }}
+            style={{ color: "black", fontWeight: "500" }}
           >
             {upperCase(value.value)}
           </span>

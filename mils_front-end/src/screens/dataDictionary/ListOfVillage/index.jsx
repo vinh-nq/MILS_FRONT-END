@@ -230,12 +230,14 @@ export default function ListOfVillage(props) {
             placeholder="Select province"
             style={{ width: "160px" }}
             onSelect={(value) => {
+              setPage(1);
               setIDProvince(value);
               setIDDistrict(null);
               setListDistrict([]);
               fetchDataDistrict(value);
             }}
             onClear={() => {
+              setPage(1);
               setIDProvince(null);
               setIDDistrict(null);
               setListDistrict([]);
@@ -256,9 +258,11 @@ export default function ListOfVillage(props) {
             placeholder="Select district"
             style={{ width: "160px" }}
             onSelect={(value) => {
+              setPage(1);
               setIDDistrict(value);
             }}
             onClear={() => {
+              setPage(1);
               setIDDistrict(null);
             }}
             allowClear
