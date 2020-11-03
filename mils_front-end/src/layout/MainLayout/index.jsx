@@ -23,9 +23,6 @@ export default function MainLayout(props) {
   const history = useHistory();
   const { Content, Sider } = Layout;
   const [checkLoading, setCheckLoading] = useState(false);
-  // const listBreadcrumb = useSelector(
-  //   (state) => state.historyReducer.listBreadcrumb || []
-  // );
 
   useEffect(() => {
     const fetchDataMenu = async () => {
@@ -41,10 +38,12 @@ export default function MainLayout(props) {
               listBreadcrumb: history.location.pathname
                 .split("/")
                 .filter((el) => el),
-              id: res.data.Data.find(
-                (el) =>
-                  el.header_name_eng.replace(/ /g, "").toLowerCase() ===
-                  history.location.pathname.split("/").filter((el) => el)[0]
+              id: (
+                res.data.Data.find(
+                  (el) =>
+                    el.header_name_eng.replace(/ /g, "").toLowerCase() ===
+                    history.location.pathname.split("/").filter((el) => el)[0]
+                ) || {}
               ).header_id,
             },
           });

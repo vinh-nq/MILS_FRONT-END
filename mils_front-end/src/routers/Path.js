@@ -19,7 +19,8 @@ export const PATH = {
   BACKUP_DATABASE: "/system/backupdatabase",
   PERMISSIONS_MANAGEMENT: "/system/rolemanagement/permissionmanagement",
   ADD_HOUSEHOLD: "/householdmanagement/householdregistration/addhousehold",
-  UPDATE_HOUSEHOLD: "/householdmanagement/householdregistration/updatehousehold",
+  UPDATE_HOUSEHOLD:
+    "/householdmanagement/householdregistration/updatehousehold",
   MEMBER_IN_HOUSEHOLD: "/householdmanagement/householdregistration/memberinhousehold",
   HOUSEHOLD_REGISTRATION: "/householdmanagement/householdregistration",
   LIST_OF_PROVINCE: "/datadictionary/listofprovince",
@@ -43,7 +44,12 @@ export const PATH = {
   LIST_OF_SCHOOL_TYPE: "/datadictionary/listofschooltype",
   LIST_OF_BORROW_REASON: "/datadictionary/listofborrowreason",
   LIST_OF_MAIN_GOOD_AND_SERVICES: "/datadictionary/listofmaingoodandservices",
-  DETAIL_HOUSEHOLD: "/householdmanagement/householdregistration/detailhousehold",
+  DETAIL_HOUSEHOLD:
+    "/householdmanagement/householdregistration/detailhousehold",
+  ACCOUNT: "/dashboard/account",
+  LIST_OF_COOKING_SOURCE: "/datadictionary/listofcookingsource",
+  LIST_OF_LANDER_TYPE: "/datadictionary/listoflandertype",
+  USERVILLAGE: "/system/uservillage",
 };
 
 export const PATH_BREADCRUM = {
@@ -89,4 +95,8 @@ export const PATH_BREADCRUM = {
   listofborrowreason: "/datadictionary/listofborrowreason",
   listofmaingoodandservices: "/datadictionary/listofmaingoodandservices",
   detailhousehold: "/householdmanagement/householdregistration/detailhousehold",
+  account: "/dashboard/account",
+  listofcookingsource: "/datadictionary/listofcookingsource",
+  listoflandertype: "/datadictionary/listoflandertype",
+  uservillage: "/system/uservillage",
 };

@@ -37,9 +37,14 @@ import ListOfPlotType from "./screens/dataDictionary/ListOfPlotType";
 import ListOfLandType from "./screens/dataDictionary/ListOfLandType";
 import ListOfSchoolType from "./screens/dataDictionary/ListOfSchoolType";
 import ListOfBorrowReason from "./screens/dataDictionary/ListOfBorrowReason";
+import ListOfLanderType from "./screens/dataDictionary/ListOfLanderType";
+import ListOfCookingSource from "./screens/dataDictionary/ListOfCookingSource";
 import ListOfMainGoodAndService from "./screens/dataDictionary/ListOfMainGoodAndService";
 import ListOfVillage from "./screens/dataDictionary/ListOfVillage";
 import UpdateHousehold from "./screens/householdManagement/UpdateHousehold";
+import Account from "./screens/account";
+import DashBoard from "./screens/dashboard";
+import UserVillageManagement from "./screens/system/UserVillageManagement";
 import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold";
 import MemberInHouseHold
   from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold/component/MemberInHouseHoldComponent";
@@ -53,11 +58,7 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route path={PATH.LOGIN} component={LoginScreen} exact />
-            <MainRouteWrapper
-              component={() => <div>DASH BOARD</div>}
-              path="/"
-              exact
-            />
+            <MainRouteWrapper component={DashBoard} path="/" exact />
             <MainRouteWrapper
               component={MenuRedirect}
               path={[
@@ -154,9 +155,9 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-                component={UpdateHousehold}
-                path={`${PATH.UPDATE_HOUSEHOLD}`}
-                exact
+              component={UpdateHousehold}
+              path={`${PATH.UPDATE_HOUSEHOLD}`}
+              exact
             />
             <MainRouteWrapper
                 component={UpdateHousehold}
@@ -184,6 +185,11 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
+              component={ListOfLanderType}
+              path={`${PATH.LIST_OF_LANDER_TYPE}`}
+              exact
+            />
+            <MainRouteWrapper
               component={ListOfSchoolType}
               path={`${PATH.LIST_OF_SCHOOL_TYPE}`}
               exact
@@ -208,6 +214,17 @@ class App extends React.Component {
               path={PATH.DETAIL_HOUSEHOLD}
               exact
             />
+            <MainRouteWrapper
+              component={ListOfCookingSource}
+              path={PATH.LIST_OF_COOKING_SOURCE}
+              exact
+            />
+            <MainRouteWrapper
+              component={UserVillageManagement}
+              path={PATH.USERVILLAGE}
+              exact
+            />
+            <MainRouteWrapper component={Account} path={PATH.ACCOUNT} exact />
             <MainRouteWrapper
               component={() => <div>AAA</div>}
               path={`${PATH.householdmanagement}/householdPoverty`}

@@ -256,9 +256,25 @@ const dataDictionaryApi = {
     const url = "api/Dictionary/GetAllCookingSource";
     return fetchData(url, "GET", params, null);
   },
+  InsertCookingSource: (data) => {
+    const url = "api/Dictionary/InsertCookingSource";
+    return fetchData(url, "POST", null, data);
+  },
+  UpdateCookingSource: (data) => {
+    const url = "api/Dictionary/UpdateCookingSource";
+    return fetchData(url, "POST", null, data);
+  },
   GetAllTypeOfLender: (params) => {
     const url = "api/Dictionary/GetAllTypeOfLender";
     return fetchData(url, "GET", params, null);
   },
+  InsertTypeOfLender: (data) => {
+    const url = "api/Dictionary/InsertTypeOfLender";
+    return fetchData(url, "POST", null, data);
+  },
+  UpdateTypeOfLender: (data) => {
+    const url = "api/Dictionary/UpdateTypeOfLender";
+    return fetchData(url, "POST", null, data);
+  }
 };
 export default dataDictionaryApi;
