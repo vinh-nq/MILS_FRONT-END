@@ -1,15 +1,24 @@
-import React, {useEffect, useState} from "react";
-import {Button, Col, Input, Row, Select, Table, Tooltip, Typography,} from "antd";
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Col,
+  Input,
+  Row,
+  Select,
+  Table,
+  Tooltip,
+  Typography,
+} from "antd";
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined";
 import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 import HouseHoldMemberList from "./component/HHMemberList";
 import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../../api/houseHoldApi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
-import {useSelector} from "react-redux";
-import {useHistory} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {PATH} from "../../../routers/Path";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { PATH } from "../../../routers/Path";
 import PlotLandComponent from "./component/DetailHouseHold/component/PlotLandComponent";
 
 function ManageAssessment(props) {
@@ -171,61 +180,58 @@ function ManageAssessment(props) {
     }
   };
 
-
-
   useEffect(() => {
-    getDataHouseHold(checkDataFromUrl());
-    getProvince();
-  }, []);
-
-  //Lấy dữ liêu từ URL và check
-  const checkDataFromUrl = () => {
-    let pageUrl = getValueOfQueryParams(history.location, "page", "PAGE");
-    let provinceId = getValueOfQueryParams(
+    //Lấy dữ liêu từ URL và check
+    const checkDataFromUrl = () => {
+      let pageUrl = getValueOfQueryParams(history.location, "page", "PAGE");
+      let provinceId = getValueOfQueryParams(
         history.location,
         "provinceId",
         "STRING"
-    );
-    let districtId = getValueOfQueryParams(
+      );
+      let districtId = getValueOfQueryParams(
         history.location,
         "districtId",
         "STRING"
-    );
-    let villageId = getValueOfQueryParams(
+      );
+      let villageId = getValueOfQueryParams(
         history.location,
         "villageId",
         "STRING"
-    );
-    let unitId = getValueOfQueryParams(history.location, "unitId", "STRING");
-    let child = getValueOfQueryParams(history.location, "child", "NUMBER");
-    let pregnant = getValueOfQueryParams(
+      );
+      let unitId = getValueOfQueryParams(history.location, "unitId", "STRING");
+      let child = getValueOfQueryParams(history.location, "child", "NUMBER");
+      let pregnant = getValueOfQueryParams(
         history.location,
         "pregnant",
         "NUMBER"
-    );
-    let headName = getValueOfQueryParams(
+      );
+      let headName = getValueOfQueryParams(
         history.location,
         "headName",
         "KEYWORD"
-    );
-    setSelectedProvince(provinceId);
-    setSelectedDistrict(districtId);
-    setSelectedVillage(villageId);
-    setSelectedUnit(unitId);
-    setSelectChildren(parseInt(child));
-    setSelectPregnant(parseInt(pregnant));
-    setHeadName(headName);
-    return {
-      currentPage: pageUrl,
-      provinceId: provinceId,
-      districtId: districtId,
-      villageId: villageId,
-      unitId: unitId,
-      child: child,
-      pregnant: pregnant,
-      headName: headName,
+      );
+      setSelectedProvince(provinceId);
+      setSelectedDistrict(districtId);
+      setSelectedVillage(villageId);
+      setSelectedUnit(unitId);
+      setSelectChildren(parseInt(child));
+      setSelectPregnant(parseInt(pregnant));
+      setHeadName(headName);
+      return {
+        currentPage: pageUrl,
+        provinceId: provinceId,
+        districtId: districtId,
+        villageId: villageId,
+        unitId: unitId,
+        child: child,
+        pregnant: pregnant,
+        headName: headName,
+      };
     };
-  };
+    getDataHouseHold(checkDataFromUrl());
+    getProvince();
+  }, [history.location]);
 
   const getDataHouseHold = async (params) => {
     setLoading(true);
@@ -430,9 +436,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("PROVINCE")}</Text>
             <Select
-                className="w-100"
-                value={selectedProvince}
-                onChange={onSelectProvince}
+              className="w-100"
+              value={selectedProvince}
+              onChange={onSelectProvince}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderProvinceSelect()}
@@ -441,9 +447,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("DISTRICT")}</Text>
             <Select
-                className="w-100"
-                value={selectedDistrict}
-                onChange={onSelectDistrict}
+              className="w-100"
+              value={selectedDistrict}
+              onChange={onSelectDistrict}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderDistrictSelect()}
@@ -452,9 +458,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("VILLAGE")}</Text>
             <Select
-                className="w-100"
-                value={selectedVillage}
-                onChange={onSelectVillage}
+              className="w-100"
+              value={selectedVillage}
+              onChange={onSelectVillage}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderVillageSelect()}
@@ -463,9 +469,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("UNIT")}</Text>
             <Select
-                className="w-100"
-                value={selectedUnit}
-                onChange={onSelectUnit}
+              className="w-100"
+              value={selectedUnit}
+              onChange={onSelectUnit}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderUnitSelect()}

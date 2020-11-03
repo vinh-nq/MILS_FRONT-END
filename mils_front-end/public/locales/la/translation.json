@@ -284,8 +284,6 @@
   "FEMALE": "ເພດຍິງ",
   "MALE": "ຜູ້ຊາຍ",
   "TOTAL_ROOMS": "ຈຳນວນຫ້ອງພາຍໃນເຮືອນ",
-  "add": "Add",
-  "update": "Update",
   "USERVILLAGE":"ລາຍການຄຸ້ມຄອງຜູ້ນຳໃຊ້ຂື້ນກັບບ້ານ",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
