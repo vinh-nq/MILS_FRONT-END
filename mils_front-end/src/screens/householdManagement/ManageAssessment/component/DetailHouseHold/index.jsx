@@ -138,7 +138,7 @@ function DetailBeneficiary(props) {
             dataIndex: 'MemberName',
             key: 'MemberName',
             render: (data, record) => (
-                <span>{dataLanguage === "la" ? record.MaritalStatus : record.MaritalStatusEng}</span>
+                <span>{record.MemberName}</span>
             )
         },
         {
