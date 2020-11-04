@@ -53,6 +53,7 @@ export const PATH = {
   USERVILLAGE: "/system/uservillage",
   LIST_OF_MARITAL_STATUS: "/datadictionary/listofmaritalstatus",
   LIST_OF_RELATION: "/datadictionary/listofrelation",
+  LIST_OF_DISABILITY: "/datadictionary/listofdisability",
 };
 
 export const PATH_BREADCRUM = {
@@ -104,4 +105,5 @@ export const PATH_BREADCRUM = {
   listofcookingsource: "/datadictionary/listofcookingsource",
   listoflandertype: "/datadictionary/listoflandertype",
   uservillage: "/system/uservillage",
+  listofdisability: "/datadictionary/listofdisability",
 };

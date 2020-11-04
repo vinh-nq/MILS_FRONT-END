@@ -315,6 +315,10 @@
   "relationId":"Relation Id",
   "relationLao":"Relation (Laos)",
   "relationEng":"Relation (Eng)",
+  "LISTOFDISABILITY":"List Of Disability",
+  "disabilityId":"Disability Id",
+  "disabilityLao":"Disability (Laos)",
+  "disabilityEng":"Disability (Eng)",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."
