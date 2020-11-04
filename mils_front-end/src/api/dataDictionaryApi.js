@@ -312,12 +312,20 @@ const dataDictionaryApi = {
     const url = "api/Dictionary/UpdateDisability";
     return fetchData(url, "POST", null, data);
   },
-  GetAllGender: (params) => {
-    const url = "api/Dictionary/GetAllGender";
-    return fetchData(url, "GET", params, null);
-  },
   GetAllSchoolEnroll: (params) => {
     const url = "api/Dictionary/GetAllSchoolEnroll";
+    return fetchData(url, "GET", params, null);
+  },
+  InsertSchoolEnroll: (data) => {
+    const url = "api/Dictionary/InsertSchoolEnroll";
+    return fetchData(url, "POST", null, data);
+  },
+  UpdateSchoolEnroll: (data) => {
+    const url = "api/Dictionary/UpdateSchoolEnroll";
+    return fetchData(url, "POST", null, data);
+  },
+  GetAllGender: (params) => {
+    const url = "api/Dictionary/GetAllGender";
     return fetchData(url, "GET", params, null);
   },
 };

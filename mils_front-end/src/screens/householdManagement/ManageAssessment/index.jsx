@@ -243,7 +243,7 @@ function ManageAssessment(props) {
   const getDataHouseHold = async (params) => {
     setLoading(true);
     await Promise.all([
-      getHouseHoldList(),
+      getHouseHoldList(params),
       getProvincePromiseAll(),
       getDistrictPromiseAll(params.provinceId),
       getDistrictVillageAll(params.districtId),

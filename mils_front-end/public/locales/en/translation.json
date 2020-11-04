@@ -323,6 +323,10 @@
   "disabilityEng":"Disability (Eng)",
   "YES": "Yes",
   "NO": "No",
+  "LISTOFSCHOOLENROLL":"List Of School Enroll",
+  "schoolEnrollId":"School Enroll Id",
+  "schoolEnrollLao":"School Enroll (Laos)",
+  "schoolEnrollEng":"School Enroll (Eng)",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

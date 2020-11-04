@@ -49,6 +49,7 @@ import ListOfRelation from "./screens/dataDictionary/ListOfRelation";
 import ListOfMaritalStatus from "./screens/dataDictionary/ListOfMaritalStatus";
 import MemberInHouseHold from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold/component/MemberInHouseHoldComponent";
 import ListOfDisability from "./screens/dataDictionary/ListOfDisability";
+import ListOfSchoolEnroll from "./screens/dataDictionary/ListOfSchoolEnroll";
 class App extends React.Component {
   render() {
     return (
@@ -241,6 +242,11 @@ class App extends React.Component {
             <MainRouteWrapper
               component={UserVillageManagement}
               path={PATH.USERVILLAGE}
+              exact
+            />
+            <MainRouteWrapper
+              component={ListOfSchoolEnroll}
+              path={PATH.LIST_OF_SCHOOL_ENROLL}
               exact
             />
             <MainRouteWrapper component={Account} path={PATH.ACCOUNT} exact />
