@@ -14,6 +14,7 @@ import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 import HouseHoldMemberList from "./component/HHMemberList";
 import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../../api/houseHoldApi";
+import downloadFileExcelApi from "../../../api/downloadFileExcelApi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -181,57 +182,63 @@ function ManageAssessment(props) {
   };
 
   useEffect(() => {
-    //Lấy dữ liêu từ URL và check
-    const checkDataFromUrl = () => {
-      let pageUrl = getValueOfQueryParams(history.location, "page", "PAGE");
-      let provinceId = getValueOfQueryParams(
-        history.location,
-        "provinceId",
-        "STRING"
-      );
-      let districtId = getValueOfQueryParams(
-        history.location,
-        "districtId",
-        "STRING"
-      );
-      let villageId = getValueOfQueryParams(
-        history.location,
-        "villageId",
-        "STRING"
-      );
-      let unitId = getValueOfQueryParams(history.location, "unitId", "STRING");
-      let child = getValueOfQueryParams(history.location, "child", "NUMBER");
-      let pregnant = getValueOfQueryParams(
-        history.location,
-        "pregnant",
-        "NUMBER"
-      );
-      let headName = getValueOfQueryParams(
-        history.location,
-        "headName",
-        "KEYWORD"
-      );
-      setSelectedProvince(provinceId);
-      setSelectedDistrict(districtId);
-      setSelectedVillage(villageId);
-      setSelectedUnit(unitId);
-      setSelectChildren(parseInt(child));
-      setSelectPregnant(parseInt(pregnant));
-      setHeadName(headName);
-      return {
-        currentPage: pageUrl,
-        provinceId: provinceId,
-        districtId: districtId,
-        villageId: villageId,
-        unitId: unitId,
-        child: child,
-        pregnant: pregnant,
-        headName: headName,
-      };
-    };
     getDataHouseHold(checkDataFromUrl());
     getProvince();
-  }, [history.location]);
+  }, []);
+
+  //Lấy dữ liêu từ URL và check
+  const checkDataFromUrl = () => {
+    let pageUrl = getValueOfQueryParams(history.location, "page", "PAGE");
+    let provinceId = getValueOfQueryParams(
+      history.location,
+      "provinceId",
+      "STRING"
+    );
+    let districtId = getValueOfQueryParams(
+      history.location,
+      "districtId",
+      "STRING"
+    );
+    let villageId = getValueOfQueryParams(
+      history.location,
+      "villageId",
+      "STRING"
+    );
+    let unitId = getValueOfQueryParams(history.location, "unitId", "STRING");
+    let child = getValueOfQueryParams(history.location, "child", "NUMBER");
+    let pregnant = getValueOfQueryParams(
+      history.location,
+      "pregnant",
+      "NUMBER"
+    );
+    let headName = getValueOfQueryParams(
+      history.location,
+      "headName",
+      "KEYWORD"
+    );
+    setSelectedProvince(provinceId);
+    setSelectedDistrict(districtId);
+    setSelectedVillage(villageId);
+    setSelectedUnit(unitId);
+    setSelectChildren(parseInt(child));
+    setSelectPregnant(parseInt(pregnant));
+    setHeadName(headName);
+    return {
+      currentPage: pageUrl,
+      provinceId: provinceId,
+      districtId: districtId,
+      villageId: villageId,
+      unitId: unitId,
+      child: child,
+      pregnant: pregnant,
+      headName: headName,
+    };
+  };
+
+  useEffect(() => {
+    getDataHouseHold(checkDataFromUrl());
+    getProvince();
+  }, []);
 
   const getDataHouseHold = async (params) => {
     setLoading(true);
@@ -416,7 +423,22 @@ function ManageAssessment(props) {
       <section className="border-bottom mb-3">
         <div className="d-flex align-items-center mb-3">
           <span className="h5 mb-0">{t("HOUSEHOLD_LIST")}</span>
-          <span className="ml-auto">
+          <span className="ml-auto d-flex flex-row">
+            <Button
+              className="set-center-content mr-2"
+              // type="primary"
+              icon={<i className="fas fa-file-excel mr-2"></i>}
+              onClick={async () => {
+                await downloadFileExcelApi
+                  .ExportMembers({
+                    villageId: "123a",
+                  })
+                  .then((res) => console.log(res));
+              }}
+              style={{ color: "#0c960c", border: "1px #0c960c solid" }}
+            >
+              Export Excel
+            </Button>
             <Button
               className="set-center-content"
               type="primary"

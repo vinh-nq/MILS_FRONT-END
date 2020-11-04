@@ -32,11 +32,7 @@ function LocationComponent(props) {
     getDistrict(detailHouseHold.LocationBeneficiary.ProvinceId);
     getVillage(detailHouseHold.LocationBeneficiary.DistrictId);
     getUnit(detailHouseHold.LocationBeneficiary.VillageId);
-  }, [
-    detailHouseHold.LocationBeneficiary.DistrictId,
-    detailHouseHold.LocationBeneficiary.ProvinceId,
-    detailHouseHold.LocationBeneficiary.VillageId,
-  ]);
+  }, []);
 
   const getProvince = async () => {
     await houseHoldApi.getAllProvince().then((res) => {

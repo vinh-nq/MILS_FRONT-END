@@ -66,12 +66,11 @@ function PlotLandComponent(props) {
 
   useEffect(() => {
     if (typeModal === "UPDATE") {
-      // console.log(objectValue);
       form.setFieldsValue(objectValue);
     } else {
       form.setFieldsValue(defaultObject);
     }
-  }, [visible, form, objectValue, typeModal]);
+  }, [visible]);
 
   const getOwnedOrLeased = async () => {
     await dataDictionaryApi.GetAllPlotStatus({ keyword: "" }).then((res) => {
