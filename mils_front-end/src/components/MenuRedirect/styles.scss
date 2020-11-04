@@ -2,3 +2,16 @@
   height: 100%;
   width: 100%;
 }
+
+.listItem {
+  // .ant-list-sm .ant-list-item {
+  padding: 5px 0px !important;
+}
+
+.listItemHover {
+  color: #757e94;
+
+  &:hover {
+   color: #348fff !important;
+  }
+}

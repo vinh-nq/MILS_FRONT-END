@@ -51,7 +51,7 @@ function SiderUserInformation() {
           <span
             className="d-flex w-100 align-items-center justify-content-center pointer"
             onClick={(e) => e.preventDefault()}
-            style={{ color: "black", fontWeight: "600", fontSize: "14px" }}
+            style={{ color: "#323a46", fontWeight: "600", fontSize: "14px" }}
           >
             {cookies.fullName}
             <CaretDownOutlined className="font-weight-bold pointer ml-2" />
