@@ -30,7 +30,7 @@ export default function MenuComponent(props) {
           borderBottom: "1px #f3f3f3 solid",
         }}
       >
-        <span style={{ color: "#98a6ad", fontWeight: "400", fontSize: "13px" }}>
+        <span style={{ color: "#98a6ad", fontWeight: "300", fontSize: "12px" }}>
           MENU NAVIGATION
         </span>
       </div>
@@ -52,8 +52,10 @@ export default function MenuComponent(props) {
             });
           }}
         >
-          <i className="fas fa-chart-line"></i>
-          <span className="ml-2">{t("DASHBOARD")}</span>
+          <i className="fas fa-chart-line" style={{ color: "#6e768e" }}></i>
+          <span className="ml-2" style={{ fontSize: "15px", color: "#6e768e" }}>
+            {t("DASHBOARD")}
+          </span>
         </Menu.Item>
         {(listMenu || []).map((elemente) => {
           const idMenuString = elemente.header_name_eng
@@ -78,8 +80,11 @@ export default function MenuComponent(props) {
                 }
               }}
             >
-              <i className={elemente.icon}></i>
-              <span className="ml-2">
+              <i className={elemente.icon} style={{ color: "#6e768e" }}></i>
+              <span
+                className="ml-2"
+                style={{ fontSize: "15px", color: "#6e768e" }}
+              >
                 {dataLanguage === "la"
                   ? elemente.header_name_lao
                   : elemente.header_name_eng}

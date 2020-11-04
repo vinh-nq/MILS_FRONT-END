@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { Button, Divider, List } from "antd";
+import React, { useState } from "react";
+import { Button, List } from "antd";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -43,15 +43,16 @@ export default function MenuRedirect(props) {
       {checkLoading ? (
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
       ) : null}
-      <span className="h5">
+      <span className="h6" style={{ color: "#343a40" }}>
         {t(
           _.upperCase(
             history.location.pathname.replace(/\//g, "") || "DASHBOARD"
           )
         )}
       </span>
-      <Divider />
+      {/* <Divider /> */}
       <List
+        className="mt-4"
         header={null}
         footer={null}
         size="small"
@@ -63,14 +64,15 @@ export default function MenuRedirect(props) {
           return (
             <List.Item
               key={item}
-              className="d-flex flex-row align-items-center"
+              className="d-flex flex-row align-items-center listItem"
+              // style={{ paddingLeft: "0px !important" }}
             >
-              <div className="d-flex flex-row align-items-center">
+              <div className="d-flex flex-row align-items-center listItemHover">
                 <i
-                  className="far fa-folder"
+                  className="far fa-folder-open"
                   style={{
-                    color: "#adb5bd",
-                    fontSize: "20px",
+                    color: "#757e94",
+                    fontSize: "15px",
                   }}
                 ></i>
                 <Button
@@ -91,8 +93,14 @@ export default function MenuRedirect(props) {
                         .toLowerCase()}`
                     );
                   }}
+                  className="listItemHover"
                 >
-                  <span style={{ fontWeight: "500", fontSize: "15px" }}>
+                  <span
+                    style={{
+                      fontWeight: "500",
+                      fontSize: "15px",
+                    }}
+                  >
                     {item}
                   </span>
                 </Button>
