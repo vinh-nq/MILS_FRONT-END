@@ -307,6 +307,14 @@
   "landerTypeLao":"Lander Type (Laos)",
   "landerTypeEng":"Lander Type (Eng)",
   "USERVILLAGE":"User Village",
+  "LISTOFMARITALSTATUS":"List Of Marital Status",
+  "maritalStatusId":"Marital Status Id",
+  "maritalStatusLao":"Marital Status (Laos)",
+  "maritalStatusEng":"Marital Status (Eng)",
+  "LISTOFRELATION":"List Of Relation",
+  "relationId":"Relation Id",
+  "relationLao":"Relation (Laos)",
+  "relationEng":"Relation (Eng)",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

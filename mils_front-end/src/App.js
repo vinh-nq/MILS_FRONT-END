@@ -46,8 +46,9 @@ import Account from "./screens/account";
 import DashBoard from "./screens/dashboard";
 import UserVillageManagement from "./screens/system/UserVillageManagement";
 import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold";
-import MemberInHouseHold
-  from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold/component/MemberInHouseHoldComponent";
+import ListOfRelation from "./screens/dataDictionary/ListOfRelation";
+import ListOfMaritalStatus from "./screens/dataDictionary/ListOfMaritalStatus";
+import MemberInHouseHold from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold/component/MemberInHouseHoldComponent";
 
 class App extends React.Component {
   render() {
@@ -154,6 +155,11 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
+              component={ListOfRelation}
+              path={`${PATH.LIST_OF_RELATION}`}
+              exact
+            />
+            <MainRouteWrapper
               component={AddHouseHold}
               path={`${PATH.ADD_HOUSEHOLD}`}
               exact
@@ -164,9 +170,9 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-                component={UpdateHousehold}
-                path={`${PATH.UPDATE_HOUSEHOLD}`}
-                exact
+              component={UpdateHousehold}
+              path={`${PATH.UPDATE_HOUSEHOLD}`}
+              exact
             />
             <MainRouteWrapper
               component={MemberInHouseHold}
@@ -186,6 +192,11 @@ class App extends React.Component {
             <MainRouteWrapper
               component={ListOfLandType}
               path={`${PATH.LIST_OF_LAND_TYPE}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={ListOfMaritalStatus}
+              path={`${PATH.LIST_OF_MARITAL_STATUS}`}
               exact
             />
             <MainRouteWrapper

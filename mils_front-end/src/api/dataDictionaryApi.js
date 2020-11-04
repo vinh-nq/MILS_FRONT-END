@@ -275,6 +275,30 @@ const dataDictionaryApi = {
   UpdateTypeOfLender: (data) => {
     const url = "api/Dictionary/UpdateTypeOfLender";
     return fetchData(url, "POST", null, data);
+  },
+  GetAllMaritalStatus: (params) => {
+    const url = "api/Dictionary/GetAllMaritalStatus";
+    return fetchData(url, "GET", params, null);
+  },
+  InsertMaritalStatus: (data) => {
+    const url = "api/Dictionary/InsertMaritalStatus";
+    return fetchData(url, "POST", null, data);
+  },
+  UpdateMaritalStatus: (data) => {
+    const url = "api/Dictionary/UpdateMaritalStatus";
+    return fetchData(url, "POST", null, data);
+  },
+  GetAllRelation: (params) => {
+    const url = "api/Dictionary/GetAllRelation";
+    return fetchData(url, "GET", params, null);
+  },
+  InsertRelation: (data) => {
+    const url = "api/Dictionary/InsertRelation";
+    return fetchData(url, "POST", null, data);
+  },
+  UpdateRelation: (data) => {
+    const url = "api/Dictionary/UpdateRelation";
+    return fetchData(url, "POST", null, data);
   }
 };
 export default dataDictionaryApi;

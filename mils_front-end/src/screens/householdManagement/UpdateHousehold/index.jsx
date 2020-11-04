@@ -40,7 +40,6 @@ function UpdateHousehold(props) {
         res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration
           ? moment(DateOfEnumeration, "DD-MM-YYYY")
           : undefined;
-        // console.log(res.data.Status);
         setDetailHouseHold(res.data.Data);
         form.setFieldsValue(res.data.Data);
       });
