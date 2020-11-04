@@ -200,28 +200,28 @@ function PlotLandComponent(props) {
                    onFinish={typeModal === "ADD" ? handleAdd : handleUpdate}
                >
                    <Row className="mb-2" gutter={16}>
-                       <Col span={24} md={12}>
-                           <Text className="font-13 font-weight-500">Plot Land ID:</Text>
-                           <Form.Item
-                               name={"PlotLandId"}
-                               className="mb-0"
-                               rules={[
-                                   {
-                                       validator(rule, value) {
-                                           return handleValidateFrom(
-                                               rule,
-                                               value,
-                                               objectValidateForm.checkString(50, true, "Name of plot"),
-                                               t
-                                           );
-                                       },
-                                   },
-                               ]}
-                           >
-                               <Input disabled={typeModal === "UPDATE" ? true : false}/>
-                           </Form.Item>
-                       </Col>
-                       <Col span={24} md={12}>
+                   {/*    <Col span={24} md={12}>*/}
+                   {/*        <Text className="font-13 font-weight-500">Plot Land ID:</Text>*/}
+                   {/*        <Form.Item*/}
+                   {/*            name={"PlotLandId"}*/}
+                   {/*            className="mb-0"*/}
+                   {/*            rules={[*/}
+                   {/*                {*/}
+                   {/*                    validator(rule, value) {*/}
+                   {/*                        return handleValidateFrom(*/}
+                   {/*                            rule,*/}
+                   {/*                            value,*/}
+                   {/*                            objectValidateForm.checkString(50, true, "Name of plot"),*/}
+                   {/*                            t*/}
+                   {/*                        );*/}
+                   {/*                    },*/}
+                   {/*                },*/}
+                   {/*            ]}*/}
+                   {/*        >*/}
+                   {/*            <Input disabled={typeModal === "UPDATE" ? true : false}/>*/}
+                   {/*        </Form.Item>*/}
+                   {/*    </Col>*/}
+                       <Col span={24}>
                            <Text className="font-13 font-weight-500">Plot ID:</Text>
                            <Form.Item
                                name={"PlotId"}

@@ -17,6 +17,7 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import EnergyUsedComponent from "./component/EneryUsedComponent";
 
 function UpdateHousehold(props) {
+    // const {typeModal} = props;
     const [isLoading, setLoading] = useState(false);
     const [detailHouseHold, setDetailHouseHold] = useState({});
 
@@ -25,8 +26,18 @@ function UpdateHousehold(props) {
     const {t} = useTranslation();
     useEffect(() => {
         const hh_code = getValueOfQueryParams(props.location, "hh_code", "STRING");
+        const getDetailHouseHold = async (hh_code) => {
+            setLoading(true);
+            await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
+                const {DateOfEnumeration} = res.data.Data.GeneralInformationBeneficiary;
+                res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration ? moment(DateOfEnumeration,"DD-MM-YYYY") : undefined;
+                setDetailHouseHold(res.data.Data);
+                form.setFieldsValue(res.data.Data);
+            });
+            setLoading(false);
+        };
         getDetailHouseHold(hh_code);
-    }, []);
+    }, [form,props.location]);
 
     const onSubmit = async (value) => {
         message.loading({ content: "Loading...", key: "message-form-role" });
@@ -63,17 +74,7 @@ function UpdateHousehold(props) {
         })
     };
 
-    const getDetailHouseHold = async (hh_code) => {
-        setLoading(true);
-        await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
-            const {DateOfEnumeration} = res.data.Data.GeneralInformationBeneficiary;
-            res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration ? moment(DateOfEnumeration,"DD-MM-YYYY") : undefined;
-            console.log(res.data.Status);
-            setDetailHouseHold(res.data.Data);
-            form.setFieldsValue(res.data.Data);
-        });
-        setLoading(false);
-    };
+
 
     return (
         <div className="add-beneficiary-form">

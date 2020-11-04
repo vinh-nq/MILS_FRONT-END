@@ -1,22 +1,93 @@
-import {Col, DatePicker, Form, Input, Row, Select, Typography} from "antd";
+import {Col, DatePicker, Form, Input, message, Row, Select, Typography} from "antd";
 import {handleValidateFrom} from "../../../../../../utils/handleValidateFrom";
 import {objectValidateForm} from "../validate/objectValidateForm";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import dataDictionaryApi from "../../../../../../api/dataDictionaryApi";
+import {useSelector} from "react-redux";
 
 function MemberInHouseHold(props) {
     const {typeModal} = props;
+
+    const [ethnicOrigin, setEthnicOrigin] = useState([]);
+    const [mainJob, setMainJob] = useState([]);
+    const [schoolType, setSchoolType] = useState([]);
+    const [level, setLevel] = useState([]);
+
     const [form] = Form.useForm();
     const {Option} = Select;
     const {Text} = Typography;
     const {t} = useTranslation();
     //state selection
-    const [ethnicOrigin, setEthnicOrigin] = useState([]);
 
+
+    const dataLanguage = useSelector(
+        (state) => state.languageReducer.objectLanguage.value
+    ) || localStorage.getItem("i18nextLng");
+
+    //get all ethnic useEffect
     useEffect(() => {
-
+        const getAllEthnicOrigin = async () => {
+            await dataDictionaryApi.GetAllEthnic({keyword: ""}).then(res => {
+                setEthnicOrigin(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("Error"),
+                    key: "message-form-role",
+                    duration: 1,
+                })
+            })
+        }
+        getAllEthnicOrigin();
     },[]);
+
+    //get all mainjob useEffect
+    useEffect(() => {
+        const getAllMainJob = async () => {
+            await dataDictionaryApi.GetAllMainJob({keyword: ""}).then(res => {
+                setMainJob(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("Error"),
+                    key: "message-form-role",
+                    duration: 1,
+                })
+            })
+        };
+        getAllMainJob();
+    }, []);
+
+    //Get all school
+    useEffect(() => {
+        const getAllSchoolType = async () => {
+            await dataDictionaryApi.GetAllSchoolType({keyword: ""}).then(res => {
+                setSchoolType(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("Error"),
+                    key: "message-form-role",
+                    duration: 1,
+                })
+            })
+        };
+        getAllSchoolType();
+    }, []);
+
+    //Get all level
+    useEffect(() => {
+        const getAllLevel = async () => {
+            await dataDictionaryApi.GetAllLevel({keyword: ""}).then(res => {
+                setLevel(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("Error"),
+                    key: "message-form-role",
+                    duration: 1,
+                })
+            })
+        };
+        getAllLevel();
+    }, []);
 
     const handleAdd = (value) => {
 
@@ -26,16 +97,11 @@ function MemberInHouseHold(props) {
 
     }
 
-    const getEthnicOrigin = async () => {
-        await dataDictionaryApi.GetAllEthnic({keywords:""}).then(res => {
-            setEthnicOrigin(res.data.Data);
-        })
-    }
 
     const renderSelect = (array) => {
-        // return array.map((value,index) => (
-        //     <Option value={value.Id} key={index}>{dataLanguage === "la" ? value.ValueOfLao : value.ValueOfEng}</Option>
-        // ));
+        return (array || []).map((value,index) => (
+            <Option value={value.Id} key={index}>{dataLanguage === "la" ? value.ValueOfLao : value.ValueOfEng}</Option>
+        ));
     };
 
     return (
@@ -49,7 +115,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Member Name</Text>
                     <Form.Item
-                        name={"PlotLandId"}
+                        name={"MemberName"}
                         className="mb-0"
                         rules={[
                             {
@@ -57,7 +123,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "Name of plot"),
+                                        objectValidateForm.checkString(50, true, "Member Name"),
                                         t
                                     );
                                 },
@@ -70,12 +136,12 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Marital status</Text>
                     <Form.Item
-                        name={"OwnedOrLeasedId"}
+                        name={"MaritalStatusId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `${t("Owned or leased")} ${t("is_not_empty")}`,
+                                message: `${t("Owned or leased")} ${t("Marital status")}`,
                             },
                         ]}
                     >
@@ -89,12 +155,12 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Relation to household</Text>
                     <Form.Item
-                        name={"OwnedOrLeasedId"}
+                        name={"RelationHouseHoldId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `${t("Owned or leased")} ${t("is_not_empty")}`,
+                                message: `Relation to household ${t("is_not_empty")}`,
                             },
                         ]}
                     >
@@ -106,7 +172,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Gender</Text>
                     <Form.Item
-                        name={"KindOfLandId"}
+                        name={"GenderId"}
                         className="mb-0"
                         initialValue={"Male"}
                     >
@@ -121,12 +187,12 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Date of birth</Text>
                     <Form.Item
-                        name={"Date of birth"}
+                        name={"DateOfBirth"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `${t("Cause of plot")} ${t("is_not_empty")}`,
+                                message: `Date of birth ${t("is_not_empty")}`,
                             },
                         ]}
                     >
@@ -159,24 +225,24 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Ethnic origin</Text>
                     <Form.Item
-                        name={"Ethnic origin"}
+                        name={"TribesId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `${t("Ethnic origin")} ${t("is_not_empty")}`,
+                                message: `Ethnic origin ${t("is_not_empty")}`,
                             },
                         ]}
                     >
                         <Select>
-                            {/*{renderSelect(ownedLeased)}*/}
+                            {renderSelect(ethnicOrigin)}
                         </Select>
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Have you ever been to school before?</Text>
                     <Form.Item
-                        name={"TypeOfLandId"}
+                        name={"AreEnrolledInSchool"}
                         className="mb-0"
                         initialValue={true}
                     >
@@ -191,7 +257,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Are you currently studying?</Text>
                     <Form.Item
-                        name={"CauseOfPlotId"}
+                        name={"CurrentlyStudyingId"}
                         className="mb-0"
                         initialValue={true}
                     >
@@ -209,12 +275,12 @@ function MemberInHouseHold(props) {
                         rules={[
                             {
                                 require: true,
-                                message : `${t("What is the current level of education?")} ${t("is_not_empty")}`
+                                message : `What is the current level of education? ${t("is_not_empty")}`
                             }
                         ]}
                     >
                         <Select>
-                            {renderSelect()}
+                            {renderSelect(level)}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -223,17 +289,17 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Current year level of education</Text>
                     <Form.Item
-                        name={"CauseOfPlotId"}
+                        name={"Current year level of education"}
                         className="mb-0"
                         rules={[
                             {
                                 require: true,
-                                message : `${t("What is the current level of education?")} ${t("is_not_empty")}`
+                                message : `Current year level of education ${t("is_not_empty")}`
                             }
                         ]}
                     >
                         <Select>
-                            {renderSelect()}
+                            {renderSelect(level)}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -372,18 +438,14 @@ function MemberInHouseHold(props) {
                         className="mb-0"
                         rules={[
                             {
-                                validator(rule, value) {
-                                    return handleValidateFrom(
-                                        rule,
-                                        value,
-                                        objectValidateForm.checkString(50, true, "What type of school are you attending"),
-                                        t
-                                    );
-                                },
+                                require: true,
+                                message: `What type of school are you attending? ${t("is_not_empty")}`
                             },
                         ]}
                     >
-                        <Input />
+                        <Select>
+                            {renderSelect(schoolType)}
+                        </Select>
                     </Form.Item>
                 </Col>
             </Row>
@@ -391,7 +453,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Higher education is graduated</Text>
                     <Form.Item
-                        name={"CauseOfPlotId"}
+                        name={"Higher education is graduated"}
                         className="mb-0"
                         rules={[
                             {
@@ -408,17 +470,19 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">During the past 7 days, have you worked on your own or any of your own business or any of your family members?</Text>
                     <Form.Item
-                        name={"TypeOfLandId"}
+                        name={"own business or"}
                         className="mb-0"
+                        initialValue={true}
                         rules={[
                             {
                                 require: true,
-                                message : `${t("During the past 7 days, have you worked on your own or any of your own business or any of your family members")} ${t("is_not_empty")}`
+                                message : `During the past 7 days, have you worked on your own or any of your own business or any of your family members ${t("is_not_empty")}`
                             }
                         ]}
                     >
                         <Select>
-                            {renderSelect()}
+                            <Option value={true}>{t("YES")}</Option>
+                            <Option value={false}>{t("NO")}</Option>
                         </Select>
                     </Form.Item>
                 </Col>
@@ -427,25 +491,28 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">During the past 7 days, have you been working on your own farm or with a family member?</Text>
                     <Form.Item
-                        name={"CauseOfPlotId"}
+                        name={"have you been"}
                         className="mb-0"
+                        initialValue={true}
                         rules={[
                             {
                                 require: true,
-                                message : `${t("During the past 7 days, have you been working on your own farm or with a family member?")} ${t("is_not_empty")}`
+                                message : `During the past 7 days, have you been working on your own farm or with a family member? ${t("is_not_empty")}`
                             }
                         ]}
                     >
                         <Select>
-                            {renderSelect()}
+                            <Option value={true}>{t("YES")}</Option>
+                            <Option value={false}>{t("NO")}</Option>
                         </Select>
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Have you worked elsewhere in the last 7 days? For example, hiring for an enterprise, private, or public or other</Text>
                     <Form.Item
-                        name={"TypeOfLandId"}
+                        name={"Have you worked elsewhere in the last 7 "}
                         className="mb-0"
+                        initialValue={true}
                         rules={[
                             {
                                 require: true,
@@ -454,7 +521,8 @@ function MemberInHouseHold(props) {
                         ]}
                     >
                         <Select>
-                            {renderSelect()}
+                            <Option value={true}>{t("YES")}</Option>
+                            <Option value={false}>{t("NO")}</Option>
                         </Select>
                     </Form.Item>
                 </Col>
@@ -463,7 +531,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Maintain the main work you did during the last 7 days</Text>
                     <Form.Item
-                        name={"CauseOfPlotId"}
+                        name={"Maintain the main work"}
                         className="mb-0"
                         rules={[
                             {
@@ -485,12 +553,12 @@ function MemberInHouseHold(props) {
                         rules={[
                             {
                                 require: true,
-                                message : `${t("During the past 7 days, have you worked on your own or any of your own business or any of your family members")} ${t("is_not_empty")}`
+                                message : `What is your main job? ${t("is_not_empty")}`
                             }
                         ]}
                     >
                         <Select>
-                            {renderSelect()}
+                            {renderSelect(mainJob)}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -499,7 +567,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Have you been a Social Security member of any unit or participated in a health insurance program?</Text>
                     <Form.Item
-                        name={"CauseOfPlotId"}
+                        name={"Have you been a Social"}
                         className="mb-0"
                         rules={[
                             {
@@ -535,7 +603,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Are you pregnant? (For women>> 10 years old)</Text>
                     <Form.Item
-                        name={"CauseOfPlotId"}
+                        name={"Pregnant"}
                         className="mb-0"
                         initialValue={true}
                     >

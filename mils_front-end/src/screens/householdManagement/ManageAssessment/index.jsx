@@ -10,7 +10,6 @@ import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {PATH} from "../../../routers/Path";
-import PlotLandComponent from "./component/DetailHouseHold/component/PlotLandComponent";
 
 function ManageAssessment(props) {
   const [visibleMemberList, setVisibleMemberList] = useState(false);

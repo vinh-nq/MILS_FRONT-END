@@ -287,6 +287,8 @@
   "add": "Add",
   "update": "Update",
   "USERVILLAGE":"ລາຍການຄຸ້ມຄອງຜູ້ນຳໃຊ້ຂື້ນກັບບ້ານ",
+  "YES": "Yes",
+  "NO": "No",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."
