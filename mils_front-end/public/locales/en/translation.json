@@ -317,6 +317,10 @@
   "relationId":"Relation Id",
   "relationLao":"Relation (Laos)",
   "relationEng":"Relation (Eng)",
+  "LISTOFDISABILITY":"List Of Disability",
+  "disabilityId":"Disability Id",
+  "disabilityLao":"Disability (Laos)",
+  "disabilityEng":"Disability (Eng)",
   "YES": "Yes",
   "NO": "No",
   "description": {

@@ -16,10 +16,12 @@ import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../../api/houseHoldApi";
 import downloadFileExcelApi from "../../../api/downloadFileExcelApi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
-import {useSelector} from "react-redux";
-import {useHistory} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {PATH} from "../../../routers/Path";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { PATH } from "../../../routers/Path";
+import PlotLandComponent from "./component/DetailHouseHold/component/PlotLandComponent";
+import { saveAs } from "file-saver";
 
 function ManageAssessment(props) {
   const [visibleMemberList, setVisibleMemberList] = useState(false);
@@ -234,13 +236,65 @@ function ManageAssessment(props) {
     };
   };
 
+  useEffect(() => {
+    getDataHouseHold(checkDataFromUrl());
+  }, []);
+
   const getDataHouseHold = async (params) => {
     setLoading(true);
-    await houseHoldApi.searchHouseHold(params).then((res) => {
-      setData(res.data.Data.houseHoldViewModels);
-      setTotalPage(res.data.Data.TotalPage);
-    });
+    await Promise.all([
+      getHouseHoldList(),
+      getProvincePromiseAll(),
+      getDistrictPromiseAll(params.provinceId),
+      getDistrictVillageAll(params.districtId),
+      getUnitPromiseAll(params.villageId),
+    ]).then(
+      ([resHouseHoldList, resProvince, resDistrict, resVillage, resUnit]) => {
+        setData(resHouseHoldList.data.Data.houseHoldViewModels);
+        setTotalPage(resHouseHoldList.data.Data.TotalPage);
+        setProvince(resProvince.data.Data);
+        setDistrict(resDistrict.data.Data);
+        setVillage(resVillage.data.Data);
+        setUnit(resUnit.data.Data);
+      }
+    );
     setLoading(false);
+  };
+
+  const getHouseHoldList = (params) => {
+    return houseHoldApi.searchHouseHold(params);
+  };
+
+  const getProvincePromiseAll = () => {
+    return houseHoldApi.getAllProvince();
+  };
+
+  const getDistrictPromiseAll = (provinceId) => {
+    if (provinceId !== "-1") {
+      return houseHoldApi.getAllDistrict({ provinceId });
+    } else {
+      return {
+        data: {
+          Data: [],
+        },
+      };
+    }
+  };
+
+  const getDistrictVillageAll = (districtId) => {
+    if (districtId !== "-1") {
+      return houseHoldApi.getAllVillage({ districtId });
+    } else {
+      return {
+        data: {
+          Data: [],
+        },
+      };
+    }
+  };
+
+  const getUnitPromiseAll = (villageId) => {
+    return houseHoldApi.getAllUnit({ villageId });
   };
 
   const getProvince = async () => {
@@ -312,31 +366,28 @@ function ManageAssessment(props) {
   const onSelectProvince = (id) => {
     setSelectedProvince(id);
     getDistrict(id);
-    if (id === "-1") {
-      setSelectedDistrict("-1");
-      setSelectedVillage("-1");
-      setSelectedUnit("-1");
-      setVillage([]);
-      setUnit([]);
-    }
+    setSelectedDistrict("-1");
+    setSelectedVillage("-1");
+    setSelectedUnit("-1");
+    setDistrict([]);
+    setVillage([]);
+    setUnit([]);
   };
 
   const onSelectDistrict = (id) => {
     setSelectedDistrict(id);
     getVillage(id);
-    if (id === "-1") {
-      setSelectedVillage("-1");
-      setSelectedUnit("-1");
-      setUnit([]);
-    }
+    setSelectedVillage("-1");
+    setSelectedUnit("-1");
+    setVillage([]);
+    setUnit([]);
   };
 
   const onSelectVillage = (id) => {
     setSelectedVillage(id);
-    if (id === "-1") {
-      setSelectedUnit("-1");
-    }
+    setSelectedUnit("-1");
     getUnit(id);
+    setUnit([]);
   };
 
   const onSelectUnit = (id) => {
@@ -420,16 +471,31 @@ function ManageAssessment(props) {
           <span className="ml-auto d-flex flex-row">
             <Button
               className="set-center-content mr-2"
-              // type="primary"
               icon={<i className="fas fa-file-excel mr-2"></i>}
+              style={{ color: "#0c960c", border: "1px #0c960c solid" }}
               onClick={async () => {
+                setLoading(true);
                 await downloadFileExcelApi
                   .ExportMembers({
-                    villageId: "123a",
+                    villageId: selectedVillage === "-1" ? "" : selectedVillage,
                   })
-                  .then((res) => console.log(res));
+                  .then((res) => {
+                    fetch(
+                      `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${res.data}`
+                    )
+                      .then((ress) => {
+                        return ress.blob();
+                      })
+                      .then((blobs) => {
+                        const fileExtension = ".xlsx";
+                        setLoading(false);
+                        saveAs(
+                          blobs,
+                          `${t("Member&PlotLand")}` + fileExtension
+                        );
+                      });
+                  });
               }}
-              style={{ color: "#0c960c", border: "1px #0c960c solid" }}
             >
               Export Excel
             </Button>
@@ -444,7 +510,6 @@ function ManageAssessment(props) {
           </span>
         </div>
       </section>
-
       {/*Body của trang content*/}
       <section>
         {/*Tìm kiếm */}
@@ -562,7 +627,6 @@ function ManageAssessment(props) {
           style={{ overflowX: "auto", overflowY: "hidden" }}
         />
       </section>
-
       {/*Modal*/}
       <HouseHoldMemberList
         memberInHouseHold={memberInHouseHold}
@@ -570,7 +634,6 @@ function ManageAssessment(props) {
         setVisibleMemberList={setVisibleMemberList}
         dataLanguage={dataLanguage}
       />
-
       <PlotLandList
         plotLandInHouseHold={plotLandInHouseHold}
         visiblePlotLand={visiblePlotLand}

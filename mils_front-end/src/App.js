@@ -48,7 +48,7 @@ import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/co
 import ListOfRelation from "./screens/dataDictionary/ListOfRelation";
 import ListOfMaritalStatus from "./screens/dataDictionary/ListOfMaritalStatus";
 import MemberInHouseHold from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold/component/MemberInHouseHoldComponent";
-
+import ListOfDisability from "./screens/dataDictionary/ListOfDisability";
 class App extends React.Component {
   render() {
     return (
@@ -231,6 +231,11 @@ class App extends React.Component {
             <MainRouteWrapper
               component={ListOfCookingSource}
               path={PATH.LIST_OF_COOKING_SOURCE}
+              exact
+            />
+            <MainRouteWrapper
+              component={ListOfDisability}
+              path={PATH.LIST_OF_DISABILITY}
               exact
             />
             <MainRouteWrapper
