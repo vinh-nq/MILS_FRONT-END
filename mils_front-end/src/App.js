@@ -17,7 +17,6 @@ import RoleManagement from "./screens/system/RoleManagement";
 import FunctionManagement from "./screens/system/FunctionManagement";
 import PermissionManagement from "./screens/system/PermissionManagement";
 import UserManagement from "./screens/system/UserManagement";
-import AddHouseHold from "./screens/householdManagement/AddHouseHold";
 import ListOfProvince from "./screens/dataDictionary/ListOfProvince";
 import ListOfDistrict from "./screens/dataDictionary/ListOfDistrict";
 import ListOfWallMetarail from "./screens/dataDictionary/ListOfWallMetarail";
@@ -170,9 +169,14 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={MemberInHouseHold}
+              component={() => <MemberInHouseHold typeModal={"ADD"}/>}
               path={`${PATH.MEMBER_IN_HOUSEHOLD}`}
               exact
+            />
+            <MainRouteWrapper
+                component={() => <MemberInHouseHold typeModal={"UPDATE"}/>}
+                path={`${PATH.UPDATE_MEMBER_IN_HOUSEHOLD}`}
+                exact
             />
             <MainRouteWrapper
                 component={DetailBeneficiary}

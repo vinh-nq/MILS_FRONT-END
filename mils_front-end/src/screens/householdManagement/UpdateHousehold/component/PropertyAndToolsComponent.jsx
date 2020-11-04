@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Col, Form, Input, Row, Select, Switch} from "antd";
 import Text from "antd/es/typography/Text";
 import {useTranslation} from "react-i18next";
-import InputNumber from "antd/es/input-number";
-import {regexTemplate} from "../../../../utils/regexTemplate";
 import {handleValidateFrom} from "../../../../utils/handleValidateFrom";
 import {objectValidateForm} from "../validate/objectValidateForm";
 import {useSelector} from "react-redux";

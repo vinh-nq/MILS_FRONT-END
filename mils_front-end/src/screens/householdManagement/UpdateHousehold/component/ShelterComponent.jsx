@@ -1,11 +1,10 @@
-import {Col, Form, Row, Typography, Select, InputNumber, Input} from "antd";
+import {Col, Form, Row, Typography, Select, Input} from "antd";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import dataDictionaryApi from "../../../../api/dataDictionaryApi";
 import {useSelector} from "react-redux";
 import {handleValidateFrom} from "../../../../utils/handleValidateFrom";
 import {objectValidateForm} from "../validate/objectValidateForm";
-import {regexTemplate} from "../../../../utils/regexTemplate";
 
 function ShelterComponent(props) {
     const {Text} = Typography;

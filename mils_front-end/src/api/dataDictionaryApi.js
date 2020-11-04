@@ -299,6 +299,10 @@ const dataDictionaryApi = {
   UpdateRelation: (data) => {
     const url = "api/Dictionary/UpdateRelation";
     return fetchData(url, "POST", null, data);
-  }
+  },
+  GetAllDisability: (params) => {
+    const url = "api/Dictionary/GetAllDisability";
+    return fetchData(url, "GET", params, null);
+  },
 };
 export default dataDictionaryApi;

@@ -42,7 +42,7 @@ const defaultObject = {
 };
 
 function PlotLandComponent(props) {
-  const { typeModal, visible, setVisible, objectValue, HHCode } = props;
+  const { typeModal, visible, setVisible, objectValue, HHCode, detailHouseHold, setDetailHouseHold } = props;
   const [ownedLeased, setOwnedLeased] = useState([]);
   const [kindLand, setKindLand] = useState([]);
   const [causePlot, setCausePlot] = useState([]);
@@ -57,12 +57,6 @@ function PlotLandComponent(props) {
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
     localStorage.getItem("i18nextLng");
 
-  useEffect(() => {
-    getOwnedOrLeased();
-    getKindOfLand();
-    getCauseOfPlot();
-    getTypeOfLand();
-  }, []);
 
   useEffect(() => {
     if (typeModal === "UPDATE") {
@@ -70,63 +64,77 @@ function PlotLandComponent(props) {
     } else {
       form.setFieldsValue(defaultObject);
     }
-  }, [visible]);
+  }, [visible, typeModal, form, objectValue]);
 
-  const getOwnedOrLeased = async () => {
-    await dataDictionaryApi.GetAllPlotStatus({ keyword: "" }).then((res) => {
-      if (res.data.Status) {
-        setOwnedLeased(res.data.Data);
-      } else {
-        message.error({
-          content: t("Error"),
-          key: "message-form-role",
-          duration: 1,
-        });
-      }
-    });
-  };
+  useEffect(() => {
+    const getOwnedOrLeased = async () => {
+      await dataDictionaryApi.GetAllPlotStatus({ keyword: "" }).then((res) => {
+        if (res.data.Status) {
+          setOwnedLeased(res.data.Data);
+        } else {
+          message.error({
+            content: t("Error"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      });
+    };
+    getOwnedOrLeased();
+  }, [t]);
 
-  const getKindOfLand = async () => {
-    await dataDictionaryApi.GetAllPlotType({ keyword: "" }).then((res) => {
-      if (res.data.Status) {
-        setKindLand(res.data.Data || []);
-      } else {
-        message.error({
-          content: t("Error"),
-          key: "message-form-role",
-          duration: 1,
-        });
-      }
-    });
-  };
+  useEffect(() => {
+    const getKindOfLand = async () => {
+      await dataDictionaryApi.GetAllPlotType({ keyword: "" }).then((res) => {
+        if (res.data.Status) {
+          setKindLand(res.data.Data || []);
+        } else {
+          message.error({
+            content: t("Error"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      });
+    };
+    getKindOfLand();
+  }, [t]);
 
-  const getCauseOfPlot = async () => {
-    await dataDictionaryApi.GetAllPlotCause({ keyword: "" }).then((res) => {
-      if (res.data.Status) {
-        setCausePlot(res.data.Data);
-      } else {
-        message.error({
-          content: t("Error"),
-          key: "message-form-role",
-          duration: 1,
-        });
-      }
-    });
-  };
+  useEffect(() => {
+    const getCauseOfPlot = async () => {
+      await dataDictionaryApi.GetAllPlotCause({ keyword: "" }).then((res) => {
+        if (res.data.Status) {
+          setCausePlot(res.data.Data);
+        } else {
+          message.error({
+            content: t("Error"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      });
+    };
+    getCauseOfPlot();
+  }, [t]);
 
-  const getTypeOfLand = async () => {
-    await dataDictionaryApi.GetAllLandType({ keyword: "" }).then((res) => {
-      if (res.data.Status) {
-        setTypeLand(res.data.Data);
-      } else {
-        message.error({
-          content: t("Error"),
-          key: "message-form-role",
-          duration: 1,
-        });
-      }
-    });
-  };
+  useEffect(() => {
+    const getTypeOfLand = async () => {
+      await dataDictionaryApi.GetAllLandType({ keyword: "" }).then((res) => {
+        if (res.data.Status) {
+          setTypeLand(res.data.Data);
+        } else {
+          message.error({
+            content: t("Error"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      });
+    };
+    getTypeOfLand();
+  }, [t]);
+
+
 
   const handleCloseModal = () => {
     setVisible(false);
@@ -144,6 +152,9 @@ function PlotLandComponent(props) {
           key: "message-form-role",
           duration: 1,
         });
+        const plotLandArray = {...detailHouseHold};
+        plotLandArray.PlotLands = res.data.Data;
+        setDetailHouseHold(plotLandArray);
       } else {
         message.error({
           content: t("ADD_FAILED"),
@@ -158,6 +169,7 @@ function PlotLandComponent(props) {
   const handleUpdate = async (value) => {
     message.loading({ content: "Loading...", key: "message-form-role" });
     const objData = { ...objectValue, ...value };
+    objData.HHCode = HHCode;
     await plotLandApi.update(objData).then((res) => {
       if (res.data.Status) {
         message.success({
@@ -165,6 +177,9 @@ function PlotLandComponent(props) {
           key: "message-form-role",
           duration: 1,
         });
+        const plotLandArray = {...detailHouseHold};
+        plotLandArray.PlotLands = res.data.Data;
+        setDetailHouseHold(plotLandArray);
       } else {
         message.error({
           content: t("EDIT_FAILED"),

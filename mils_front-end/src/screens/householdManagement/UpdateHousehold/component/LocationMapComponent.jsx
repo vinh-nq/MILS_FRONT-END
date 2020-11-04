@@ -1,4 +1,4 @@
-import {Col, Form, Input, Row, Select, Typography} from "antd";
+import {Col, Form, Input, Row, Typography} from "antd";
 import {handleValidateFrom} from "../../../../utils/handleValidateFrom";
 import {objectValidateForm} from "../validate/objectValidateForm";
 import React from "react";

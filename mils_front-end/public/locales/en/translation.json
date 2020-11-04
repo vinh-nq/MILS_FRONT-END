@@ -55,6 +55,8 @@
   "ERROR":"Error",
   "EDIT_SUCCESS":"Edit Success!",
   "EDIT_FAILED":"Edit Failed!",
+  "DELETE_SUCCESS":"Delete Success!",
+  "DELETE_FAILED":"Delete Failed!",
   "PERMISSION MANAGEMENT":"Permission Management",
   "PERMISSIONMANAGEMENT":"Permission Management",
   "USER MANAGEMENT":"User Management",

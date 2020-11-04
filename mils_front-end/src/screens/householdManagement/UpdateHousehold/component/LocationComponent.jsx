@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Col, Form, Row, Select, Typography } from "antd";
 import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
 import { objectValidateForm } from "../validate/objectValidateForm";
-import { regexTemplate } from "../../../../utils/regexTemplate";
 import Input from "antd/es/input";
 import houseHoldApi from "../../../../api/houseHoldApi";
 import { useTranslation } from "react-i18next";

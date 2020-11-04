@@ -9,6 +9,10 @@ const plotLandApi = {
         const url = 'api/HouseHold/UpdatePlotLand';
         return fetchData(url, 'POST', null, data);
     },
+    delete: (params) => {
+        const url = 'api/HouseHold/DeletePlotLand';
+        return fetchData(url, 'GET', params, null);
+    },
 }
 
 export default plotLandApi;

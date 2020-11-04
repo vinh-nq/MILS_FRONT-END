@@ -21,8 +21,8 @@ export const PATH = {
   ADD_HOUSEHOLD: "/householdmanagement/householdregistration/addhousehold",
   UPDATE_HOUSEHOLD:
     "/householdmanagement/householdregistration/updatehousehold",
-  MEMBER_IN_HOUSEHOLD:
-    "/householdmanagement/householdregistration/memberinhousehold",
+  MEMBER_IN_HOUSEHOLD: "/householdmanagement/householdregistration/memberinhousehold",
+  UPDATE_MEMBER_IN_HOUSEHOLD: "/householdmanagement/householdregistration/updatememberhousehold",
   HOUSEHOLD_REGISTRATION: "/householdmanagement/householdregistration",
   LIST_OF_PROVINCE: "/datadictionary/listofprovince",
   LIST_OF_DISTRICT: "/datadictionary/listofdistrict",
@@ -45,8 +45,7 @@ export const PATH = {
   LIST_OF_SCHOOL_TYPE: "/datadictionary/listofschooltype",
   LIST_OF_BORROW_REASON: "/datadictionary/listofborrowreason",
   LIST_OF_MAIN_GOOD_AND_SERVICES: "/datadictionary/listofmaingoodandservices",
-  DETAIL_HOUSEHOLD:
-    "/householdmanagement/householdregistration/detailhousehold",
+  DETAIL_HOUSEHOLD: "/householdmanagement/householdregistration/detailhousehold",
   ACCOUNT: "/dashboard/account",
   LIST_OF_COOKING_SOURCE: "/datadictionary/listofcookingsource",
   LIST_OF_LANDER_TYPE: "/datadictionary/listoflandertype",

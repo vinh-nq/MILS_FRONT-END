@@ -38,18 +38,35 @@ const houseHoldApi = {
         const url = 'api/HouseHold/GetDetailHouseHold';
         return fetchData(url, 'GET', params, null);
     },
-    updateHouseHold: (data) => {
-        const url = 'api/HouseHold/UpdateHouseHold';
-        return fetchData(url, 'POST', null, data);
-    },
+
     addHouseHold: (data) => {
         const url = 'api/HouseHold/AddHouseHold';
         return fetchData(url, 'POST', null, data);
     },
+    updateHouseHold: (data) => {
+        const url = 'api/HouseHold/UpdateHouseHold';
+        return fetchData(url, 'POST', null, data);
+    },
+    deleteHouseHold: (params) => {
+        const url = 'api/HouseHold/DeleteHouseHold';
+        return fetchData(url, 'GET', params, null);
+    },
+    addMember: (data) => {
+        const url = 'api/HouseHold/AddMember';
+        return fetchData(url, 'POST', null, data);
+    },
+    updateMember: (data) => {
+        const url = 'api/HouseHold/UpdateMember';
+        return fetchData(url, 'POST', null, data);
+    },
+    deleteMember: (params) => {
+        const url = 'api/HouseHold/DeleteMember';
+        return fetchData(url, 'GET', params);
+    },
     getInformationOfIndividualPlotLand: (params) => {
         const url = 'api/HouseHold/GetInformationOfIndividualPlotLand';
         return fetchData(url, 'GET', params, null);
-    },
+    }
 }
 
 export default houseHoldApi;
