@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Button, Form, message} from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Form, message } from "antd";
 import SaveFilled from "@ant-design/icons/lib/icons/SaveFilled";
 import LocationComponent from "./component/LocationComponent";
 import GeneralInformationComponent from "./component/GeneralInformationComponent";
@@ -250,7 +250,7 @@ function UpdateHousehold(props) {
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.PrimaryPublicServiceForBeneficiary,
       ...value.WaterAndPermanentEnergyBeneficiary,
-        ...value.LatLongForBeneficiary,
+      ...value.LatLongForBeneficiary,
       HHCode: getValueOfQueryParams(props.location, "hh_code", "STRING"),
     };
     await houseHoldApi.updateHouseHold(objCover).then((res) => {
