@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Col, Form, Row, Select, Typography } from "antd";
 import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
 import { objectValidateForm } from "../validate/objectValidateForm";
-import { regexTemplate } from "../../../../utils/regexTemplate";
 import Input from "antd/es/input";
 import houseHoldApi from "../../../../api/houseHoldApi";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 function LocationComponent(props) {
-  const { detailHouseHold, form } = props;
+  const { detailHouseHold, form, typeModal } = props;
   const { Text } = Typography;
   const { Option } = Select;
   const { t } = useTranslation();
@@ -29,9 +28,11 @@ function LocationComponent(props) {
 
   useEffect(() => {
     getProvince();
-    getDistrict(detailHouseHold.LocationBeneficiary.ProvinceId);
-    getVillage(detailHouseHold.LocationBeneficiary.DistrictId);
-    getUnit(detailHouseHold.LocationBeneficiary.VillageId);
+    if(detailHouseHold.LocationBeneficiary){
+      getDistrict(detailHouseHold.LocationBeneficiary.ProvinceId);
+      getVillage(detailHouseHold.LocationBeneficiary.DistrictId);
+      getUnit(detailHouseHold.LocationBeneficiary.VillageId);
+    }
   }, []);
 
   const getProvince = async () => {
@@ -145,6 +146,31 @@ function LocationComponent(props) {
 
   return (
     <div className="hh-location">
+      {
+        typeModal === "UPDATE" ? null :   <Row className="mb-2" gutter={16}>
+          <Col span={24}>
+            <Text className="font-13 font-weight-500">{t("HH_CODE")}</Text>
+            <Form.Item
+                name={"HHCode"}
+                className="mb-0"
+                rules={[
+                  {
+                    validator(rule, value) {
+                      return handleValidateFrom(
+                          rule,
+                          value,
+                          objectValidateForm.checkString(20, true, "HH_CODE"),
+                          t
+                      );
+                    },
+                  }
+                ]}
+            >
+              <Input/>
+            </Form.Item>
+          </Col>
+        </Row>
+      }
       <Row className="mb-2" gutter={16}>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">{t("PROVINCE")}:</Text>
@@ -241,15 +267,11 @@ function LocationComponent(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkString(20, true, "HH_NUMBER"),
+                    objectValidateForm.checkNumber(1000, 0, "HH_NUMBER", true),
                     t
                   );
                 },
-              },
-              {
-                pattern: regexTemplate.NUMBER,
-                message: t("REQUIRE_NUMBER"),
-              },
+              }
             ]}
           >
             <Input />
@@ -264,17 +286,13 @@ function LocationComponent(props) {
               {
                 validator(rule, value) {
                   return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(20, true, "HH_LEVEL"),
-                    t
+                      rule,
+                      value,
+                      objectValidateForm.checkString(20, true, "HH_LEVEL"),
+                      t
                   );
                 },
-              },
-              {
-                pattern: regexTemplate.NUMBER,
-                message: t("REQUIRE_NUMBER"),
-              },
+              }
             ]}
           >
             <Input />

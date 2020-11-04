@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Col, Form, Input, Row, Select, Switch} from "antd";
 import Text from "antd/es/typography/Text";
 import {useTranslation} from "react-i18next";
-import InputNumber from "antd/es/input-number";
-import {regexTemplate} from "../../../../utils/regexTemplate";
 import {handleValidateFrom} from "../../../../utils/handleValidateFrom";
 import {objectValidateForm} from "../validate/objectValidateForm";
 import {useSelector} from "react-redux";
@@ -58,18 +56,14 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(10, true, "Number of family members under 14 years old"),
+                                        objectValidateForm.checkNumber(10, 0, "Number of family members under 14 years old", true),
                                         t
                                     );
                                 },
-                            },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
                             }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input />
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
@@ -83,18 +77,14 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(10, true, "Number of family members between 14-60 years old"),
+                                        objectValidateForm.checkNumber(10, 0, "Number of family members between 14-60 years old", true),
                                         t
                                     );
                                 },
                             },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
-                            }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input/>
                     </Form.Item>
                 </Col>
             </Row>
@@ -111,18 +101,14 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(10, true, "Number of family members over 60 years old"),
+                                        objectValidateForm.checkNumber(10, 0, "Number of family members over 60 years old", true),
                                         t
                                     );
                                 },
                             },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
-                            }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100} />
+                        <Input />
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
@@ -177,6 +163,7 @@ function PropertyAndToolsComponent() {
                         name={["StableOccupationAndIncome", "ReceivedBenfits"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -192,6 +179,7 @@ function PropertyAndToolsComponent() {
                         name={["StableOccupationAndIncome", "OweCredit"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -205,8 +193,8 @@ function PropertyAndToolsComponent() {
                         className="mb-0"
                         rules={[
                             {
-                                require: true,
-                                message: `${t("Type of lender")} ${t("is_not_empty")}`
+                                required: true,
+                                message: `Type of lender ${t("is_not_empty")}`,
                             }
                         ]}
                     >
@@ -242,6 +230,7 @@ function PropertyAndToolsComponent() {
                         name={["StableOccupationAndIncome", "OwnAgri"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -258,6 +247,7 @@ function PropertyAndToolsComponent() {
                         name={["StableOccupationAndIncome", "MemberWork"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -276,18 +266,14 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(10, true, "If yes, specify the number of plots"),
+                                        objectValidateForm.checkNumber(10, 0, "If yes, specify the number of plots", true),
                                         t
                                     );
                                 },
-                            },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
                             }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input/>
                     </Form.Item>
                 </Col>
             </Row>
@@ -305,18 +291,14 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(10, true, "Number of related plots"),
+                                        objectValidateForm.checkNumber(10, 0, "Number of related plots", true),
                                         t
                                     );
                                 },
-                            },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
                             }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input/>
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
@@ -326,6 +308,7 @@ function PropertyAndToolsComponent() {
                         name={["StableOccupationAndIncome", "LiveStock"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -347,18 +330,14 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(10, true, "How many family members in the age group have a lower secondary education ?"),
+                                        objectValidateForm.checkNumber(10, 0, "How many family members in the age group have a lower secondary education ?", true),
                                         t
                                     );
                                 },
-                            },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
                             }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input/>
                     </Form.Item>
                 </Col>
             </Row>

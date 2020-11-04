@@ -323,6 +323,10 @@ const dataDictionaryApi = {
   UpdateSchoolEnroll: (data) => {
     const url = "api/Dictionary/UpdateSchoolEnroll";
     return fetchData(url, "POST", null, data);
-  }
+  },
+  GetAllGender: (params) => {
+    const url = "api/Dictionary/GetAllGender";
+    return fetchData(url, "GET", params, null);
+  },
 };
 export default dataDictionaryApi;

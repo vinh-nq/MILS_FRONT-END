@@ -182,6 +182,11 @@ function ManageAssessment(props) {
     }
   };
 
+  useEffect(() => {
+    getDataHouseHold(checkDataFromUrl());
+    getProvince();
+  }, []);
+
   //Lấy dữ liêu từ URL và check
   const checkDataFromUrl = () => {
     let pageUrl = getValueOfQueryParams(history.location, "page", "PAGE");

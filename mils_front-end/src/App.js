@@ -17,7 +17,6 @@ import RoleManagement from "./screens/system/RoleManagement";
 import FunctionManagement from "./screens/system/FunctionManagement";
 import PermissionManagement from "./screens/system/PermissionManagement";
 import UserManagement from "./screens/system/UserManagement";
-import AddHouseHold from "./screens/householdManagement/AddHouseHold";
 import ListOfProvince from "./screens/dataDictionary/ListOfProvince";
 import ListOfDistrict from "./screens/dataDictionary/ListOfDistrict";
 import ListOfWallMetarail from "./screens/dataDictionary/ListOfWallMetarail";
@@ -161,24 +160,29 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={AddHouseHold}
+                component={() => <UpdateHousehold typeModal={"UPDATE"}/>}
+                path={`${PATH.UPDATE_HOUSEHOLD}`}
+                exact
+            />
+            <MainRouteWrapper
+              component={() => <UpdateHousehold typeModal={"ADD"}/>}
               path={`${PATH.ADD_HOUSEHOLD}`}
               exact
             />
             <MainRouteWrapper
-              component={UpdateHousehold}
-              path={`${PATH.UPDATE_HOUSEHOLD}`}
-              exact
-            />
-            <MainRouteWrapper
-              component={UpdateHousehold}
-              path={`${PATH.UPDATE_HOUSEHOLD}`}
-              exact
-            />
-            <MainRouteWrapper
-              component={MemberInHouseHold}
+              component={() => <MemberInHouseHold typeModal={"ADD"}/>}
               path={`${PATH.MEMBER_IN_HOUSEHOLD}`}
               exact
+            />
+            <MainRouteWrapper
+                component={() => <MemberInHouseHold typeModal={"UPDATE"}/>}
+                path={`${PATH.UPDATE_MEMBER_IN_HOUSEHOLD}`}
+                exact
+            />
+            <MainRouteWrapper
+                component={DetailBeneficiary}
+                path={PATH.DETAIL_HOUSEHOLD}
+                exact
             />
             <MainRouteWrapper
               component={ListOfPlotCause}
@@ -223,11 +227,6 @@ class App extends React.Component {
             <MainRouteWrapper
               component={ListOfVillage}
               path={`${PATH.LIST_OF_VILLAGE}`}
-              exact
-            />
-            <MainRouteWrapper
-              component={DetailBeneficiary}
-              path={PATH.DETAIL_HOUSEHOLD}
               exact
             />
             <MainRouteWrapper

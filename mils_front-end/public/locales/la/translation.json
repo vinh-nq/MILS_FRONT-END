@@ -53,6 +53,8 @@
   "ERROR":"Error",
   "EDIT_SUCCESS":"Edit Success!",
   "EDIT_FAILED":"Edit Failed!",
+  "DELETE_SUCCESS":"Delete Success!",
+  "DELETE_FAILED":"Delete Failed!",
   "PERMISSION MANAGEMENT":"ລາຍການຄຸ້ມຄອງສິິດທິ",
   "PERMISSIONMANAGEMENT":"ລາຍການຄຸ້ມຄອງສິິດທິ",
   "USER MANAGEMENT":"ລາຍການຜູ້ນຳໃຊ້",
@@ -285,7 +287,10 @@
   "MALE": "ຜູ້ຊາຍ",
   "TOTAL_ROOMS": "ຈຳນວນຫ້ອງພາຍໃນເຮືອນ",
   "USERVILLAGE":"ລາຍການຄຸ້ມຄອງຜູ້ນຳໃຊ້ຂື້ນກັບບ້ານ",
+  "YES": "Yes",
+  "NO": "No",
   "description": {
+    "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."
   }

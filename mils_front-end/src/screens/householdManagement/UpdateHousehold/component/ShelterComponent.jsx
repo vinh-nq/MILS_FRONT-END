@@ -1,11 +1,10 @@
-import {Col, Form, Row, Typography, Select, InputNumber} from "antd";
+import {Col, Form, Row, Typography, Select, Input} from "antd";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import dataDictionaryApi from "../../../../api/dataDictionaryApi";
 import {useSelector} from "react-redux";
 import {handleValidateFrom} from "../../../../utils/handleValidateFrom";
 import {objectValidateForm} from "../validate/objectValidateForm";
-import {regexTemplate} from "../../../../utils/regexTemplate";
 
 function ShelterComponent(props) {
     const {Text} = Typography;
@@ -79,18 +78,14 @@ function ShelterComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(2, true, "TOTAL_ROOMS"),
+                                        objectValidateForm.checkNumber(20, 0, "TOTAL_ROOMS",true),
                                         t
                                     );
                                 },
                             },
-                            {
-                                pattern: regexTemplate.PHONE,
-                                message: t("required_phone"),
-                            }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input/>
                     </Form.Item>
                 </Col>
             </Row>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Row, Table} from "antd";
+import {Button, Col, message, Popconfirm, Row, Table} from "antd";
 import {DeleteOutlined, EditOutlined, PlusSquareOutlined} from "@ant-design/icons/lib/icons";
 import {useTranslation} from "react-i18next";
 import houseHoldApi from "../../../../../api/houseHoldApi";
@@ -10,6 +10,7 @@ import {getValueOfQueryParams} from "../../../../../utils/getValueOfQueryParams"
 import { useHistory } from "react-router-dom";
 import {PATH} from "../../../../../routers/Path";
 import PlotLandComponent from "./component/PlotLandComponent";
+import plotLandApi from "../../../../../api/plotLandApi";
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -22,17 +23,6 @@ function DetailBeneficiary(props) {
     const [objectPlotLand, setObjectPlotLand] = useState({});
     let history = useHistory();
 
-    const {t} = useTranslation();
-    const dataLanguage = useSelector(
-        (state) => state.languageReducer.objectLanguage.value
-    ) || localStorage.getItem("i18nextLng");
-
-    useEffect(() => {
-        const hh_code = getValueOfQueryParams(history.location, "hh_code", "STRING");
-        setHHCode(hh_code);
-        getDetailHouseHold(hh_code);
-    }, []);
-
     const defaultProps = {
         center: {
             lat: 59.95,
@@ -41,13 +31,24 @@ function DetailBeneficiary(props) {
         zoom: 11
     };
 
-    const getDetailHouseHold = async (hh_code) => {
-        setLoading(true);
-        await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
-            setDetailHouseHold(res.data.Data);
-        });
-        setLoading(false);
-    };
+    const {t} = useTranslation();
+    const dataLanguage = useSelector(
+        (state) => state.languageReducer.objectLanguage.value
+    ) || localStorage.getItem("i18nextLng");
+
+    useEffect(() => {
+        const hh_code = getValueOfQueryParams(history.location, "hh_code", "STRING");
+        setHHCode(hh_code);
+        const getDetailHouseHold = async (hh_code) => {
+            setLoading(true);
+            await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
+                setDetailHouseHold(res.data.Data);
+            });
+            setLoading(false);
+        };
+        getDetailHouseHold(hh_code);
+    }, []);
+
 
     const changeYesNoForQuestion = (value) => {
         if(value === false || value === "false"){
@@ -58,6 +59,70 @@ function DetailBeneficiary(props) {
             return "";
         }
     }
+
+    const handleDeletePlotLand = async (id) => {
+        message.loading({ content: "Loading...", key: "message-form-role" });
+        await plotLandApi.delete({plotlandId: id}).then(res => {
+            if (res.data.Status) {
+                message.success({
+                    content: t("DELETE_SUCCESS"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+                const plotLandArray = {...detailHouseHold};
+                plotLandArray.PlotLands = res.data.Data;
+                setDetailHouseHold(plotLandArray);
+            } else {
+                message.error({
+                    content: t("DELETE_FAILED"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            }
+        })
+    };
+
+    const handleDeleteHouseHold = async () => {
+        message.loading({ content: "Loading...", key: "message-form-role" });
+        await houseHoldApi.deleteHouseHold({householdId: HHCode}).then(res => {
+            if (res.data.Status) {
+                message.success({
+                    content: t("DELETE_SUCCESS"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+                history.push(PATH.HOUSEHOLD_REGISTRATION);
+            } else {
+                message.error({
+                    content: t("DELETE_FAILED"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            }
+        })
+    };
+
+    const handleDeleteMember = async (id) => {
+        message.loading({ content: "Loading...", key: "message-form-role" });
+        await houseHoldApi.deleteMember({memberId: id}).then(res => {
+            if (res.data.Status) {
+                message.success({
+                    content: t("DELETE_SUCCESS"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+                // const plotLandArray = {...detailHouseHold};
+                // plotLandArray.PlotLands = res.data.Data;
+                // setDetailHouseHold(plotLandArray);
+            } else {
+                message.error({
+                    content: t("DELETE_FAILED"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            }
+        })
+    };
 
     const columns = [
         {
@@ -116,13 +181,18 @@ function DetailBeneficiary(props) {
                         className="set-center-content mr-1"
                         type="primary"
                         icon={<EditOutlined className="font-16"/>}
+                        onClick={()=>{
+                            history.push(`${PATH.UPDATE_MEMBER_IN_HOUSEHOLD}?memberId=${record.MemberId}&hh_code=${HHCode}`)
+                        }}
                     />
-                    <Button
-                        className="set-center-content"
-                        type="primary"
-                        danger
-                        icon={<DeleteOutlined className="font-16"/>}
-                    />
+                    <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={()=>{handleDeleteMember(record.MemberId)}}>
+                        <Button
+                            className="set-center-content"
+                            type="primary"
+                            danger
+                            icon={<DeleteOutlined className="font-16"/>}
+                        />
+                    </Popconfirm>
                 </div>
             ),
         },
@@ -184,12 +254,14 @@ function DetailBeneficiary(props) {
                         icon={<EditOutlined className="font-16"/>}
                         onClick={()=>{setValuePlotLandModal("UPDATE", record)}}
                     />
-                    <Button
-                        className="set-center-content"
-                        type="primary"
-                        danger
-                        icon={<DeleteOutlined className="font-16"/>}
-                    />
+                    <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={()=>{handleDeletePlotLand(record.PlotLandId)}}>
+                        <Button
+                            className="set-center-content"
+                            type="primary"
+                            danger
+                            icon={<DeleteOutlined className="font-16"/>}
+                        />
+                    </Popconfirm>
                 </div>
             ),
         }
@@ -229,24 +301,29 @@ function DetailBeneficiary(props) {
             <section className="border-bottom mb-3">
                 <div className="d-flex align-items-center mb-3">
                     <span className="h5 mb-0">{t("BENEFICIARY_FORM")}</span>
-                    <div className="d-flex ml-auto">
-                        <Button
-                            className="set-center-content mr-1"
-                            type="primary"
-                            icon={<PlusSquareOutlined className="font-16"/>}
-                        />
-                        <Button
-                            className="set-center-content mr-1"
-                            type="primary"
-                            icon={<EditOutlined className="font-16"/>}
-                            onClick={()=>{props.history.push(`${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`)}}
-                        />
-                        <Button
-                            className="set-center-content"
-                            type="primary"
-                            icon={<DeleteOutlined className="font-16"/>}
-                        />
-                    </div>
+                    {
+                        HHCode ? <div className="d-flex ml-auto">
+                            <Button
+                                className="set-center-content mr-1"
+                                type="primary"
+                                icon={<PlusSquareOutlined className="font-16"/>}
+                                onClick={()=>{props.history.push(PATH.ADD_HOUSEHOLD)}}
+                            />
+                            <Button
+                                className="set-center-content mr-1"
+                                type="primary"
+                                icon={<EditOutlined className="font-16"/>}
+                                onClick={()=>{props.history.push(`${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`)}}
+                            />
+                            <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={()=>{handleDeleteHouseHold()}}>
+                                <Button
+                                    className="set-center-content"
+                                    type="primary"
+                                    icon={<DeleteOutlined className="font-16"/>}
+                                />
+                            </Popconfirm>
+                        </div> : null
+                    }
                 </div>
             </section>
 
@@ -347,13 +424,16 @@ function DetailBeneficiary(props) {
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
                         III. {t("HOUSEHOLD_MEMBER_LIST")}
                     </div>
-                    <div className="d-flex justify-content-end mb-2">
-                        <Button
-                            className="set-center-content mr-1"
-                            type="primary"
-                            icon={<PlusSquareOutlined className="font-16"/>}
-                        />
-                    </div>
+                    {
+                        HHCode ?  <div className="d-flex justify-content-end mb-2">
+                            <Button
+                                className="set-center-content mr-1"
+                                type="primary"
+                                icon={<PlusSquareOutlined className="font-16"/>}
+                                onClick={() => {history.push(`${PATH.MEMBER_IN_HOUSEHOLD}?hh_code=${HHCode}`)}}
+                            />
+                        </div> : null
+                    }
                     <Table
                         columns={columns}
                         dataSource={(detailHouseHold.Members || [])}
@@ -368,14 +448,17 @@ function DetailBeneficiary(props) {
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
                         IV. {t("PLOT_LAND_LIST")}
                     </div>
-                    <div className="d-flex justify-content-end mb-2">
-                        <Button
-                            className="set-center-content mr-1"
-                            type="primary"
-                            icon={<PlusSquareOutlined className="font-16"/>}
-                            onClick={() => {setValuePlotLandModal("ADD")}}
-                        />
-                    </div>
+                    {
+                        HHCode ?
+                        <div className="d-flex justify-content-end mb-2">
+                            <Button
+                                className="set-center-content mr-1"
+                                type="primary"
+                                icon={<PlusSquareOutlined className="font-16"/>}
+                                onClick={() => {setValuePlotLandModal("ADD")}}
+                            />
+                        </div> : null
+                    }
                     <Table
                         columns={columnsPlotLandList}
                         dataSource={(detailHouseHold.PlotLands || [])}
@@ -756,6 +839,8 @@ function DetailBeneficiary(props) {
                 setVisible={setVisiblePlotLand}
                 objectValue={objectPlotLand}
                 HHCode={HHCode}
+                detailHouseHold={detailHouseHold}
+                setDetailHouseHold={setDetailHouseHold}
             />
         </div>
     )

@@ -15,38 +15,67 @@ import _ from "lodash";
 import moment from "moment";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import EnergyUsedComponent from "./component/EneryUsedComponent";
+import { useHistory } from "react-router-dom";
+import LocationMapComponent from "./component/LocationMapComponent";
 
 function UpdateHousehold(props) {
-  const [isLoading, setLoading] = useState(false);
-  const [detailHouseHold, setDetailHouseHold] = useState({});
-
+    const {typeModal} = props;
+    const [isLoading, setLoading] = useState(false);
+    const [detailHouseHold, setDetailHouseHold] = useState({});
+    const history = useHistory();
   const [form] = Form.useForm();
 
   const { t } = useTranslation();
+    useEffect(() => {
+       if(typeModal === "UPDATE"){
+           const hh_code = getValueOfQueryParams(history.location, "hh_code", "STRING");
+           const getDetailHouseHold = async (hh_code) => {
+               setLoading(true);
+               await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
+                   const {DateOfEnumeration} = res.data.Data.GeneralInformationBeneficiary;
+                   res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration ? moment(DateOfEnumeration,"DD-MM-YYYY") : undefined;
+                   setDetailHouseHold(res.data.Data);
+                   form.setFieldsValue(res.data.Data);
+               });
+               setLoading(false);
+           };
+           getDetailHouseHold(hh_code);
+       }
+    }, [form,history.location, typeModal]);
 
-  useEffect(() => {
-    const hh_code = getValueOfQueryParams(props.location, "hh_code", "STRING");
-    getDetailHouseHold(hh_code);
-  }, []);
-
-  const getDetailHouseHold = async (hh_code) => {
-    setLoading(true);
-    await houseHoldApi
-      .getDetailHouseHold({ householdId: hh_code })
-      .then((res) => {
-        const {
-          DateOfEnumeration,
-        } = res.data.Data.GeneralInformationBeneficiary;
-        res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration
-          ? moment(DateOfEnumeration, "DD-MM-YYYY")
-          : undefined;
-        setDetailHouseHold(res.data.Data);
-        form.setFieldsValue(res.data.Data);
+  const handleAdd = async (value) => {
+      message.loading({ content: "Loading...", key: "message-form-role" });
+      const objCover = {
+          HHCode: value.HHCode,
+          ...value.LocationBeneficiary,
+          ...value.GeneralInformationBeneficiary,
+          ...value.Shelter,
+          ...value.Machine,
+          ...value.StableOccupationAndIncome,
+          ...value.WaterAndPermanentEnergyBeneficiary,
+          ...value.PrimaryPublicServiceForBeneficiary,
+          ...value.WaterAndPermanentEnergyBeneficiary,
+          ...value.LatLongForBeneficiary
+      };
+      await houseHoldApi.addHouseHold(objCover).then((res) => {
+          if (res.data.Status) {
+              form.resetFields();
+              message.success({
+                  content: t("ADD_SUCCESS"),
+                  key: "message-form-role",
+                  duration: 1,
+              });
+          } else {
+              message.error({
+                  content: t("ADD_FAILED"),
+                  key: "message-form-role",
+                  duration: 1,
+              });
+          }
       });
-    setLoading(false);
   };
 
-  const onSubmit = async (value) => {
+  const handleUpdate = async (value) => {
     message.loading({ content: "Loading...", key: "message-form-role" });
     const objCover = {
       ...detailHouseHold,
@@ -58,6 +87,7 @@ function UpdateHousehold(props) {
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.PrimaryPublicServiceForBeneficiary,
       ...value.WaterAndPermanentEnergyBeneficiary,
+      ...value.LatLongForBeneficiary,
       HHCode: getValueOfQueryParams(props.location, "hh_code", "STRING"),
     };
     await houseHoldApi.updateHouseHold(objCover).then((res) => {
@@ -93,7 +123,7 @@ function UpdateHousehold(props) {
       ) : null}
       <section className="border-bottom mb-3">
         <div className="d-flex align-items-center mb-3">
-          <span className="h5 mb-0">Update Household</span>
+          <span className="h5 mb-0">{typeModal === "ADD" ? t("add") : t("update")} Household</span>
           <span className="ml-auto">
             <Button
               className="set-center-content"
@@ -108,18 +138,18 @@ function UpdateHousehold(props) {
       </section>
 
       {/*Content*/}
-      {_.isEmpty(detailHouseHold) ? null : (
+      {_.isEmpty(detailHouseHold) && typeModal === "UPDATE"? null : (
         <Form
           form={form}
           name="control-hooks"
           id="form-household"
-          onFinish={onSubmit}
+          onFinish={typeModal === "ADD" ? handleAdd : handleUpdate}
         >
           <section className="mb-3">
             <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
               I. Location
             </div>
-            <LocationComponent detailHouseHold={detailHouseHold} form={form} />
+            <LocationComponent detailHouseHold={detailHouseHold} form={form} typeModal={typeModal}/>
           </section>
 
           <section className="mb-3">
@@ -168,6 +198,12 @@ function UpdateHousehold(props) {
             </div>
             <SourceSurvivalComponent />
           </section>
+            <section className="mb-3">
+                <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+                    7.4 Location in map
+                </div>
+                <LocationMapComponent />
+            </section>
         </Form>
       )}
     </div>
