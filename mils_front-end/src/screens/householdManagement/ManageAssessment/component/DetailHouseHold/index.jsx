@@ -30,6 +30,13 @@ function DetailBeneficiary(props) {
     useEffect(() => {
         const hh_code = getValueOfQueryParams(history.location, "hh_code", "STRING");
         setHHCode(hh_code);
+        const getDetailHouseHold = async (hh_code) => {
+            setLoading(true);
+            await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
+                setDetailHouseHold(res.data.Data);
+            });
+            setLoading(false);
+        };
         getDetailHouseHold(hh_code);
     }, []);
 
@@ -41,13 +48,6 @@ function DetailBeneficiary(props) {
         zoom: 11
     };
 
-    const getDetailHouseHold = async (hh_code) => {
-        setLoading(true);
-        await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
-            setDetailHouseHold(res.data.Data);
-        });
-        setLoading(false);
-    };
 
     const changeYesNoForQuestion = (value) => {
         if(value === false || value === "false"){
@@ -116,6 +116,9 @@ function DetailBeneficiary(props) {
                         className="set-center-content mr-1"
                         type="primary"
                         icon={<EditOutlined className="font-16"/>}
+                        onClick={()=>{
+                            history.push(PATH.MEMBER_IN_HOUSEHOLD)
+                        }}
                     />
                     <Button
                         className="set-center-content"
@@ -239,7 +242,7 @@ function DetailBeneficiary(props) {
                             className="set-center-content mr-1"
                             type="primary"
                             icon={<EditOutlined className="font-16"/>}
-                            onClick={()=>{props.history.push(`${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`)}}
+                            // onClick={()=>{props.history.push(`${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`)}}
                         />
                         <Button
                             className="set-center-content"
@@ -352,6 +355,7 @@ function DetailBeneficiary(props) {
                             className="set-center-content mr-1"
                             type="primary"
                             icon={<PlusSquareOutlined className="font-16"/>}
+                            onClick={()=>{history.push(PATH.MEMBER_IN_HOUSEHOLD)}}
                         />
                     </div>
                     <Table

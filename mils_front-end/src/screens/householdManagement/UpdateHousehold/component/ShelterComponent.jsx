@@ -1,4 +1,4 @@
-import {Col, Form, Row, Typography, Select, InputNumber} from "antd";
+import {Col, Form, Row, Typography, Select, InputNumber, Input} from "antd";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import dataDictionaryApi from "../../../../api/dataDictionaryApi";
@@ -79,18 +79,14 @@ function ShelterComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(2, true, "TOTAL_ROOMS"),
+                                        objectValidateForm.checkNumber(20, 0, "TOTAL_ROOMS",true),
                                         t
                                     );
                                 },
                             },
-                            {
-                                pattern: regexTemplate.PHONE,
-                                message: t("required_phone"),
-                            }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input/>
                     </Form.Item>
                 </Col>
             </Row>

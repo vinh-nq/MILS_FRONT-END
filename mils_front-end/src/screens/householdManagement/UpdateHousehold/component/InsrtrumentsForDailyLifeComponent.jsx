@@ -17,6 +17,7 @@ function InstrumentsForDailyLifeComponent() {
                                  name={["Machine", "Cars"]}
                                  className="mb-0 ml-2"
                                  valuePropName="checked"
+                                 initialValue={false}
                              >
                                  <Switch
                                      checkedChildren="Yes" unCheckedChildren="No"
@@ -31,6 +32,7 @@ function InstrumentsForDailyLifeComponent() {
                                  name={["Machine", "Motorcycles"]}
                                  className="mb-0 ml-2"
                                  valuePropName="checked"
+                                 initialValue={false}
                              >
                                  <Switch
                                      checkedChildren="Yes" unCheckedChildren="No"
@@ -45,6 +47,7 @@ function InstrumentsForDailyLifeComponent() {
                                  name={["Machine", "Bicycle"]}
                                  className="mb-0 ml-2"
                                  valuePropName="checked"
+                                 initialValue={false}
                              >
                                  <Switch
                                      checkedChildren="Yes" unCheckedChildren="No"
@@ -59,6 +62,7 @@ function InstrumentsForDailyLifeComponent() {
                                  name={["Machine", "Tricycle"]}
                                  className="mb-0 ml-2"
                                  valuePropName="checked"
+                                 initialValue={false}
                              >
                                  <Switch
                                      checkedChildren="Yes" unCheckedChildren="No"
@@ -73,6 +77,7 @@ function InstrumentsForDailyLifeComponent() {
                                  name={["Machine", "Boat"]}
                                  className="mb-0 ml-2"
                                  valuePropName="checked"
+                                 initialValue={false}
                              >
                                  <Switch
                                      checkedChildren="Yes" unCheckedChildren="No"
@@ -87,6 +92,7 @@ function InstrumentsForDailyLifeComponent() {
                                  name={["Machine", "AirConditioning"]}
                                  className="mb-0 ml-2"
                                  valuePropName="checked"
+                                 initialValue={false}
                              >
                                  <Switch
                                      checkedChildren="Yes" unCheckedChildren="No"
@@ -101,6 +107,7 @@ function InstrumentsForDailyLifeComponent() {
                                  name={["Machine", "Refrigerator"]}
                                  className="mb-0 ml-2"
                                  valuePropName="checked"
+                                 initialValue={false}
                              >
                                  <Switch
                                      checkedChildren="Yes" unCheckedChildren="No"
@@ -115,6 +122,7 @@ function InstrumentsForDailyLifeComponent() {
                                  name={["Machine", "WashingMachine"]}
                                  className="mb-0 ml-2"
                                  valuePropName="checked"
+                                 initialValue={false}
                              >
                                  <Switch
                                      checkedChildren="Yes" unCheckedChildren="No"
@@ -133,6 +141,7 @@ function InstrumentsForDailyLifeComponent() {
                                   name={["Machine", "TV"]}
                                   className="mb-0 ml-2"
                                   valuePropName="checked"
+                                  initialValue={false}
                               >
                                   <Switch
                                       checkedChildren="Yes" unCheckedChildren="No"
@@ -147,6 +156,7 @@ function InstrumentsForDailyLifeComponent() {
                                   name={["Machine", "DesktopLaptopComputers"]}
                                   className="mb-0 ml-2"
                                   valuePropName="checked"
+                                  initialValue={false}
                               >
                                   <Switch
                                       checkedChildren="Yes" unCheckedChildren="No"
@@ -161,6 +171,7 @@ function InstrumentsForDailyLifeComponent() {
                                   name={["Machine", "Landline"]}
                                   className="mb-0 ml-2"
                                   valuePropName="checked"
+                                  initialValue={false}
                               >
                                   <Switch
                                       checkedChildren="Yes" unCheckedChildren="No"
@@ -175,6 +186,7 @@ function InstrumentsForDailyLifeComponent() {
                                   name={["Machine", "MobilePhone"]}
                                   className="mb-0 ml-2"
                                   valuePropName="checked"
+                                  initialValue={false}
                               >
                                   <Switch
                                       checkedChildren="Yes" unCheckedChildren="No"
@@ -189,6 +201,7 @@ function InstrumentsForDailyLifeComponent() {
                                   name={["Machine", "TwowheelTractor"]}
                                   className="mb-0 ml-2"
                                   valuePropName="checked"
+                                  initialValue={false}
                               >
                                   <Switch
                                       checkedChildren="Yes" unCheckedChildren="No"
@@ -203,6 +216,7 @@ function InstrumentsForDailyLifeComponent() {
                                   name={["Machine", "FourwheelTractor"]}
                                   className="mb-0 ml-2"
                                   valuePropName="checked"
+                                  initialValue={false}
                               >
                                   <Switch
                                       checkedChildren="Yes" unCheckedChildren="No"
@@ -217,6 +231,7 @@ function InstrumentsForDailyLifeComponent() {
                                   name={["Machine", "AdequateAgriculturalEquipment"]}
                                   className="mb-0 ml-2"
                                   valuePropName="checked"
+                                  initialValue={false}
                               >
                                   <Switch
                                       checkedChildren="Yes" unCheckedChildren="No"
@@ -231,6 +246,7 @@ function InstrumentsForDailyLifeComponent() {
                                   name={["Machine", "AdequateProductionLand"]}
                                   className="mb-0 ml-2"
                                   valuePropName="checked"
+                                  initialValue={false}
                               >
                                   <Switch
                                       checkedChildren="Yes" unCheckedChildren="No"

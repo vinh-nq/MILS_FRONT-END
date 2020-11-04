@@ -19,6 +19,7 @@ function SourceSurvivalComponent(props) {
                         name={["PrimaryPublicServiceForBeneficiary","PrimarySchool"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -31,6 +32,7 @@ function SourceSurvivalComponent(props) {
                         name={["PrimaryPublicServiceForBeneficiary","Market"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -43,6 +45,7 @@ function SourceSurvivalComponent(props) {
                         name={["PrimaryPublicServiceForBeneficiary","Dispensary"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -80,6 +83,7 @@ function SourceSurvivalComponent(props) {
                         name={["PrimaryPublicServiceForBeneficiary","Hospital"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -142,6 +146,7 @@ function SourceSurvivalComponent(props) {
                         name={["PrimaryPublicServiceForBeneficiary","RoadAccess"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -154,6 +159,7 @@ function SourceSurvivalComponent(props) {
                         name={["PrimaryPublicServiceForBeneficiary","TransportStop"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"
@@ -166,6 +172,7 @@ function SourceSurvivalComponent(props) {
                         name={["PrimaryPublicServiceForBeneficiary","ElectricNetwork"]}
                         className="mb-0"
                         valuePropName="checked"
+                        initialValue={false}
                     >
                         <Switch
                             checkedChildren="Yes" unCheckedChildren="No"

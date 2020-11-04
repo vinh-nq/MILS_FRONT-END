@@ -6,12 +6,13 @@ export const objectValidateForm = {
             nameLabel: nameLabel,
         }
     ),
-    checkNumber: (maxValue, minValue, nameLabel, checkEmpty) => (
+    checkNumber: (length, minValue, nameLabel, checkEmpty) => (
         {
-            maxValue: maxValue,
+            maxLength: length,
             minValue: minValue,
             nameLabel: nameLabel,
             checkEmpty: checkEmpty,
+            type: "number"
         }
     ),
     telephone: {

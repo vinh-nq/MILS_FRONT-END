@@ -154,24 +154,24 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={AddHouseHold}
-              path={`${PATH.ADD_HOUSEHOLD}`}
-              exact
-            />
-            <MainRouteWrapper
-              component={UpdateHousehold}
-              path={`${PATH.UPDATE_HOUSEHOLD}`}
-              exact
-            />
-            <MainRouteWrapper
-                component={UpdateHousehold}
+                component={() => <UpdateHousehold typeModal={"UPDATE"}/>}
                 path={`${PATH.UPDATE_HOUSEHOLD}`}
                 exact
+            />
+            <MainRouteWrapper
+              component={() => <UpdateHousehold typeModal={"ADD"}/>}
+              path={`${PATH.ADD_HOUSEHOLD}`}
+              exact
             />
             <MainRouteWrapper
               component={MemberInHouseHold}
               path={`${PATH.MEMBER_IN_HOUSEHOLD}`}
               exact
+            />
+            <MainRouteWrapper
+                component={DetailBeneficiary}
+                path={PATH.DETAIL_HOUSEHOLD}
+                exact
             />
             <MainRouteWrapper
               component={ListOfPlotCause}
@@ -211,11 +211,6 @@ class App extends React.Component {
             <MainRouteWrapper
               component={ListOfVillage}
               path={`${PATH.LIST_OF_VILLAGE}`}
-              exact
-            />
-            <MainRouteWrapper
-              component={DetailBeneficiary}
-              path={PATH.DETAIL_HOUSEHOLD}
               exact
             />
             <MainRouteWrapper

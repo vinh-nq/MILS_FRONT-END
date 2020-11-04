@@ -50,6 +50,7 @@ export const PATH = {
   LIST_OF_COOKING_SOURCE: "/datadictionary/listofcookingsource",
   LIST_OF_LANDER_TYPE: "/datadictionary/listoflandertype",
   USERVILLAGE: "/system/uservillage",
+  DETAIL_HOUSEHOUSE2:"/householdmanagement/householdregistration/detailhouseholds"
 };
 
 export const PATH_BREADCRUM = {

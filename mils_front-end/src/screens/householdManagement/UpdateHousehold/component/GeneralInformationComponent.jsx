@@ -76,15 +76,11 @@ function GeneralInformationComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(20, true, "TELEPHONE"),
+                                        objectValidateForm.checkNumber(20, 0, "TELEPHONE", true),
                                         t
                                     );
                                 },
                             },
-                            {
-                                pattern: regexTemplate.PHONE,
-                                message: t("required_phone"),
-                            }
                         ]}
                     >
                         <Input/>
@@ -101,15 +97,11 @@ function GeneralInformationComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(2, true, "NumberOfHH"),
+                                        objectValidateForm.checkNumber(20, 0, "TELEPHONE", true),
                                         t
                                     );
                                 },
                             },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
-                            }
                         ]}
                     >
                         <Input/>
@@ -191,15 +183,11 @@ function GeneralInformationComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.telephone,
+                                        objectValidateForm.checkNumber(20, 0, "TELEPHONE", true),
                                         t
                                     );
                                 },
                             },
-                            {
-                                pattern: regexTemplate.PHONE,
-                                message: t("required_phone")
-                            }
                         ]}
                     >
                         <Input />
@@ -239,14 +227,10 @@ function GeneralInformationComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.telephone,
+                                        objectValidateForm.checkNumber(20, 0, "TELEPHONE", true),
                                         t
                                     );
                                 },
-                            },
-                            {
-                                pattern: regexTemplate.PHONE,
-                                message: t("required_phone")
                             }
                         ]}
                     >

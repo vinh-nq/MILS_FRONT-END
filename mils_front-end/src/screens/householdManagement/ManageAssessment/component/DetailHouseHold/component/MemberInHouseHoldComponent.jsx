@@ -270,7 +270,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">What is the current level of education?</Text>
                     <Form.Item
-                        name={"TypeOfLandId"}
+                        name={"MemberLevelId"}
                         className="mb-0"
                         rules={[
                             {
@@ -289,7 +289,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Current year level of education</Text>
                     <Form.Item
-                        name={"Current year level of education"}
+                        name={"LevelAndClassAreEnrolledId"}
                         className="mb-0"
                         rules={[
                             {
@@ -350,7 +350,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Lower secondary</Text>
                     <Form.Item
-                        name={"Lower secondary"}
+                        name={"LowerSecondary"}
                         className="mb-0"
                         rules={[
                             {
@@ -369,7 +369,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Upper secondary</Text>
                     <Form.Item
-                        name={"Upper secondary"}
+                        name={"UpperSecondary"}
                         className="mb-0"
                         rules={[
                             {
@@ -390,7 +390,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Vocational school</Text>
                     <Form.Item
-                        name={"Vocational school"}
+                        name={"VocationalSchool"}
                         className="mb-0"
                         rules={[
                             {
@@ -413,7 +413,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">University / Institute</Text>
                     <Form.Item
-                        name={"University / Institute"}
+                        name={"UniversityInstitute"}
                         className="mb-0"
                         rules={[
                             {
@@ -434,7 +434,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">What type of school are you attending?</Text>
                     <Form.Item
-                        name={"What type of school are you attending"}
+                        name={"HHSchoolTypeId"}
                         className="mb-0"
                         rules={[
                             {
@@ -453,7 +453,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Higher education is graduated</Text>
                     <Form.Item
-                        name={"Higher education is graduated"}
+                        name={"HHLevelClassCompleted"}
                         className="mb-0"
                         rules={[
                             {
@@ -470,15 +470,9 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">During the past 7 days, have you worked on your own or any of your own business or any of your family members?</Text>
                     <Form.Item
-                        name={"own business or"}
+                        name={"Business"}
                         className="mb-0"
                         initialValue={true}
-                        rules={[
-                            {
-                                require: true,
-                                message : `During the past 7 days, have you worked on your own or any of your own business or any of your family members ${t("is_not_empty")}`
-                            }
-                        ]}
                     >
                         <Select>
                             <Option value={true}>{t("YES")}</Option>
@@ -491,15 +485,9 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">During the past 7 days, have you been working on your own farm or with a family member?</Text>
                     <Form.Item
-                        name={"have you been"}
+                        name={"Agricature"}
                         className="mb-0"
                         initialValue={true}
-                        rules={[
-                            {
-                                require: true,
-                                message : `During the past 7 days, have you been working on your own farm or with a family member? ${t("is_not_empty")}`
-                            }
-                        ]}
                     >
                         <Select>
                             <Option value={true}>{t("YES")}</Option>
@@ -510,13 +498,13 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Have you worked elsewhere in the last 7 days? For example, hiring for an enterprise, private, or public or other</Text>
                     <Form.Item
-                        name={"Have you worked elsewhere in the last 7 "}
+                        name={"Outside"}
                         className="mb-0"
                         initialValue={true}
                         rules={[
                             {
                                 require: true,
-                                message : `${t("During the past 7 days, have you worked on your own or any of your own business or any of your family members")} ${t("is_not_empty")}`
+                                message : `Have you worked elsewhere in the last 7 days? For example, hiring for an enterprise, private, or public or other ${t("is_not_empty")}`
                             }
                         ]}
                     >
@@ -548,7 +536,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">What is your main job?</Text>
                     <Form.Item
-                        name={"TypeOfLandId"}
+                        name={"MainJobId"}
                         className="mb-0"
                         rules={[
                             {
@@ -567,7 +555,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Have you been a Social Security member of any unit or participated in a health insurance program?</Text>
                     <Form.Item
-                        name={"Have you been a Social"}
+                        name={"HealthInsurance"}
                         className="mb-0"
                         rules={[
                             {
@@ -584,7 +572,7 @@ function MemberInHouseHold(props) {
                 <Col span={24} lg={12}>
                     <Text className="font-13 font-weight-500">Are you a Social Security member of a private company?</Text>
                     <Form.Item
-                        name={"TypeOfLandId"}
+                        name={"PrivateHealthInsurance"}
                         className="mb-0"
                         rules={[
                             {
@@ -640,7 +628,7 @@ function MemberInHouseHold(props) {
                         rules={[
                             {
                                 require: true,
-                                message : `${t("Are you a Social Security member of a private company?")} ${t("is_not_empty")}`
+                                message : `If yes, indicate the type of defect ${t("is_not_empty")}`
                             }
                         ]}
                     >
