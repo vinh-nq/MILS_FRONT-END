@@ -27,6 +27,8 @@ function MemberInHouseHold(props) {
     const [maritalStatus, setMaritalStatus] = useState([]);
     const [relation, setRelation] = useState([]);
     const [disability, setDisability] = useState([]);
+    const [gender, setGender] = useState([]);
+    const [schoolEnroll, setSchoolEnroll] = useState([]);
     const [hh_code, setHHCode] = useState("");
 
     const [isLoading, setLoading] = useState(false);
@@ -188,6 +190,38 @@ function MemberInHouseHold(props) {
         getAllMarital();
     }, [t]);
 
+    //get all render
+    useEffect(() => {
+        const getAllGender = async () => {
+            await dataDictionaryApi.GetAllGender({keyword: ""}).then(res => {
+                setGender(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("Error"),
+                    key: "message-form-role",
+                    duration: 1,
+                })
+            })
+        };
+        getAllGender();
+    }, [t]);
+
+    //get all school enroll
+    useEffect(() => {
+        const getAllSchoolEnroll = async () => {
+            await dataDictionaryApi.GetAllSchoolEnroll({keyword: ""}).then(res => {
+                setSchoolEnroll(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("Error"),
+                    key: "message-form-role",
+                    duration: 1,
+                })
+            })
+        };
+        getAllSchoolEnroll();
+    }, [t]);
+
     const handleAdd = async (value) => {
         message.loading({content: "Loading...", key: "message-form-role"});
         value.HHCode = hh_code;
@@ -337,8 +371,7 @@ function MemberInHouseHold(props) {
                         initialValue={"Male"}
                     >
                         <Select>
-                            <Option value={"Male"}>{t("MALE")}</Option>
-                            <Option value={"FeMale"}>{t("FEMALE")}</Option>
+                            {renderSelect(gender)}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -422,8 +455,7 @@ function MemberInHouseHold(props) {
                         initialValue={true}
                     >
                         <Select>
-                            <Option value={true}>Yes</Option>
-                            <Option value={false}>No</Option>
+                            {renderSelect(schoolEnroll)}
                         </Select>
                     </Form.Item>
                 </Col>

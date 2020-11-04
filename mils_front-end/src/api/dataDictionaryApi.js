@@ -311,6 +311,14 @@ const dataDictionaryApi = {
   UpdateDisability: (data) => {
     const url = "api/Dictionary/UpdateDisability";
     return fetchData(url, "POST", null, data);
-  }
+  },
+  GetAllGender: (params) => {
+    const url = "api/Dictionary/GetAllGender";
+    return fetchData(url, "GET", params, null);
+  },
+  GetAllSchoolEnroll: (params) => {
+    const url = "api/Dictionary/GetAllSchoolEnroll";
+    return fetchData(url, "GET", params, null);
+  },
 };
 export default dataDictionaryApi;
