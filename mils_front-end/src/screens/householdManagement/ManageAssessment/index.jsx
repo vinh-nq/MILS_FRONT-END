@@ -1,10 +1,20 @@
-import React, {useEffect, useState} from "react";
-import {Button, Col, Input, Row, Select, Table, Tooltip, Typography,} from "antd";
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Col,
+  Input,
+  Row,
+  Select,
+  Table,
+  Tooltip,
+  Typography,
+} from "antd";
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined";
 import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 import HouseHoldMemberList from "./component/HHMemberList";
 import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../../api/houseHoldApi";
+import downloadFileExcelApi from "../../../api/downloadFileExcelApi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
@@ -170,8 +180,6 @@ function ManageAssessment(props) {
     }
   };
 
-
-
   useEffect(() => {
     getDataHouseHold(checkDataFromUrl());
     getProvince();
@@ -181,31 +189,31 @@ function ManageAssessment(props) {
   const checkDataFromUrl = () => {
     let pageUrl = getValueOfQueryParams(history.location, "page", "PAGE");
     let provinceId = getValueOfQueryParams(
-        history.location,
-        "provinceId",
-        "STRING"
+      history.location,
+      "provinceId",
+      "STRING"
     );
     let districtId = getValueOfQueryParams(
-        history.location,
-        "districtId",
-        "STRING"
+      history.location,
+      "districtId",
+      "STRING"
     );
     let villageId = getValueOfQueryParams(
-        history.location,
-        "villageId",
-        "STRING"
+      history.location,
+      "villageId",
+      "STRING"
     );
     let unitId = getValueOfQueryParams(history.location, "unitId", "STRING");
     let child = getValueOfQueryParams(history.location, "child", "NUMBER");
     let pregnant = getValueOfQueryParams(
-        history.location,
-        "pregnant",
-        "NUMBER"
+      history.location,
+      "pregnant",
+      "NUMBER"
     );
     let headName = getValueOfQueryParams(
-        history.location,
-        "headName",
-        "KEYWORD"
+      history.location,
+      "headName",
+      "KEYWORD"
     );
     setSelectedProvince(provinceId);
     setSelectedDistrict(districtId);
@@ -409,7 +417,22 @@ function ManageAssessment(props) {
       <section className="border-bottom mb-3">
         <div className="d-flex align-items-center mb-3">
           <span className="h5 mb-0">{t("HOUSEHOLD_LIST")}</span>
-          <span className="ml-auto">
+          <span className="ml-auto d-flex flex-row">
+            <Button
+              className="set-center-content mr-2"
+              // type="primary"
+              icon={<i className="fas fa-file-excel mr-2"></i>}
+              onClick={async () => {
+                await downloadFileExcelApi
+                  .ExportMembers({
+                    villageId: "123a",
+                  })
+                  .then((res) => console.log(res));
+              }}
+              style={{ color: "#0c960c", border: "1px #0c960c solid" }}
+            >
+              Export Excel
+            </Button>
             <Button
               className="set-center-content"
               type="primary"
@@ -429,9 +452,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("PROVINCE")}</Text>
             <Select
-                className="w-100"
-                value={selectedProvince}
-                onChange={onSelectProvince}
+              className="w-100"
+              value={selectedProvince}
+              onChange={onSelectProvince}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderProvinceSelect()}
@@ -440,9 +463,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("DISTRICT")}</Text>
             <Select
-                className="w-100"
-                value={selectedDistrict}
-                onChange={onSelectDistrict}
+              className="w-100"
+              value={selectedDistrict}
+              onChange={onSelectDistrict}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderDistrictSelect()}
@@ -451,9 +474,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("VILLAGE")}</Text>
             <Select
-                className="w-100"
-                value={selectedVillage}
-                onChange={onSelectVillage}
+              className="w-100"
+              value={selectedVillage}
+              onChange={onSelectVillage}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderVillageSelect()}
@@ -462,9 +485,9 @@ function ManageAssessment(props) {
           <Col span={4}>
             <Text className="font-13">{t("UNIT")}</Text>
             <Select
-                className="w-100"
-                value={selectedUnit}
-                onChange={onSelectUnit}
+              className="w-100"
+              value={selectedUnit}
+              onChange={onSelectUnit}
             >
               <Option value={"-1"}>{t("ALL")}</Option>
               {renderUnitSelect()}

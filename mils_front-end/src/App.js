@@ -143,7 +143,11 @@ class App extends React.Component {
               path={PATH.LIST_OF_MAIN_JOB}
               exact
             />
-
+            <MainRouteWrapper
+              component={ListOfPlotStatus}
+              path={PATH.LIST_OF_PLOT_STATUS}
+              exact
+            />
             <MainRouteWrapper
               component={ManageAssessment}
               path={`${PATH.HOUSEHOLD_REGISTRATION}`}
