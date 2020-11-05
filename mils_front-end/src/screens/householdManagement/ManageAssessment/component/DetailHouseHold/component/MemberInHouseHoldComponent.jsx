@@ -13,7 +13,6 @@ import {useHistory} from "react-router-dom";
 import SaveFilled from "@ant-design/icons/lib/icons/SaveFilled";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import {PATH} from "../../../../../../routers/Path";
-import momentTimeZone from "moment-timezone";
 
 function MemberInHouseHold(props) {
     const {typeModal = "ADD"} = props;

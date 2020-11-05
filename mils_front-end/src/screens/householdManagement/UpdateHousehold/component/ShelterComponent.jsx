@@ -1,4 +1,4 @@
-import {Col, Form, Row, Typography, Select, Input} from "antd";
+import {Col, Form, Row, Typography, Select, Input, message} from "antd";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import dataDictionaryApi from "../../../../api/dataDictionaryApi";
@@ -18,7 +18,8 @@ function ShelterComponent(props) {
     const [wall, setWall] = useState([]);
     const [roof, setRoof] = useState([]);
     const [floor, setFloor] = useState([]);
-    // const [area, setArea] = useState([]);
+    const [area, setArea] = useState([]);
+    const [roofSafety, setRoofSafety] = useState([]);
 
     useEffect(() => {
         getWallMaterial();
@@ -26,37 +27,80 @@ function ShelterComponent(props) {
         getFloorMaterial();
     },[]);
 
-    const getWallMaterial = async () => {
-        await dataDictionaryApi.GetAllWallMaterail({keyword:""}).then(res => {
-            setWall(res.data.Data);
-        }).catch(error => {
+    useEffect(() => {
+        const getWallMaterial = async () => {
+            await dataDictionaryApi.GetAllWallMaterail({keyword:""}).then(res => {
+                setWall(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("FETCH_DATA_FAILED"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            })
+        };
+        getWallMaterial();
+    },[t]);
 
-        })
-    };
+    useEffect(() => {
+        const getRoofMaterial = async () => {
+            await dataDictionaryApi.GetAllRoofMaterail({keyword:""}).then(res => {
+                setRoof(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("FETCH_DATA_FAILED"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            })
+        };
+        getRoofMaterial();
+    },[t]);
 
-    const getRoofMaterial = async () => {
-        await dataDictionaryApi.GetAllRoofMaterail({keyword:""}).then(res => {
-            setRoof(res.data.Data);
-        }).catch(error => {
+    useEffect(() => {
+        const getFloorMaterial = async () => {
+            await dataDictionaryApi.GetAllFloorMaterail({keyword:""}).then(res => {
+                setFloor(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("FETCH_DATA_FAILED"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            })
+        };
+        getFloorMaterial();
+    },[t]);
 
-        })
-    };
-
-    const getFloorMaterial = async () => {
-        await dataDictionaryApi.GetAllFloorMaterail({keyword:""}).then(res => {
-            setFloor(res.data.Data);
-        }).catch(error => {
-
-        })
-    };
-
-    // const getAreaMaterial = async () => {
-    //     await dataDictionaryApi.GetAll({keyword:""}).then(res => {
-    //         setWall(res.data.Data);
-    //     }).catch(error => {
+    // useEffect(() => {
+    //     const getAreaMaterial = async () => {
+    //         await dataDictionaryApi.GetAllAreaMateral({keyword:""}).then(res => {
+    //             setArea(res.data.Data);
+    //         }).catch(() => {
+    //             message.error({
+    //                 content: t("FETCH_DATA_FAILED"),
+    //                 key: "message-form-role",
+    //                 duration: 1,
+    //             });
+    //         })
+    //     };
+    //     getAreaMaterial();
+    // },[t]);
     //
-    //     })
-    // };
+    // useEffect(() => {
+    //     const getRoofSafety = async () => {
+    //         await dataDictionaryApi.GetAllSafetyArea({keyword:""}).then(res => {
+    //             setRoofSafety(res.data.Data);
+    //         }).catch(() => {
+    //             message.error({
+    //                 content: t("FETCH_DATA_FAILED"),
+    //                 key: "message-form-role",
+    //                 duration: 1,
+    //             });
+    //         })
+    //     };
+    //     getRoofSafety();
+    // },[t]);
 
     const renderSelect = (array) => {
         return array.map((value,index) => (
@@ -67,7 +111,7 @@ function ShelterComponent(props) {
     return (
         <>
             <Row className="mb-2" gutter={16}>
-                <Col span={24}>
+                <Col span={24} md={12}>
                     <Text className="font-13 font-weight-500">{t("TOTAL_ROOMS")}</Text>
                     <Form.Item
                         name={["Shelter","TotalRooms"]}
@@ -86,6 +130,23 @@ function ShelterComponent(props) {
                         ]}
                     >
                         <Input/>
+                    </Form.Item>
+                </Col>
+                <Col span={24} md={12}>
+                    <Text className="font-13 font-weight-500">Roof safety area</Text>
+                    <Form.Item
+                        name={["Shelter","SafetyAreaId"]}
+                        className="mb-0"
+                        rules={[
+                            {
+                                required: true,
+                                message: `Roof safety area ${t("is_not_empty")}`,
+                            },
+                        ]}
+                    >
+                        <Select>
+                            {renderSelect(roofSafety)}
+                        </Select>
                     </Form.Item>
                 </Col>
             </Row>
@@ -156,10 +217,7 @@ function ShelterComponent(props) {
                         ]}
                     >
                         <Select>
-                            <Option value={"1"}>No Risk area</Option>
-                            <Option value={"2"}>River bank/landslide </Option>
-                            <Option value={"3"}>Dangerous road</Option>
-                            <Option value={"4"}>Risky for flood</Option>
+                            {renderSelect(area)}
                         </Select>
                     </Form.Item>
                 </Col>
