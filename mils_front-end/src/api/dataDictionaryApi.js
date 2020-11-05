@@ -328,5 +328,29 @@ const dataDictionaryApi = {
     const url = "api/Dictionary/GetAllGender";
     return fetchData(url, "GET", params, null);
   },
+  GetAllAreaMateral: (params) => {
+    const url = "api/Dictionary/GetAllAreaMateral";
+    return fetchData(url, "GET", params, null);
+  },
+  InsertAreaMateral: (data) => {
+    const url = "api/Dictionary/InsertAreaMateral";
+    return fetchData(url, "POST", null, data);
+  },
+  UpdateAreaMateral: (data) => {
+    const url = "api/Dictionary/UpdateAreaMateral";
+    return fetchData(url, "POST", null, data);
+  },
+  GetAllSafetyArea: (params) => {
+    const url = "api/Dictionary/GetAllSafetyArea";
+    return fetchData(url, "GET", params, null);
+  },
+  InsertSafetyArea: (data) => {
+    const url = "api/Dictionary/InsertSafetyArea";
+    return fetchData(url, "POST", null, data);
+  },
+  UpdateSafetyArea: (data) => {
+    const url = "api/Dictionary/UpdateSafetyArea";
+    return fetchData(url, "POST", null, data);
+  },
 };
 export default dataDictionaryApi;

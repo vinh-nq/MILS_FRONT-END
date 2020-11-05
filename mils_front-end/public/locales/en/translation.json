@@ -329,6 +329,14 @@
   "schoolEnrollId":"School Enroll Id",
   "schoolEnrollLao":"School Enroll (Laos)",
   "schoolEnrollEng":"School Enroll (Eng)",
+  "LISTOFAREAMATERAL":"List Of Area Material",
+  "areaMateralId":"Area Material Id",
+  "areaMateralLao":"Area Material (Laos)",
+  "areaMateralEng":"Area Material (Eng)",
+  "LISTOFSAFETYAREA":"List Of Safety Area",
+  "safetyAreaId":"Safety Area Id",
+  "safetyAreaLao":"Safety Area (Laos)", 
+  "safetyAreaEng":"Safety Area (Eng)",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

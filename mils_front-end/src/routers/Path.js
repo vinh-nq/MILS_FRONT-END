@@ -21,8 +21,10 @@ export const PATH = {
   ADD_HOUSEHOLD: "/householdmanagement/householdregistration/addhousehold",
   UPDATE_HOUSEHOLD:
     "/householdmanagement/householdregistration/updatehousehold",
-  MEMBER_IN_HOUSEHOLD: "/householdmanagement/householdregistration/memberinhousehold",
-  UPDATE_MEMBER_IN_HOUSEHOLD: "/householdmanagement/householdregistration/updatememberhousehold",
+  MEMBER_IN_HOUSEHOLD:
+    "/householdmanagement/householdregistration/memberinhousehold",
+  UPDATE_MEMBER_IN_HOUSEHOLD:
+    "/householdmanagement/householdregistration/updatememberhousehold",
   HOUSEHOLD_REGISTRATION: "/householdmanagement/householdregistration",
   LIST_OF_PROVINCE: "/datadictionary/listofprovince",
   LIST_OF_DISTRICT: "/datadictionary/listofdistrict",
@@ -45,7 +47,8 @@ export const PATH = {
   LIST_OF_SCHOOL_TYPE: "/datadictionary/listofschooltype",
   LIST_OF_BORROW_REASON: "/datadictionary/listofborrowreason",
   LIST_OF_MAIN_GOOD_AND_SERVICES: "/datadictionary/listofmaingoodandservices",
-  DETAIL_HOUSEHOLD: "/householdmanagement/householdregistration/detailhousehold",
+  DETAIL_HOUSEHOLD:
+    "/householdmanagement/householdregistration/detailhousehold",
   ACCOUNT: "/dashboard/account",
   LIST_OF_COOKING_SOURCE: "/datadictionary/listofcookingsource",
   LIST_OF_LANDER_TYPE: "/datadictionary/listoflandertype",
@@ -54,6 +57,8 @@ export const PATH = {
   LIST_OF_RELATION: "/datadictionary/listofrelation",
   LIST_OF_DISABILITY: "/datadictionary/listofdisability",
   LIST_OF_SCHOOL_ENROLL: "/datadictionary/listofschoolenroll",
+  LIST_OF_AREA_MATERAL: "/datadictionary/listofareamateral",
+  LIST_OF_SAFETY_AREA: "/datadictionary/listofsafetyarea",
 };
 
 export const PATH_BREADCRUM = {
@@ -107,4 +112,6 @@ export const PATH_BREADCRUM = {
   uservillage: "/system/uservillage",
   listofdisability: "/datadictionary/listofdisability",
   listofschoolenroll: "/datadictionary/listofschoolenroll",
+  listofareamateral: "/datadictionary/listofareamateral",
+  listofsafetyarea: "/datadictionary/listofsafetyarea",
 };

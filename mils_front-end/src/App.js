@@ -50,6 +50,8 @@ import ListOfMaritalStatus from "./screens/dataDictionary/ListOfMaritalStatus";
 import MemberInHouseHold from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold/component/MemberInHouseHoldComponent";
 import ListOfDisability from "./screens/dataDictionary/ListOfDisability";
 import ListOfSchoolEnroll from "./screens/dataDictionary/ListOfSchoolEnroll";
+import ListOfAreaMateral from "./screens/dataDictionary/ListOfAreaMateral";
+import ListOfSafetyArea from "./screens/dataDictionary/ListOfSafetyArea";
 class App extends React.Component {
   render() {
     return (
@@ -115,6 +117,11 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
+              component={ListOfSafetyArea}
+              path={PATH.LIST_OF_SAFETY_AREA}
+              exact
+            />
+            <MainRouteWrapper
               component={ListOfEnergySource}
               path={PATH.LIST_OF_ENERGY_SOURCE}
               exact
@@ -132,6 +139,11 @@ class App extends React.Component {
             <MainRouteWrapper
               component={ListOfClass}
               path={PATH.LIST_OF_CLASS}
+              exact
+            />
+            <MainRouteWrapper
+              component={ListOfAreaMateral}
+              path={PATH.LIST_OF_AREA_MATERAL}
               exact
             />
             <MainRouteWrapper
@@ -160,29 +172,29 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-                component={() => <UpdateHousehold typeModal={"UPDATE"}/>}
-                path={`${PATH.UPDATE_HOUSEHOLD}`}
-                exact
+              component={() => <UpdateHousehold typeModal={"UPDATE"} />}
+              path={`${PATH.UPDATE_HOUSEHOLD}`}
+              exact
             />
             <MainRouteWrapper
-              component={() => <UpdateHousehold typeModal={"ADD"}/>}
+              component={() => <UpdateHousehold typeModal={"ADD"} />}
               path={`${PATH.ADD_HOUSEHOLD}`}
               exact
             />
             <MainRouteWrapper
-              component={() => <MemberInHouseHold typeModal={"ADD"}/>}
+              component={() => <MemberInHouseHold typeModal={"ADD"} />}
               path={`${PATH.MEMBER_IN_HOUSEHOLD}`}
               exact
             />
             <MainRouteWrapper
-                component={() => <MemberInHouseHold typeModal={"UPDATE"}/>}
-                path={`${PATH.UPDATE_MEMBER_IN_HOUSEHOLD}`}
-                exact
+              component={() => <MemberInHouseHold typeModal={"UPDATE"} />}
+              path={`${PATH.UPDATE_MEMBER_IN_HOUSEHOLD}`}
+              exact
             />
             <MainRouteWrapper
-                component={DetailBeneficiary}
-                path={PATH.DETAIL_HOUSEHOLD}
-                exact
+              component={DetailBeneficiary}
+              path={PATH.DETAIL_HOUSEHOLD}
+              exact
             />
             <MainRouteWrapper
               component={ListOfPlotCause}
