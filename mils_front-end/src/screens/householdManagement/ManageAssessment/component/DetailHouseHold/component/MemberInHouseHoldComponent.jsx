@@ -389,7 +389,7 @@ function MemberInHouseHold(props) {
                             },
                         ]}
                     >
-                        <DatePicker className="w-100"/>
+                        <DatePicker className="w-100" />
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>

@@ -88,7 +88,7 @@ function UpdateHousehold(props) {
       ...value.PrimaryPublicServiceForBeneficiary,
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.LatLongForBeneficiary,
-      HHCode: getValueOfQueryParams(props.location, "hh_code", "STRING"),
+      HHCode: getValueOfQueryParams(history.location, "hh_code", "STRING"),
     };
     await houseHoldApi.updateHouseHold(objCover).then((res) => {
       if (res.data.Status) {
