@@ -11,6 +11,14 @@ import {useHistory} from "react-router-dom";
 import {PATH} from "../../../../../routers/Path";
 import PlotLandComponent from "./component/PlotLandComponent";
 import plotLandApi from "../../../../../api/plotLandApi";
+import DevelopmentComponent from "./component/DevelopmentFamilyComponent";
+import PrimaryPublicServiceComponent from "./component/PrimaryPublicServiceComponent";
+import OccupationAndIncomeComponent from "./component/OccupationAndIncomeComponent";
+import ToolsForLivingComponent from "./component/ToolsForLivingComponent";
+import EssentialPropertyAndInstrumentsComponent from "./component/EssentialPropertyAndInstrumentsComponent";
+import ShelterComponent from "./component/ShelterComponent";
+import GeneralInformationComponent from "./component/GeneralInformationComponent";
+import AddressComponent from "./component/AddressComponent";
 
 const AnyReactComponent = ({text}) => <div>{text}</div>;
 
@@ -379,32 +387,7 @@ function DetailBeneficiary(props) {
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
                         I. {t("BENEFICIARY_FORM")}
                     </div>
-                    <Row className="px-2" gutter={[16, 16]}>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("PROVINCE")}:{" "}
-                            </span>
-                            {dataLanguage === "la" ? LocationBeneficiary.Province : LocationBeneficiary.ProvinceEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("DISTRICT")}:{" "}</span>
-                            {dataLanguage === "la" ? LocationBeneficiary.District : LocationBeneficiary.DistrictEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("VILLAGE")}:{" "}</span>
-                            {dataLanguage === "la" ? LocationBeneficiary.Village : LocationBeneficiary.VillageEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("UNIT")}:{" "}</span>
-                            {dataLanguage === "la" ? LocationBeneficiary.Unit : LocationBeneficiary.UnitEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("HH_NUMBER")}</span>: {LocationBeneficiary.HHNumber}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("HH_LEVEL")}</span>: {LocationBeneficiary.HHLevel}
-                        </Col>
-                    </Row>
+                    <AddressComponent LocationBeneficiary={LocationBeneficiary} dataLanguage={dataLanguage} />
                 </div>
 
                 {/*General Information*/}
@@ -412,56 +395,7 @@ function DetailBeneficiary(props) {
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
                         II. {t("GENERAL_INFORMATION")}
                     </div>
-                    <Row className="px-2" gutter={[16, 16]}>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("HEAD_OF_HH_NAME")}</span>:{" "}
-                            {GeneralInformationBeneficiary.HeadOfHHName}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("GENDER")}</span>:{" "}
-                            {GeneralInformationBeneficiary.Gender}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("TELEPHONE")}</span>:{" "}
-                            {GeneralInformationBeneficiary.Telephone1}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("NUMBER_OF_HH")}</span>:{" "}
-                            {GeneralInformationBeneficiary.NumberOfHH}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("FEMALE")}</span>:{" "}
-                            {GeneralInformationBeneficiary.Female}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("NUMBER_PLOTS")}</span>:{" "}
-                            {GeneralInformationBeneficiary.NumberPlots}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("DATE_OF_ENUMERATION")}</span>:{" "}
-                            {GeneralInformationBeneficiary.DateOfEnumeration}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("ENUMERATION")}</span>:{" "}
-                            {GeneralInformationBeneficiary.Enumeration}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("TELEPHONE")}</span>:{" "}
-                            {GeneralInformationBeneficiary.TelePhone2}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("RESPONDENT")}</span>:{" "}
-                            {GeneralInformationBeneficiary.Respondent}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("TELEPHONE")}</span>:{" "}
-                            {GeneralInformationBeneficiary.TelePhone3}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("UPLOAD_IMAGE")}</span>: {" "}
-                            <img src={GeneralInformationBeneficiary.ImageUrl} alt="Not Found"/>
-                        </Col>
-                    </Row>
+                    <GeneralInformationComponent GeneralInformationBeneficiary={GeneralInformationBeneficiary}/>
                 </div>
 
                 {/*Household Member*/}
@@ -528,28 +462,7 @@ function DetailBeneficiary(props) {
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
                         7.1 {t("SHELTER")}
                     </div>
-                    <Row className="px-2" gutter={[16, 16]}>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("WALL_MATERIAL")}</span>: {" "}
-                            {dataLanguage === "la" ? Shelter.WallMaterial : Shelter.WallMaterialEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("FLOOR_MATERIAL")}</span>:{" "}
-                            {dataLanguage === "la" ? Shelter.FloorMaterial : Shelter.FloorMaterialEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("ROOF_MATERIAL")}</span>:{" "}
-                            {dataLanguage === "la" ? Shelter.RoofMaterial : Shelter.RoofMaterialEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("AREA_MATERIAL")}</span>:{" "}
-                            {dataLanguage === "la" ? Shelter.AreaMaterial : Shelter.AreaMaterialEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">Roof Safety area</span>:{" "}
-                            {dataLanguage === "la" ? Shelter.SafetyArea : Shelter.SafetyAreaEng}
-                        </Col>
-                    </Row>
+                    <ShelterComponent dataLanguage={dataLanguage} Shelter={Shelter}/>
                 </div>
 
                 {/*Having Essential Property and insrtruments for daily life*/}
@@ -558,72 +471,7 @@ function DetailBeneficiary(props) {
                         7.2 {t("HAVING_ESSENTIAL_PROPERTY_AND_INSRTRUMENTS_FOR_DAILY_LIFE")}
                     </div>
 
-                    <Row className="px-2" gutter={[16, 16]}>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("CARS")}</span>: {" "}
-                            {changeYesNoForQuestion(Machine.Cars)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("MOTORCYCLES")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.Motorcycles)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("BICYCLE")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.Bicycle)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("TRICYCLE")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.Tricycle)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("BOAT")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.Boat)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("AIR_CONDITIONING")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.AirConditioning)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("REFRIGERATOR")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.Refrigerator)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("WASHING_MACHINE")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.WashingMachine)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("TV")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.TV)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("DESKTOP_LAPTOP_COMPUTERS")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.DesktopLaptopComputers)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("LANDLINE")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.Landline)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("MOBILE_PHONE")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.MobilePhone)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("TWO_WHEEL_TRACTOR")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.TwowheelTractor)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("FOUR_WHEEL_TRACTOR")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.FourwheelTractor)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("ADEQUATE_AGRICULTURAL_EQUIPMENT")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.AdequateAgriculturalEquipment)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("ADEQUATE_PRODUCTION_LAND")}</span>:{" "}
-                            {changeYesNoForQuestion(Machine.AdequateProductionLand)}
-                        </Col>
-                    </Row>
+                   <EssentialPropertyAndInstrumentsComponent changeYesNoForQuestion={changeYesNoForQuestion} Machine={Machine}/>
                 </div>
 
                 {/*Having property and tools necessary for living and making a living*/}
@@ -632,103 +480,18 @@ function DetailBeneficiary(props) {
                         7.3 Having property and tools necessary for living and making a living
                     </div>
 
-                    <Row className="px-2" gutter={[16, 16]}>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("UNDER_14_YEARS")}</span>:{" "}
-                            {StableOccupationAndIncome.TotalBellow_14 || ""}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("BETWEEN_15-60")}</span>:{" "}
-                            {StableOccupationAndIncome.TotalBetween_15_60 || ""}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("OVER_60")}</span>:{" "}
-                            {StableOccupationAndIncome.TotalAbove_60 || ""}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("WORKING_GROUPS_OF_REGULAR_FAMILY_MEMBERS")}</span>:{" "}
-                            {dataLanguage === "la" ? (StableOccupationAndIncome.MainJob || "") : (StableOccupationAndIncome.MainJobEng || "")}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("MAIN_OCCUPATIONS_OF_MOST_FAMILY_MEMBERS")}</span>:{" "}
-                            {dataLanguage === "la" ? (StableOccupationAndIncome.MainGoods || "") : (StableOccupationAndIncome.MainGoodsEng || "")}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("SOURCES_OTHER_THAN_THEIR_MAIN_SOURCE_OF_INCOME")}</span>:{" "}
-                            {changeYesNoForQuestion(StableOccupationAndIncome.ReceivedBenfits)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("HAVE_FAMILY_MEMBERS_BORROWED_FROM_OTHER_PARTIES")}</span>:{" "}
-                            {changeYesNoForQuestion(StableOccupationAndIncome.OweCredit)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("TYPE_OF_LENDER")}</span>:{" "}
-                            {dataLanguage === "la" ? (StableOccupationAndIncome.TypeOfLender || "") : (StableOccupationAndIncome.TypeOfLender || "")}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("WHY_FAMILY_MEMBERS_BORROW_MONEY")}</span>:{" "}
-                            {dataLanguage === "la" ? (StableOccupationAndIncome.BorrowingReason || "") : (StableOccupationAndIncome.BorrowingReasonEng || "")}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("DOES_ANY_FAMILY_MEMBER_RUN_ANY_FARM_ON_THEIR_OWN_LAND_OR_LEASED_LAND")}</span>:{" "}
-                            {changeYesNoForQuestion(StableOccupationAndIncome.OwnAgri)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("LAND_OWNED_OR_LEASED")}</span>:{" "}
-                            {changeYesNoForQuestion(StableOccupationAndIncome.MemberWork)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("SPECIFY_THE_NUMBER_OF_PLOTS")}</span>:{" "}
-                            {StableOccupationAndIncome.PlotRepeatCount}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("NUMBER_OF_RELATED_PLOTS")}</span>:{" "}
-                            {StableOccupationAndIncome.NumberPlots || ""}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("LIVESTOCK_RAISING_IN_THE_LAST_12_MONTHS")}</span>:{" "}
-                            {changeYesNoForQuestion(StableOccupationAndIncome.LiveStock)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("LOWER_SECONDARY_EDUCATION")}</span>:{" "}
-                            {StableOccupationAndIncome.CompletedPrimarySchool || ""}
-                        </Col>
-                    </Row>
+                   <ToolsForLivingComponent
+                       StableOccupationAndIncome={StableOccupationAndIncome}
+                       dataLanguage={dataLanguage}
+                       changeYesNoForQuestion={changeYesNoForQuestion}
+                   />
                 </div>
-
                 {/*Have stable occupation and income*/}
                 <div className="income-indicator">
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
                         7.4 {t("HAVE_STABLE_OCCUPATION_AND_INCOME")}
                     </div>
-
-                    <Row className="px-2" gutter={[16, 16]}>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("DURING_RAINING")}</span>:{" "}
-                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.Water : WaterAndPermanentEnergyBeneficiary.WaterEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("DURING_DRY")}</span>:{" "}
-                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.WaterDry : WaterAndPermanentEnergyBeneficiary.WaterDryEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("TYPE_OF_TOILET")}</span>:{" "}
-                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.ToiletType : WaterAndPermanentEnergyBeneficiary.ToiletTypeEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("SOURCE_FOR_COOKING")}</span>:{" "}
-                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.CookingSource : WaterAndPermanentEnergyBeneficiary.CookingSouceEng}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("SOURCE_FOR_LIGHTING")}</span>:{" "}
-                            {dataLanguage === "la" ? WaterAndPermanentEnergyBeneficiary.EnergySource : WaterAndPermanentEnergyBeneficiary.EnergySourceEng}
-                        </Col>
-                    </Row>
+                  <OccupationAndIncomeComponent WaterAndPermanentEnergyBeneficiary={WaterAndPermanentEnergyBeneficiary} dataLanguage={dataLanguage}/>
                 </div>
 
                 {/*Accessing to primary public service*/}
@@ -736,50 +499,7 @@ function DetailBeneficiary(props) {
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
                         7.5 {t("ACCESSING_TO_PRIMARY_PUBLIC_SERVICE")}
                     </div>
-
-                    <Row className="px-2" gutter={[16, 16]}>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("PRIMARY_SCHOOL_OR_LOWER_SECONDARY_SCHOOL")}</span>:{" "}
-                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.PrimarySchool)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("A_PERMANENT_(DAILY)_MARKET")}</span>:{" "}
-                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.Market)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("DISPENSARY_OR_HEALTH")}</span>:{" "}
-                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.Dispensary)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("HOW_LONG_DOES_IT_NORMALLY_TAKE_TO_REACH_THE_DISPENSARY/HEALTH_POST")}</span>:{" "}
-                            {PrimaryPublicServiceForBeneficiary.TimeDispensary}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("IS_THERE_A_HOSPITAL_IN_THIS_VILLAGE")}</span>:{" "}
-                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.Hospital)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("HOW_FAR_AWAY_IS_THE_NEAREST_HOSPITAL")}</span>:{" "}
-                            {PrimaryPublicServiceForBeneficiary.DistanceNearestHospital}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("HOW_LONG_DOES_IT_NORMALLY_TAKE_TO_REACH_ANY_HOSPITAL")}</span>:{" "}
-                            {PrimaryPublicServiceForBeneficiary.TImeNearestHospital}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("IS_THERE_ANY_SCHEDULED_PASSENGER_TRANSPORT_STOPPING_IN_THIS_VILLAGE")}</span>:{" "}
-                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.TransportStop)}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">{t("IS_THIS_VILLAGE_CONNECTED_TO_AN_ELECTRIC_NETWORK")}</span>:{" "}
-                            {changeYesNoForQuestion(PrimaryPublicServiceForBeneficiary.ElectricNetwork)}
-                        </Col>
-                    </Row>
+                    <PrimaryPublicServiceComponent PrimaryPublicServiceForBeneficiary={PrimaryPublicServiceForBeneficiary} changeYesNoForQuestion={changeYesNoForQuestion}/>
                 </div>
 
                 {/*Development families have 8 standard groups, 11 contents, 19 indicators*/}
@@ -787,77 +507,7 @@ function DetailBeneficiary(props) {
                     <div className="mb-2 p-2 bg-primary text-white font-15 font-weight-500">
                         7.6 Development families have 8 standard groups, 11 contents, 19 indicators
                     </div>
-
-                    <Row className="px-2" gutter={[16, 16]}>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">The family has set up the house according to the defined village plan</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500"> All of your land and family members have a land title deed or a land use certificate </span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">The family has a house, a permanent shelter (strong project, the floor, the roof is made of durable materials, the service life is at least 20 years)</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500">Buildings related to the house, such as kitchens, latrines, stables, horticulture, wooden gardens, are arranged to be clean, beautiful, safe and convenient to use</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Contributed capital or labor to village development</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Be a model farming family in terms of production as a commodity or any production or other occupation that generates a steady income for the family without breaking the rules</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Households must have an average income higher than the regional average or more than 5.6 million kip per person per year, or about $ 700 per person per year</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span className="font-weight-500"> As a family with a good education policy, pre-school children (0-3 years old) must attend pre-school or kindergarten, families with school-age children must attend primary school as required</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a model health family</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a cultural family</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a family, exercise gender equality, promote child development and refrain from violence against women and children</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Family members aged 15 and over are politically educated, consciously involved in the village development process</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a united family</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a model family following the law (a family free of cases)</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">A family of 3 good women</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Being a drug-free family</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">A good defensive family</span>:{" "}
-                        </Col>
-                        <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Being a good family</span>:{" "}
-                        </Col>
-                    </Row>
+                    <DevelopmentComponent />
                 </div>
 
                 {/*Map*/}

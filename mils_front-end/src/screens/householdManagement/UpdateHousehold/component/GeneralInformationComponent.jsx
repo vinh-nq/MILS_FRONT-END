@@ -5,7 +5,6 @@ import {objectValidateForm} from "../validate/objectValidateForm";
 import {regexTemplate} from "../../../../utils/regexTemplate";
 import {useTranslation} from "react-i18next";
 import moment from "moment";
-import InputNumber from "antd/es/input-number";
 
 function GeneralInformationComponent(props) {
     const {Text} = Typography;

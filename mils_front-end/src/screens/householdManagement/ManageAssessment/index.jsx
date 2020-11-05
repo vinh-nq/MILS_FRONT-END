@@ -12,7 +12,7 @@ import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {PATH} from "../../../routers/Path";
 import {saveAs} from "file-saver";
-import {UserOutlined, InfoCircleOutlined, BankOutlined, CaretDownOutlined} from "@ant-design/icons/lib/icons";
+import {UserOutlined, InfoCircleOutlined, BankOutlined} from "@ant-design/icons/lib/icons";
 import EllipsisOutlined from "@ant-design/icons/lib/icons/EllipsisOutlined";
 
 function ManageAssessment(props) {
