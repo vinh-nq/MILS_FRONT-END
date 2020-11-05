@@ -646,56 +646,56 @@ function DetailBeneficiary(props) {
                             {StableOccupationAndIncome.TotalAbove_60 || ""}
                         </Col>
                         <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("DOING_REGULARLY")}</span>:{" "}
+                            <span className="font-weight-500">{t("WORKING_GROUPS_OF_REGULAR_FAMILY_MEMBERS")}</span>:{" "}
                             {dataLanguage === "la" ? (StableOccupationAndIncome.MainJob || "") : (StableOccupationAndIncome.MainJobEng || "")}
                         </Col>
                         <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("GOOD_OR_SERVICE")}</span>:{" "}
+                            <span className="font-weight-500">{t("MAIN_OCCUPATIONS_OF_MOST_FAMILY_MEMBERS")}</span>:{" "}
                             {dataLanguage === "la" ? (StableOccupationAndIncome.MainGoods || "") : (StableOccupationAndIncome.MainGoodsEng || "")}
                         </Col>
                         <Col span={24} md={12}>
                             <span
-                                className="font-weight-500">{t("HOUSEHOLD_DURING_THE_PAST_12_MONTHS_RECEIVED_ANY_REMITTANCES_IN_CASH_OR")}</span>:{" "}
+                                className="font-weight-500">{t("SOURCES_OTHER_THAN_THEIR_MAIN_SOURCE_OF_INCOME")}</span>:{" "}
                             {changeYesNoForQuestion(StableOccupationAndIncome.ReceivedBenfits)}
                         </Col>
                         <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("OWE_MONEY_OR_GOOD")}</span>:{" "}
+                            <span className="font-weight-500">{t("HAVE_FAMILY_MEMBERS_BORROWED_FROM_OTHER_PARTIES")}</span>:{" "}
                             {changeYesNoForQuestion(StableOccupationAndIncome.OweCredit)}
                         </Col>
                         <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("WHOM_WAS_THE_BORROWING")}</span>:{" "}
+                            <span className="font-weight-500">{t("TYPE_OF_LENDER")}</span>:{" "}
                             {dataLanguage === "la" ? (StableOccupationAndIncome.TypeOfLender || "") : (StableOccupationAndIncome.TypeOfLender || "")}
                         </Col>
                         <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("WHY_DID_MEMBERS_OD_YOUR_HOUSEHOLD")}</span>:{" "}
+                            <span className="font-weight-500">{t("WHY_FAMILY_MEMBERS_BORROW_MONEY")}</span>:{" "}
                             {dataLanguage === "la" ? (StableOccupationAndIncome.BorrowingReason || "") : (StableOccupationAndIncome.BorrowingReasonEng || "")}
                         </Col>
                         <Col span={24} md={12}>
                             <span
-                                className="font-weight-500">{t("DOES_ANY_MEMBER_OF_YOUR_HOUSEHOLD_IN_THE_LAST_COMPLETED_AGRICULTURE")}</span>:{" "}
+                                className="font-weight-500">{t("DOES_ANY_FAMILY_MEMBER_RUN_ANY_FARM_ON_THEIR_OWN_LAND_OR_LEASED_LAND")}</span>:{" "}
                             {changeYesNoForQuestion(StableOccupationAndIncome.OwnAgri)}
                         </Col>
                         <Col span={24} md={12}>
                             <span
-                                className="font-weight-500">{t("DOES_ANY_MEMBER_OF_YOUR_HOUSEHOLD_WORKED(OWNED_OR_LEASED)")}</span>:{" "}
+                                className="font-weight-500">{t("LAND_OWNED_OR_LEASED")}</span>:{" "}
                             {changeYesNoForQuestion(StableOccupationAndIncome.MemberWork)}
                         </Col>
                         <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("PLEASE_PUT_THE_PLOT_NAME_OR_NO")}</span>:{" "}
+                            <span className="font-weight-500">{t("SPECIFY_THE_NUMBER_OF_PLOTS")}</span>:{" "}
                             {StableOccupationAndIncome.PlotRepeatCount}
                         </Col>
                         <Col span={24} md={12}>
-                            <span className="font-weight-500">{t("WHAT_KIND_OF_LAND_IS_THIS")}</span>:{" "}
+                            <span className="font-weight-500">{t("NUMBER_OF_RELATED_PLOTS")}</span>:{" "}
                             {StableOccupationAndIncome.NumberPlots || ""}
                         </Col>
                         <Col span={24} md={12}>
                             <span
-                                className="font-weight-500">{t("HAS_THIS_HOUSEHOLD_RAISED_ANY_LIVESTOCK_DURING_THE_LAST_12_MONTHS")}</span>:{" "}
+                                className="font-weight-500">{t("LIVESTOCK_RAISING_IN_THE_LAST_12_MONTHS")}</span>:{" "}
                             {changeYesNoForQuestion(StableOccupationAndIncome.LiveStock)}
                         </Col>
                         <Col span={24} md={12}>
                             <span
-                                className="font-weight-500">{t("IS_ANYONE_IN_HOUSEHOLD_MEMBERS_IN_AGE_HAVE_COMPLETED_SECONDARY_SCHOOL")}</span>:{" "}
+                                className="font-weight-500">{t("LOWER_SECONDARY_EDUCATION")}</span>:{" "}
                             {StableOccupationAndIncome.CompletedPrimarySchool || ""}
                         </Col>
                     </Row>

@@ -290,7 +290,7 @@ function MemberInHouseHold(props) {
                 <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2"/>
             ) : null}
             <div className="d-flex align-items-center mb-3">
-                <span className="h5 mb-0">{typeModal === "ADD" ? t("add") : t("update")} family members</span>
+                <span className="h5 mb-0">{typeModal === "ADD" ? t("add") : t("update")} {t("FAMILY_MEMBER")}</span>
                 <div className="d-flex ml-auto">
                     <Form.Item>
                         <Button
@@ -313,7 +313,7 @@ function MemberInHouseHold(props) {
             </div>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Member Name</Text>
+                    <Text className="font-13 font-weight-500">{t("MEMBER_NAME")}</Text>
                     <Form.Item
                         name={"MemberName"}
                         className="mb-0"
@@ -323,7 +323,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "Member Name"),
+                                        objectValidateForm.checkString(50, true, "MEMBER_NAME"),
                                         t
                                     );
                                 },
@@ -334,14 +334,14 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Marital status</Text>
+                    <Text className="font-13 font-weight-500">{t("MARITAL_STATUS")}</Text>
                     <Form.Item
                         name={"MaritalStatusId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `${t("Owned or leased")} ${t("Marital status")}`,
+                                message: `${t("MARITAL_STATUS")} ${t("Marital status")}`,
                             },
                         ]}
                     >
@@ -353,14 +353,14 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Relation to household</Text>
+                    <Text className="font-13 font-weight-500">{t("RELATION_TO_HOUSEHOLD")}</Text>
                     <Form.Item
                         name={"RelationHouseHoldId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `Relation to household ${t("is_not_empty")}`,
+                                message: `${t("RELATION_TO_HOUSEHOLD")} ${t("is_not_empty")}`,
                             },
                         ]}
                     >
@@ -370,10 +370,16 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Gender</Text>
+                    <Text className="font-13 font-weight-500">{t("GENDER")}</Text>
                     <Form.Item
                         name={"GenderId"}
                         className="mb-0"
+                        rules={[
+                            {
+                                required: true,
+                                message: `${t("GENDER")} ${t("is_not_empty")}`,
+                            },
+                        ]}
                     >
                         <Select>
                             {renderSelect(gender)}
@@ -383,14 +389,14 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Date of birth</Text>
+                    <Text className="font-13 font-weight-500">{t("DATE_OF_BIRTH")}</Text>
                     <Form.Item
                         name={"DateOfBirth"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `Date of birth ${t("is_not_empty")}`,
+                                message: `${t("DATE_OF_BIRTH")} ${t("is_not_empty")}`,
                             },
                         ]}
                     >
@@ -398,7 +404,7 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Age</Text>
+                    <Text className="font-13 font-weight-500">{t("AGE")}</Text>
                     <Form.Item
                         name={"Age"}
                         className="mb-0"
@@ -408,7 +414,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkNumber(200, 0, "Age", true),
+                                        objectValidateForm.checkNumber(200, 0, "AGE", true),
                                         t
                                     );
                                 },
@@ -421,14 +427,14 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Ethnic origin</Text>
+                    <Text className="font-13 font-weight-500">{t("ETHNIC_ORIGIN")}</Text>
                     <Form.Item
                         name={"TribesId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `Ethnic origin ${t("is_not_empty")}`,
+                                message: `${t("ETHNIC_ORIGIN")} ${t("is_not_empty")}`,
                             },
                         ]}
                     >
@@ -438,7 +444,7 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Have you ever been to school before?</Text>
+                    <Text className="font-13 font-weight-500">{t("HAVE_YOU_EVER_BEEN_TO_SCHOOL_BEFORE")}</Text>
                     <Form.Item
                         name={"AreEnrolledInSchool"}
                         className="mb-0"
@@ -453,11 +459,16 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Are you currently studying?</Text>
+                    <Text className="font-13 font-weight-500">{t("ARE_YOU_CURRENTLY_STUDYING")}</Text>
                     <Form.Item
                         name={"CurrentlyStudyingId"}
                         className="mb-0"
-                        initialValue={true}
+                        rules={[
+                            {
+                                required: true,
+                                message: `${t("ARE_YOU_CURRENTLY_STUDYING")} ${t("is_not_empty")}`,
+                            },
+                        ]}
                     >
                         <Select>
                             {renderSelect(schoolEnroll)}
@@ -465,14 +476,14 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">What is the current level of education?</Text>
+                    <Text className="font-13 font-weight-500">{t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")}</Text>
                     <Form.Item
                         name={"MemberLevelId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `What is the current level of education? ${t("is_not_empty")}`,
+                                message: `${t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")} ${t("is_not_empty")}`,
                             },
                         ]}
                     >
@@ -484,14 +495,14 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Current year level of education</Text>
+                    <Text className="font-13 font-weight-500">{t("CURRENT_YEAR_LEVEL_OF_EDUCATION")}</Text>
                     <Form.Item
                         name={"LevelAndClassAreEnrolledId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `Current year level of education ${t("is_not_empty")}`,
+                                message: `${t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")} ${t("is_not_empty")}`,
                             },
                         ]}
                     >
@@ -501,7 +512,7 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Kindergarten</Text>
+                    <Text className="font-13 font-weight-500">{t("KINDERGARTEN")}</Text>
                     <Form.Item
                         name={"Kindergarten"}
                         className="mb-0"
@@ -511,7 +522,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "Kindergarten"),
+                                        objectValidateForm.checkString(50, true, "KINDERGARTEN"),
                                         t
                                     );
                                 },
@@ -524,7 +535,7 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Primary</Text>
+                    <Text className="font-13 font-weight-500">{t("PRIMARY")}</Text>
                     <Form.Item
                         name={"Primary"}
                         className="mb-0"
@@ -534,7 +545,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "Primary"),
+                                        objectValidateForm.checkString(50, true, "PRIMARY"),
                                         t
                                     );
                                 },
@@ -545,7 +556,7 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Lower secondary</Text>
+                    <Text className="font-13 font-weight-500">{t("LOWER_SECONDARY")}</Text>
                     <Form.Item
                         name={"LowerSecondary"}
                         className="mb-0"
@@ -555,7 +566,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "Lower secondary"),
+                                        objectValidateForm.checkString(50, true, "LOWER_SECONDARY"),
                                         t
                                     );
                                 },
@@ -568,7 +579,7 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Upper secondary</Text>
+                    <Text className="font-13 font-weight-500">{t("UPPER_SECONDARY")}</Text>
                     <Form.Item
                         name={"UpperSecondary"}
                         className="mb-0"
@@ -578,7 +589,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "Upper secondary"),
+                                        objectValidateForm.checkString(50, true, "UPPER_SECONDARY"),
                                         t
                                     );
                                 },
@@ -589,7 +600,7 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Vocational school</Text>
+                    <Text className="font-13 font-weight-500">{t("VOCATIONAL_SCHOOL")}</Text>
                     <Form.Item
                         name={"VocationalSchool"}
                         className="mb-0"
@@ -599,7 +610,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "Vocational school"),
+                                        objectValidateForm.checkString(50, true, "VOCATIONAL_SCHOOL"),
                                         t
                                     );
                                 },
@@ -612,7 +623,7 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">University / Institute</Text>
+                    <Text className="font-13 font-weight-500">{t("UNIVERSITY_INSTITUTE")}</Text>
                     <Form.Item
                         name={"UniversityInstitute"}
                         className="mb-0"
@@ -622,7 +633,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "University / Institute"),
+                                        objectValidateForm.checkString(50, true, "UNIVERSITY_INSTITUTE"),
                                         t
                                     );
                                 },
@@ -633,14 +644,14 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">What type of school are you attending?</Text>
+                    <Text className="font-13 font-weight-500">{t("WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING")}</Text>
                     <Form.Item
                         name={"HHSchoolTypeId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `What type of school are you attending? ${t("is_not_empty")}`,
+                                message: `${t("WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING")} ${t("is_not_empty")}`,
                             },
                         ]}
                     >
@@ -652,7 +663,7 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Higher education is graduated</Text>
+                    <Text className="font-13 font-weight-500">{t("HIGHER_EDUCATION_IS_GRADUATED")}</Text>
                     <Form.Item
                         name={"HHLevelClassCompleted"}
                         className="mb-0"
@@ -662,7 +673,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "University / Institute"),
+                                        objectValidateForm.checkString(50, true, "HIGHER_EDUCATION_IS_GRADUATED"),
                                         t
                                     );
                                 },
@@ -673,8 +684,7 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">During the past 7 days, have you worked on your own or any
-                        of your own business or any of your family members?</Text>
+                    <Text className="font-13 font-weight-500">{t("HAVE_YOU_WORKED_ON_YOUR_OWN_OR_ANY_OF_YOUR_OWN_BUSINESS_OR_ANY_OF_YOUR_FAMILY_MEMBERS")}</Text>
                     <Form.Item
                         name={"Business"}
                         className="mb-0"
@@ -689,8 +699,7 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">During the past 7 days, have you been working on your own
-                        farm or with a family member?</Text>
+                    <Text className="font-13 font-weight-500">{t("HAVE_YOU_BEEN_WORKING_ON_YOUR_OWN_FARM_OR_WITH_A_FAMILY_MEMBER")}</Text>
                     <Form.Item
                         name={"Agricature"}
                         className="mb-0"
@@ -703,8 +712,7 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Have you worked elsewhere in the last 7 days? For example,
-                        hiring for an enterprise, private, or public or other</Text>
+                    <Text className="font-13 font-weight-500">{t("HAVE_YOU_WORKED_ELSEWHERE_IN_THE_LAST_7_DAYS")}</Text>
                     <Form.Item
                         name={"Outside"}
                         className="mb-0"
@@ -719,8 +727,7 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Maintain the main work you did during the last 7
-                        days</Text>
+                    <Text className="font-13 font-weight-500">{t("MAINTAIN_THE_MAIN_WORK_YOU_DID_DURING_THE_LAST_7_DAYS")}</Text>
                     <Form.Item
                         name={"MainJobId"}
                         className="mb-0"
@@ -730,7 +737,7 @@ function MemberInHouseHold(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "Maintain the main work you did during the last 7 days"),
+                                        objectValidateForm.checkString(50, true, "MAINTAIN_THE_MAIN_WORK_YOU_DID_DURING_THE_LAST_7_DAYS"),
                                         t
                                     );
                                 },
@@ -743,14 +750,14 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">What is your main job?</Text>
+                    <Text className="font-13 font-weight-500">{t("WHAT_IS_YOUR_MAIN_JOB")}</Text>
                     <Form.Item
                         name={"MainGoodId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `What is your main job? ${t("is_not_empty")}`,
+                                message: `${t("WHAT_IS_YOUR_MAIN_JOB")} ${t("is_not_empty")}`,
                             },
                         ]}
                     >
@@ -762,8 +769,7 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Have you been a Social Security member of any unit or
-                        participated in a health insurance program?</Text>
+                    <Text className="font-13 font-weight-500">{t("SOCIAL_SECURITY_MEMBER_OF_ANY_UNIT_OR_PARTICIPATED_IN_A_HEALTH")}</Text>
                     <Form.Item
                         name={"HealthInsurance"}
                         className="mb-0"
@@ -776,8 +782,7 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Are you a Social Security member of a private
-                        company?</Text>
+                    <Text className="font-13 font-weight-500">{t("ARE_YOU_A_SOCIAL_SECURITY_MEMBER_OF_A_PRIVATE_COMPANY")}</Text>
                     <Form.Item
                         name={"PrivateHealthInsurance"}
                         className="mb-0"
@@ -792,7 +797,7 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Are you pregnant? (For women>> 10 years old)</Text>
+                    <Text className="font-13 font-weight-500">{t("ARE_YOU_PREGNANT")}</Text>
                     <Form.Item
                         name={"Pregnant"}
                         className="mb-0"
@@ -805,7 +810,7 @@ function MemberInHouseHold(props) {
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">Have a physical disorder?</Text>
+                    <Text className="font-13 font-weight-500">{t("HAVE_A_PHYSICAL_DISORDER")}</Text>
                     <Form.Item
                         name={"Disability"}
                         className="mb-0"
@@ -820,14 +825,14 @@ function MemberInHouseHold(props) {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col span={24} lg={12}>
-                    <Text className="font-13 font-weight-500">If yes, indicate the type of defect</Text>
+                    <Text className="font-13 font-weight-500">{t("INDICATE_THE_TYPE_OF_DEFECT")}</Text>
                     <Form.Item
                         name={"DisabilityTypeId"}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `If yes, indicate the type of defect ${t("is_not_empty")}`,
+                                message: `${t("INDICATE_THE_TYPE_OF_DEFECT")} ${t("is_not_empty")}`,
                             },
                         ]}
                     >

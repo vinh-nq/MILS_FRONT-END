@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Dropdown, Input, Menu, Row, Select, Table, Tag, Tooltip, Typography} from "antd";
+import {Button, Col, Dropdown, Input, Menu, Row, Select, Table, Typography} from "antd";
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined";
 import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 import HouseHoldMemberList from "./component/HHMemberList";
@@ -12,10 +12,8 @@ import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {PATH} from "../../../routers/Path";
 import {saveAs} from "file-saver";
-import UserOutlined from "@ant-design/icons/lib/icons/UserOutlined";
-import InfoCircleOutlined from "@ant-design/icons/lib/icons/InfoCircleOutlined";
-import BankOutlined from "@ant-design/icons/lib/icons/BankOutlined";
-import CaretDownOutlined from "@ant-design/icons/lib/icons/CaretDownOutlined";
+import {UserOutlined, InfoCircleOutlined, BankOutlined, CaretDownOutlined} from "@ant-design/icons/lib/icons";
+import EllipsisOutlined from "@ant-design/icons/lib/icons/EllipsisOutlined";
 
 function ManageAssessment(props) {
     const [visibleMemberList, setVisibleMemberList] = useState(false);
@@ -167,11 +165,15 @@ function ManageAssessment(props) {
                         </Menu.Item>
                     </Menu>
                 );
-                return <div className="d-flex justify-content-end">
-                    <Dropdown.Button overlay={menu} icon={<CaretDownOutlined />} >
-                        Action
-                    </Dropdown.Button>
-                </div>
+                return (
+                    <div className="d-flex justify-content-end">
+                        <Dropdown overlay={menu}>
+                            <Button className="px-1 py-0">
+                                <EllipsisOutlined className="font-weight-bold text-primary font-24"/>
+                            </Button>
+                        </Dropdown>
+                    </div>
+                )
             },
         },
     ];
