@@ -61,9 +61,10 @@ function DetailBeneficiary(props) {
     }
 
     const handleDeletePlotLand = async (id) => {
-        message.loading({ content: "Loading...", key: "message-form-role" });
+        setLoading(true);
         await plotLandApi.delete({plotlandId: id}).then(res => {
             if (res.data.Status) {
+                setLoading(false);
                 message.success({
                     content: t("DELETE_SUCCESS"),
                     key: "message-form-role",
@@ -73,6 +74,7 @@ function DetailBeneficiary(props) {
                 plotLandArray.PlotLands = res.data.Data;
                 setDetailHouseHold(plotLandArray);
             } else {
+                setLoading(false);
                 message.error({
                     content: t("DELETE_FAILED"),
                     key: "message-form-role",
@@ -83,9 +85,10 @@ function DetailBeneficiary(props) {
     };
 
     const handleDeleteHouseHold = async () => {
-        message.loading({ content: "Loading...", key: "message-form-role" });
+        setLoading(true);
         await houseHoldApi.deleteHouseHold({householdId: HHCode}).then(res => {
             if (res.data.Status) {
+                setLoading(false);
                 message.success({
                     content: t("DELETE_SUCCESS"),
                     key: "message-form-role",
@@ -93,6 +96,7 @@ function DetailBeneficiary(props) {
                 });
                 history.push(PATH.HOUSEHOLD_REGISTRATION);
             } else {
+                setLoading(false);
                 message.error({
                     content: t("DELETE_FAILED"),
                     key: "message-form-role",
@@ -103,18 +107,20 @@ function DetailBeneficiary(props) {
     };
 
     const handleDeleteMember = async (id) => {
-        message.loading({ content: "Loading...", key: "message-form-role" });
+        setLoading(true);
         await houseHoldApi.deleteMember({memberId: id}).then(res => {
             if (res.data.Status) {
+                setLoading(false);
                 message.success({
                     content: t("DELETE_SUCCESS"),
                     key: "message-form-role",
                     duration: 1,
                 });
-                // const plotLandArray = {...detailHouseHold};
-                // plotLandArray.PlotLands = res.data.Data;
-                // setDetailHouseHold(plotLandArray);
+                const memberArray = {...detailHouseHold};
+                memberArray.Members = res.data.Data;
+                setDetailHouseHold(memberArray);
             } else {
+                setLoading(false);
                 message.error({
                     content: t("DELETE_FAILED"),
                     key: "message-form-role",
@@ -182,7 +188,7 @@ function DetailBeneficiary(props) {
                         type="primary"
                         icon={<EditOutlined className="font-16"/>}
                         onClick={()=>{
-                            history.push(`${PATH.UPDATE_MEMBER_IN_HOUSEHOLD}?memberId=${record.MemberId}&hh_code=${HHCode}`)
+                            history.push(`${PATH.UPDATE_MEMBER_IN_HOUSEHOLD}?memberId=${record.MemberId}`)
                         }}
                     />
                     <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={()=>{handleDeleteMember(record.MemberId)}}>

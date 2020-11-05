@@ -47,7 +47,7 @@ function PlotLandComponent(props) {
   const [kindLand, setKindLand] = useState([]);
   const [causePlot, setCausePlot] = useState([]);
   const [typeLand, setTypeLand] = useState([]);
-
+  const [isLoading, setLoading] = useState(false);
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const { Text } = Typography;
@@ -142,11 +142,12 @@ function PlotLandComponent(props) {
   };
 
   const handleAdd = async (value) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    setLoading(true);
     const objData = { ...defaultObject, ...value };
     objData.HHCode = HHCode;
     await plotLandApi.add(objData).then((res) => {
       if (res.data.Status) {
+        setLoading(false);
         message.success({
           content: t("ADD_SUCCESS"),
           key: "message-form-role",
@@ -156,6 +157,7 @@ function PlotLandComponent(props) {
         plotLandArray.PlotLands = res.data.Data;
         setDetailHouseHold(plotLandArray);
       } else {
+        setLoading(false);
         message.error({
           content: t("ADD_FAILED"),
           key: "message-form-role",
@@ -167,11 +169,12 @@ function PlotLandComponent(props) {
   };
 
   const handleUpdate = async (value) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    setLoading(true);
     const objData = { ...objectValue, ...value };
     objData.HHCode = HHCode;
     await plotLandApi.update(objData).then((res) => {
       if (res.data.Status) {
+        setLoading(false);
         message.success({
           content: t("EDIT_SUCCESS"),
           key: "message-form-role",
@@ -181,6 +184,7 @@ function PlotLandComponent(props) {
         plotLandArray.PlotLands = res.data.Data;
         setDetailHouseHold(plotLandArray);
       } else {
+        setLoading(false);
         message.error({
           content: t("EDIT_FAILED"),
           key: "message-form-role",
@@ -217,6 +221,7 @@ function PlotLandComponent(props) {
         cancelButtonProps={{
           type: "default",
         }}
+        confirmLoading={isLoading}
         forceRender
       >
         <Form

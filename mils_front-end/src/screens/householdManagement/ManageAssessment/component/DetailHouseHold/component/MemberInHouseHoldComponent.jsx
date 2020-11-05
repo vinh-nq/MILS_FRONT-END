@@ -13,6 +13,7 @@ import {useHistory} from "react-router-dom";
 import SaveFilled from "@ant-design/icons/lib/icons/SaveFilled";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import {PATH} from "../../../../../../routers/Path";
+import momentTimeZone from "moment-timezone";
 
 function MemberInHouseHold(props) {
     const {typeModal = "ADD"} = props;
@@ -44,8 +45,6 @@ function MemberInHouseHold(props) {
     ) || localStorage.getItem("i18nextLng");
 
     useEffect(() => {
-        const hh_code = getValueOfQueryParams(history.location, "hh_code", "STRING");
-        setHHCode(hh_code);
         if (typeModal === "UPDATE") {
             const memberId = getValueOfQueryParams(history.location, "memberId", "STRING");
             const getDetailMember = async (memberId) => {
@@ -59,6 +58,9 @@ function MemberInHouseHold(props) {
                 setLoading(false);
             };
             getDetailMember(memberId);
+        }else{
+            const hh_code = getValueOfQueryParams(history.location, "hh_code", "STRING");
+            setHHCode(hh_code);
         }
     }, [form,history.location,typeModal]);
 
@@ -223,10 +225,11 @@ function MemberInHouseHold(props) {
     }, [t]);
 
     const handleAdd = async (value) => {
-        message.loading({content: "Loading...", key: "message-form-role"});
+        setLoading(true);
         value.HHCode = hh_code;
         await houseHoldApi.addMember(value).then((res) => {
             if (res.data.Status) {
+                setLoading(false);
                 message.success({
                     content: t("ADD_SUCCESS"),
                     key: "message-form-role",
@@ -234,6 +237,7 @@ function MemberInHouseHold(props) {
                 });
                 form.resetFields();
             } else {
+                setLoading(false);
                 message.error({
                     content: t("ADD_FAILED"),
                     key: "message-form-role",
@@ -244,20 +248,23 @@ function MemberInHouseHold(props) {
     };
 
     const handleUpdate = async (value) => {
-        message.loading({content: "Loading...", key: "message-form-role"});
+        setLoading(true);
         const objCover = {
             ...detailMember,
             ...value,
         };
+        objCover.DateOfBirth = moment(value.DateOfBirth).format();
         await houseHoldApi.updateMember(objCover).then((res) => {
             if (res.data.Status) {
+                setLoading(false);
                 message.success({
                     content: t("EDIT_SUCCESS"),
                     key: "message-form-role",
                     duration: 1,
                 });
-                history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${hh_code}`)
+                history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${detailMember.HHCode}`);
             } else {
+                setLoading(false);
                 message.error({
                     content: t("EDIT_FAILED"),
                     key: "message-form-role",
@@ -368,7 +375,6 @@ function MemberInHouseHold(props) {
                     <Form.Item
                         name={"GenderId"}
                         className="mb-0"
-                        initialValue={"Male"}
                     >
                         <Select>
                             {renderSelect(gender)}
@@ -389,7 +395,7 @@ function MemberInHouseHold(props) {
                             },
                         ]}
                     >
-                        <DatePicker className="w-100" />
+                        <DatePicker className="w-100"/>
                     </Form.Item>
                 </Col>
                 <Col span={24} lg={12}>
