@@ -48,7 +48,7 @@ function UpdateHousehold(props) {
     }, [form,history.location, typeModal]);
 
   const handleAdd = async (value) => {
-      message.loading({ content: "Loading...", key: "message-form-role" });
+      setLoading(true);
       const objCover = {
           HHCode: value.HHCode,
           ...value.LocationBeneficiary,
@@ -63,6 +63,7 @@ function UpdateHousehold(props) {
       };
       await houseHoldApi.addHouseHold(objCover).then((res) => {
           if (res.data.Status) {
+              setLoading(false);
               form.resetFields();
               message.success({
                   content: t("ADD_SUCCESS"),
@@ -70,6 +71,7 @@ function UpdateHousehold(props) {
                   duration: 1,
               });
           } else {
+              setLoading(false);
               message.error({
                   content: t("ADD_FAILED"),
                   key: "message-form-role",
@@ -80,7 +82,7 @@ function UpdateHousehold(props) {
   };
 
   const handleUpdate = async (value) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    setLoading(true);
     const objCover = {
       ...detailHouseHold,
       ...value.LocationBeneficiary,
@@ -96,6 +98,7 @@ function UpdateHousehold(props) {
     };
     await houseHoldApi.updateHouseHold(objCover).then((res) => {
       if (res.data.Status) {
+         setLoading(false);
         const {
           DateOfEnumeration,
         } = res.data.Data.GeneralInformationBeneficiary;
@@ -110,6 +113,7 @@ function UpdateHousehold(props) {
           duration: 1,
         });
       } else {
+          setLoading(false);
         message.error({
           content: t("EDIT_FAILED"),
           key: "message-form-role",

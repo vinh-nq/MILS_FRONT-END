@@ -21,11 +21,6 @@ function ShelterComponent(props) {
     const [area, setArea] = useState([]);
     const [roofSafety, setRoofSafety] = useState([]);
 
-    useEffect(() => {
-        getWallMaterial();
-        getRoofMaterial();
-        getFloorMaterial();
-    },[]);
 
     useEffect(() => {
         const getWallMaterial = async () => {
@@ -72,35 +67,35 @@ function ShelterComponent(props) {
         getFloorMaterial();
     },[t]);
 
-    // useEffect(() => {
-    //     const getAreaMaterial = async () => {
-    //         await dataDictionaryApi.GetAllAreaMateral({keyword:""}).then(res => {
-    //             setArea(res.data.Data);
-    //         }).catch(() => {
-    //             message.error({
-    //                 content: t("FETCH_DATA_FAILED"),
-    //                 key: "message-form-role",
-    //                 duration: 1,
-    //             });
-    //         })
-    //     };
-    //     getAreaMaterial();
-    // },[t]);
-    //
-    // useEffect(() => {
-    //     const getRoofSafety = async () => {
-    //         await dataDictionaryApi.GetAllSafetyArea({keyword:""}).then(res => {
-    //             setRoofSafety(res.data.Data);
-    //         }).catch(() => {
-    //             message.error({
-    //                 content: t("FETCH_DATA_FAILED"),
-    //                 key: "message-form-role",
-    //                 duration: 1,
-    //             });
-    //         })
-    //     };
-    //     getRoofSafety();
-    // },[t]);
+    useEffect(() => {
+        const getAreaMaterial = async () => {
+            await dataDictionaryApi.GetAllAreaMateral({keyword:""}).then(res => {
+                setArea(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("FETCH_DATA_FAILED"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            })
+        };
+        getAreaMaterial();
+    },[t]);
+
+    useEffect(() => {
+        const getRoofSafety = async () => {
+            await dataDictionaryApi.GetAllSafetyArea({keyword:""}).then(res => {
+                setRoofSafety(res.data.Data);
+            }).catch(() => {
+                message.error({
+                    content: t("FETCH_DATA_FAILED"),
+                    key: "message-form-role",
+                    duration: 1,
+                });
+            })
+        };
+        getRoofSafety();
+    },[t]);
 
     const renderSelect = (array) => {
         return array.map((value,index) => (
