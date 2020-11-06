@@ -525,7 +525,7 @@ function ManageAssessment(props) {
             <section>
                 {/*Tìm kiếm */}
                 <Row gutter={[16, 12]}>
-                    <Col span={24} md={12} lg={4}>
+                    <Col span={24} md={12} lg={6}>
                         <Text className="font-13">{t("PROVINCE")}</Text>
                         <Select
                             className="w-100"
@@ -536,7 +536,7 @@ function ManageAssessment(props) {
                             {renderProvinceSelect()}
                         </Select>
                     </Col>
-                    <Col span={24} md={12} lg={4}>
+                    <Col span={24} md={12} lg={6}>
                         <Text className="font-13">{t("DISTRICT")}</Text>
                         <Select
                             className="w-100"
@@ -547,7 +547,7 @@ function ManageAssessment(props) {
                             {renderDistrictSelect()}
                         </Select>
                     </Col>
-                    <Col span={24} md={12} lg={4}>
+                    <Col span={24} md={12} lg={6}>
                         <Text className="font-13">{t("VILLAGE")}</Text>
                         <Select
                             className="w-100"
@@ -558,7 +558,7 @@ function ManageAssessment(props) {
                             {renderVillageSelect()}
                         </Select>
                     </Col>
-                    <Col span={24} md={12} lg={4}>
+                    <Col span={24} md={12} lg={6}>
                         <Text className="font-13">{t("UNIT")}</Text>
                         <Select
                             className="w-100"
@@ -571,19 +571,19 @@ function ManageAssessment(props) {
                     </Col>
                 </Row>
                 <Row gutter={[16, 12]} className="mt-2">
-                    <Col span={24} md={12} lg={4}>
-                        <Text className="font-13">{t("CHILDREN")}</Text>
+                    <Col span={24} md={12} lg={6}>
+                        <Text className="font-13">{t("CHILDREN_UNDER_2")}</Text>
                         <Select
                             className="w-100"
                             value={selectChildren}
                             onChange={onSelectChildren}
                         >
                             <Option value={-1}>{t("ALL")}</Option>
-                            <Option value={0}>{t("HAVE_CHILDREN")}</Option>
-                            <Option value={1}>{t("NO_CHILDREN")}</Option>
+                            <Option value={1}>{t("HAVE_CHILDREN")}</Option>
+                            <Option value={0}>{t("NO_CHILDREN")}</Option>
                         </Select>
                     </Col>
-                    <Col span={24} md={12} lg={4}>
+                    <Col span={24} md={12} lg={6}>
                         <Text className="font-13">{t("PREGNANT_WOMAN")}</Text>
                         <Select
                             className="w-100"
@@ -591,11 +591,11 @@ function ManageAssessment(props) {
                             onChange={onSelectPregnantWoman}
                         >
                             <Option value={-1}>{t("ALL")}</Option>
-                            <Option value={0}>{t("THERE_IS_A_PREGNANT_WOMAN")}</Option>
-                            <Option value={1}>{t("NO_PREGNANT_WOMAN")}</Option>
+                            <Option value={1}>{t("THERE_IS_A_PREGNANT_WOMAN")}</Option>
+                            <Option value={0}>{t("NO_PREGNANT_WOMAN")}</Option>
                         </Select>
                     </Col>
-                    <Col span={24} md={12} lg={4}>
+                    <Col span={24} md={12} lg={6}>
                         <Text className="font-13">{t("HEAD_OF_HH_NAME")}</Text>
                         <Input
                             placeholder={t("SEARCH_HEAD_OF_HH_NAME")}
@@ -605,7 +605,7 @@ function ManageAssessment(props) {
                             }}
                         />
                     </Col>
-                    <Col span={24} md={12} lg={4}>
+                    <Col span={24} md={12} lg={6}>
                         <div>
                             <Text className="font-13">{t("SEARCH")}</Text>
                         </div>
