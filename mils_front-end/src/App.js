@@ -52,6 +52,7 @@ import ListOfDisability from "./screens/dataDictionary/ListOfDisability";
 import ListOfSchoolEnroll from "./screens/dataDictionary/ListOfSchoolEnroll";
 import ListOfAreaMateral from "./screens/dataDictionary/ListOfAreaMateral";
 import ListOfSafetyArea from "./screens/dataDictionary/ListOfSafetyArea";
+import HouseholdScore from "./screens/hhScored";
 class App extends React.Component {
   render() {
     return (
@@ -196,6 +197,7 @@ class App extends React.Component {
               path={PATH.DETAIL_HOUSEHOLD}
               exact
             />
+            <MainRouteWrapper component={HouseholdScore} path="/test" exact />
             <MainRouteWrapper
               component={ListOfPlotCause}
               path={`${PATH.LIST_OF_PLOT_CAUSE}`}

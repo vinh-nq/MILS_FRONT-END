@@ -29,7 +29,7 @@ function GeneralInformationComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(20, true, "HEAD_OF_HH_NAME"),
+                                        objectValidateForm.checkString(100, true, "HEAD_OF_HH_NAME"),
                                         t
                                     );
                                 },
@@ -119,14 +119,10 @@ function GeneralInformationComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(2, true, "FEMALE"),
+                                        objectValidateForm.checkNumber(10, 0, "FEMALE", true),
                                         t
                                     );
                                 },
-                            },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
                             }
                         ]}
                     >

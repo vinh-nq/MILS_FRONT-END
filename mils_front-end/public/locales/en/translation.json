@@ -378,6 +378,14 @@
   "safetyAreaLao":"Safety Area (Laos)", 
   "safetyAreaEng":"Safety Area (Eng)",
   "FAMILY_MEMBER": "Family member",
+  "ADDHOUSEHOLD": "Add household",
+  "UPDATEHOUSEHOLD": "Update household",
+  "MEMBERINHOUSEHOLD": "Add member in household",
+  "UPDATEMEMBERINHOUSEHOLD": "Update member in Household",
+  "HOUSEHOLDREGISTRATION": "Household list",
+  "DETAILHOUSEHOLD": "Detail household",
+  "HAVE_FIELD_ERROR": "Have field need error!!",
+  "HH_CODE": "HH CODE",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Dropdown, Input, Menu, Row, Select, Table, Typography} from "antd";
+import {Button, Col, Dropdown, Input, Menu, Pagination, Row, Select, Table, Typography} from "antd";
 import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined";
 import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 import HouseHoldMemberList from "./component/HHMemberList";
@@ -46,8 +46,8 @@ function ManageAssessment(props) {
 
     //Chuyên đổi ngôn ngữ sang tiếng anh và tiếng lào
     const dataLanguage =
-        useSelector((state) => state.languageReducer.objectLanguage.value) ||
-        localStorage.getItem("i18nextLng");
+      useSelector((state) => state.languageReducer.objectLanguage.value) ||
+      localStorage.getItem("i18nextLng");
 
     //Column header
     const columns = [
@@ -72,9 +72,8 @@ function ManageAssessment(props) {
             title: t("UNIT"),
             dataIndex: "Unit",
             key: "Unit",
-            minWidth: 100,
             render: (data, record) => (
-                <div style={{minWidth: 100}}>
+                <div style={{minWidth: 60}}>
                     {dataLanguage === "la" ? record.Unit.trim() : record.UnitEng.trim()}
                 </div>
             )
@@ -84,7 +83,7 @@ function ManageAssessment(props) {
             dataIndex: "HHLevel",
             key: "HHLevel",
             render: (data) => (
-                <div style={{minWidth: 100}}>
+                <div style={{minWidth: 60}}>
                     {data}
                 </div>
             )
@@ -104,7 +103,7 @@ function ManageAssessment(props) {
             dataIndex: "TotalHHMembers",
             key: "TotalHHMembers",
             render: (data) => (
-                <div style={{minWidth: 100}}>
+                <div style={{minWidth: 70}}>
                     {data}
                 </div>
             )
@@ -114,7 +113,7 @@ function ManageAssessment(props) {
             dataIndex: "NumberPlots",
             key: "NumberPlots",
             render: (data) => (
-                <div style={{minWidth: 100}}>
+                <div style={{minWidth: 70}}>
                     {data}
                 </div>
             )
@@ -124,7 +123,7 @@ function ManageAssessment(props) {
             dataIndex: "NumberPregnant",
             key: "NumberPregnant",
             render: (data) => (
-                <div style={{minWidth: 100}}>
+                <div style={{minWidth: 60}}>
                     {data}
                 </div>
             )
@@ -134,7 +133,7 @@ function ManageAssessment(props) {
             dataIndex: "NumberChild",
             key: "NumberChild",
             render: (data) => (
-                <div style={{minWidth: 100}}>
+                <div style={{minWidth: 80}}>
                     {data}
                 </div>
             )
@@ -168,9 +167,7 @@ function ManageAssessment(props) {
                 return (
                     <div className="d-flex justify-content-end">
                         <Dropdown overlay={menu}>
-                            <Button className="px-1 py-0">
-                                <EllipsisOutlined className="font-weight-bold text-primary font-24"/>
-                            </Button>
+                            <EllipsisOutlined className="font-weight-bold text-primary font-24 pointer"/>
                         </Dropdown>
                     </div>
                 )
@@ -308,11 +305,11 @@ function ManageAssessment(props) {
         return houseHoldApi.getAllUnit({villageId});
     };
 
-    const getProvince = async () => {
-        await houseHoldApi.getAllProvince().then((res) => {
-            setProvince(res.data.Data);
-        });
-    };
+    // const getProvince = async () => {
+    //     await houseHoldApi.getAllProvince().then((res) => {
+    //         setProvince(res.data.Data);
+    //     });
+    // };
 
     const getDistrict = async (provinceId) => {
         await houseHoldApi.getAllDistrict({provinceId}).then((res) => {
@@ -471,186 +468,188 @@ function ManageAssessment(props) {
     };
 
     return (
-        <div className="manage-assessment">
-            {isLoading ? (
-                <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2"/>
-            ) : null}
-            {/*Header của trang content*/}
-            <section className="border-bottom mb-3">
-                <div className="d-flex align-items-center mb-3">
-                    <span className="h5 mb-0">{t("HOUSEHOLD_LIST")}</span>
-                    <span className="ml-auto d-flex flex-row">
-            <Button
+      <div className="manage-assessment">
+        {isLoading ? (
+          <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
+        ) : null}
+        {/*Header của trang content*/}
+        <section className="border-bottom mb-3">
+          <div className="d-flex align-items-center mb-3">
+            <span className="h5 mb-0">{t("HOUSEHOLD_LIST")}</span>
+            <span className="ml-auto d-flex flex-row">
+              <Button
                 className="set-center-content mr-2"
                 icon={<i className="fas fa-file-excel mr-2"></i>}
-                style={{color: "#0c960c", border: "1px #0c960c solid"}}
+                style={{ color: "#0c960c", border: "1px #0c960c solid" }}
                 onClick={async () => {
-                    setLoading(true);
-                    await downloadFileExcelApi
-                        .ExportMembers({
-                            villageId: selectedVillage === "-1" ? "" : selectedVillage,
+                  setLoading(true);
+                  await downloadFileExcelApi
+                    .ExportMembers({
+                      villageId:
+                        selectedVillage === "-1" ? "" : selectedVillage,
+                    })
+                    .then((res) => {
+                      fetch(
+                        `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${res.data}`
+                      )
+                        .then((ress) => {
+                          return ress.blob();
                         })
-                        .then((res) => {
-                            fetch(
-                                `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${res.data}`
-                            )
-                                .then((ress) => {
-                                    return ress.blob();
-                                })
-                                .then((blobs) => {
-                                    const fileExtension = ".xlsx";
-                                    setLoading(false);
-                                    saveAs(
-                                        blobs,
-                                        `${t("Member&PlotLand")}` + fileExtension
-                                    );
-                                });
+                        .then((blobs) => {
+                          const fileExtension = ".xlsx";
+                          setLoading(false);
+                          saveAs(
+                            blobs,
+                            `${t("Member&PlotLand")}` + fileExtension
+                          );
                         });
+                    });
                 }}
-            >
-              Export Excel
-            </Button>
-            <Button
+              >
+                Export Excel
+              </Button>
+              <Button
                 className="set-center-content"
                 type="primary"
-                icon={<PlusSquareOutlined className="font-16"/>}
+                icon={<PlusSquareOutlined className="font-16" />}
                 onClick={() => {
-                    history.push(`${PATH.ADD_HOUSEHOLD}`);
+                  history.push(`${PATH.ADD_HOUSEHOLD}`);
                 }}
-            />
-          </span>
-                </div>
-            </section>
-            {/*Body của trang content*/}
-            <section>
-                {/*Tìm kiếm */}
-                <Row gutter={[16, 12]}>
-                    <Col span={24} md={12} lg={6}>
-                        <Text className="font-13">{t("PROVINCE")}</Text>
-                        <Select
-                            className="w-100"
-                            value={selectedProvince}
-                            onChange={onSelectProvince}
-                        >
-                            <Option value={"-1"}>{t("ALL")}</Option>
-                            {renderProvinceSelect()}
-                        </Select>
-                    </Col>
-                    <Col span={24} md={12} lg={6}>
-                        <Text className="font-13">{t("DISTRICT")}</Text>
-                        <Select
-                            className="w-100"
-                            value={selectedDistrict}
-                            onChange={onSelectDistrict}
-                        >
-                            <Option value={"-1"}>{t("ALL")}</Option>
-                            {renderDistrictSelect()}
-                        </Select>
-                    </Col>
-                    <Col span={24} md={12} lg={6}>
-                        <Text className="font-13">{t("VILLAGE")}</Text>
-                        <Select
-                            className="w-100"
-                            value={selectedVillage}
-                            onChange={onSelectVillage}
-                        >
-                            <Option value={"-1"}>{t("ALL")}</Option>
-                            {renderVillageSelect()}
-                        </Select>
-                    </Col>
-                    <Col span={24} md={12} lg={6}>
-                        <Text className="font-13">{t("UNIT")}</Text>
-                        <Select
-                            className="w-100"
-                            value={selectedUnit}
-                            onChange={onSelectUnit}
-                        >
-                            <Option value={"-1"}>{t("ALL")}</Option>
-                            {renderUnitSelect()}
-                        </Select>
-                    </Col>
-                </Row>
-                <Row gutter={[16, 12]} className="mt-2">
-                    <Col span={24} md={12} lg={6}>
-                        <Text className="font-13">{t("CHILDREN_UNDER_2")}</Text>
-                        <Select
-                            className="w-100"
-                            value={selectChildren}
-                            onChange={onSelectChildren}
-                        >
-                            <Option value={-1}>{t("ALL")}</Option>
-                            <Option value={1}>{t("HAVE_CHILDREN")}</Option>
-                            <Option value={0}>{t("NO_CHILDREN")}</Option>
-                        </Select>
-                    </Col>
-                    <Col span={24} md={12} lg={6}>
-                        <Text className="font-13">{t("PREGNANT_WOMAN")}</Text>
-                        <Select
-                            className="w-100"
-                            value={selectPregnant}
-                            onChange={onSelectPregnantWoman}
-                        >
-                            <Option value={-1}>{t("ALL")}</Option>
-                            <Option value={1}>{t("THERE_IS_A_PREGNANT_WOMAN")}</Option>
-                            <Option value={0}>{t("NO_PREGNANT_WOMAN")}</Option>
-                        </Select>
-                    </Col>
-                    <Col span={24} md={12} lg={6}>
-                        <Text className="font-13">{t("HEAD_OF_HH_NAME")}</Text>
-                        <Input
-                            placeholder={t("SEARCH_HEAD_OF_HH_NAME")}
-                            value={headName}
-                            onChange={(e) => {
-                                setHeadName(e.target.value);
-                            }}
-                        />
-                    </Col>
-                    <Col span={24} md={12} lg={6}>
-                        <div>
-                            <Text className="font-13">{t("SEARCH")}</Text>
-                        </div>
-                        <Button
-                            type="primary"
-                            icon={<SearchOutlined className="ant--icon__middle"/>}
-                            onClick={onSearchChange}
-                        >
-                            {t("SEARCH")}
-                        </Button>
-                    </Col>
-                </Row>
+              />
+            </span>
+          </div>
+        </section>
+        {/*Body của trang content*/}
+        <section>
+          {/*Tìm kiếm */}
+          <Row gutter={[16, 12]}>
+            <Col span={24} md={12} lg={6}>
+              <Text className="font-13">{t("PROVINCE")}</Text>
+              <Select
+                className="w-100"
+                value={selectedProvince}
+                onChange={onSelectProvince}
+              >
+                <Option value={"-1"}>{t("ALL")}</Option>
+                {renderProvinceSelect()}
+              </Select>
+            </Col>
+            <Col span={24} md={12} lg={6}>
+              <Text className="font-13">{t("DISTRICT")}</Text>
+              <Select
+                className="w-100"
+                value={selectedDistrict}
+                onChange={onSelectDistrict}
+              >
+                <Option value={"-1"}>{t("ALL")}</Option>
+                {renderDistrictSelect()}
+              </Select>
+            </Col>
+            <Col span={24} md={12} lg={6}>
+              <Text className="font-13">{t("VILLAGE")}</Text>
+              <Select
+                className="w-100"
+                value={selectedVillage}
+                onChange={onSelectVillage}
+              >
+                <Option value={"-1"}>{t("ALL")}</Option>
+                {renderVillageSelect()}
+              </Select>
+            </Col>
+            <Col span={24} md={12} lg={6}>
+              <Text className="font-13">{t("UNIT")}</Text>
+              <Select
+                className="w-100"
+                value={selectedUnit}
+                onChange={onSelectUnit}
+              >
+                <Option value={"-1"}>{t("ALL")}</Option>
+                {renderUnitSelect()}
+              </Select>
+            </Col>
+          </Row>
+          <Row gutter={[16, 12]} className="mt-2">
+            <Col span={24} md={12} lg={6}>
+              <Text className="font-13">{t("CHILDREN_UNDER_2")}</Text>
+              <Select
+                className="w-100"
+                value={selectChildren}
+                onChange={onSelectChildren}
+              >
+                <Option value={-1}>{t("ALL")}</Option>
+                <Option value={1}>{t("HAVE_CHILDREN")}</Option>
+                <Option value={0}>{t("NO_CHILDREN")}</Option>
+              </Select>
+            </Col>
+            <Col span={24} md={12} lg={6}>
+              <Text className="font-13">{t("PREGNANT_WOMAN")}</Text>
+              <Select
+                className="w-100"
+                value={selectPregnant}
+                onChange={onSelectPregnantWoman}
+              >
+                <Option value={-1}>{t("ALL")}</Option>
+                <Option value={1}>{t("THERE_IS_A_PREGNANT_WOMAN")}</Option>
+                <Option value={0}>{t("NO_PREGNANT_WOMAN")}</Option>
+              </Select>
+            </Col>
+            <Col span={24} md={12} lg={6}>
+              <Text className="font-13">{t("HEAD_OF_HH_NAME")}</Text>
+              <Input
+                placeholder={t("SEARCH_HEAD_OF_HH_NAME")}
+                value={headName}
+                onChange={(e) => {
+                  setHeadName(e.target.value);
+                }}
+              />
+            </Col>
+            <Col span={24} md={12} lg={6}>
+              <div>
+                <Text className="font-13">{t("SEARCH")}</Text>
+              </div>
+              <Button
+                type="primary"
+                icon={<SearchOutlined className="ant--icon__middle" />}
+                onClick={onSearchChange}
+              >
+                {t("SEARCH")}
+              </Button>
+            </Col>
+          </Row>
 
-                {/*Table*/}
-                <div className="font-24 mb-3 mt-3">
-                    <u>{t("TABLE_DATA")}</u>
-                </div>
-                <Table
-                    columns={columns}
-                    dataSource={data}
-                    pagination={{
-                        current: Number(page),
-                        total: totalPage * 10,
-                        onChange: (page) => {
-                            onPageChange(page);
-                        },
-                        showSizeChanger: false,
-                    }}
-                    rowKey="Id"
-                    style={{overflowX: "auto", overflowY: "hidden"}}
-                />
-            </section>
-            {/*Modal*/}
-            <HouseHoldMemberList
-                memberInHouseHold={memberInHouseHold}
-                visibleMemberList={visibleMemberList}
-                setVisibleMemberList={setVisibleMemberList}
-                dataLanguage={dataLanguage}
+          {/*Table*/}
+          <Table
+            columns={columns}
+            dataSource={data}
+            pagination={false}
+            rowKey="Id"
+            style={{ overflowX: "auto", overflowY: "hidden" }}
+          />
+          <div className="mt-3 d-flex">
+            <Pagination
+              current={Number(page)}
+              total={totalPage * 10}
+              onChange={(page) => {
+                onPageChange(page);
+              }}
+              showSizeChanger={false}
+              className="ml-auto"
             />
-            <PlotLandList
-                plotLandInHouseHold={plotLandInHouseHold}
-                visiblePlotLand={visiblePlotLand}
-                setVisiblePlotLand={setVisiblePlotLand}
-            />
-        </div>
+          </div>
+        </section>
+        {/*Modal*/}
+        <HouseHoldMemberList
+          memberInHouseHold={memberInHouseHold}
+          visibleMemberList={visibleMemberList}
+          setVisibleMemberList={setVisibleMemberList}
+          dataLanguage={dataLanguage}
+        />
+        <PlotLandList
+          plotLandInHouseHold={plotLandInHouseHold}
+          visiblePlotLand={visiblePlotLand}
+          setVisiblePlotLand={setVisiblePlotLand}
+        />
+      </div>
     );
 }
 
