@@ -5,7 +5,7 @@ import { Alert, Form, Input, Button, message } from "antd";
 import * as _ from "lodash";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import imageLogo from "./images/apisLogo.jpg";
+import imageLogo from "./images/MAF_Logo.jpg";
 import getTokenApi from "../../api/getTokenApi";
 import Cookies from "universal-cookie";
 import upperCase from "lodash/upperCase";
@@ -475,7 +475,7 @@ function Login(props) {
                       setIsHover(false);
                     }}
                   >
-                    Apis Tech
+                    JB Tech
                   </span>
                 </div>
               </div>
@@ -495,7 +495,7 @@ function Login(props) {
                       setIsHover(false);
                     }}
                   >
-                    Apis Tech
+                    JB Tech
                   </span>
                 </div>
               </div>

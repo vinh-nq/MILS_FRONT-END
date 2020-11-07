@@ -253,6 +253,7 @@ export default function UserManagement(props) {
         fetchDataAllUser={fetchDataAllUserReload}
         idOject={objectEdit}
         listFunctionUserName={(listUser || []).map((el) => el.UserName)}
+        listFunctionUserId={(listUser || []).map((el) => `${el.UserId}`)}
       />
     </div>
   );

@@ -17,6 +17,7 @@ function ModalUserManagement(props) {
     fetchDataAllUser,
     idOject,
     listFunctionUserName,
+    // listFunctionUserId,
   } = props;
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -126,10 +127,12 @@ function ModalUserManagement(props) {
     if (typeModal === "add") {
       handleAddNew({
         ...valueForm,
-        UserId: null,
+        UserId: valueForm.UserId ? valueForm.UserId : null,
+        Device_ID: valueForm.Device_ID ? valueForm.Device_ID : null,
         CreatedBy: cookies.UserName,
         Active: valueForm.Active ? 1 : 0,
         Enabled: valueForm.Enabled ? 1 : 0,
+        UserCreateID : cookies.userId, 
       });
     }
     if (typeModal === "edit") {
@@ -137,9 +140,11 @@ function ModalUserManagement(props) {
         ...valueForm,
         UserName: objectEdit.UserName,
         UserId: objectEdit.UserId,
+        Device_ID: objectEdit.Device_ID,
         CreatedBy: objectEdit.CreatedBy,
         Active: valueForm.Active ? 1 : 0,
         Enabled: valueForm.Enabled ? 1 : 0,
+        UserCreateID: objectEdit.UserCreateID,
       });
     }
   };
@@ -165,6 +170,36 @@ function ModalUserManagement(props) {
     >
       <Form id="form-role-management" form={form} onFinish={handleSubmit}>
         <div className="row">
+          <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
+            <div>
+              <span>{t("UserId")}</span>
+              {/* <span style={{ paddingLeft: "3px", color: "red" }}>*</span> */}
+            </div>
+            <Form.Item
+              name="UserId"
+              // rules={[
+              //   {
+              //     validator(rule, value) {
+              //       return handleValidateFrom(
+              //         rule,
+              //         value,
+              //         {
+              //           ...objectValidateForm.UserId,
+              //           arrayDuplicate: listFunctionUserId || [],
+              //           authCodeOld:
+              //             typeModal !== "add"
+              //               ? objectEdit.UserId.toLowerCase()
+              //               : null,
+              //         },
+              //         t
+              //       );
+              //     },
+              //   },
+              // ]}
+            >
+              <Input disabled={typeModal === "edit"} />
+            </Form.Item>
+          </div>
           <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
             <div>
               <span>{t("UserName")}</span>
@@ -316,6 +351,29 @@ function ModalUserManagement(props) {
               ]}
             >
               <Input />
+            </Form.Item>
+          </div>
+          <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
+            <div>
+              <span>{t("DeviceId")}</span>
+              {/* <span style={{ paddingLeft: "3px", color: "red" }}>*</span> */}
+            </div>
+            <Form.Item
+              name="Device_ID"
+              // rules={[
+              //   {
+              //     validator(rule, value) {
+              //       return handleValidateFrom(
+              //         rule,
+              //         value,
+              //         objectValidateForm.DevideId,
+              //         t
+              //       );
+              //     },
+              //   },
+              // ]}
+            >
+              <Input disabled={typeModal === "edit"} />
             </Form.Item>
           </div>
           <div className="col-xl-6 col-lg-6 col-sm-12 col-12">

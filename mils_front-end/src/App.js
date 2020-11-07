@@ -52,6 +52,7 @@ import ListOfDisability from "./screens/dataDictionary/ListOfDisability";
 import ListOfSchoolEnroll from "./screens/dataDictionary/ListOfSchoolEnroll";
 import ListOfAreaMateral from "./screens/dataDictionary/ListOfAreaMateral";
 import ListOfSafetyArea from "./screens/dataDictionary/ListOfSafetyArea";
+import Enrollment from "./screens/cctProgram/Enrollment";
 class App extends React.Component {
   render() {
     return (
@@ -74,6 +75,11 @@ class App extends React.Component {
                 PATH.reportbi,
                 PATH.smsbroadcast,
               ]}
+              exact
+            />
+            <MainRouteWrapper
+              component={() => <div>AAAA</div>}
+              path={PATH.PMTSCORE}
               exact
             />
             <MainRouteWrapper
@@ -139,6 +145,11 @@ class App extends React.Component {
             <MainRouteWrapper
               component={ListOfClass}
               path={PATH.LIST_OF_CLASS}
+              exact
+            />
+            <MainRouteWrapper
+              component={Enrollment}
+              path={PATH.EROLLMENT}
               exact
             />
             <MainRouteWrapper

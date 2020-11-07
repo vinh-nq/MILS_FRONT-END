@@ -1,4 +1,13 @@
 export const objectValidateForm = {
+  UserId: {
+    nameLabel: "UserId",
+    // checkDuplicate: true,
+    type: "number",
+  },
+  DevideId: {
+    nameLabel: "DevideId",
+    // checkDuplicate: true,
+  },
   UserName: {
     maxLength: 30,
     checkEmpty: true,
@@ -28,6 +37,11 @@ export const objectValidateForm = {
     maxLength: 1,
     checkEmpty: true,
     nameLabel: "Type",
+  },
+  DeviceId: {
+    checkEmpty: true,
+    nameLabel: "DeviceId",
+    checkDuplicate: true,
   },
   Password: {
     maxLength: 30,
