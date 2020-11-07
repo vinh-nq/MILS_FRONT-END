@@ -59,6 +59,8 @@ export const PATH = {
   LIST_OF_SCHOOL_ENROLL: "/datadictionary/listofschoolenroll",
   LIST_OF_AREA_MATERAL: "/datadictionary/listofareamateral",
   LIST_OF_SAFETY_AREA: "/datadictionary/listofsafetyarea",
+  EROLLMENT: "/cctprogram/enrollment",
+  PMTSCORE: "/cctprogram/pmtscore",
 };
 
 export const PATH_BREADCRUM = {
@@ -66,7 +68,7 @@ export const PATH_BREADCRUM = {
   system: "/system",
   datadictionary: "/datadictionary",
   householdmanagement: "/householdmanagement",
-  CCTProgram: "/CCTProgram",
+  cctprogram: "/cctprogram",
   PAYpaymentMENT: "/payment",
   GRIEVANCE_MANAGEMENT: "/grienvanceManagement",
   REPORT_BI: "reportBI",
@@ -117,4 +119,6 @@ export const PATH_BREADCRUM = {
   listofschoolenroll: "/datadictionary/listofschoolenroll",
   listofareamateral: "/datadictionary/listofareamateral",
   listofsafetyarea: "/datadictionary/listofsafetyarea",
+  enrollment: "/cctprogram/enrollment",
+  pmtscore: "/cctprogram/pmtscore",
 };

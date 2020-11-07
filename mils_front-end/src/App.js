@@ -52,6 +52,7 @@ import ListOfDisability from "./screens/dataDictionary/ListOfDisability";
 import ListOfSchoolEnroll from "./screens/dataDictionary/ListOfSchoolEnroll";
 import ListOfAreaMateral from "./screens/dataDictionary/ListOfAreaMateral";
 import ListOfSafetyArea from "./screens/dataDictionary/ListOfSafetyArea";
+import Enrollment from "./screens/cctProgram/Enrollment";
 import HouseholdScore from "./screens/hhScored";
 class App extends React.Component {
   render() {
@@ -75,6 +76,11 @@ class App extends React.Component {
                 PATH.reportbi,
                 PATH.smsbroadcast,
               ]}
+              exact
+            />
+            <MainRouteWrapper
+              component={() => <div>AAAA</div>}
+              path={PATH.PMTSCORE}
               exact
             />
             <MainRouteWrapper
@@ -143,6 +149,11 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
+              component={Enrollment}
+              path={PATH.EROLLMENT}
+              exact
+            />
+            <MainRouteWrapper
               component={ListOfAreaMateral}
               path={PATH.LIST_OF_AREA_MATERAL}
               exact
@@ -197,7 +208,6 @@ class App extends React.Component {
               path={PATH.DETAIL_HOUSEHOLD}
               exact
             />
-            <MainRouteWrapper component={HouseholdScore} path="/test" exact />
             <MainRouteWrapper
               component={ListOfPlotCause}
               path={`${PATH.LIST_OF_PLOT_CAUSE}`}
