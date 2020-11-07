@@ -14,7 +14,7 @@ function SourceSurvivalComponent(props) {
         <>
             <Row className="mb-2" gutter={16}>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Access to elementary or junior high school:</Text>
+                    <Text className="font-13 font-weight-500">{t("ACCESS_TO_ELEMENTARY_OR_JUNIOR_HIGH_SCHOOL")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","PrimarySchool"]}
                         className="mb-0"
@@ -27,7 +27,7 @@ function SourceSurvivalComponent(props) {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Permanent market access or regular trading of goods:</Text>
+                    <Text className="font-13 font-weight-500">{t("PERMANENT_MARKET_ACCESS_OR_REGULAR_TRADING_OF_GOODS")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","Market"]}
                         className="mb-0"
@@ -40,7 +40,7 @@ function SourceSurvivalComponent(props) {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Access to a health center or basic health service or pharmacy:</Text>
+                    <Text className="font-13 font-weight-500">{t("ACCESS_TO_A_HEALTH_CENTER_OR_BASIC_HEALTH_SERVICE_OR_PHARMACY")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","Dispensary"]}
                         className="mb-0"
@@ -53,7 +53,7 @@ function SourceSurvivalComponent(props) {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Time from home to health center or basic health service or pharmacy ........ Minutes:</Text>
+                    <Text className="font-13 font-weight-500">{t("TIME_FROM_HOME_TO_HEALTH_CENTER_OR_BASIC_HEALTH_SERVICE_OR_PHARMACY")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","TimeDispensary"]}
                         className="mb-0"
@@ -63,7 +63,7 @@ function SourceSurvivalComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(5, true, "Time from home to health center or basic health service or pharmacy ........ Minutes"),
+                                        objectValidateForm.checkString(5, true, "TIME_FROM_HOME_TO_HEALTH_CENTER_OR_BASIC_HEALTH_SERVICE_OR_PHARMACY"),
                                         t
                                     );
                                 },
@@ -78,7 +78,7 @@ function SourceSurvivalComponent(props) {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Availability and access to hospitals:</Text>
+                    <Text className="font-13 font-weight-500">{t("AVAILABILITY_AND_ACCESS_TO_HOSPITALS")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","Hospital"]}
                         className="mb-0"
@@ -91,7 +91,7 @@ function SourceSurvivalComponent(props) {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">If not, the distance from home to the hospital .............. km:</Text>
+                    <Text className="font-13 font-weight-500">{t("THE_DISTANCE_FROM_HOME_TO_THE_HOSPITAL")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","DistanceNearestHospital"]}
                         className="mb-0"
@@ -101,7 +101,7 @@ function SourceSurvivalComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(5, true, "If not, the distance from home to the hospital .............. km"),
+                                        objectValidateForm.checkString(5, true, "THE_DISTANCE_FROM_HOME_TO_THE_HOSPITAL"),
                                         t
                                     );
                                 },
@@ -116,7 +116,7 @@ function SourceSurvivalComponent(props) {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Time from home to hospital:</Text>
+                    <Text className="font-13 font-weight-500">{t("TIME_FROM_HOME_TO_HOSPITAL")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","TImeNearestHospital"]}
                         className="mb-0"
@@ -126,7 +126,7 @@ function SourceSurvivalComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(5, true, "Time from home to hospital"),
+                                        objectValidateForm.checkString(5, true, "TIME_FROM_HOME_TO_HOSPITAL"),
                                         t
                                     );
                                 },
@@ -141,7 +141,7 @@ function SourceSurvivalComponent(props) {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">The house is located next to the road that can be traveled all year round:</Text>
+                    <Text className="font-13 font-weight-500">{t("THE_HOUSE_IS_LOCATED_NEXT_TO_THE_ROAD_THAT_CAN_BE_TRAVELED_ALL_YEAR_ROUND")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","RoadAccess"]}
                         className="mb-0"
@@ -154,7 +154,7 @@ function SourceSurvivalComponent(props) {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Families take the bus through the village on a regular basis:</Text>
+                    <Text className="font-13 font-weight-500">{t("FAMILIES_TAKE_THE_BUS_THROUGH_THE_VILLAGE_ON_A_REGULAR_BASIS")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","TransportStop"]}
                         className="mb-0"
@@ -167,7 +167,7 @@ function SourceSurvivalComponent(props) {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Consumed internet signal in the home:</Text>
+                    <Text className="font-13 font-weight-500">{t("CONSUMED_INTERNET_SIGNAL_IN_THE_HOME")}</Text>
                     <Form.Item
                         name={["PrimaryPublicServiceForBeneficiary","ElectricNetwork"]}
                         className="mb-0"

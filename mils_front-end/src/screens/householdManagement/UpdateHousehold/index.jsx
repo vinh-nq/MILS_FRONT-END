@@ -17,18 +17,22 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import EnergyUsedComponent from "./component/EneryUsedComponent";
 import { useHistory } from "react-router-dom";
 import LocationMapComponent from "./component/LocationMapComponent";
+import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
+import {PATH} from "../../../routers/Path";
 
 function UpdateHousehold(props) {
     const {typeModal} = props;
     const [isLoading, setLoading] = useState(false);
     const [detailHouseHold, setDetailHouseHold] = useState({});
     const history = useHistory();
+    const [HHCode, setHHCode] = useState("");
   const [form] = Form.useForm();
 
   const { t } = useTranslation();
     useEffect(() => {
        if(typeModal === "UPDATE"){
            const hh_code = getValueOfQueryParams(history.location, "hh_code", "STRING");
+           setHHCode(hh_code);
            const getDetailHouseHold = async (hh_code) => {
                setLoading(true);
                await houseHoldApi.getDetailHouseHold({householdId: hh_code}).then(res => {
@@ -44,7 +48,7 @@ function UpdateHousehold(props) {
     }, [form,history.location, typeModal]);
 
   const handleAdd = async (value) => {
-      message.loading({ content: "Loading...", key: "message-form-role" });
+      setLoading(true);
       const objCover = {
           HHCode: value.HHCode,
           ...value.LocationBeneficiary,
@@ -59,6 +63,7 @@ function UpdateHousehold(props) {
       };
       await houseHoldApi.addHouseHold(objCover).then((res) => {
           if (res.data.Status) {
+              setLoading(false);
               form.resetFields();
               message.success({
                   content: t("ADD_SUCCESS"),
@@ -66,6 +71,7 @@ function UpdateHousehold(props) {
                   duration: 1,
               });
           } else {
+              setLoading(false);
               message.error({
                   content: t("ADD_FAILED"),
                   key: "message-form-role",
@@ -76,7 +82,7 @@ function UpdateHousehold(props) {
   };
 
   const handleUpdate = async (value) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    setLoading(true);
     const objCover = {
       ...detailHouseHold,
       ...value.LocationBeneficiary,
@@ -92,6 +98,7 @@ function UpdateHousehold(props) {
     };
     await houseHoldApi.updateHouseHold(objCover).then((res) => {
       if (res.data.Status) {
+         setLoading(false);
         const {
           DateOfEnumeration,
         } = res.data.Data.GeneralInformationBeneficiary;
@@ -106,6 +113,7 @@ function UpdateHousehold(props) {
           duration: 1,
         });
       } else {
+          setLoading(false);
         message.error({
           content: t("EDIT_FAILED"),
           key: "message-form-role",
@@ -124,16 +132,26 @@ function UpdateHousehold(props) {
       <section className="border-bottom mb-3">
         <div className="d-flex align-items-center mb-3">
           <span className="h5 mb-0">{typeModal === "ADD" ? t("add") : t("update")} Household</span>
-          <span className="ml-auto">
-            <Button
-              className="set-center-content"
-              type="primary"
-              icon={<SaveFilled className="font-16" />}
-              form="form-household"
-              key="submit"
-              htmlType="submit"
-            />
-          </span>
+            <div className="d-flex ml-auto">
+                <Form.Item>
+                    <Button
+                        className="set-center-content mr-2"
+                        type="primary"
+                        icon={<SaveFilled className="font-16" />}
+                        form="form-household"
+                        key="submit"
+                        htmlType="submit"
+                    />
+                </Form.Item>
+                {
+                    typeModal === "UPDATE" ? <Button
+                        className="set-center-content"
+                        type="primary"
+                        icon={<BackwardOutlined  className="font-16"/>}
+                        onClick={() => {history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${HHCode}`)}}
+                    /> : null
+                }
+            </div>
         </div>
       </section>
 

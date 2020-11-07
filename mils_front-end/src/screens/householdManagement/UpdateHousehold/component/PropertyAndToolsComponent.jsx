@@ -46,7 +46,7 @@ function PropertyAndToolsComponent() {
             {/*1-2*/}
             <Row className="mb-2" gutter={16}>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Number of family members under 14 years old:</Text>
+                    <Text className="font-13 font-weight-500">{t("UNDER_14_YEARS")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "TotalBellow_14"]}
                         className="mb-0"
@@ -56,7 +56,7 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkNumber(10, 0, "Number of family members under 14 years old", true),
+                                        objectValidateForm.checkNumber(10, 0, "UNDER_14_YEARS", true),
                                         t
                                     );
                                 },
@@ -67,7 +67,7 @@ function PropertyAndToolsComponent() {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Number of family members between 14-60 years old:</Text>
+                    <Text className="font-13 font-weight-500">{t("BETWEEN_15")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "TotalBetween_15_60"]}
                         className="mb-0"
@@ -77,7 +77,7 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkNumber(10, 0, "Number of family members between 14-60 years old", true),
+                                        objectValidateForm.checkNumber(10, 0, "BETWEEN_15", true),
                                         t
                                     );
                                 },
@@ -91,7 +91,7 @@ function PropertyAndToolsComponent() {
             {/*3-4*/}
             <Row className="mb-2" gutter={16}>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Number of family members over 60 years old:</Text>
+                    <Text className="font-13 font-weight-500">{t("OVER_60")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "TotalAbove_60"]}
                         className="mb-0"
@@ -101,7 +101,7 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkNumber(10, 0, "Number of family members over 60 years old", true),
+                                        objectValidateForm.checkNumber(10, 0, "OVER_60", true),
                                         t
                                     );
                                 },
@@ -112,7 +112,7 @@ function PropertyAndToolsComponent() {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Working groups of regular family members:</Text>
+                    <Text className="font-13 font-weight-500">{t("WORKING_GROUPS_OF_REGULAR_FAMILY_MEMBERS")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "MainJobId"]}
                         className="mb-0"
@@ -122,7 +122,7 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "Working groups of regular family members"),
+                                        objectValidateForm.checkString(50, true, "WORKING_GROUPS_OF_REGULAR_FAMILY_MEMBERS"),
                                         t
                                     );
                                 },
@@ -136,7 +136,7 @@ function PropertyAndToolsComponent() {
             {/*5-6*/}
             <Row className="mb-2" gutter={16}>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">The main occupations of most family members work:</Text>
+                    <Text className="font-13 font-weight-500">{t("MAIN_OCCUPATIONS_OF_MOST_FAMILY_MEMBERS")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "MainGoodsId"]}
                         className="mb-0"
@@ -146,7 +146,7 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(50, true, "The main occupations of most family members work"),
+                                        objectValidateForm.checkString(50, true, "MAIN_OCCUPATIONS_OF_MOST_FAMILY_MEMBERS"),
                                         t
                                     );
                                 },
@@ -157,8 +157,7 @@ function PropertyAndToolsComponent() {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">During the past 12 months, family members have received
-                        income from sources other than their main source of income:</Text>
+                    <Text className="font-13 font-weight-500">{t("SOURCES_OTHER_THAN_THEIR_MAIN_SOURCE_OF_INCOME")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "ReceivedBenfits"]}
                         className="mb-0"
@@ -174,7 +173,7 @@ function PropertyAndToolsComponent() {
             {/*7-8*/}
             <Row className="mb-2" gutter={16}>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Have family members borrowed from other parties:</Text>
+                    <Text className="font-13 font-weight-500">{t("HAVE_FAMILY_MEMBERS_BORROWED_FROM_OTHER_PARTIES")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "OweCredit"]}
                         className="mb-0"
@@ -187,14 +186,14 @@ function PropertyAndToolsComponent() {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Type of lender:</Text>
+                    <Text className="font-13 font-weight-500">{t("TYPE_OF_LENDER")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "TypeOfLenderId"]}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `Type of lender ${t("is_not_empty")}`,
+                                message: `${t("TYPE_OF_LENDER")} ${t("is_not_empty")}`,
                             }
                         ]}
                     >
@@ -207,14 +206,14 @@ function PropertyAndToolsComponent() {
             {/*9-10*/}
             <Row className="mb-2" gutter={16}>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Why family members borrow money:</Text>
+                    <Text className="font-13 font-weight-500">{t("WHY_FAMILY_MEMBERS_BORROW_MONEY")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "BorrowingReasonId"]}
                         className="mb-0"
                         rules={[
                             {
                                 required: true,
-                                message: `${t("Why family members borrow money")} ${t("is_not_empty")}`,
+                                message: `${t("WHY_FAMILY_MEMBERS_BORROW_MONEY")} ${t("is_not_empty")}`,
                             }
                         ]}
                     >
@@ -224,8 +223,7 @@ function PropertyAndToolsComponent() {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Does any family member run any farm on their own land or
-                        leased land:</Text>
+                    <Text className="font-13 font-weight-500">{t("DOES_ANY_FAMILY_MEMBER_RUN_ANY_FARM_ON_THEIR_OWN_LAND_OR_LEASED_LAND")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "OwnAgri"]}
                         className="mb-0"
@@ -241,8 +239,7 @@ function PropertyAndToolsComponent() {
             {/*11-12*/}
             <Row className="mb-2" gutter={16}>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Have any family members used the land (owned or leased) in
-                        the last production?</Text>
+                    <Text className="font-13 font-weight-500">{t("LAND_OWNED_OR_LEASED")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "MemberWork"]}
                         className="mb-0"
@@ -255,7 +252,7 @@ function PropertyAndToolsComponent() {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">If yes, specify the number of plots:</Text>
+                    <Text className="font-13 font-weight-500">{t("SPECIFY_THE_NUMBER_OF_PLOTS")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "NumberPlots"]}
                         className="mb-0"
@@ -266,7 +263,7 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkNumber(10, 0, "If yes, specify the number of plots", true),
+                                        objectValidateForm.checkNumber(10, 0, "SPECIFY_THE_NUMBER_OF_PLOTS", true),
                                         t
                                     );
                                 },
@@ -280,7 +277,7 @@ function PropertyAndToolsComponent() {
             {/*13-14*/}
             <Row className="mb-2" gutter={16}>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Number of related plots:</Text>
+                    <Text className="font-13 font-weight-500">{t("NUMBER_OF_RELATED_PLOTS")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "PlotRepeatCount"]}
                         className="mb-0"
@@ -291,7 +288,7 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkNumber(10, 0, "Number of related plots", true),
+                                        objectValidateForm.checkNumber(10, 0, "NUMBER_OF_RELATED_PLOTS", true),
                                         t
                                     );
                                 },
@@ -302,8 +299,7 @@ function PropertyAndToolsComponent() {
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">Has there been livestock raising in the last 12 months
-                        ?:</Text>
+                    <Text className="font-13 font-weight-500">{t("LIVESTOCK_RAISING_IN_THE_LAST_12_MONTHS")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "LiveStock"]}
                         className="mb-0"
@@ -318,8 +314,7 @@ function PropertyAndToolsComponent() {
             </Row>
             <Row className="mb-2" gutter={16}>
                 <Col className="mb-2" span={24}>
-                    <Text className="font-13 font-weight-500">How many family members in the age group have a lower
-                        secondary education ?:</Text>
+                    <Text className="font-13 font-weight-500">{t("LOWER_SECONDARY_EDUCATION")}</Text>
                     <Form.Item
                         name={["StableOccupationAndIncome", "CompletedPrimarySchool"]}
                         className="mb-0"
@@ -330,7 +325,7 @@ function PropertyAndToolsComponent() {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkNumber(10, 0, "How many family members in the age group have a lower secondary education ?", true),
+                                        objectValidateForm.checkNumber(10, 0, "LOWER_SECONDARY_EDUCATION", true),
                                         t
                                     );
                                 },
