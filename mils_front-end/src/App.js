@@ -79,7 +79,7 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={() => <div>AAAA</div>}
+              component={HouseholdScore}
               path={PATH.PMTSCORE}
               exact
             />

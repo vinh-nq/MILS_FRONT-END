@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import houseHoldScoreApi from "../../api/householdScoreApi";
 import { regexTemplate } from "../../utils/regexTemplate";
+import "./style.scss";
 function HouseholdScore(props) {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -31,8 +32,8 @@ function HouseholdScore(props) {
   const [district, setDistrict] = useState([]);
 
   const [searchText, setSearchText] = useState("");
-  const [minScored, setMinScored] = useState(0);
-  const [maxScored, setMaxScored] = useState(10000);
+  const [minScored, setMinScored] = useState("");
+  const [maxScored, setMaxScored] = useState("");
 
   const { t } = useTranslation();
   const { Text } = Typography;
@@ -78,7 +79,7 @@ function HouseholdScore(props) {
     const getDataScore = async () => {
       await houseHoldScoreApi.getAllHouseholdScore().then((res) => {
         if (res.data.Status) {
-          let Data = res.data;
+          let { Data } = res.data;
           const compare = (a, b) => {
             if (a.PMTScored < b.PMTScored) {
               return -1;
@@ -180,17 +181,18 @@ function HouseholdScore(props) {
     const number = regexTemplate.NUMBER;
     setPage(1);
     if (name === "FROM") {
+      //
       number.test(value)
-        ? value > maxScored
-          ? setMinScored(0)
-          : setMinScored(value)
-        : setMinScored(0);
+        ? setMinScored(value)
+        : value
+        ? setMinScored("0")
+        : setMinScored("");
     } else {
       number.test(value)
-        ? value < minScored
-          ? setMaxScored(10000)
-          : setMaxScored(value)
-        : setMaxScored(10000);
+        ? setMaxScored(value)
+        : value
+        ? setMaxScored((data[data.length - 1] || {}).PMTScored || "10000")
+        : setMaxScored("");
     }
   };
 
@@ -202,7 +204,17 @@ function HouseholdScore(props) {
       );
     }
     array = array.filter(
-      (value) => value.PMTScored >= minScored && value.PMTScored <= maxScored
+      (value) =>
+        value.PMTScored >=
+          (parseInt(minScored) > parseInt(maxScored)
+            ? 0
+            : parseInt(minScored || 0)) &&
+        value.PMTScored <=
+          (parseInt(maxScored) < parseInt(minScored)
+            ? (data[data.length - 1] || {}).PMTScored || "10000"
+            : parseInt(
+                maxScored || (data[data.length - 1] || {}).PMTScored || "10000"
+              ))
     );
     return array;
   };
@@ -220,33 +232,43 @@ function HouseholdScore(props) {
       title: t("HEAD_OF_HH_NAME"),
       dataIndex: "HHHeadName",
       key: "HHHeadName",
+      render: (data) => <div style={{ minWidth: 120 }}>{data}</div>,
     },
     {
       title: t("PROVINCE"),
       dataIndex: "Province",
       key: "Province",
-      render: (data, record) =>
-        dataLanguage === "la" ? record.Province : record.ProvinceEng,
+      render: (data, record) => (
+        <div style={{ minWidth: 100 }}>
+          {dataLanguage === "la" ? record.Province : record.ProvinceEng}
+        </div>
+      ),
     },
     {
       title: t("DISTRICT"),
       dataIndex: "District",
       key: "District",
-      render: (data, record) =>
-        dataLanguage === "la" ? record.District : record.DistrictEng,
+      render: (data, record) => (
+        <div style={{ minWidth: 100 }}>
+          {dataLanguage === "la" ? record.District : record.DistrictEng}
+        </div>
+      ),
     },
     {
       title: t("VILLAGE"),
       dataIndex: "Village",
       key: "Village",
-      render: (data, record) =>
-        dataLanguage === "la" ? record.Village : record.VillageEng,
+      render: (data, record) => (
+        <div style={{ minWidth: 100 }}>
+          {dataLanguage === "la" ? record.Village : record.VillageEng}
+        </div>
+      ),
     },
     {
       title: "PMT Scored",
       dataIndex: "PMTScored",
       key: "PMTScored",
-      render: (data) => data,
+      render: (data) => <div style={{ minWidth: 80 }}>{data}</div>,
     },
   ];
 
@@ -358,7 +380,7 @@ function HouseholdScore(props) {
               <Col span={12}>
                 <Text className="font-13">PMT Scored From</Text>
                 <Input
-                  placeholder="From"
+                  placeholder="From (Default 0)"
                   value={minScored}
                   onChange={(e) => {
                     onScoreChange(e.target.value, "FROM");
@@ -370,7 +392,9 @@ function HouseholdScore(props) {
                 <Text className="font-13">PMT Scored To</Text>
                 <Input
                   value={maxScored}
-                  placeholder="To"
+                  placeholder={`To (Default ${
+                    (data[data.length - 1] || {}).PMTScored || "10000"
+                  })`}
                   onChange={(e) => {
                     onScoreChange(e.target.value, "TO");
                   }}

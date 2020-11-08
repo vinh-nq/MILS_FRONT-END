@@ -25,7 +25,14 @@ import GeneralInformationComponent from "./component/GeneralInformationComponent
 import AddressComponent from "./component/AddressComponent";
 import "./scss/style.scss";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const Marker = (props) => {
+  const { name } = props;
+  return (
+    <span className="text-danger pointer" title={name}>
+      <i className="fas fa-map-marker-alt font-24"></i>
+    </span>
+  );
+};
 
 function DetailBeneficiary(props) {
   const [detailHouseHold, setDetailHouseHold] = useState({});
@@ -34,15 +41,14 @@ function DetailBeneficiary(props) {
   const [visiblePlotLand, setVisiblePlotLand] = useState(false);
   const [typeModalPlotLand, setTypeModalPlotLand] = useState("ADD");
   const [objectPlotLand, setObjectPlotLand] = useState({});
-  let history = useHistory();
-
-  const defaultProps = {
+  const [defaultProps, setDefaultProps] = useState({
     center: {
-      lat: 59.95,
-      lng: 30.33,
+      lat: 0,
+      lng: 0,
     },
-    zoom: 11,
-  };
+    zoom: 17,
+  });
+  let history = useHistory();
 
   const { t } = useTranslation();
   const dataLanguage =
@@ -61,6 +67,16 @@ function DetailBeneficiary(props) {
       await houseHoldApi
         .getDetailHouseHold({ householdId: hh_code })
         .then((res) => {
+          const { LatLongForBeneficiary } = res.data.Data;
+          let location = { ...defaultProps };
+          location = {
+            ...location,
+            center: {
+              lat: parseFloat(LatLongForBeneficiary.Lat),
+              lng: parseFloat(LatLongForBeneficiary.Long),
+            },
+          };
+          setDefaultProps(location);
           setDetailHouseHold(res.data.Data);
         });
       setLoading(false);
@@ -557,9 +573,10 @@ function DetailBeneficiary(props) {
                 Photo
                 <img src={LatLongForBeneficiary.ImageUrl} alt="No image" />
               </p>
+
               <p className="mb-0 font-weight-500 font-15">Location(GPS):</p>
-              <p>Latitude: {LatLongForBeneficiary.Lat}</p>
-              <p> Longitude:{LatLongForBeneficiary.Long}</p>
+              <p>Latitude: {defaultProps.center.lat}</p>
+              <p> Longitude:{defaultProps.center.lng}</p>
             </Col>
             <Col span={16}>
               <div style={{ height: "400px", width: "100%" }}>
@@ -567,13 +584,13 @@ function DetailBeneficiary(props) {
                   bootstrapURLKeys={{
                     key: "AIzaSyDFscFGDtZL1daD8iYZKxFrGn2FXdHbMbw",
                   }}
-                  defaultCenter={defaultProps.center}
+                  center={defaultProps.center}
                   defaultZoom={defaultProps.zoom}
                 >
-                  <AnyReactComponent
-                    lat={LatLongForBeneficiary.Lat}
-                    lng={LatLongForBeneficiary.Long}
-                    text="My Marker"
+                  <Marker
+                    lat={defaultProps.center.lat}
+                    lng={defaultProps.center.lng}
+                    name="Location"
                   />
                 </GoogleMapReact>
               </div>
