@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Collapse, message, Popconfirm, Row, Table } from "antd";
+import { Button, Col, Image, message, Popconfirm, Row, Table } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -46,7 +46,7 @@ function DetailBeneficiary(props) {
       lat: 0,
       lng: 0,
     },
-    zoom: 17,
+    zoom: 10,
   });
   let history = useHistory();
 
@@ -569,14 +569,19 @@ function DetailBeneficiary(props) {
               <p className="mb-0 font-weight-500 font-16">
                 Data DescriptionSave
               </p>
-              <p>
+              <div className="mb-2">
                 Photo
-                <img src={LatLongForBeneficiary.ImageUrl} alt="No image" />
-              </p>
-
-              <p className="mb-0 font-weight-500 font-15">Location(GPS):</p>
-              <p>Latitude: {defaultProps.center.lat}</p>
-              <p> Longitude:{defaultProps.center.lng}</p>
+                <Image
+                  className="ml-2 pointer"
+                  width={30}
+                  height={30}
+                  src={LatLongForBeneficiary.ImageUrl}
+                  fallback={t("NOT_FOUND")}
+                />
+              </div>
+              <p className="mb-2 font-weight-500 font-15">Location(GPS):</p>
+              <p className="mb-2">Latitude: {defaultProps.center.lat}</p>
+              <p className="mb-2">Longitude:{defaultProps.center.lng}</p>
             </Col>
             <Col span={16}>
               <div style={{ height: "400px", width: "100%" }}>

@@ -54,6 +54,7 @@ import ListOfAreaMateral from "./screens/dataDictionary/ListOfAreaMateral";
 import ListOfSafetyArea from "./screens/dataDictionary/ListOfSafetyArea";
 import Enrollment from "./screens/cctProgram/Enrollment";
 import HouseholdScore from "./screens/hhScored";
+import ListHouseholdForCCTProgram from "./screens/cctProgram/ListHouseHoldForCCTProgram";
 class App extends React.Component {
   render() {
     return (
@@ -314,6 +315,11 @@ class App extends React.Component {
               component={PermissionManagement}
               path={`${PATH.PERMISSIONS_MANAGEMENT}`}
               exact
+            />
+            <MainRouteWrapper
+                component={ListHouseholdForCCTProgram}
+                path={"/pmtscoredcomfirm"}
+                exact
             />
             <Route component={Page403} path={PATH.PAGE_403} exact />
             <Route component={Page404} />
