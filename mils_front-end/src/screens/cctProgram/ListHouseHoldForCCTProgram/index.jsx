@@ -281,7 +281,7 @@ function ListHouseholdForCCTProgram(props) {
             </Select>
           </Col>
           <Col lg={6} md={12} sm={24}>
-            <Text className="font-13">{t("BLOCKED")}</Text>
+            <Text className="font-13">{t("LOCKED")}</Text>
             <Select
               value={selectedLocked}
               className="w-100"

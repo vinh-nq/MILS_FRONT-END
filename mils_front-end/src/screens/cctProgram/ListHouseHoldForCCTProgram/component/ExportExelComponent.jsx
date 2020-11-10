@@ -91,15 +91,17 @@ function ExportExcelComponent(props) {
     let error = true;
     if (!selectedProvince) {
       message.error({
-        content: "Province is empty",
+        content: t("PROVINCE_EMPTY"),
         key: "message-form-role",
         duration: 1,
       });
     }
 
     if (selectedVillage) {
+      error = false;
       location = selectedVillage;
     } else if (selectedDistrict) {
+      error = false;
       location = selectedDistrict;
     } else if (selectedProvince) {
       error = false;

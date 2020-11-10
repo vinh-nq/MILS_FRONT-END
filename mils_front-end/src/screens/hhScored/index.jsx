@@ -190,29 +190,41 @@ function HouseholdScore(props) {
   };
 
   const onGenerateChange = async () => {
-    setLoading(true);
-    await CCTProgramApi.GetPMTScored({
-      provinceId: selectedProvince,
-      districtId: selectedDistrict,
-      villageId: selectedVillage,
-    }).then((res) => {
-      if (res.data.Status) {
-        let { Data } = res.data;
-        Data = Data.sort(compare);
-        setMinScored("");
-        setMaxScored("");
-        setData(Data);
-        setSubData(Data);
-        setPage(1);
-      } else {
-        message.error({
-          content: t("FETCH_DATA_FAILED"),
-          key: "message-form-role",
-          duration: 1,
-        });
-      }
-    });
-    setLoading(false);
+    let isError = false;
+    if (!selectedProvince) {
+      console.log(123);
+      message.error({
+        content: t("PROVINCE_EMPTY"),
+        key: "message-form-role",
+        duration: 1,
+      });
+      isError = true;
+    }
+    if (!isError) {
+      setLoading(true);
+      await CCTProgramApi.GetPMTScored({
+        provinceId: selectedProvince,
+        districtId: selectedDistrict,
+        villageId: selectedVillage,
+      }).then((res) => {
+        if (res.data.Status) {
+          let { Data } = res.data;
+          Data = Data.sort(compare);
+          setMinScored("");
+          setMaxScored("");
+          setData(Data);
+          setSubData(Data);
+          setPage(1);
+        } else {
+          message.error({
+            content: t("FETCH_DATA_FAILED"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      });
+      setLoading(false);
+    }
   };
 
   const onScoreChange = (value, name) => {
@@ -313,15 +325,15 @@ function HouseholdScore(props) {
       <section className="mb-3">
         <div className="d-flex flex-row align-items-center justify-content-between">
           <span className="h5 mb-0">{t("HH_LIST_SCORED")}</span>
-          <Tooltip placement="bottom" title={t("GO_TO_EROLLMENT")}>
+          <Tooltip placement="bottom" title={t("GO_TO_EROLLMENT_ON_DEMAND")}>
             <Button
               type="primary"
               className="d-flex align-items-center justify-content-center px-1"
               onClick={() => {
-                props.history.push(PATH.EROLLMENT);
+                props.history.push(PATH.ENROLL_ON_DEMAND);
               }}
             >
-              <LinkOutlined className="font-20" />
+              Enroll On Demand
             </Button>
           </Tooltip>
         </div>

@@ -410,6 +410,7 @@
   "HH_LIST_SCORED": "House hold list scored",
   "PMTSCORE": "PMT Scored",
   "GO_TO_EROLLMENT": "Go to Enrollment",
+  "GO_TO_EROLLMENT_ON_DEMAND": "Go to Enrollment on demand",
   "GENERATE_NEW_DATE": "Generate New Data",
   "GENERATE": "Generate",
   "PMT_SCORED_FROM": "PMT Scored From",
@@ -429,6 +430,7 @@
   "UNLOCKED": "Unlocked",
   "ENROLLONDEMAND":"Enroll On Demand",
   "INPUT": "Input",
+  "PROVINCE_EMPTY": "Province is empty",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."
