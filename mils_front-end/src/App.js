@@ -152,13 +152,18 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={EnrollmentAutoFromPMTResult}
+              component={Enrollment}
               path={PATH.EROLLMENT_AUTO_FROM_PMT_RESULT}
               exact
             />
             <MainRouteWrapper
-              component={Enrollment}
+              component={ListHouseholdForCCTProgram}
               path={PATH.EROLLMENT}
+              exact
+            />
+            <MainRouteWrapper
+              component={EnrollmentAutoFromPMTResult}
+              path={PATH.ENROLL_ON_DEMAND}
               exact
             />
             <MainRouteWrapper
@@ -328,11 +333,11 @@ class App extends React.Component {
               path={`${PATH.PERMISSIONS_MANAGEMENT}`}
               exact
             />
-            <MainRouteWrapper
+            {/* <MainRouteWrapper
                 component={ListHouseholdForCCTProgram}
                 path={"/pmtscoredcomfirm"}
                 exact
-            />
+            /> */}
             <Route component={Page403} path={PATH.PAGE_403} exact />
             <Route component={Page404} />
           </Switch>

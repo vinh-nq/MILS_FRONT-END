@@ -23,7 +23,7 @@ import CascaderFilter from "./components/CascaderFilter";
 import "./styles.scss";
 import { PATH } from "../../../routers/Path";
 
-export default function EnrollmentAutoFromPMTResult(props) {
+export default function ENROLLONDEMAND(props) {
   const { t } = useTranslation();
   const { Step } = Steps;
   const [current, setCurrent] = React.useState(0);
@@ -392,7 +392,7 @@ export default function EnrollmentAutoFromPMTResult(props) {
       ) : null}
       <div className="d-flex flex-row align-items-center justify-content-between row">
         <div className="col-xl-6 col-md-3 col-12">
-          <span className="h5 mb-0">{t("ENROLLAUTOFROMPMTRESULT")}</span>
+          <span className="h5 mb-0">{t("ENROLLONDEMAND")}</span>
         </div>
         <div className="col-xl-6 col-md-9 col-12 d-flex flex-row justify-content-end align-items-end row pr-4">
           <CascaderFilter
@@ -726,7 +726,7 @@ export default function EnrollmentAutoFromPMTResult(props) {
                 type="primary"
                 key="console1"
                 onClick={() => {
-                  history.push(PATH.EROLLMENT);
+                  history.push(PATH.EROLLMENT_AUTO_FROM_PMT_RESULT);
                 }}
               >
                 {t("See List HouseHold Enrollment")}

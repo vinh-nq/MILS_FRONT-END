@@ -427,6 +427,7 @@
   "LOCKED": "Locked",
   "IS_LOCKED": "Is locked",
   "UNLOCKED": "Unlocked",
+  "ENROLLONDEMAND":"Enroll On Demand",
   "INPUT": "Input",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",

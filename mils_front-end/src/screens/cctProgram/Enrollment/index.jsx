@@ -54,7 +54,7 @@ export default function Enrollment(props) {
   useEffect(() => {
     let pageCheck = getValueFromLink(props.location, "page");
     if (!regexTemplate.NUMBER.test(pageCheck)) {
-      props.history.push(PATH.EROLLMENT);
+      props.history.push(PATH.EROLLMENT_AUTO_FROM_PMT_RESULT);
     } else {
       setPage(pageCheck);
     }
@@ -62,7 +62,10 @@ export default function Enrollment(props) {
 
   useEffect(() => {
     return history.listen((location) => {
-      if (`${location.pathname}${location.search}` === PATH.EROLLMENT) {
+      if (
+        `${location.pathname}${location.search}` ===
+        PATH.EROLLMENT_AUTO_FROM_PMT_RESULT
+      ) {
         setKeyword("");
       }
     });
@@ -346,7 +349,7 @@ export default function Enrollment(props) {
         ? `?hhHeadName=${value}${lockLink}${statusLink}&page=1`
         : ``;
       props.history.push({
-        pathName: PATH.EROLLMENT,
+        pathName: PATH.EROLLMENT_AUTO_FROM_PMT_RESULT,
         search: link,
       });
     }, 400);
@@ -357,7 +360,7 @@ export default function Enrollment(props) {
     const pageLink = `&page=1`;
     const lockLink = selectLockCCT ? `&isLocked=${selectLockCCT}` : ``;
     history.push(
-      `${PATH.EROLLMENT}?status=${value}${hhHeadName}${lockLink}${pageLink}`
+      `${PATH.EROLLMENT_AUTO_FROM_PMT_RESULT}?status=${value}${hhHeadName}${lockLink}${pageLink}`
     );
   };
 
@@ -366,7 +369,7 @@ export default function Enrollment(props) {
     const pageLink = `&page=1`;
     const statusLink = selectStatusCCT ? `&status=${selectStatusCCT}` : ``;
     history.push(
-      `${PATH.EROLLMENT}?isLocked=${value}${hhHeadName}${statusLink}${pageLink}`
+      `${PATH.EROLLMENT_AUTO_FROM_PMT_RESULT}?isLocked=${value}${hhHeadName}${statusLink}${pageLink}`
     );
   };
 
@@ -375,7 +378,7 @@ export default function Enrollment(props) {
     const statusLink = selectStatusCCT ? `&status=${selectStatusCCT}` : ``;
     const lockLink = selectLockCCT ? `&isLocked=${selectLockCCT}` : ``;
     history.push(
-      `${PATH.EROLLMENT}?page=${value}${hhHeadName}${lockLink}${statusLink}`
+      `${PATH.EROLLMENT_AUTO_FROM_PMT_RESULT}?page=${value}${hhHeadName}${lockLink}${statusLink}`
     );
   };
 
@@ -386,7 +389,7 @@ export default function Enrollment(props) {
       ) : null}
       <div className="d-flex flex-row align-items-center justify-content-between row">
         <div className="col-xl-6 col-md-3 col-12">
-          <span className="h5 mb-0">{t("ENROLLMENT")}</span>
+          <span className="h5 mb-0">{t("ENROLLAUTOFROMPMTRESULT")}</span>
         </div>
         <div className="col-xl-6 col-md-9 col-12 d-flex justify-content-end">
           <Button
@@ -395,7 +398,7 @@ export default function Enrollment(props) {
             }}
             type="primary"
           >
-            {t("Enroll On-Demand")}
+            {t("Enroll On Demand")}
           </Button>
         </div>
       </div>
