@@ -122,9 +122,15 @@ export default function Enrollment(props) {
       },
     ];
     setCheckLoading(true);
-    return await CCTProgramApi.UpdateCCTConfirm(arrayData).then((res) => {
+    return await CCTProgramApi.UpdateCCTConfirm({
+      hHCCTConfirms: arrayData,
+      hhHeadName: keyword,
+      status: selectStatusCCT === "all" ? -1 : selectStatusCCT,
+      isLocked: selectLockCCT === "all" ? -1 : selectLockCCT,
+      currentPage: page,
+    }).then((res) => {
       setCheckLoading(false);
-      setListHHCCTProgram(res.data.Data);
+      setListHHCCTProgram(res.data.Data.hhCCTConfirms);
     });
   };
 
@@ -136,9 +142,15 @@ export default function Enrollment(props) {
       },
     ];
     setCheckLoading(true);
-    return await CCTProgramApi.UpdateCCTConfirm(arrayData).then((res) => {
+    return await CCTProgramApi.UpdateCCTConfirm({
+      hHCCTConfirms: arrayData,
+      hhHeadName: keyword,
+      status: selectStatusCCT === "all" ? -1 : selectStatusCCT,
+      isLocked: selectLockCCT === "all" ? -1 : selectLockCCT,
+      currentPage: page,
+    }).then((res) => {
       setCheckLoading(false);
-      setListHHCCTProgram(res.data.Data);
+      setListHHCCTProgram(res.data.Data.hhCCTConfirms);
     });
   };
 

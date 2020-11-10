@@ -143,7 +143,6 @@
   "DATE_OF_ENUMERATION": "ວັນທີລົງທະບຽນ",
   "ENUMERATION": "ຜູ້ເກັບກຳຂໍ້ມູນ",
   "RESPONDENT": "ຜູຸ້ຕອບຂໍ້ມູນ",
-  "UPLOAD_IMAGE": "ບັນທຶກຮູບຖ່າຍ",
   "SHELTER": "ທີ່ຢູ່ອາໄສແໜ້ນໜາປອດໄພ",
   "WALL_MATERIAL": "ວັດສະດຸຝາຜະ ໜັງ",
   "ROOF_MATERIAL": "ວັດສະດຸຫລັງຄາ",
@@ -356,7 +355,6 @@
   "IMAGE": "Image",
   "SIGNATURE": "Signature",
   "description": {
-    "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."
   }
