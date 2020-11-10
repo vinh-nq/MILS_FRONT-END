@@ -9,7 +9,6 @@ function ToolsForLivingComponent(props) {
     dataLanguage,
     changeYesNoForQuestion,
   } = props;
-  console.log("ToolsForLivingComponent");
   return (
     <Row className="px-2" gutter={[16, 16]}>
       <Col span={24} md={12}>

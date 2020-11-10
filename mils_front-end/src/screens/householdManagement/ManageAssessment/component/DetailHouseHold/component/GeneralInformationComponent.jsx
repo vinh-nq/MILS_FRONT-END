@@ -6,7 +6,7 @@ import { API_URL } from "../../../../../../constants/config";
 function GeneralInformationComponent(props) {
   const { GeneralInformationBeneficiary } = props;
   const { t } = useTranslation();
-  console.log(GeneralInformationBeneficiary);
+  console.log("run here");
   return (
     <Row className="px-2" gutter={[16, 16]}>
       <Col span={24} md={12}>
@@ -64,22 +64,22 @@ function GeneralInformationComponent(props) {
         />
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("UPLOAD_IMAGE")}</span>:{" "}
+        <span className="font-weight-500">{t("SIGNNATURE")}</span>:{" "}
         <Image
           className="ml-2 pointer detail-hh-image"
           width={40}
           height={40}
-          src={`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`}
+          src={`${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`}
           alt={t("NOT_FOUND")}
         />
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("UPLOAD_IMAGE")}</span>:{" "}
+        <span className="font-weight-500">{t("SIGNNATURE")}</span>:{" "}
         <Image
           className="ml-2 pointer detail-hh-image"
           width={40}
           height={40}
-          src={`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`}
+          src={`${API_URL}${GeneralInformationBeneficiary.RespSignImage}`}
           alt={t("NOT_FOUND")}
         />
       </Col>

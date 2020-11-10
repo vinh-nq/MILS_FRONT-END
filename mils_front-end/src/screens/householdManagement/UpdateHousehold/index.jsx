@@ -20,6 +20,9 @@ import LocationMapComponent from "./component/LocationMapComponent";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import { PATH } from "../../../routers/Path";
 import { API_URL } from "../../../constants/config";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import queryString from "query-string";
 
 function UpdateHousehold(props) {
   const { typeModal } = props;
@@ -59,7 +62,6 @@ function UpdateHousehold(props) {
             res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration
               ? moment(DateOfEnumeration, "DD-MM-YYYY")
               : undefined;
-
             setImageUrl(`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`);
             setEnumSignImage(
               `${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`
@@ -84,6 +86,14 @@ function UpdateHousehold(props) {
     return value;
   };
 
+  const formatBase64 = (value) => {
+    value = value
+      .replace("data:image/jpeg;base64,", "")
+      .replace("data:image/png;base64,", "")
+      .replace(API_URL, "");
+    return value;
+  };
+
   const handleAdd = async (value) => {
     setLoading(true);
     const objCover = {
@@ -96,9 +106,9 @@ function UpdateHousehold(props) {
       ...value.PrimaryPublicServiceForBeneficiary,
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.LatLongForBeneficiary,
-      ImageUrl: ImageUrl.replace("data:image/jpeg;base64,", ""),
-      RespSignImage: RespSignImage.replace("data:image/jpeg;base64,", ""),
-      EnumSignImage: EnumSignImage.replace("data:image/jpeg;base64,", ""),
+      ImageUrl: formatBase64(ImageUrl),
+      RespSignImage: formatBase64(RespSignImage),
+      EnumSignImage: formatBase64(EnumSignImage),
       EnumSignImageExtension,
       RespSignImageExtension,
       ImageUrlExtension,
@@ -145,9 +155,9 @@ function UpdateHousehold(props) {
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.LatLongForBeneficiary,
       HHCode: detailHouseHold.HouseholdId,
-      ImageUrl: ImageUrl.replace("data:image/jpeg;base64,", ""),
-      RespSignImage: RespSignImage.replace("data:image/jpeg;base64,", ""),
-      EnumSignImage: EnumSignImage.replace("data:image/jpeg;base64,", ""),
+      ImageUrl: formatBase64(ImageUrl),
+      RespSignImage: formatBase64(RespSignImage),
+      EnumSignImage: formatBase64(EnumSignImage),
       EnumSignImageExtension,
       RespSignImageExtension,
       ImageUrlExtension,

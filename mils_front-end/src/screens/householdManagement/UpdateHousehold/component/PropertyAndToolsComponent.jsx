@@ -75,7 +75,7 @@ function PropertyAndToolsComponent() {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">{t("BETWEEN_15-60")}</Text>
           <Form.Item
-            name={["StableOccupationAndIncome", "TotalBetween_15-60"]}
+            name={["StableOccupationAndIncome", "TotalBetween_15_60"]}
             className="mb-0"
             rules={[
               {

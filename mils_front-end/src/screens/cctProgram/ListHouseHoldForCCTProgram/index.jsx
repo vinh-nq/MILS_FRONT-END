@@ -17,6 +17,8 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import GetHHCCTConfirms from "../../../api/CCTProgramApi";
 import { useHistory } from "react-router-dom";
+import { getValueOfQueryParams } from "../../../utils/getValueOfQueryParams";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 function ListHouseholdForCCTProgram(props) {
   const [data, setData] = useState([]);
@@ -25,8 +27,9 @@ function ListHouseholdForCCTProgram(props) {
   const [hhName, setHHName] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedLocked, setSelectLocked] = useState("");
+  const [totalPage, setTotalPage] = useState(0);
   const history = useHistory();
-
+  const [isLoading, setLoading] = useState(false);
   const { t } = useTranslation();
   const { Text } = Typography;
   const { Option } = Select;
@@ -35,33 +38,68 @@ function ListHouseholdForCCTProgram(props) {
     localStorage.getItem("i18nextLng");
 
   useEffect(() => {
-    const getDataConfirm = () => {
-      return GetHHCCTConfirms.GetHHCCTConfirms({
-        hhHeadName: "",
-        status: -1,
-        isLocked: -1,
-        currentPage: 1,
-      }).then((res) => {
-        if (res.data.Status) {
-          setData(res.data.Data.hhCCTConfirms);
-        } else {
-          message.error({
-            content: t("FETCH_DATA_FAILED"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        }
-      });
-    };
     getDataConfirm();
-  }, []);
+  }, [history.location]);
+
+  //get params from URL
+  const getDataFromUrl = () => {
+    let page = getValueOfQueryParams(history.location, "page");
+    let status = getValueOfQueryParams(history.location, "status", "STRING");
+    let isLocked = getValueOfQueryParams(
+      history.location,
+      "islocked",
+      "STRING"
+    );
+    let hhName = getValueOfQueryParams(history.location, "hhName", "STRING");
+    return {
+      page,
+      status,
+      isLocked,
+      hhName,
+    };
+  };
+
+  const getDataConfirm = async () => {
+    setLoading(true);
+    const { page, status, isLocked, hhName } = getDataFromUrl();
+    setPage(page);
+    setSelectLocked(isLocked);
+    setSelectedStatus(status);
+    setHHName(hhName);
+    await GetHHCCTConfirms.GetHHCCTConfirms({
+      currentPage: page,
+      isLocked: isLocked ? isLocked : "-1",
+      status: status ? status : "-1",
+      hhHeadName: hhName,
+    }).then((res) => {
+      if (res.data.Status) {
+        setData(res.data.Data.hhCCTConfirms);
+        setTotalPage(res.data.Data.TotalPage);
+      } else {
+        message.error({
+          content: t("FETCH_DATA_FAILED"),
+          key: "message-form-role",
+          duration: 1,
+        });
+      }
+    });
+    setLoading(false);
+  };
 
   const onClickSearch = () => {
     setPage(1);
     history.push(
-      `/pmtscoredcomfirm?page=1&status=${selectedStatus}&isLocked=${selectedLocked}&hhHeadName=${hhName}`
+      `/pmtscoredcomfirm?page=1&status=${selectedStatus}&islocked=${selectedLocked}&hhName=${hhName}`
     );
   };
+
+  const handlePageChange = (value) => {
+    setPage(value);
+    history.push(
+      `/pmtscoredcomfirm?page=${value}&status=${selectedStatus}&islocked=${selectedLocked}&hhName=${hhName}`
+    );
+  };
+
   const columns = [
     {
       title: "#",
@@ -112,23 +150,29 @@ function ListHouseholdForCCTProgram(props) {
       ),
     },
     {
-      title: "PMT Scored",
-      dataIndex: "PMTScored",
-      key: "PMTScored",
-      align: "center",
-      render: (data) => <div style={{ minWidth: 80 }}>{data}</div>,
-    },
-    {
       title: t("STATUS"),
-      dataIndex: "isLocked",
+      dataIndex: "Status",
+      key: "Status",
       align: "center",
-      key: "isLocked",
-      render: (data) => (
-        <div style={{ minWidth: 80 }}>
-          <Checkbox defaultChecked={data} disabled />{" "}
-          {data ? "Oke" : "Is Blocked"}
+      render: (data, record) => (
+        <div style={{ minWidth: 100 }}>
+          {dataLanguage === "la" ? record.Status : record.StatusEng}
         </div>
       ),
+    },
+    {
+      title: t("LOCKED"),
+      dataIndex: "IsLocked",
+      align: "center",
+      key: "IsLocked",
+      render: (data) => {
+        console.log(data);
+        return (
+          <div style={{ minWidth: 80 }}>
+            <Checkbox defaultChecked={data} disabled />
+          </div>
+        );
+      },
     },
   ];
 
@@ -136,6 +180,9 @@ function ListHouseholdForCCTProgram(props) {
     <>
       {/*Header*/}
       <section>
+        {isLoading ? (
+          <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
+        ) : null}
         <div className="d-flex align-items-center mb-3">
           <span className="h5 mb-0">List Household For CCT Program</span>
           <span className="ml-auto d-flex flex-row">
@@ -169,13 +216,6 @@ function ListHouseholdForCCTProgram(props) {
             >
               Export Excel
             </Button>
-            <Button
-              className="set-center-content"
-              type="primary"
-              icon={<SaveOutlined className="font-16" />}
-            >
-              Save
-            </Button>
           </span>
         </div>
       </section>
@@ -194,7 +234,11 @@ function ListHouseholdForCCTProgram(props) {
           </Col>
           <Col lg={6} md={12} sm={24}>
             <Text className="font-13">{t("STATUS")}</Text>
-            <Select value={selectedStatus} className="w-100">
+            <Select
+              value={selectedStatus}
+              className="w-100"
+              onChange={(value) => setSelectedStatus(value)}
+            >
               <Option value={""}>All</Option>
               <Option value={"1"}>Waiting</Option>
               <Option value={"2"}>Accept</Option>
@@ -202,10 +246,14 @@ function ListHouseholdForCCTProgram(props) {
           </Col>
           <Col lg={6} md={12} sm={24}>
             <Text className="font-13">{t("BLOCKED")}</Text>
-            <Select value={selectedLocked} className="w-100">
+            <Select
+              value={selectedLocked}
+              className="w-100"
+              onChange={(value) => setSelectLocked(value)}
+            >
               <Option value={""}>All</Option>
+              <Option value={"2"}>{t("ACTIVE")}</Option>
               <Option value={"1"}>{t("LOCKED")}</Option>
-              <Option value={"2"}>{t("IS_LOCKED")}</Option>
             </Select>
           </Col>
           <Col lg={6} md={12} sm={24}>
@@ -230,9 +278,9 @@ function ListHouseholdForCCTProgram(props) {
           pagination={{
             current: Number(page),
             pageSize: 10,
-            total: data.length,
+            total: totalPage * 10,
             onChange: (value) => {
-              setPage(value);
+              handlePageChange(value);
             },
             showSizeChanger: false,
           }}
