@@ -18,6 +18,7 @@ import {
   CheckCircleOutlined,
   LockOutlined,
   ExclamationCircleOutlined,
+  EllipsisOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -125,14 +126,19 @@ export default function Enrollment(props) {
       },
     ];
     setCheckLoading(true);
+    let currentPage = page;
+    if (listHHCCTProgram.length === 1) {
+      currentPage = 1;
+    }
     return await CCTProgramApi.UpdateCCTConfirm({
       hHCCTConfirms: arrayData,
       hhHeadName: keyword,
       status: selectStatusCCT === "all" ? -1 : selectStatusCCT,
       isLocked: selectLockCCT === "all" ? -1 : selectLockCCT,
-      currentPage: page,
+      currentPage: currentPage,
     }).then((res) => {
       setCheckLoading(false);
+      setPage(currentPage);
       setListHHCCTProgram(res.data.Data.hhCCTConfirms);
     });
   };
@@ -316,9 +322,10 @@ export default function Enrollment(props) {
                 }
                 placement="bottomRight"
               >
-                <Button>
-                  <i className="fas fa-ellipsis-v"></i>
-                </Button>
+                {/* <Button>
+                  <i className="fas fa-ellipsis-h"></i>
+                </Button> */}
+                <EllipsisOutlined className="font-weight-bold text-primary font-24 pointer" />
               </Dropdown>
             )}
           </div>
@@ -380,6 +387,16 @@ export default function Enrollment(props) {
       <div className="d-flex flex-row align-items-center justify-content-between row">
         <div className="col-xl-6 col-md-3 col-12">
           <span className="h5 mb-0">{t("ENROLLMENT")}</span>
+        </div>
+        <div className="col-xl-6 col-md-9 col-12 d-flex justify-content-end">
+          <Button
+            onClick={() => {
+              history.push(PATH.ENROLL_ON_DEMAND);
+            }}
+            type="primary"
+          >
+            {t("Enroll On-Demand")}
+          </Button>
         </div>
       </div>
       <Divider />
