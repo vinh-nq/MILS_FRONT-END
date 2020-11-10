@@ -400,7 +400,9 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={`${t("INPUT")} ${t("MEMBER_NAME").toLowerCase()}`}
+            />
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
@@ -487,7 +489,7 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input />
+            <Input placeholder={`${t("INPUT")} ${t("AGE").toLowerCase()}`} />
           </Form.Item>
         </Col>
       </Row>
@@ -601,7 +603,9 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={`${t("INPUT")} ${t("KINDERGARTEN").toLowerCase()}`}
+            />
           </Form.Item>
         </Col>
       </Row>
@@ -624,7 +628,9 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={`${t("INPUT")} ${t("PRIMARY").toLowerCase()}`}
+            />
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
@@ -647,7 +653,11 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={`${t("INPUT")} ${t(
+                "LOWER_SECONDARY"
+              ).toLowerCase()}`}
+            />
           </Form.Item>
         </Col>
       </Row>
@@ -672,7 +682,11 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={`${t("INPUT")} ${t(
+                "UPPER_SECONDARY"
+              ).toLowerCase()}`}
+            />
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
@@ -699,7 +713,11 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={`${t("INPUT")} ${t(
+                "VOCATIONAL_SCHOOL"
+              ).toLowerCase()}`}
+            />
           </Form.Item>
         </Col>
       </Row>
@@ -728,7 +746,11 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={`${t("INPUT")} ${t(
+                "UNIVERSITY_INSTITUTE"
+              ).toLowerCase()}`}
+            />
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>

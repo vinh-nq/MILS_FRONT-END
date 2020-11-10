@@ -427,6 +427,7 @@
   "LOCKED": "Locked",
   "IS_LOCKED": "Is locked",
   "UNLOCKED": "Unlocked",
+  "INPUT": "Input",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."
