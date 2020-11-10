@@ -410,7 +410,6 @@
   "HH_LIST_SCORED": "House hold list scored",
   "PMTSCORE": "PMT Scored",
   "GO_TO_EROLLMENT": "Go to Enrollment",
-  "GO_TO_EROLLMENT_ON_DEMAND": "Go to Enrollment on demand",
   "GENERATE_NEW_DATE": "Generate New Data",
   "GENERATE": "Generate",
   "PMT_SCORED_FROM": "PMT Scored From",
@@ -429,6 +428,7 @@
   "IS_LOCKED": "Is locked",
   "UNLOCKED": "Unlocked",
   "ENROLLONDEMAND":"Enroll On Demand",
+  "GENERATIONOFPMTSCORECARD":"Generation Of PMT Score",
   "INPUT": "Input",
   "PROVINCE_EMPTY": "Province is empty",
   "description": {
