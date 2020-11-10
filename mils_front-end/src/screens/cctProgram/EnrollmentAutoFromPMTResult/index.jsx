@@ -10,7 +10,9 @@ import {
   message,
   Tooltip,
   Steps,
+  Modal,
 } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import difference from "lodash/difference";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -25,7 +27,6 @@ export default function EnrollmentAutoFromPMTResult(props) {
   const { t } = useTranslation();
   const { Step } = Steps;
   const [current, setCurrent] = React.useState(0);
-
   const history = useHistory();
   const [checkLoading, setCheckLoading] = useState(false);
   const [valueLocation, setValueLocation] = useState("");
@@ -38,6 +39,7 @@ export default function EnrollmentAutoFromPMTResult(props) {
   const [dataHH, setDataHH] = useState([]);
   const [listHHConfirm, setListHHConfirm] = useState(false);
   const [listHHConfig, setListHHConfig] = useState(false);
+  const { confirm } = Modal;
   const dataLanguage =
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
     localStorage.getItem("i18nextLng");
@@ -167,7 +169,7 @@ export default function EnrollmentAutoFromPMTResult(props) {
         <div>
           {record.IsLocked ? (
             <Tooltip title="Household was locked!" color={"volcano"}>
-              <i className="fas fa-user-lock mr-1" style={{ color: "red" }}></i>
+              <i className="fas fa-lock mr-1" style={{ color: "red" }}></i>
               <span style={{ fontSize: "12px" }}>{text}</span>
             </Tooltip>
           ) : (
@@ -220,7 +222,7 @@ export default function EnrollmentAutoFromPMTResult(props) {
         <div>
           {record.IsLocked ? (
             <Tooltip title="Household was locked!" color={"volcano"}>
-              <i className="fas fa-user-lock mr-1" style={{ color: "red" }}></i>
+              <i className="fas fa-lock mr-1" style={{ color: "red" }}></i>
               <span style={{ fontSize: "12px" }}>{text}</span>
             </Tooltip>
           ) : (
@@ -342,6 +344,10 @@ export default function EnrollmentAutoFromPMTResult(props) {
         message.error(`List Of Existed Items have ${listHHConfig.length} item`);
         return;
       }
+      if (listHHConfirm.length <= 0) {
+        message.error(`Please select households !`);
+        return;
+      }
       return await addDataHouseHold();
     }
     setCurrent(current + 1);
@@ -356,6 +362,15 @@ export default function EnrollmentAutoFromPMTResult(props) {
     setListHHConfig(
       listHHConfig.filter((el) => el.HHCode !== objectData.HHCode)
     );
+  };
+
+  const setDataOverideAll = () => {
+    setListHHConfirm([...listHHConfig, ...listHHConfirm]);
+    setListHHConfig([]);
+  };
+
+  const setDataCancelAll = () => {
+    setListHHConfig([]);
   };
 
   const setDataCancel = (objectData) => {
@@ -437,12 +452,57 @@ export default function EnrollmentAutoFromPMTResult(props) {
                     </span>
                     <span className="mb-2 ml-1">
                       <Tag color="volcano">
-                        {dataHH.filter((el) => el.PMTScored < PMTScore).length}
+                        {
+                          dataHH.filter(
+                            (el) => el.PMTScored < PMTScore && !el.IsLocked
+                          ).length
+                        }
                       </Tag>
                     </span>
                     <span className="mb-2" style={{ fontWeight: "600" }}>
                       HH with below PMT scores medium.
                     </span>
+                    {dataHH.filter(
+                      (el) => el.PMTScored < PMTScore && !el.IsLocked
+                    ).length > 0 ? (
+                      <Tooltip
+                        placement="top"
+                        title={`Quick select ${
+                          dataHH.filter(
+                            (el) => el.PMTScored < PMTScore && !el.IsLocked
+                          ).length
+                        } households`}
+                      >
+                        <Button
+                          className="ml-1"
+                          style={{
+                            height: "25px",
+                            fontSize: "11px",
+                            border: "1px solid blue",
+                            color: "blue",
+                          }}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            setTargetKeys(
+                              dataHH
+                                .filter(
+                                  (el) =>
+                                    el.PMTScored < PMTScore && !el.IsLocked
+                                )
+                                .map((el) => el.HHCode)
+                            );
+                          }}
+                        >
+                          Select{" "}
+                          {
+                            dataHH.filter(
+                              (el) => el.PMTScored < PMTScore && !el.IsLocked
+                            ).length
+                          }{" "}
+                          Households
+                        </Button>
+                      </Tooltip>
+                    ) : null}
                   </div>
                 </>
               ) : null}
@@ -516,7 +576,48 @@ export default function EnrollmentAutoFromPMTResult(props) {
             {listHHConfig.length > 0 ? (
               <div className="col-xl-6 col-lg-6 col-12">
                 <List
-                  header={<div>List Of Existed Items</div>}
+                  header={
+                    <div className="w-100 d-flex justify-content-between align-items-center">
+                      <span>List Of Existed Items</span>
+                      <div>
+                        <Button
+                          style={{ fontSize: "11px", height: "24px" }}
+                          type="primary"
+                          onClick={() => {
+                            confirm({
+                              title: "Do you want to overide all items?",
+                              icon: <ExclamationCircleOutlined />,
+                              onOk() {
+                                setDataOverideAll();
+                              },
+                              onCancel() {},
+                            });
+                          }}
+                        >
+                          Overide {listHHConfig.map((el) => el.HHCode).length}{" "}
+                          Households
+                        </Button>
+                        <Button
+                          className="ml-1"
+                          style={{ fontSize: "11px", height: "24px" }}
+                          danger
+                          onClick={() => {
+                            confirm({
+                              title: "Do you want to cancel all items?",
+                              icon: <ExclamationCircleOutlined />,
+                              onOk() {
+                                setDataCancelAll();
+                              },
+                              onCancel() {},
+                            });
+                          }}
+                        >
+                          Cancel {listHHConfig.map((el) => el.HHCode).length}{" "}
+                          Households
+                        </Button>
+                      </div>
+                    </div>
+                  }
                   footer={null}
                   bordered
                   dataSource={listHHConfig.map((el) => el.HHCode)}
@@ -619,7 +720,7 @@ export default function EnrollmentAutoFromPMTResult(props) {
                   resetData();
                 }}
               >
-                Select More Household
+                {t("Select More Household")}
               </Button>,
               <Button
                 type="primary"
@@ -628,20 +729,20 @@ export default function EnrollmentAutoFromPMTResult(props) {
                   history.push(PATH.EROLLMENT);
                 }}
               >
-                See List HouseHold Enrollment
+                {t("See List HouseHold Enrollment")}
               </Button>,
             ]}
           />
         ) : null}
         <div className="w-100 d-flex justify-content-end align-items-center mt-3">
-          {current < 2 && (
+          {current < 2 && current !== 0 && (
             <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-              Previous
+              {t("Previous")}
             </Button>
           )}
           {current < steps.length - 1 && (
             <Button type="primary" onClick={() => next()}>
-              Next
+              {current === 1 ? t("Enrollment To CCT Program") : t("Next")}
             </Button>
           )}
         </div>
