@@ -44,7 +44,6 @@ function Login(props) {
         grant_type: "password",
       })
       .then((res) => {
-        console.log(res);
         cookies.set(
           "user",
           {

@@ -249,9 +249,6 @@ function ModaItem(props) {
           <Select
             placeholder="Select district"
             disabled={checkDisable}
-            onSelect={(value) => {
-              console.log(value);
-            }}
           >
             {listDistrict.map((el) => (
               <Select.Option value={el.DistrictId} key={el.DistrictId}>

@@ -32,7 +32,7 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertPlotType(value)
+      .InsertCCTConfirmStatus(value)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +53,7 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdatePlotType(value)
+      .UpdateCCTConfirmStatus(value)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -88,12 +88,12 @@ function ModaItem(props) {
   return (
     <Modal
       title={`${typeModal === "add" ? t("add") : t("edit")} ${t(
-        "PLOTTYPE"
+        "CCTCONFIRMSTATUS"
       )}`}
       visible={visible}
       width="630px"
       okButtonProps={{
-        form: "form-plotType-management",
+        form: "form-cctconfirmstatus-management",
         key: "submit",
         htmlType: "submit",
         type: "primary",
@@ -106,9 +106,9 @@ function ModaItem(props) {
       }}
       forceRender
     >
-      <Form id="form-plotType-management" form={form} onFinish={handleSubmit}>
+      <Form id="form-cctconfirmstatus-management" form={form} onFinish={handleSubmit}>
         <div>
-          <span>{t("plotTypeId")}</span>
+          <span>{t("CCTConfirmStatusId")}</span>
           <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
         </div>
         <Form.Item
@@ -120,7 +120,7 @@ function ModaItem(props) {
                   rule,
                   value,
                   {
-                    ...objectValidateForm.plotTypeId,
+                    ...objectValidateForm.CCTConfirmStatusId,
                     arrayDuplicate: arrayDuplicate,
                     authCodeOld:
                       typeModal !== "add" ? objectEdit.Id.toLowerCase() : null,
@@ -134,7 +134,7 @@ function ModaItem(props) {
           <Input disabled={typeModal === "edit"} />
         </Form.Item>
         <div>
-          <span>{t("plotTypeLao")}</span>
+          <span>{t("CCTConfirmStatusLao")}</span>
           <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
         </div>
         <Form.Item
@@ -145,7 +145,7 @@ function ModaItem(props) {
                 return handleValidateFrom(
                   rule,
                   value,
-                  objectValidateForm.plotTypeLao,
+                  objectValidateForm.CCTConfirmStatusLao,
                   t
                 );
               },
@@ -155,7 +155,7 @@ function ModaItem(props) {
           <Input />
         </Form.Item>
         <div>
-          <span>{t("plotTypeEng")}</span>
+          <span>{t("CCTConfirmStatusEng")}</span>
           <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
         </div>
         <Form.Item
@@ -166,7 +166,7 @@ function ModaItem(props) {
                 return handleValidateFrom(
                   rule,
                   value,
-                  objectValidateForm.plotTypeEng,
+                  objectValidateForm.CCTConfirmStatusEng,
                   t
                 );
               },

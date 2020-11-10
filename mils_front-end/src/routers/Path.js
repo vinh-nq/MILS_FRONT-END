@@ -61,6 +61,8 @@ export const PATH = {
   LIST_OF_SAFETY_AREA: "/datadictionary/listofsafetyarea",
   EROLLMENT: "/cctprogram/enrollment",
   PMTSCORE: "/cctprogram/pmtscore",
+  EROLLMENT_AUTO_FROM_PMT_RESULT:"/cctprogram/enrollautofrompmtresult",
+  CCT_CONFIRM_STATUS: "/datadictionary/cctconfirmstatus",
 };
 
 export const PATH_BREADCRUM = {
@@ -119,6 +121,8 @@ export const PATH_BREADCRUM = {
   listofschoolenroll: "/datadictionary/listofschoolenroll",
   listofareamateral: "/datadictionary/listofareamateral",
   listofsafetyarea: "/datadictionary/listofsafetyarea",
+  cctconfirmstatus: "/datadictionary/cctconfirmstatus",
   enrollment: "/cctprogram/enrollment",
   pmtscore: "/cctprogram/pmtscore",
+  enrollautofrompmtresult:"/cctprogram/enrollautofrompmtresult",
 };
