@@ -4,5 +4,9 @@ const downloadFileExcelApi = {
     const url = "api/HouseHold/ExportMemberV2";
     return fetchData(url, "GET", params, null);
   },
+  ExportHHCCTConfirm: (params) => {
+    const url = "api/HouseHoldCCT/ExportHHCCTConfirm";
+    return fetchData(url, "GET", params, null);
+  },
 };
 export default downloadFileExcelApi;

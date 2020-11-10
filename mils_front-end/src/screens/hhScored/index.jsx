@@ -252,14 +252,14 @@ function HouseholdScore(props) {
       },
     },
     {
-      title: <b>{t("HEAD_OF_HH_NAME")}</b>,
+      title: t("HEAD_OF_HH_NAME"),
       dataIndex: "HHHeadName",
       key: "HHHeadName",
       align: "center",
       render: (data) => <div style={{ minWidth: 120 }}>{data}</div>,
     },
     {
-      title: <b>{t("PROVINCE")}</b>,
+      title: t("PROVINCE"),
       dataIndex: "Province",
       key: "Province",
       align: "center",
@@ -270,7 +270,7 @@ function HouseholdScore(props) {
       ),
     },
     {
-      title: <b>{t("DISTRICT")}</b>,
+      title: t("DISTRICT"),
       dataIndex: "District",
       key: "District",
       align: "center",
@@ -281,7 +281,7 @@ function HouseholdScore(props) {
       ),
     },
     {
-      title: <b>{t("VILLAGE")}</b>,
+      title: t("VILLAGE"),
       dataIndex: "Village",
       key: "Village",
       align: "center",
@@ -292,7 +292,7 @@ function HouseholdScore(props) {
       ),
     },
     {
-      title: <b>{t("PMT_SCORED")}</b>,
+      title: t("PMT_SCORED"),
       dataIndex: "PMTScored",
       key: "PMTScored",
       align: "center",
@@ -462,9 +462,6 @@ function HouseholdScore(props) {
       <Table
         columns={columns}
         dataSource={subData}
-        rowClassName={(record, index) =>
-          index % 2 === 0 ? "table-row-light" : "table-row-dark"
-        }
         rowKey="HHCode"
         pagination={{
           current: Number(page),

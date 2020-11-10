@@ -10,8 +10,7 @@ import {
   Tag,
   Typography,
 } from "antd";
-// import downloadFileExcelApi from "../../../api/downloadFileExcelApi";
-// import { saveAs } from "file-saver";
+
 import { SearchOutlined } from "@ant-design/icons/lib/icons";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -22,9 +21,11 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import dataDictionaryApi from "../../../api/dataDictionaryApi";
 import LockOutlined from "@ant-design/icons/lib/icons/LockOutlined";
 import UnlockOutlined from "@ant-design/icons/lib/icons/UnlockOutlined";
+import ExportExcelComponent from "./component/ExportExelComponent";
 
 function ListHouseholdForCCTProgram(props) {
   const [data, setData] = useState([]);
+  const [visible, setVisible] = useState(false);
   const [page, setPage] = useState(1);
   const [statusConfirm, setStatusConfirm] = useState([]);
   const [hhName, setHHName] = useState("");
@@ -60,7 +61,6 @@ function ListHouseholdForCCTProgram(props) {
         .GetAllCCTConfirmStatus({ keyword: "" })
         .then((res) => {
           if (res.data.Status) {
-            console.log(res.data.Data);
             setStatusConfirm(res.data.Data);
           } else {
             message.error({
@@ -242,29 +242,9 @@ function ListHouseholdForCCTProgram(props) {
               className="set-center-content mr-2"
               icon={<i className="fas fa-file-excel mr-2"></i>}
               style={{ color: "#0c960c", border: "1px #0c960c solid" }}
-              // onClick={async () => {
-              //   setLoading(true);
-              //   await downloadFileExcelApi
-              //     .ExportMembers({
-              //       villageId: selectedVillage === "-1" ? "" : selectedVillage,
-              //     })
-              //     .then((res) => {
-              //       fetch(
-              //         `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${res.data}`
-              //       )
-              //         .then((ress) => {
-              //           return ress.blob();
-              //         })
-              //         .then((blobs) => {
-              //           const fileExtension = ".xlsx";
-              //           setLoading(false);
-              //           saveAs(
-              //             blobs,
-              //             `${t("Member&PlotLand")}` + fileExtension
-              //           );
-              //         });
-              //     });
-              // }}
+              onClick={() => {
+                setVisible(true);
+              }}
             >
               Export Excel
             </Button>
@@ -339,6 +319,15 @@ function ListHouseholdForCCTProgram(props) {
             },
             showSizeChanger: false,
           }}
+        />
+      </section>
+      {/*Modal export*/}
+      <section>
+        <ExportExcelComponent
+          visible={visible}
+          setVisible={setVisible}
+          statusArray={statusConfirm}
+          dataLanguage={dataLanguage}
         />
       </section>
     </>
