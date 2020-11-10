@@ -267,7 +267,7 @@ function LocationComponent(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(1000, 0, "HH_NUMBER", true),
+                    objectValidateForm.checkNumber(20, 0, "HH_NUMBER", true),
                     t
                   );
                 },

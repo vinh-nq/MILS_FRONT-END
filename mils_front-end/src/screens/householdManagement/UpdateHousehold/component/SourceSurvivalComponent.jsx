@@ -1,9 +1,7 @@
-import {Col, Form, Row, Switch} from "antd";
+import {Col, Form, Input, Row, Switch} from "antd";
 import Text from "antd/es/typography/Text";
 import React  from "react";
 import {useTranslation} from "react-i18next";
-import {regexTemplate} from "../../../../utils/regexTemplate";
-import InputNumber from "antd/es/input-number";
 import {handleValidateFrom} from "../../../../utils/handleValidateFrom";
 import {objectValidateForm} from "../validate/objectValidateForm";
 
@@ -63,18 +61,14 @@ function SourceSurvivalComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(5, true, "TIME_FROM_HOME_TO_HEALTH_CENTER_OR_BASIC_HEALTH_SERVICE_OR_PHARMACY"),
+                                        objectValidateForm.checkNumber(10, 0, "TIME_FROM_HOME_TO_HEALTH_CENTER_OR_BASIC_HEALTH_SERVICE_OR_PHARMACY", true),
                                         t
                                     );
                                 },
-                            },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
                             }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input/>
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
@@ -101,18 +95,14 @@ function SourceSurvivalComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(5, true, "THE_DISTANCE_FROM_HOME_TO_THE_HOSPITAL"),
+                                        objectValidateForm.checkNumber(10, 0, "THE_DISTANCE_FROM_HOME_TO_THE_HOSPITAL", true),
                                         t
                                     );
                                 },
                             },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
-                            }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input/>
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>
@@ -126,18 +116,14 @@ function SourceSurvivalComponent(props) {
                                     return handleValidateFrom(
                                         rule,
                                         value,
-                                        objectValidateForm.checkString(5, true, "TIME_FROM_HOME_TO_HOSPITAL"),
+                                        objectValidateForm.checkNumber(10, true, "TIME_FROM_HOME_TO_HOSPITAL", true),
                                         t
                                     );
                                 },
-                            },
-                            {
-                                pattern: regexTemplate.NUMBER,
-                                message: t("REQUIRE_NUMBER"),
                             }
                         ]}
                     >
-                        <InputNumber className="w-100" min={0} max={100}/>
+                        <Input />
                     </Form.Item>
                 </Col>
                 <Col className="mb-2" span={24}>

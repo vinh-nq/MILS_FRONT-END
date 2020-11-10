@@ -6,6 +6,7 @@ import {
   Input,
   Menu,
   message,
+  Pagination,
   Row,
   Select,
   Table,
@@ -89,9 +90,8 @@ function ManageAssessment(props) {
       title: t("UNIT"),
       dataIndex: "Unit",
       key: "Unit",
-      minWidth: 100,
       render: (data, record) => (
-        <div style={{ minWidth: 100 }}>
+        <div style={{ minWidth: 60 }}>
           {dataLanguage === "la" ? record.Unit.trim() : record.UnitEng.trim()}
         </div>
       ),
@@ -100,7 +100,7 @@ function ManageAssessment(props) {
       title: t("HH_LEVEL"),
       dataIndex: "HHLevel",
       key: "HHLevel",
-      render: (data) => <div style={{ minWidth: 100 }}>{data}</div>,
+      render: (data) => <div style={{ minWidth: 60 }}>{data}</div>,
     },
     {
       title: t("HEAD_OF_HH_NAME"),
@@ -112,25 +112,25 @@ function ManageAssessment(props) {
       title: t("NUMBER_OF_HH"),
       dataIndex: "TotalHHMembers",
       key: "TotalHHMembers",
-      render: (data) => <div style={{ minWidth: 100 }}>{data}</div>,
+      render: (data) => <div style={{ minWidth: 70 }}>{data}</div>,
     },
     {
       title: t("NUMBER_PLOTS"),
       dataIndex: "NumberPlots",
       key: "NumberPlots",
-      render: (data) => <div style={{ minWidth: 100 }}>{data}</div>,
+      render: (data) => <div style={{ minWidth: 70 }}>{data}</div>,
     },
     {
       title: t("NUMBER_PREGNANT_WOMAN"),
       dataIndex: "NumberPregnant",
       key: "NumberPregnant",
-      render: (data) => <div style={{ minWidth: 100 }}>{data}</div>,
+      render: (data) => <div style={{ minWidth: 60 }}>{data}</div>,
     },
     {
       title: t("NUMBER_CHILD"),
       dataIndex: "NumberChild",
       key: "NumberChild",
-      render: (data) => <div style={{ minWidth: 100 }}>{data}</div>,
+      render: (data) => <div style={{ minWidth: 80 }}>{data}</div>,
     },
     {
       key: "actions",
@@ -173,9 +173,7 @@ function ManageAssessment(props) {
         return (
           <div className="d-flex justify-content-end">
             <Dropdown overlay={menu}>
-              <Button className="px-1 py-0">
-                <EllipsisOutlined className="font-weight-bold text-primary font-24" />
-              </Button>
+              <EllipsisOutlined className="font-weight-bold text-primary font-24 pointer" />
             </Dropdown>
           </div>
         );
@@ -313,11 +311,11 @@ function ManageAssessment(props) {
     return houseHoldApi.getAllUnit({ villageId });
   };
 
-  const getProvince = async () => {
-    await houseHoldApi.getAllProvince().then((res) => {
-      setProvince(res.data.Data);
-    });
-  };
+  // const getProvince = async () => {
+  //     await houseHoldApi.getAllProvince().then((res) => {
+  //         setProvince(res.data.Data);
+  //     });
+  // };
 
   const getDistrict = async (provinceId) => {
     await houseHoldApi.getAllDistrict({ provinceId }).then((res) => {
@@ -511,10 +509,7 @@ function ManageAssessment(props) {
                         );
                       });
                   })
-                  .catch((e) => {
-                    setLoading(false);
-                    message.error(e.message);
-                  });
+                  .then((e) => message.error(e.message));
               }}
             >
               Export Excel
@@ -530,6 +525,7 @@ function ManageAssessment(props) {
           </span>
         </div>
       </section>
+
       {/*Body của trang content*/}
       <section>
         {/*Tìm kiếm */}
@@ -629,23 +625,24 @@ function ManageAssessment(props) {
         </Row>
 
         {/*Table*/}
-        <div className="font-24 mb-3 mt-3">
-          <u>{t("TABLE_DATA")}</u>
-        </div>
         <Table
           columns={columns}
           dataSource={data}
-          pagination={{
-            current: Number(page),
-            total: totalPage * 10,
-            onChange: (page) => {
-              onPageChange(page);
-            },
-            showSizeChanger: false,
-          }}
+          pagination={false}
           rowKey="Id"
           style={{ overflowX: "auto", overflowY: "hidden" }}
         />
+        <div className="mt-3 d-flex">
+          <Pagination
+            current={Number(page)}
+            total={totalPage * 10}
+            onChange={(page) => {
+              onPageChange(page);
+            }}
+            showSizeChanger={false}
+            className="ml-auto"
+          />
+        </div>
       </section>
       {/*Modal*/}
       <HouseHoldMemberList

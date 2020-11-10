@@ -55,6 +55,7 @@ import ListOfSafetyArea from "./screens/dataDictionary/ListOfSafetyArea";
 import ListOfCCTConfirmStatus from "./screens/dataDictionary/ListOfCCTConfirmStatus";
 import EnrollmentAutoFromPMTResult from "./screens/cctProgram/EnrollmentAutoFromPMTResult";
 import Enrollment from "./screens/cctProgram/Enrollment";
+import HouseholdScore from "./screens/hhScored";
 class App extends React.Component {
   render() {
     return (
@@ -80,7 +81,7 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={() => <div>AAAA</div>}
+              component={HouseholdScore}
               path={PATH.PMTSCORE}
               exact
             />
