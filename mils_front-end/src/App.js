@@ -82,11 +82,6 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={HouseholdScore}
-              path={PATH.PMTSCORE}
-              exact
-            />
-            <MainRouteWrapper
               component={FunctionManagement}
               path={PATH.FUNCTION_LIST_MANAGEMENT}
               exact
@@ -298,11 +293,10 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={() => <div>AAA</div>}
-              path={`/householdmanagement/generationofpmtscorecard`}
+              component={HouseholdScore}
+              path={PATH.GENERATION_OF_PMT_SCORE_CARD}
               exact
             />
-
             <MainRouteWrapper
               component={PermissionManagement}
               path={`${PATH.RIGHTS_MANAGEMENT}`}

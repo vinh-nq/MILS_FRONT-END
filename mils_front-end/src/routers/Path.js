@@ -64,6 +64,7 @@ export const PATH = {
   EROLLMENT_AUTO_FROM_PMT_RESULT:"/cctprogram/enrollautofrompmtresult",
   CCT_CONFIRM_STATUS: "/datadictionary/cctconfirmstatus",
   ENROLL_ON_DEMAND: "/cctprogram/enrollondemand",
+  GENERATION_OF_PMT_SCORE_CARD: "/householdmanagement/generationofpmtscorecard",
 };
 
 export const PATH_BREADCRUM = {
@@ -127,4 +128,5 @@ export const PATH_BREADCRUM = {
   pmtscore: "/cctprogram/pmtscore",
   enrollautofrompmtresult:"/cctprogram/enrollautofrompmtresult",
   enrollondemand: "/cctprogram/enrollondemand",
+  generationofpmtscorecard: "/householdmanagement/generationofpmtscorecard",
 };
