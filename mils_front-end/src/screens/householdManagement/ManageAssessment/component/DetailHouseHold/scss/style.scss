@@ -1,7 +1,14 @@
 .title-detail-household {
   color: #4fc6e1;
-  background-color: rgba(79,198,225,.18);
-  border-color: rgba(79,198,225,.12);
+  background-color: rgba(79, 198, 225, 0.18);
+  border-color: rgba(79, 198, 225, 0.12);
   font-size: 15px;
   font-weight: 500;
+}
+
+.detail-hh-image {
+  & img {
+    border-radius: 50%;
+    object-fit: cover;
+  }
 }

@@ -19,6 +19,10 @@ import { useHistory } from "react-router-dom";
 import LocationMapComponent from "./component/LocationMapComponent";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import { PATH } from "../../../routers/Path";
+import { API_URL } from "../../../constants/config";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import queryString from "query-string";
 
 function UpdateHousehold(props) {
   const { typeModal } = props;
@@ -26,9 +30,18 @@ function UpdateHousehold(props) {
   const [detailHouseHold, setDetailHouseHold] = useState({});
   const history = useHistory();
   const [HHCode, setHHCode] = useState("");
+  //update state image
+  const [EnumSignImage, setEnumSignImage] = useState("");
+  const [RespSignImage, setRespSignImage] = useState("");
+  const [ImageUrl, setImageUrl] = useState("");
+  const [EnumSignImageExtension, setEnumSignImageExtension] = useState("");
+  const [RespSignImageExtension, setRespSignImageExtension] = useState("");
+  const [ImageUrlExtension, setImageUrlExtension] = useState("");
+
   const [form] = Form.useForm();
 
   const { t } = useTranslation();
+
   useEffect(() => {
     if (typeModal === "UPDATE") {
       const hh_code = getValueOfQueryParams(
@@ -42,12 +55,20 @@ function UpdateHousehold(props) {
         await houseHoldApi
           .getDetailHouseHold({ householdId: hh_code })
           .then((res) => {
+            const { GeneralInformationBeneficiary } = res.data.Data;
             const {
               DateOfEnumeration,
             } = res.data.Data.GeneralInformationBeneficiary;
             res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration
               ? moment(DateOfEnumeration, "DD-MM-YYYY")
               : undefined;
+            setImageUrl(`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`);
+            setEnumSignImage(
+              `${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`
+            );
+            setRespSignImage(
+              `${API_URL}${GeneralInformationBeneficiary.RespSignImage}`
+            );
             setDetailHouseHold(res.data.Data);
             form.setFieldsValue(res.data.Data);
           });
@@ -57,10 +78,25 @@ function UpdateHousehold(props) {
     }
   }, [form, history.location, typeModal]);
 
+  const formatHHNumberAndHHLevel = (value, length) => {
+    const checkLength = length - value.length;
+    for (let i = 0; i < checkLength; i++) {
+      value = "0" + value;
+    }
+    return value;
+  };
+
+  const formatBase64 = (value) => {
+    value = value
+      .replace("data:image/jpeg;base64,", "")
+      .replace("data:image/png;base64,", "")
+      .replace(API_URL, "");
+    return value;
+  };
+
   const handleAdd = async (value) => {
     setLoading(true);
     const objCover = {
-      HHCode: value.HHCode,
       ...value.LocationBeneficiary,
       ...value.GeneralInformationBeneficiary,
       ...value.Shelter,
@@ -70,11 +106,25 @@ function UpdateHousehold(props) {
       ...value.PrimaryPublicServiceForBeneficiary,
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.LatLongForBeneficiary,
+      ImageUrl: formatBase64(ImageUrl),
+      RespSignImage: formatBase64(RespSignImage),
+      EnumSignImage: formatBase64(EnumSignImage),
+      EnumSignImageExtension,
+      RespSignImageExtension,
+      ImageUrlExtension,
     };
+    objCover.HHNumber = formatHHNumberAndHHLevel(objCover.HHNumber, 3);
+    objCover.HHLevel = formatHHNumberAndHHLevel(objCover.HHLevel, 4);
     await houseHoldApi.addHouseHold(objCover).then((res) => {
       if (res.data.Status) {
         setLoading(false);
         form.resetFields();
+        setEnumSignImage("");
+        setRespSignImage("");
+        setImageUrl("");
+        setEnumSignImageExtension("");
+        setRespSignImageExtension("");
+        setImageUrlExtension("");
         message.success({
           content: t("ADD_SUCCESS"),
           key: "message-form-role",
@@ -104,8 +154,16 @@ function UpdateHousehold(props) {
       ...value.PrimaryPublicServiceForBeneficiary,
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.LatLongForBeneficiary,
-      HHCode: getValueOfQueryParams(history.location, "hh_code", "STRING"),
+      HHCode: detailHouseHold.HouseholdId,
+      ImageUrl: formatBase64(ImageUrl),
+      RespSignImage: formatBase64(RespSignImage),
+      EnumSignImage: formatBase64(EnumSignImage),
+      EnumSignImageExtension,
+      RespSignImageExtension,
+      ImageUrlExtension,
     };
+    objCover.HHNumber = formatHHNumberAndHHLevel(objCover.HHNumber, 3);
+    objCover.HHLevel = formatHHNumberAndHHLevel(objCover.HHLevel, 4);
     await houseHoldApi.updateHouseHold(objCover).then((res) => {
       if (res.data.Status) {
         setLoading(false);
@@ -163,16 +221,18 @@ function UpdateHousehold(props) {
                 htmlType="submit"
               />
             </Form.Item>
-            {typeModal === "UPDATE" ? (
-              <Button
-                className="set-center-content"
-                type="primary"
-                icon={<BackwardOutlined className="font-16" />}
-                onClick={() => {
+            <Button
+              className="set-center-content"
+              type="primary"
+              icon={<BackwardOutlined className="font-16" />}
+              onClick={() => {
+                if (typeModal === "UPDATE") {
                   history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${HHCode}`);
-                }}
-              />
-            ) : null}
+                } else {
+                  history.push(`${PATH.HOUSEHOLD_REGISTRATION}`);
+                }
+              }}
+            />
           </div>
         </div>
       </section>
@@ -194,6 +254,15 @@ function UpdateHousehold(props) {
               detailHouseHold={detailHouseHold}
               form={form}
               typeModal={typeModal}
+              EnumSignImage={EnumSignImage}
+              RespSignImage={RespSignImage}
+              ImageUrl={ImageUrl}
+              setEnumSignImage={setEnumSignImage}
+              setRespSignImage={setRespSignImage}
+              setImageUrl={setImageUrl}
+              setEnumSignImageExtension={setEnumSignImageExtension}
+              setRespSignImageExtension={setRespSignImageExtension}
+              setImageUrlExtension={setImageUrlExtension}
             />
           </section>
 

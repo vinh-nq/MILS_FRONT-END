@@ -3,6 +3,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import {
   Button,
   Col,
+  Divider,
   Input,
   message,
   Row,
@@ -12,8 +13,6 @@ import {
   Typography,
 } from "antd";
 import { useTranslation } from "react-i18next";
-import { ArrowRightOutlined } from "@ant-design/icons/lib/icons";
-import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 import { getValueOfQueryParams } from "../../utils/getValueOfQueryParams";
 import houseHoldApi from "../../api/houseHoldApi";
 import { useSelector } from "react-redux";
@@ -21,9 +20,18 @@ import { useHistory } from "react-router-dom";
 import houseHoldScoreApi from "../../api/householdScoreApi";
 import { regexTemplate } from "../../utils/regexTemplate";
 import "./style.scss";
+import {
+  LinkOutlined,
+  SearchOutlined,
+  OrderedListOutlined,
+} from "@ant-design/icons/lib/icons";
+import { PATH } from "../../routers/Path";
+import CCTProgramApi from "../../api/CCTProgramApi";
+
 function HouseholdScore(props) {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [subData, setSubData] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedVillage, setSelectedVillage] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -71,37 +79,38 @@ function HouseholdScore(props) {
     };
   };
 
-  useEffect(() => {
-    getRegions(checkDataFromUrl());
-  }, [history]);
+  const compare = (a, b) => {
+    if (a.PMTScored < b.PMTScored) {
+      return -1;
+    }
+    if (a.PMTScored > b.PMTScored) {
+      return 1;
+    }
+    return 0;
+  };
 
   useEffect(() => {
-    const getDataScore = async () => {
-      await houseHoldScoreApi.getAllHouseholdScore().then((res) => {
-        if (res.data.Status) {
-          let { Data } = res.data;
-          const compare = (a, b) => {
-            if (a.PMTScored < b.PMTScored) {
-              return -1;
-            }
-            if (a.PMTScored > b.PMTScored) {
-              return 1;
-            }
-            return 0;
-          };
-          Data = Data.sort(compare); // setMaxScored()
-          setData(Data);
-        } else {
-          message.error({
-            content: t("FETCH_DATA_FAILED"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        }
+    getRegions(checkDataFromUrl());
+  }, [history, t]);
+
+  const getDataScored = () => {
+    return houseHoldScoreApi.getAllHouseholdScore();
+  };
+
+  const setDataScored = (res) => {
+    if (res.data.Status) {
+      let { Data } = res.data;
+      Data = Data.sort(compare);
+      setData(Data);
+      setSubData(Data);
+    } else {
+      message.error({
+        content: t("FETCH_DATA_FAILED"),
+        key: "message-form-role",
+        duration: 1,
       });
-    };
-    getDataScore();
-  }, []);
+    }
+  };
 
   const getRegions = async (params) => {
     setLoading(true);
@@ -109,10 +118,12 @@ function HouseholdScore(props) {
       getProvincePromiseAll(),
       getDistrictPromiseAll(params.provinceId),
       getDistrictVillageAll(params.districtId),
-    ]).then(([resProvince, resDistrict, resVillage, resUnit]) => {
+      getDataScored(),
+    ]).then(([resProvince, resDistrict, resVillage, resScored]) => {
       setProvince(resProvince.data.Data);
       setDistrict(resDistrict.data.Data);
       setVillage(resVillage.data.Data);
+      setDataScored(resScored);
     });
     setLoading(false);
   };
@@ -177,46 +188,57 @@ function HouseholdScore(props) {
     setSelectedVillage(id);
   };
 
+  const onGenerateChange = async () => {
+    setLoading(true);
+    await CCTProgramApi.GetPMTScored({
+      provinceId: selectedProvince,
+      districtId: selectedDistrict,
+      villageId: selectedVillage,
+    }).then((res) => {
+      if (res.data.Status) {
+        let { Data } = res.data;
+        Data = Data.sort(compare);
+        setMinScored("");
+        setMaxScored("");
+        setData(Data);
+        setSubData(Data);
+        setPage(1);
+      } else {
+        message.error({
+          content: t("FETCH_DATA_FAILED"),
+          key: "message-form-role",
+          duration: 1,
+        });
+      }
+    });
+    setLoading(false);
+  };
+
   const onScoreChange = (value, name) => {
     const number = regexTemplate.NUMBER;
-    setPage(1);
     if (name === "FROM") {
-      //
-      number.test(value)
-        ? setMinScored(value)
-        : value
-        ? setMinScored("0")
-        : setMinScored("");
+      number.test(value) ? setMinScored(value) : setMinScored("");
     } else {
-      number.test(value)
-        ? setMaxScored(value)
-        : value
-        ? setMaxScored((data[data.length - 1] || {}).PMTScored || "10000")
-        : setMaxScored("");
+      number.test(value) ? setMaxScored(value) : setMaxScored("");
     }
   };
 
-  const renderData = () => {
+  const onClickSearch = () => {
     let array = [...data];
+    setPage(1);
     if (searchText) {
       array = array.filter((value) =>
         value.HHHeadName.includes(searchText.trim())
       );
     }
-    array = array.filter(
-      (value) =>
-        value.PMTScored >=
-          (parseInt(minScored) > parseInt(maxScored)
-            ? 0
-            : parseInt(minScored || 0)) &&
-        value.PMTScored <=
-          (parseInt(maxScored) < parseInt(minScored)
-            ? (data[data.length - 1] || {}).PMTScored || "10000"
-            : parseInt(
-                maxScored || (data[data.length - 1] || {}).PMTScored || "10000"
-              ))
-    );
-    return array;
+    if (minScored && maxScored) {
+      array = array.filter(
+        (value) =>
+          value.PMTScored >= parseInt(minScored) &&
+          value.PMTScored <= parseInt(maxScored)
+      );
+    }
+    setSubData(array);
   };
 
   const columns = [
@@ -265,7 +287,7 @@ function HouseholdScore(props) {
       ),
     },
     {
-      title: "PMT Scored",
+      title: t("PMT_SCORED"),
       dataIndex: "PMTScored",
       key: "PMTScored",
       render: (data) => <div style={{ minWidth: 80 }}>{data}</div>,
@@ -280,13 +302,16 @@ function HouseholdScore(props) {
       {/* Title*/}
       <section className="mb-3">
         <div className="d-flex flex-row align-items-center justify-content-between">
-          <span className="h5 mb-0">House hold list score</span>
-          <Tooltip placement="bottom" title="Select household for CCT program">
+          <span className="h5 mb-0">{t("HH_LIST_SCORED")}</span>
+          <Tooltip placement="bottom" title={t("GO_TO_EROLLMENT")}>
             <Button
               type="primary"
-              className="d-flex align-items-center justify-content-center"
+              className="d-flex align-items-center justify-content-center px-1"
+              onClick={() => {
+                props.history.push(PATH.EROLLMENT);
+              }}
             >
-              Next <ArrowRightOutlined className="font-20" />
+              <LinkOutlined className="font-20" />
             </Button>
           </Tooltip>
         </div>
@@ -294,6 +319,11 @@ function HouseholdScore(props) {
 
       {/* Search*/}
       <section>
+        <Divider orientation="left" className="my-0 font-16 font-weight-500">
+          <span className="text--underline__color">
+            {t("GENERATE_NEW_DATE")}
+          </span>
+        </Divider>
         <Row gutter={[16, 16]}>
           <Col span={24} md={12} lg={6}>
             <Text className="font-13">{t("PROVINCE")}</Text>
@@ -353,24 +383,28 @@ function HouseholdScore(props) {
           </Col>
           <Col span={24} md={12} lg={6}>
             <div>
-              <Text className="font-13">Generate new data</Text>
+              <Text className="font-13">{t("GENERATE_NEW_DATE")}</Text>
             </div>
             <Button
               type="primary"
-              icon={<SearchOutlined className="ant--icon__middle" />}
-              // onClick={onSearchChange}
+              icon={
+                <OrderedListOutlined className="ant--icon__middle font-20" />
+              }
+              onClick={onGenerateChange}
             >
-              Generate
+              {t("GENERATE")}
             </Button>
           </Col>
         </Row>
+        <Divider orientation="left" className="my-0 font-16 font-weight-500">
+          <span className="text--underline__color">{t("SEARCH")}</span>
+        </Divider>
         <Row gutter={[16, 16]}>
           <Col span={24} md={12} lg={6}>
-            <Text className="font-13">Household name</Text>
+            <Text className="font-13">{t("HEAD_OF_HH_NAME")}</Text>
             <Input
               value={searchText}
               onChange={(e) => {
-                setPage(1);
                 setSearchText(e.target.value);
               }}
             />
@@ -378,9 +412,9 @@ function HouseholdScore(props) {
           <Col span={24} md={12} lg={6}>
             <Row gutter={[8, 16]}>
               <Col span={12}>
-                <Text className="font-13">PMT Scored From</Text>
+                <Text className="font-13">{t("PMT_SCORED_FROM")}</Text>
                 <Input
-                  placeholder="From (Default 0)"
+                  placeholder={t("FROM")}
                   value={minScored}
                   onChange={(e) => {
                     onScoreChange(e.target.value, "FROM");
@@ -389,18 +423,26 @@ function HouseholdScore(props) {
                 />
               </Col>
               <Col span={12}>
-                <Text className="font-13">PMT Scored To</Text>
+                <Text className="font-13">{t("PMT_SCORED_TO")}</Text>
                 <Input
                   value={maxScored}
-                  placeholder={`To (Default ${
-                    (data[data.length - 1] || {}).PMTScored || "10000"
-                  })`}
+                  placeholder={t("TO")}
                   onChange={(e) => {
                     onScoreChange(e.target.value, "TO");
                   }}
                 />
               </Col>
             </Row>
+          </Col>
+          <Col span={24} md={12} lg={6}>
+            <Text className="font-13 d-block">{t("SEARCH")}</Text>
+            <Button
+              type="primary"
+              icon={<SearchOutlined className="ant--icon__middle" />}
+              onClick={onClickSearch}
+            >
+              {t("SEARCH")}
+            </Button>
           </Col>
         </Row>
       </section>
@@ -409,12 +451,12 @@ function HouseholdScore(props) {
 
       <Table
         columns={columns}
-        dataSource={renderData()}
+        dataSource={subData}
         rowKey="HHCode"
         pagination={{
           current: Number(page),
           pageSize: 10,
-          total: renderData().length,
+          total: subData.length,
           onChange: (value) => {
             setPage(value);
           },
