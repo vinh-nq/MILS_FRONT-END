@@ -10,12 +10,14 @@ import {
   Menu,
   Dropdown,
   Select,
+  Modal,
 } from "antd";
 import {
   SyncOutlined,
   CloseCircleOutlined,
   CheckCircleOutlined,
   LockOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -42,6 +44,7 @@ export default function Enrollment(props) {
   const [checkLoading, setCheckLoading] = useState(false);
   const [selectStatusCCT, setSelectStatusCCT] = useState("all");
   const [selectLockCCT, setSelectLockCCT] = useState("all");
+  const { confirm } = Modal;
   const { Option } = Select;
   const dataLanguage =
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
@@ -162,7 +165,7 @@ export default function Enrollment(props) {
         <div>
           {record.IsLocked ? (
             <Tooltip title="Household was locked!" color={"volcano"}>
-              <i className="fas fa-user-lock mr-1" style={{ color: "red" }}></i>
+              <i className="fas fa-lock mr-1" style={{ color: "red" }}></i>
               <Highlighter
                 highlightStyle={{ backgroundColor: "#96e0f7", padding: 0 }}
                 searchWords={[keyword]}
@@ -218,8 +221,8 @@ export default function Enrollment(props) {
         <span style={{ fontSize: "12px" }}>
           {record.StatusId === "3" ? (
             <Tag
-              icon={<SyncOutlined spin />}
-              color="processing"
+              icon={<SyncOutlined />}
+              color="gold"
               className="d-flex justify-content-center align-items-center"
               style={{ width: "80px" }}
             >
@@ -287,14 +290,24 @@ export default function Enrollment(props) {
                           changeStatus(record, "3");
                         }}
                       >
-                        <SyncOutlined style={{ color: "#00BFFF" }} /> Waitting
+                        <SyncOutlined style={{ color: "gold" }} /> Waitting
                       </Menu.Item>
                     ) : null}
                     <Menu.Divider />
                     <Menu.Item
                       className="d-flex justify-content-start align-items-center"
                       onClick={() => {
-                        changeLock(record);
+                        confirm({
+                          title: "Are you sure lock this household?",
+                          icon: <ExclamationCircleOutlined />,
+                          okText: "Yes",
+                          okType: "danger",
+                          cancelText: "No",
+                          onOk() {
+                            changeLock(record);
+                          },
+                          onCancel() {},
+                        });
                       }}
                     >
                       <LockOutlined style={{ color: "#FF7F50" }} /> Lock
