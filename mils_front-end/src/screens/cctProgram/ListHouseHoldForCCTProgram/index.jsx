@@ -8,6 +8,7 @@ import {
   Row,
   Select,
   Table,
+  Tag,
   Typography,
 } from "antd";
 // import downloadFileExcelApi from "../../../api/downloadFileExcelApi";
@@ -20,6 +21,8 @@ import { useHistory } from "react-router-dom";
 import { getValueOfQueryParams } from "../../../utils/getValueOfQueryParams";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import dataDictionaryApi from "../../../api/dataDictionaryApi";
+import LockOutlined from "@ant-design/icons/lib/icons/LockOutlined";
+import UnlockOutlined from "@ant-design/icons/lib/icons/UnlockOutlined";
 
 function ListHouseholdForCCTProgram(props) {
   const [data, setData] = useState([]);
@@ -39,8 +42,18 @@ function ListHouseholdForCCTProgram(props) {
     localStorage.getItem("i18nextLng");
 
   useEffect(() => {
-    getDataConfirm();
-  }, [history.location]);
+    const { page, status, isLocked, hhName } = getDataFromUrl();
+    setPage(page);
+    setSelectLocked(isLocked ? isLocked : "all");
+    setSelectedStatus(status ? status : "all");
+    setHHName(hhName);
+    getDataConfirm({
+      currentPage: page,
+      isLocked: isLocked === "all" || !isLocked ? "-1" : isLocked,
+      status: status === "all" || !isLocked ? "-1" : status,
+      hhHeadName: hhName,
+    });
+  }, []);
 
   useEffect(() => {
     const getAllStatusConfirm = async () => {
@@ -61,6 +74,7 @@ function ListHouseholdForCCTProgram(props) {
     };
     getAllStatusConfirm();
   }, []);
+
   //get params from URL
   const getDataFromUrl = () => {
     let page = getValueOfQueryParams(history.location, "page");
@@ -79,19 +93,9 @@ function ListHouseholdForCCTProgram(props) {
     };
   };
 
-  const getDataConfirm = async () => {
+  const getDataConfirm = async (obj) => {
     setLoading(true);
-    const { page, status, isLocked, hhName } = getDataFromUrl();
-    setPage(page);
-    setSelectLocked(isLocked);
-    setSelectedStatus(status);
-    setHHName(hhName);
-    await GetHHCCTConfirms.GetHHCCTConfirms({
-      currentPage: page,
-      isLocked: isLocked ? isLocked : "-1",
-      status: status ? status : "-1",
-      hhHeadName: hhName,
-    }).then((res) => {
+    await GetHHCCTConfirms.GetHHCCTConfirms(obj).then((res) => {
       if (res.data.Status) {
         setData(res.data.Data.hhCCTConfirms);
         setTotalPage(res.data.Data.TotalPage);
@@ -111,13 +115,26 @@ function ListHouseholdForCCTProgram(props) {
     history.push(
       `/pmtscoredcomfirm?page=1&status=${selectedStatus}&islocked=${selectedLocked}&hhName=${hhName}`
     );
+    getDataConfirm({
+      currentPage: 1,
+      isLocked: selectedLocked !== "all" ? selectedLocked : "-1",
+      status: selectedStatus !== "all" ? selectedStatus : "-1",
+      hhHeadName: hhName,
+    });
   };
 
   const handlePageChange = (value) => {
     setPage(value);
+    const { status, isLocked, hhName } = getDataFromUrl();
     history.push(
-      `/pmtscoredcomfirm?page=${value}&status=${selectedStatus}&islocked=${selectedLocked}&hhName=${hhName}`
+      `/pmtscoredcomfirm?page=${value}&status=${status}&islocked=${isLocked}&hhName=${hhName}`
     );
+    getDataConfirm({
+      currentPage: value,
+      isLocked: isLocked === "all" || !isLocked ? "-1" : isLocked,
+      status: status === "all" || !isLocked ? "-1" : status,
+      hhHeadName: hhName,
+    });
   };
 
   const columns = [
@@ -174,11 +191,24 @@ function ListHouseholdForCCTProgram(props) {
       dataIndex: "Status",
       key: "Status",
       align: "center",
-      render: (data, record) => (
-        <div style={{ minWidth: 100 }}>
-          {dataLanguage === "la" ? record.Status : record.StatusEng}
-        </div>
-      ),
+      render: (data, record) => {
+        const Status = (props) => (
+          <div style={{ minWidth: 100 }}>
+            <Tag color={props.color}>
+              {dataLanguage === "la" ? record.Status : record.StatusEng}
+            </Tag>
+          </div>
+        );
+        if (record.StatusId === "1") {
+          return <Status color={"green"} />;
+        } else if (record.StatusId === "2") {
+          return <Status color={"red"} />;
+        } else if (record.StatusId === "3") {
+          return <Status color={"warning"} />;
+        } else {
+          return <Status color={"default"} />;
+        }
+      },
     },
     {
       title: t("LOCKED"),
@@ -186,10 +216,13 @@ function ListHouseholdForCCTProgram(props) {
       align: "center",
       key: "IsLocked",
       render: (data) => {
-        console.log(data);
         return (
           <div style={{ minWidth: 80 }}>
-            <Checkbox defaultChecked={data} disabled />
+            {data ? (
+              <LockOutlined className="text-danger font-18" />
+            ) : (
+              <UnlockOutlined className="text-primary font-18" />
+            )}
           </div>
         );
       },
@@ -259,16 +292,12 @@ function ListHouseholdForCCTProgram(props) {
               className="w-100"
               onChange={(value) => setSelectedStatus(value)}
             >
-              <Option value={""}>All</Option>
-              {() =>
-                statusConfirm.map((value, index) => (
-                  <Option value={value.Id} key={index}>
-                    {dataLanguage === "la"
-                      ? value.ValueOfLao
-                      : value.ValueOfEng}
-                  </Option>
-                ))
-              }
+              <Option value={"all"}>All</Option>
+              {statusConfirm.map((value, index) => (
+                <Option value={value.Id} key={index}>
+                  {dataLanguage === "la" ? value.ValueOfLao : value.ValueOfEng}
+                </Option>
+              ))}
             </Select>
           </Col>
           <Col lg={6} md={12} sm={24}>
@@ -278,7 +307,7 @@ function ListHouseholdForCCTProgram(props) {
               className="w-100"
               onChange={(value) => setSelectLocked(value)}
             >
-              <Option value={""}>All</Option>
+              <Option value={"all"}>All</Option>
               <Option value={"1"}>{t("LOCKED")}</Option>
               <Option value={"2"}>{t("UNLOCKED")}</Option>
             </Select>

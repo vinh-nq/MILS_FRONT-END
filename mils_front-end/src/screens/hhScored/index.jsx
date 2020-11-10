@@ -9,6 +9,7 @@ import {
   Row,
   Select,
   Table,
+  Tag,
   Tooltip,
   Typography,
 } from "antd";
@@ -254,12 +255,14 @@ function HouseholdScore(props) {
       title: t("HEAD_OF_HH_NAME"),
       dataIndex: "HHHeadName",
       key: "HHHeadName",
+      align: "center",
       render: (data) => <div style={{ minWidth: 120 }}>{data}</div>,
     },
     {
       title: t("PROVINCE"),
       dataIndex: "Province",
       key: "Province",
+      align: "center",
       render: (data, record) => (
         <div style={{ minWidth: 100 }}>
           {dataLanguage === "la" ? record.Province : record.ProvinceEng}
@@ -270,6 +273,7 @@ function HouseholdScore(props) {
       title: t("DISTRICT"),
       dataIndex: "District",
       key: "District",
+      align: "center",
       render: (data, record) => (
         <div style={{ minWidth: 100 }}>
           {dataLanguage === "la" ? record.District : record.DistrictEng}
@@ -280,6 +284,7 @@ function HouseholdScore(props) {
       title: t("VILLAGE"),
       dataIndex: "Village",
       key: "Village",
+      align: "center",
       render: (data, record) => (
         <div style={{ minWidth: 100 }}>
           {dataLanguage === "la" ? record.Village : record.VillageEng}
@@ -290,7 +295,12 @@ function HouseholdScore(props) {
       title: t("PMT_SCORED"),
       dataIndex: "PMTScored",
       key: "PMTScored",
-      render: (data) => <div style={{ minWidth: 80 }}>{data}</div>,
+      align: "center",
+      render: (data) => (
+        <div style={{ minWidth: 80 }}>
+          <Tag color={"green"}>{data}</Tag>
+        </div>
+      ),
     },
   ];
 
