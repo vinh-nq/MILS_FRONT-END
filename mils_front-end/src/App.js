@@ -52,6 +52,8 @@ import ListOfDisability from "./screens/dataDictionary/ListOfDisability";
 import ListOfSchoolEnroll from "./screens/dataDictionary/ListOfSchoolEnroll";
 import ListOfAreaMateral from "./screens/dataDictionary/ListOfAreaMateral";
 import ListOfSafetyArea from "./screens/dataDictionary/ListOfSafetyArea";
+import ListOfCCTConfirmStatus from "./screens/dataDictionary/ListOfCCTConfirmStatus";
+import EnrollmentAutoFromPMTResult from "./screens/cctProgram/EnrollmentAutoFromPMTResult";
 import Enrollment from "./screens/cctProgram/Enrollment";
 class App extends React.Component {
   render() {
@@ -148,8 +150,18 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
+              component={EnrollmentAutoFromPMTResult}
+              path={PATH.EROLLMENT_AUTO_FROM_PMT_RESULT}
+              exact
+            />
+            <MainRouteWrapper
               component={Enrollment}
               path={PATH.EROLLMENT}
+              exact
+            />
+            <MainRouteWrapper
+              component={ListOfCCTConfirmStatus}
+              path={PATH.CCT_CONFIRM_STATUS}
               exact
             />
             <MainRouteWrapper

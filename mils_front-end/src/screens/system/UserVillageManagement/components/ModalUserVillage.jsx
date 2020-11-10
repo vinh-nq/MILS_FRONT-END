@@ -143,7 +143,6 @@ function ModalUserVillage(props) {
         districtId: idDistrict,
       })
       .then((res) => {
-        console.log(res);
         if (typeModal === "add") {
           setCheckDisaleVillage(false);
         }

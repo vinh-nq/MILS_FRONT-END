@@ -352,5 +352,17 @@ const dataDictionaryApi = {
     const url = "api/Dictionary/UpdateSafetyArea";
     return fetchData(url, "POST", null, data);
   },
+  GetAllCCTConfirmStatus: (params) => {
+    const url = "api/Dictionary/GetAllCCTConfirmStatus";
+    return fetchData(url, "GET", params, null);
+  },
+  InsertCCTConfirmStatus: (data) => {
+    const url = "api/Dictionary/InsertCCTConfirmStatus";
+    return fetchData(url, "POST", null, data);
+  },
+  UpdateCCTConfirmStatus: (data) => {
+    const url = "api/Dictionary/UpdateCCTConfirmStatus";
+    return fetchData(url, "POST", null, data);
+  },
 };
 export default dataDictionaryApi;
