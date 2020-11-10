@@ -22,6 +22,7 @@ import dataDictionaryApi from "../../../api/dataDictionaryApi";
 import LockOutlined from "@ant-design/icons/lib/icons/LockOutlined";
 import UnlockOutlined from "@ant-design/icons/lib/icons/UnlockOutlined";
 import ExportExcelComponent from "./component/ExportExelComponent";
+import { PATH } from "../../../routers/Path";
 
 function ListHouseholdForCCTProgram(props) {
   const [data, setData] = useState([]);
@@ -112,7 +113,7 @@ function ListHouseholdForCCTProgram(props) {
   const onClickSearch = () => {
     setPage(1);
     history.push(
-      `/pmtscoredcomfirm?page=1&status=${selectedStatus}&islocked=${selectedLocked}&hhName=${hhName}`
+      `${PATH.EROLLMENT}?page=1&status=${selectedStatus}&islocked=${selectedLocked}&hhName=${hhName}`
     );
     getDataConfirm({
       currentPage: 1,
@@ -126,7 +127,7 @@ function ListHouseholdForCCTProgram(props) {
     setPage(value);
     const { status, isLocked, hhName } = getDataFromUrl();
     history.push(
-      `/pmtscoredcomfirm?page=${value}&status=${status}&islocked=${isLocked}&hhName=${hhName}`
+      `${PATH.EROLLMENT}?page=${value}&status=${status}&islocked=${isLocked}&hhName=${hhName}`
     );
     getDataConfirm({
       currentPage: value,
@@ -236,7 +237,7 @@ function ListHouseholdForCCTProgram(props) {
           <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
         ) : null}
         <div className="d-flex align-items-center mb-3">
-          <span className="h5 mb-0">List Household For CCT Program</span>
+          <span className="h5 mb-0">{t("ENROLLMENT")}</span>
           <span className="ml-auto d-flex flex-row">
             <Button
               className="set-center-content mr-2"
