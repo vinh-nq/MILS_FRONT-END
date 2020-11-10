@@ -110,7 +110,7 @@ function LocationComponent(props) {
       if (type === "IMAGE") {
         setImageUrl(imageUrl);
         setImageUrlExtension(name.split(".")[1]);
-      } else if (type == "ENUMSIGN") {
+      } else if (type === "ENUMSIGN") {
         setEnumSignImage(imageUrl);
         setEnumSignImageExtension(name.split(".")[1]);
       } else {
@@ -285,7 +285,13 @@ function LocationComponent(props) {
               },
             ]}
           >
-            <Select className="w-100" value={selectedUnit}>
+            <Select
+              className="w-100"
+              value={selectedUnit}
+              onChange={(id) => {
+                setSelectedUnit(id);
+              }}
+            >
               {renderUnitSelect()}
             </Select>
           </Form.Item>
@@ -341,14 +347,13 @@ function LocationComponent(props) {
           <Upload
             name="avatar"
             listType="picture-card"
-            className="avatar-uploader"
+            className="avatar-uploader hh-registration-image-upload"
             showUploadList={false}
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             beforeUpload={beforeUpload}
             onChange={(info) => {
               handleChange(info, "ENUMSIGN");
             }}
-            className="hh-registration-image-upload"
           >
             {EnumSignImage ? (
               <img src={EnumSignImage} alt="avatar" style={{ width: "100%" }} />
@@ -362,14 +367,13 @@ function LocationComponent(props) {
           <Upload
             name="avatar"
             listType="picture-card"
-            className="avatar-uploader"
+            className="avatar-uploader hh-registration-image-upload"
             showUploadList={false}
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             beforeUpload={beforeUpload}
             onChange={(info) => {
               handleChange(info, "RESPSIGN");
             }}
-            className="hh-registration-image-upload"
           >
             {RespSignImage ? (
               <img src={RespSignImage} alt="avatar" style={{ width: "100%" }} />
@@ -383,14 +387,13 @@ function LocationComponent(props) {
           <Upload
             name="avatar"
             listType="picture-card"
-            className="avatar-uploader"
+            className="avatar-uploader hh-registration-image-upload"
             showUploadList={false}
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             beforeUpload={beforeUpload}
             onChange={(info) => {
               handleChange(info, "IMAGE");
             }}
-            className="hh-registration-image-upload"
           >
             {ImageUrl ? (
               <img src={ImageUrl} alt="avatar" style={{ width: "100%" }} />

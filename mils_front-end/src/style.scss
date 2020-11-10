@@ -82,6 +82,14 @@
   justify-content: center !important;
 }
 
-.d-flex{
+.d-flex {
   display: flex;
+}
+
+.table-row-light {
+  background-color: #ffffff;
+}
+
+.table-row-dark {
+  background-color: #f2f2f2;
 }

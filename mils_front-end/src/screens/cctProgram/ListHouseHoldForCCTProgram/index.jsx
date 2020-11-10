@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Button,
-  Checkbox,
   Col,
   Input,
   message,
@@ -13,7 +12,7 @@ import {
 } from "antd";
 // import downloadFileExcelApi from "../../../api/downloadFileExcelApi";
 // import { saveAs } from "file-saver";
-import { SaveOutlined, SearchOutlined } from "@ant-design/icons/lib/icons";
+import { SearchOutlined } from "@ant-design/icons/lib/icons";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import GetHHCCTConfirms from "../../../api/CCTProgramApi";
@@ -73,7 +72,7 @@ function ListHouseholdForCCTProgram(props) {
         });
     };
     getAllStatusConfirm();
-  }, []);
+  }, [t]);
 
   //get params from URL
   const getDataFromUrl = () => {
