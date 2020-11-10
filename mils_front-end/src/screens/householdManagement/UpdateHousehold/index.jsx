@@ -20,9 +20,6 @@ import LocationMapComponent from "./component/LocationMapComponent";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import { PATH } from "../../../routers/Path";
 import { API_URL } from "../../../constants/config";
-import axios from "axios";
-import Cookies from "universal-cookie";
-import queryString from "query-string";
 
 function UpdateHousehold(props) {
   const { typeModal } = props;

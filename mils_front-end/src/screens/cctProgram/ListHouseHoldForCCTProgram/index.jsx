@@ -19,11 +19,12 @@ import GetHHCCTConfirms from "../../../api/CCTProgramApi";
 import { useHistory } from "react-router-dom";
 import { getValueOfQueryParams } from "../../../utils/getValueOfQueryParams";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import dataDictionaryApi from "../../../api/dataDictionaryApi";
 
 function ListHouseholdForCCTProgram(props) {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-
+  const [statusConfirm, setStatusConfirm] = useState([]);
   const [hhName, setHHName] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedLocked, setSelectLocked] = useState("");
@@ -41,6 +42,25 @@ function ListHouseholdForCCTProgram(props) {
     getDataConfirm();
   }, [history.location]);
 
+  useEffect(() => {
+    const getAllStatusConfirm = async () => {
+      await dataDictionaryApi
+        .GetAllCCTConfirmStatus({ keyword: "" })
+        .then((res) => {
+          if (res.data.Status) {
+            console.log(res.data.Data);
+            setStatusConfirm(res.data.Data);
+          } else {
+            message.error({
+              content: t("FETCH_DATA_FAILED"),
+              key: "message-form-role",
+              duration: 1,
+            });
+          }
+        });
+    };
+    getAllStatusConfirm();
+  }, []);
   //get params from URL
   const getDataFromUrl = () => {
     let page = getValueOfQueryParams(history.location, "page");
@@ -240,8 +260,15 @@ function ListHouseholdForCCTProgram(props) {
               onChange={(value) => setSelectedStatus(value)}
             >
               <Option value={""}>All</Option>
-              <Option value={"1"}>Waiting</Option>
-              <Option value={"2"}>Accept</Option>
+              {() =>
+                statusConfirm.map((value, index) => (
+                  <Option value={value.Id} key={index}>
+                    {dataLanguage === "la"
+                      ? value.ValueOfLao
+                      : value.ValueOfEng}
+                  </Option>
+                ))
+              }
             </Select>
           </Col>
           <Col lg={6} md={12} sm={24}>
@@ -252,8 +279,8 @@ function ListHouseholdForCCTProgram(props) {
               onChange={(value) => setSelectLocked(value)}
             >
               <Option value={""}>All</Option>
-              <Option value={"2"}>{t("ACTIVE")}</Option>
               <Option value={"1"}>{t("LOCKED")}</Option>
+              <Option value={"2"}>{t("UNLOCKED")}</Option>
             </Select>
           </Col>
           <Col lg={6} md={12} sm={24}>
