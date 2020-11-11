@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertRelation(value)
+      .InsertRelation(
+        value,
+        `Insert New Relation [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +56,10 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateRelation(value)
+      .UpdateRelation(
+        value,
+        `Update Relation[${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({

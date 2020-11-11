@@ -31,7 +31,7 @@ function ModalRoleManagement(props) {
 
   const handleAddNew = async (value) => {
     await roleManagementApi
-      .InsertRole(value)
+      .InsertRole(value, `Insert New Role : ${value.RoleName}`)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -52,7 +52,7 @@ function ModalRoleManagement(props) {
 
   const handleEditItem = async (value) => {
     await roleManagementApi
-      .UpdateRole(value)
+      .UpdateRole(value, `Update Role : [${value.RoleId}] ${value.RoleName}`)
       .then((res) => {
         handleCanncel();
         message.success({

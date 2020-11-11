@@ -67,12 +67,10 @@ export default function ENROLLONDEMAND(props) {
     fetchDataPMTScore();
   }, []);
 
-  const GenPMTScored = async (idProvince, idDistrict, idVillage) => {
+  const GenPMTScored = async (id) => {
     setCheckLoading(true);
     return await CCTProgramApi.GenPMTScored({
-      provinceId: idProvince,
-      districtId: idDistrict,
-      villageId: idVillage,
+      id: id,
     }).then((res) => {
       setCheckLoading(false);
       setDataHH(res.data.Data);
@@ -96,15 +94,15 @@ export default function ENROLLONDEMAND(props) {
     switch (valueLocation.length) {
       case 1:
         //Case Province
-        GenPMTScored(valueLocation[0], null, null);
+        GenPMTScored(valueLocation[0]);
         break;
       case 2:
         //Case District
-        GenPMTScored(valueLocation[0], valueLocation[1], null);
+        GenPMTScored(valueLocation[1]);
         break;
       case 3:
         //Case Village
-        GenPMTScored(valueLocation[0], valueLocation[1], valueLocation[2]);
+        GenPMTScored(valueLocation[2]);
         break;
       default:
         break;

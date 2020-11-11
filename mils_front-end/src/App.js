@@ -57,6 +57,8 @@ import EnrollmentAutoFromPMTResult from "./screens/cctProgram/EnrollmentAutoFrom
 import Enrollment from "./screens/cctProgram/Enrollment";
 import HouseholdScore from "./screens/hhScored";
 import ListHouseholdForCCTProgram from "./screens/cctProgram/ListHouseHoldForCCTProgram";
+import CertifiesListOfTheBeneficiaries from "./screens/cctProgram/CertifiesListOfTheBeneficiaries";
+import UserTrackingLog from "./screens/system/UserTrackingLog";
 class App extends React.Component {
   render() {
     return (
@@ -84,6 +86,16 @@ class App extends React.Component {
             <MainRouteWrapper
               component={FunctionManagement}
               path={PATH.FUNCTION_LIST_MANAGEMENT}
+              exact
+            />
+            <MainRouteWrapper
+              component={UserTrackingLog}
+              path={PATH.USER_TRACKING_LOG}
+              exact
+            />
+            <MainRouteWrapper
+              component={CertifiesListOfTheBeneficiaries}
+              path={PATH.CERTIFIES_LIST_OF_THE_BENEFICIARIES}
               exact
             />
             <MainRouteWrapper

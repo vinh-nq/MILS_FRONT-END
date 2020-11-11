@@ -56,9 +56,12 @@ function ModalUserManagement(props) {
       setListRole(res.data);
     };
     const fetchDataUser = () => {
-      return userManagementApi.GetUserById({
-        id: idOject,
-      });
+      return userManagementApi.GetUserById(
+        {
+          id: idOject,
+        },
+        `Get Information Of UserId : ${idOject}`
+      );
     };
     const fetchDataRoleUser = () => {
       return roleManagementApi.GetAllRole({});
@@ -78,7 +81,7 @@ function ModalUserManagement(props) {
 
   const handleAddNew = async (value) => {
     await userManagementApi
-      .InsertUser(value)
+      .InsertUser(value, `Insert New User ${value.UserName}`)
       .then((res) => {
         handleCanncel();
         if (!res.data.Status) {
@@ -102,7 +105,10 @@ function ModalUserManagement(props) {
 
   const handleEditItem = async (value) => {
     await userManagementApi
-      .UpdateUser(value)
+      .UpdateUser(
+        value,
+        `Update Information User [${value.UserId}] : ${value.UserName}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -127,17 +133,19 @@ function ModalUserManagement(props) {
     if (typeModal === "add") {
       handleAddNew({
         ...valueForm,
+        Password: valueForm.PasswordUser,
         UserId: valueForm.UserId ? valueForm.UserId : null,
         Device_ID: valueForm.Device_ID ? valueForm.Device_ID : null,
         CreatedBy: cookies.UserName,
         Active: valueForm.Active ? 1 : 0,
         Enabled: valueForm.Enabled ? 1 : 0,
-        UserCreateID : cookies.userId, 
+        UserCreateID: cookies.userId,
       });
     }
     if (typeModal === "edit") {
       handleEditItem({
         ...valueForm,
+        Password: valueForm.PasswordUser || null,
         UserName: objectEdit.UserName,
         UserId: objectEdit.UserId,
         Device_ID: objectEdit.Device_ID,
@@ -404,23 +412,29 @@ function ModalUserManagement(props) {
               <span>{t("Password")}</span>
               <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
             </div>
-            <Form.Item
-              name="Password"
-              rules={[
-                {
-                  validator(rule, value) {
-                    return handleValidateFrom(
-                      rule,
-                      value,
-                      objectValidateForm.Password,
-                      t
-                    );
+            {typeModal === "edit" ? (
+              <Form.Item name="PasswordUser">
+                <Input.Password />
+              </Form.Item>
+            ) : (
+              <Form.Item
+                name="PasswordUser"
+                rules={[
+                  {
+                    validator(rule, value) {
+                      return handleValidateFrom(
+                        rule,
+                        value,
+                        objectValidateForm.Password,
+                        t
+                      );
+                    },
                   },
-                },
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+            )}
           </div>
           <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
             <Form.Item name="Active" valuePropName="checked">

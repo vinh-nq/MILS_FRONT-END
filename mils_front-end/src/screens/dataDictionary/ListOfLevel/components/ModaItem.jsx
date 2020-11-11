@@ -32,7 +32,7 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertLevel(value)
+      .InsertLevel(value, `Insert Level [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +53,7 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateLevel(value)
+      .UpdateLevel(value, `Update Level [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -87,9 +87,7 @@ function ModaItem(props) {
 
   return (
     <Modal
-      title={`${typeModal === "add" ? t("add") : t("edit")} ${t(
-        "LEVEL"
-      )}`}
+      title={`${typeModal === "add" ? t("add") : t("edit")} ${t("LEVEL")}`}
       visible={visible}
       width="630px"
       okButtonProps={{

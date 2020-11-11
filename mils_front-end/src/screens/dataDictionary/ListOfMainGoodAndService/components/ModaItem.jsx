@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertMainGoodsServices(value)
+      .InsertMainGoodsServices(
+        value,
+        `Insert New Main Good Services [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +56,10 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateMainGoodsServices(value)
+      .UpdateMainGoodsServices(
+        value,
+        `Update Main Good Services [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({

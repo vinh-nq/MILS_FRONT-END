@@ -1,328 +1,328 @@
-import { fetchData } from "./config/fetchApi";
+import { fetchData, fetchDataAndLog } from "./config/fetchApi";
 const dataDictionaryApi = {
   GetAllProvince: (params) => {
     const url = "api/Dictionary/GetAllProvince";
     return fetchData(url, "GET", params, null);
   },
-  InsertProvince: (data) => {
+  InsertProvince: (data, detail) => {
     const url = "api/Dictionary/InsertProvince";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateProvince: (data) => {
+  UpdateProvince: (data, detail) => {
     const url = "api/Dictionary/UpdateProvince";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllDistrict: (params) => {
     const url = "api/Dictionary/GetAllDistrict";
     return fetchData(url, "GET", params, null);
   },
-  InsertDistrict: (data) => {
+  InsertDistrict: (data, detail) => {
     const url = "api/Dictionary/InsertDistrict";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateDistrict: (data) => {
+  UpdateDistrict: (data, detail) => {
     const url = "api/Dictionary/UpdateDistrict";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllVillage: (params) => {
     const url = "api/Dictionary/GetAllVillage";
     return fetchData(url, "GET", params, null);
   },
-  InsertVillage: (data) => {
+  InsertVillage: (data, detail) => {
     const url = "api/Dictionary/InsertVillage";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateVillage: (data) => {
+  UpdateVillage: (data, detail) => {
     const url = "api/Dictionary/UpdateVillage";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllWallMaterail: (params) => {
     const url = "api/Dictionary/GetAllWallMaterail";
     return fetchData(url, "GET", params, null);
   },
-  InsertWallMaterail: (data) => {
+  InsertWallMaterail: (data, detail) => {
     const url = "api/Dictionary/InsertWallMaterail";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateWallMaterail: (data) => {
+  UpdateWallMaterail: (data, detail) => {
     const url = "api/Dictionary/UpdateWallMaterail";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllFloorMaterail: (params) => {
     const url = "api/Dictionary/GetAllFloorMaterail";
     return fetchData(url, "GET", params, null);
   },
-  InsertFloorMaterail: (data) => {
+  InsertFloorMaterail: (data, detail) => {
     const url = "api/Dictionary/InsertFloorMaterail";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateFloorMaterail: (data) => {
+  UpdateFloorMaterail: (data, detail) => {
     const url = "api/Dictionary/UpdateFloorMaterail";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllRoofMaterail: (params) => {
     const url = "api/Dictionary/GetAllRoofMaterail";
     return fetchData(url, "GET", params, null);
   },
-  InsertRoofMaterail: (data) => {
+  InsertRoofMaterail: (data, detail) => {
     const url = "api/Dictionary/InsertRoofMaterail";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateRoofMaterail: (data) => {
+  UpdateRoofMaterail: (data, detail) => {
     const url = "api/Dictionary/UpdateRoofMaterail";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllDrinkingWater: (params) => {
     const url = "api/Dictionary/GetAllDrinkingWater";
     return fetchData(url, "GET", params, null);
   },
-  InsertDrinkingWater: (data) => {
+  InsertDrinkingWater: (data, detail) => {
     const url = "api/Dictionary/InsertDrinkingWater";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateDrinkingWater: (data) => {
+  UpdateDrinkingWater: (data, detail) => {
     const url = "api/Dictionary/UpdateDrinkingWater";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllToilet: (params) => {
     const url = "api/Dictionary/GetAllToilet";
     return fetchData(url, "GET", params, null);
   },
-  InsertToilet: (data) => {
+  InsertToilet: (data, detail) => {
     const url = "api/Dictionary/InsertToilet";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateToilet: (data) => {
+  UpdateToilet: (data, detail) => {
     const url = "api/Dictionary/UpdateToilet";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllEnergySource: (params) => {
     const url = "api/Dictionary/GetAllEnergySource";
     return fetchData(url, "GET", params, null);
   },
-  InsertEnergySource: (data) => {
+  InsertEnergySource: (data, detail) => {
     const url = "api/Dictionary/InsertEnergySource";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateEnergySource: (data) => {
+  UpdateEnergySource: (data, detail) => {
     const url = "api/Dictionary/UpdateEnergySource";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllEthnic: (params) => {
     const url = "api/Dictionary/GetAllEthnic";
     return fetchData(url, "GET", params, null);
   },
-  InsertEthnic: (data) => {
+  InsertEthnic: (data, detail) => {
     const url = "api/Dictionary/InsertEthnic";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateEthnic: (data) => {
+  UpdateEthnic: (data, detail) => {
     const url = "api/Dictionary/UpdateEthnic";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllLevel: (params) => {
     const url = "api/Dictionary/GetAllLevel";
     return fetchData(url, "GET", params, null);
   },
-  InsertLevel: (data) => {
+  InsertLevel: (data, detail) => {
     const url = "api/Dictionary/InsertLevel";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateLevel: (data) => {
+  UpdateLevel: (data, detail) => {
     const url = "api/Dictionary/UpdateLevel";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllClass: (params) => {
     const url = "api/Dictionary/GetAllClass";
     return fetchData(url, "GET", params, null);
   },
-  InsertClass: (data) => {
+  InsertClass: (data, detail) => {
     const url = "api/Dictionary/InsertClass";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateClass: (data) => {
+  UpdateClass: (data, detail) => {
     const url = "api/Dictionary/UpdateClass";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllMainJob: (params) => {
     const url = "api/Dictionary/GetAllMainJob";
     return fetchData(url, "GET", params, null);
   },
-  InsertMainJob: (data) => {
+  InsertMainJob: (data, detail) => {
     const url = "api/Dictionary/InsertMainJob";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateMainJob: (data) => {
+  UpdateMainJob: (data, detail) => {
     const url = "api/Dictionary/UpdateMainJob";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllBusiness: (params) => {
     const url = "api/Dictionary/GetAllBusiness";
     return fetchData(url, "GET", params, null);
   },
-  InsertBusiness: (data) => {
+  InsertBusiness: (data, detail) => {
     const url = "api/Dictionary/InsertBusiness";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateBusiness: (data) => {
+  UpdateBusiness: (data, detail) => {
     const url = "api/Dictionary/UpdateBusiness";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllPlotStatus: (params) => {
     const url = "api/Dictionary/GetAllPlotStatus";
     return fetchData(url, "GET", params, null);
   },
-  InsertPlotStatus: (data) => {
+  InsertPlotStatus: (data, detail) => {
     const url = "api/Dictionary/InsertPlotStatus";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdatePlotStatus: (data) => {
+  UpdatePlotStatus: (data, detail) => {
     const url = "api/Dictionary/UpdatePlotStatus";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllPlotCause: (params) => {
     const url = "api/Dictionary/GetAllPlotCause";
     return fetchData(url, "GET", params, null);
   },
-  InsertPlotCause: (data) => {
+  InsertPlotCause: (data, detail) => {
     const url = "api/Dictionary/InsertPlotCause";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdatePlotCause: (data) => {
+  UpdatePlotCause: (data, detail) => {
     const url = "api/Dictionary/UpdatePlotCause";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllPlotType: (params) => {
     const url = "api/Dictionary/GetAllPlotType";
     return fetchData(url, "GET", params, null);
   },
-  InsertPlotType: (data) => {
+  InsertPlotType: (data, detail) => {
     const url = "api/Dictionary/InsertPlotType";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdatePlotType: (data) => {
+  UpdatePlotType: (data, detail) => {
     const url = "api/Dictionary/UpdatePlotType";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllLandType: (params) => {
     const url = "api/Dictionary/GetAllLandType";
     return fetchData(url, "GET", params, null);
   },
-  InsertLandType: (data) => {
+  InsertLandType: (data, detail) => {
     const url = "api/Dictionary/InsertLandType";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateLandType: (data) => {
+  UpdateLandType: (data, detail) => {
     const url = "api/Dictionary/UpdateLandType";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllSchoolType: (params) => {
     const url = "api/Dictionary/GetAllSchoolType";
     return fetchData(url, "GET", params, null);
   },
-  InsertSchoolType: (data) => {
+  InsertSchoolType: (data, detail) => {
     const url = "api/Dictionary/InsertSchoolType";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateSchoolType: (data) => {
+  UpdateSchoolType: (data, detail) => {
     const url = "api/Dictionary/UpdateSchoolType";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllBorrowReason: (params) => {
     const url = "api/Dictionary/GetAllBorrowReason";
     return fetchData(url, "GET", params, null);
   },
-  InsertBorrowReason: (data) => {
+  InsertBorrowReason: (data, detail) => {
     const url = "api/Dictionary/InsertBorrowReason";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateBorrowReason: (data) => {
+  UpdateBorrowReason: (data, detail) => {
     const url = "api/Dictionary/UpdateBorrowReason";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllMainGoodsServices: (params) => {
     const url = "api/Dictionary/GetAllMainGoodsServices";
     return fetchData(url, "GET", params, null);
   },
-  InsertMainGoodsServices: (data) => {
+  InsertMainGoodsServices: (data, detail) => {
     const url = "api/Dictionary/InsertMainGoodsServices";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateMainGoodsServices: (data) => {
+  UpdateMainGoodsServices: (data, detail) => {
     const url = "api/Dictionary/UpdateMainGoodsServices";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllCookingSource: (params) => {
     const url = "api/Dictionary/GetAllCookingSource";
     return fetchData(url, "GET", params, null);
   },
-  InsertCookingSource: (data) => {
+  InsertCookingSource: (data, detail) => {
     const url = "api/Dictionary/InsertCookingSource";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateCookingSource: (data) => {
+  UpdateCookingSource: (data, detail) => {
     const url = "api/Dictionary/UpdateCookingSource";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllTypeOfLender: (params) => {
     const url = "api/Dictionary/GetAllTypeOfLender";
     return fetchData(url, "GET", params, null);
   },
-  InsertTypeOfLender: (data) => {
+  InsertTypeOfLender: (data, detail) => {
     const url = "api/Dictionary/InsertTypeOfLender";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateTypeOfLender: (data) => {
+  UpdateTypeOfLender: (data, detail) => {
     const url = "api/Dictionary/UpdateTypeOfLender";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllMaritalStatus: (params) => {
     const url = "api/Dictionary/GetAllMaritalStatus";
     return fetchData(url, "GET", params, null);
   },
-  InsertMaritalStatus: (data) => {
+  InsertMaritalStatus: (data, detail) => {
     const url = "api/Dictionary/InsertMaritalStatus";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateMaritalStatus: (data) => {
+  UpdateMaritalStatus: (data, detail) => {
     const url = "api/Dictionary/UpdateMaritalStatus";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllRelation: (params) => {
     const url = "api/Dictionary/GetAllRelation";
     return fetchData(url, "GET", params, null);
   },
-  InsertRelation: (data) => {
+  InsertRelation: (data, detail) => {
     const url = "api/Dictionary/InsertRelation";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateRelation: (data) => {
+  UpdateRelation: (data, detail) => {
     const url = "api/Dictionary/UpdateRelation";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllDisability: (params) => {
     const url = "api/Dictionary/GetAllDisability";
     return fetchData(url, "GET", params, null);
   },
-  InsertDisability: (data) => {
+  InsertDisability: (data, detail) => {
     const url = "api/Dictionary/InsertDisability";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateDisability: (data) => {
+  UpdateDisability: (data, detail) => {
     const url = "api/Dictionary/UpdateDisability";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllSchoolEnroll: (params) => {
     const url = "api/Dictionary/GetAllSchoolEnroll";
     return fetchData(url, "GET", params, null);
   },
-  InsertSchoolEnroll: (data) => {
+  InsertSchoolEnroll: (data, detail) => {
     const url = "api/Dictionary/InsertSchoolEnroll";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateSchoolEnroll: (data) => {
+  UpdateSchoolEnroll: (data, detail) => {
     const url = "api/Dictionary/UpdateSchoolEnroll";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllGender: (params) => {
     const url = "api/Dictionary/GetAllGender";
@@ -332,37 +332,37 @@ const dataDictionaryApi = {
     const url = "api/Dictionary/GetAllAreaMateral";
     return fetchData(url, "GET", params, null);
   },
-  InsertAreaMateral: (data) => {
+  InsertAreaMateral: (data, detail) => {
     const url = "api/Dictionary/InsertAreaMateral";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateAreaMateral: (data) => {
+  UpdateAreaMateral: (data, detail) => {
     const url = "api/Dictionary/UpdateAreaMateral";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllSafetyArea: (params) => {
     const url = "api/Dictionary/GetAllSafetyArea";
     return fetchData(url, "GET", params, null);
   },
-  InsertSafetyArea: (data) => {
+  InsertSafetyArea: (data, detail) => {
     const url = "api/Dictionary/InsertSafetyArea";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateSafetyArea: (data) => {
+  UpdateSafetyArea: (data, detail) => {
     const url = "api/Dictionary/UpdateSafetyArea";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
   GetAllCCTConfirmStatus: (params) => {
     const url = "api/Dictionary/GetAllCCTConfirmStatus";
     return fetchData(url, "GET", params, null);
   },
-  InsertCCTConfirmStatus: (data) => {
+  InsertCCTConfirmStatus: (data, detail) => {
     const url = "api/Dictionary/InsertCCTConfirmStatus";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateCCTConfirmStatus: (data) => {
+  UpdateCCTConfirmStatus: (data, detail) => {
     const url = "api/Dictionary/UpdateCCTConfirmStatus";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
 };
 export default dataDictionaryApi;

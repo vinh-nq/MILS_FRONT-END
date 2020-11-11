@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertCCTConfirmStatus(value)
+      .InsertCCTConfirmStatus(
+        value,
+        `Insert New CCT Confirm Status [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +56,10 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateCCTConfirmStatus(value)
+      .UpdateCCTConfirmStatus(
+        value,
+        `Update CCT Confirm Status [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -106,7 +112,11 @@ function ModaItem(props) {
       }}
       forceRender
     >
-      <Form id="form-cctconfirmstatus-management" form={form} onFinish={handleSubmit}>
+      <Form
+        id="form-cctconfirmstatus-management"
+        form={form}
+        onFinish={handleSubmit}
+      >
         <div>
           <span>{t("CCTConfirmStatusId")}</span>
           <span style={{ paddingLeft: "3px", color: "red" }}>*</span>

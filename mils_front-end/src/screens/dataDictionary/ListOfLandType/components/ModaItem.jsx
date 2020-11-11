@@ -32,7 +32,7 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertLandType(value)
+      .InsertLandType(value, `Insert New Land Type [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +53,7 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateLandType(value)
+      .UpdateLandType(value, `Update Land Type [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({

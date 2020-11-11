@@ -88,7 +88,7 @@ export default function UserVillageManagement(props) {
       width: "10%",
       render: (text, record) => (
         <div className="d-flex justify-content-end">
-          <Tooltip placement="top" title={t("edit")}>
+          <Tooltip placement="top" title={t("Description")}>
             <Button
               type="primary"
               icon={<InfoCircleOutlined />}
@@ -127,9 +127,12 @@ export default function UserVillageManagement(props) {
 
   const deleteRow = async (id) => {
     await userVillageApi
-      .Delete({
-        Id: id,
-      })
+      .Delete(
+        {
+          Id: id,
+        },
+        `Delete Item (ID : ${id}) In List User Village`
+      )
       .then((res) => {
         fetchDataAllRole();
         message.success("Delete Success");

@@ -1,24 +1,24 @@
-import { fetchData } from "./config/fetchApi";
+import { fetchDataAndLog } from "./config/fetchApi";
 const roleManagementApi = {
   GetAllRole: () => {
     const url = "api/User/GetAllRole";
-    return fetchData(url, "GET", null, null);
+    return fetchDataAndLog(url, "GET", null, null, "Get List Role");
   },
   InsertPermission: (data) => {
     const url = "api/User/InsertPermission";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, "Update Permistion for Role");
   },
-  InsertRole: (data) => {
+  InsertRole: (data, detail) => {
     const url = "api/User/InsertRole";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateRole: (data) => {
+  UpdateRole: (data, detail) => {
     const url = "api/User/UpdateRole";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  GetRoleById: (params) => {
+  GetRoleById: (params, detail) => {
     const url = "api/User/GetRoleById";
-    return fetchData(url, "GET", params, null);
+    return fetchDataAndLog(url, "GET", params, null, detail);
   },
 };
 

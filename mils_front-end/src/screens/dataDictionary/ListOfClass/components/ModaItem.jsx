@@ -32,7 +32,7 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertClass(value)
+      .InsertClass(value, `Insert New Class [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +53,7 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateClass(value)
+      .UpdateClass(value, `Update Class [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({

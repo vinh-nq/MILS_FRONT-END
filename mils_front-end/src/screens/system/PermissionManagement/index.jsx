@@ -76,9 +76,12 @@ export default function PermissionManagement(props) {
   }, [history]);
 
   const fetchDataAllRole = (location) => {
-    return roleManagementApi.GetRoleById({
-      RoleId: getValueFromLink(location, "roleID"),
-    });
+    return roleManagementApi.GetRoleById(
+      {
+        RoleId: getValueFromLink(location, "roleID"),
+      },
+      `Get List Permission Of RoleID : ${getValueFromLink(location, "roleID")}`
+    );
   };
 
   const fetchDataAllFunction = () => {

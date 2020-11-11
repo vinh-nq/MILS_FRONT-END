@@ -121,7 +121,7 @@ export default function Enrollment(props) {
       });
   };
 
-  const changeStatus = async (value, idStatus) => {
+  const changeStatus = async (value, idStatus, detailStatus) => {
     const arrayData = [
       {
         ...value,
@@ -133,13 +133,16 @@ export default function Enrollment(props) {
     if (listHHCCTProgram.length === 1) {
       currentPage = 1;
     }
-    return await CCTProgramApi.UpdateCCTConfirm({
-      hHCCTConfirms: arrayData,
-      hhHeadName: keyword,
-      status: selectStatusCCT === "all" ? -1 : selectStatusCCT,
-      isLocked: selectLockCCT === "all" ? -1 : selectLockCCT,
-      currentPage: currentPage,
-    }).then((res) => {
+    return await CCTProgramApi.UpdateCCTConfirm(
+      {
+        hHCCTConfirms: arrayData,
+        hhHeadName: keyword,
+        status: selectStatusCCT === "all" ? -1 : selectStatusCCT,
+        isLocked: selectLockCCT === "all" ? -1 : selectLockCCT,
+        currentPage: currentPage,
+      },
+      `Update Status Of Household [${value.HHCode}] - ${value.HHHeadName} : ${value.StatusEng} => ${detailStatus}`
+    ).then((res) => {
       setCheckLoading(false);
       setPage(currentPage);
       setListHHCCTProgram(res.data.Data.hhCCTConfirms);
@@ -154,13 +157,16 @@ export default function Enrollment(props) {
       },
     ];
     setCheckLoading(true);
-    return await CCTProgramApi.UpdateCCTConfirm({
-      hHCCTConfirms: arrayData,
-      hhHeadName: keyword,
-      status: selectStatusCCT === "all" ? -1 : selectStatusCCT,
-      isLocked: selectLockCCT === "all" ? -1 : selectLockCCT,
-      currentPage: page,
-    }).then((res) => {
+    return await CCTProgramApi.UpdateCCTConfirm(
+      {
+        hHCCTConfirms: arrayData,
+        hhHeadName: keyword,
+        status: selectStatusCCT === "all" ? -1 : selectStatusCCT,
+        isLocked: selectLockCCT === "all" ? -1 : selectLockCCT,
+        currentPage: page,
+      },
+      `Lock Household : [${arrayData[0].HHCode}] - ${arrayData[0].HHHeadName}`
+    ).then((res) => {
       setCheckLoading(false);
       setListHHCCTProgram(res.data.Data.hhCCTConfirms);
     });
@@ -274,7 +280,7 @@ export default function Enrollment(props) {
                       <Menu.Item
                         className="d-flex justify-content-start align-items-center"
                         onClick={() => {
-                          changeStatus(record, "1");
+                          changeStatus(record, "1", "Approve");
                         }}
                       >
                         <CheckCircleOutlined style={{ color: "#32CD32" }} />{" "}
@@ -285,7 +291,7 @@ export default function Enrollment(props) {
                       <Menu.Item
                         className="d-flex justify-content-start align-items-center"
                         onClick={() => {
-                          changeStatus(record, "2");
+                          changeStatus(record, "2", "Reject");
                         }}
                       >
                         <CloseCircleOutlined style={{ color: "#FF4500" }} />{" "}
@@ -296,7 +302,7 @@ export default function Enrollment(props) {
                       <Menu.Item
                         className="d-flex justify-content-start align-items-center"
                         onClick={() => {
-                          changeStatus(record, "3");
+                          changeStatus(record, "3", "Waitting");
                         }}
                       >
                         <SyncOutlined style={{ color: "gold" }} /> Waitting

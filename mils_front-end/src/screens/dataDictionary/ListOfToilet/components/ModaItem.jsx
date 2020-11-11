@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertToilet(value)
+      .InsertToilet(
+        value,
+        `Insert New Toilet [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +56,7 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateToilet(value)
+      .UpdateToilet(value, `Update Toilet [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -87,9 +90,7 @@ function ModaItem(props) {
 
   return (
     <Modal
-      title={`${typeModal === "add" ? t("add") : t("edit")} ${t(
-        "TOILET"
-      )}`}
+      title={`${typeModal === "add" ? t("add") : t("edit")} ${t("TOILET")}`}
       visible={visible}
       width="630px"
       okButtonProps={{

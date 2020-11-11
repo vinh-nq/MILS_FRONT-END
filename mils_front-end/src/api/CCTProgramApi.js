@@ -1,8 +1,8 @@
-import { fetchData } from "./config/fetchApi";
+import { fetchData, fetchDataAndLog } from "./config/fetchApi";
 const CCTProgramApi = {
   GetPMTScored: (params) => {
     const url = "api/HouseHoldCCT/GetPMTScored";
-    return fetchData(url, "GET", params, null);
+    return fetchDataAndLog(url, "GET", params, null, "Get PMT Scored");
   },
   GetScoreConfig: (params) => {
     const url = "api/HouseHoldCCT/GetScoreConfig";
@@ -10,19 +10,25 @@ const CCTProgramApi = {
   },
   GenPMTScored: (params) => {
     const url = "api/HouseHoldCCT/GenPMTScored";
-    return fetchData(url, "GET", params, null);
+    return fetchDataAndLog(url, "GET", params, null, "Gender List PMT Scored");
   },
   AddNewCCTConfirm: (data) => {
     const url = "api/HouseHoldCCT/AddNewCCTConfirm";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(
+      url,
+      "POST",
+      null,
+      data,
+      "Add New List HouseHold To CCT Progarm"
+    );
   },
   GetHHCCTConfirms: (params) => {
     const url = "api/HouseHoldCCT/GetHHCCTConfirms";
     return fetchData(url, "GET", params, null);
   },
-  UpdateCCTConfirm: (data) => {
+  UpdateCCTConfirm: (data, detail) => {
     const url = "api/HouseHoldCCT/UpdateCCTConfirm";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
 };
 export default CCTProgramApi;

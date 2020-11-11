@@ -244,6 +244,7 @@ export default function UserManagement(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="UserId"
+        size="small"
       />
       <ModalUserManagement
         visible={visileModal}
