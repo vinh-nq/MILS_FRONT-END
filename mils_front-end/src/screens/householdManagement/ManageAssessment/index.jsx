@@ -59,8 +59,6 @@ function ManageAssessment(props) {
   const [plotLandInHouseHold, setPlotLandInHouseHold] = useState([]);
 
   //delete member in household
-  const [hhCode, setHHCode] = useState("");
-
   const confirm = Modal.confirm;
 
   const { Option } = Select;
@@ -189,8 +187,7 @@ function ManageAssessment(props) {
                 <DeleteOutlined className="ant--icon__middle text-danger" />
               }
               onClick={() => {
-                setHHCode(record.HHCode);
-                showConfirm();
+                showConfirm(record.HHCode);
               }}
             >
               <span className="text-danger">{t("DELETE")}</span>
@@ -407,18 +404,19 @@ function ManageAssessment(props) {
     setVisibleMemberList(true);
   };
 
-  const showConfirm = () => {
+  const showConfirm = (hhCode) => {
     confirm({
       title: "Do you want to delete these items?",
       okText: t("DELETE"),
       onOk: () => {
-        handleDeleteHouseHold();
+        handleDeleteHouseHold(hhCode);
       },
       onCancel: () => {},
     });
   };
 
-  const handleDeleteHouseHold = async () => {
+  const handleDeleteHouseHold = async (hhCode) => {
+    setLoading(true);
     await houseHoldApi.deleteHouseHold({ householdId: hhCode }).then((res) => {
       if (res.data.Status) {
         reloadApi();
@@ -430,6 +428,44 @@ function ManageAssessment(props) {
         });
       }
     });
+  };
+
+  const reloadApi = async () => {
+    const {
+      pageUrl,
+      provinceId,
+      districtId,
+      villageId,
+      unitId,
+      child,
+      pregnant,
+      headName,
+    } = getDataFromUrl();
+    setLoading(true);
+    await houseHoldApi
+      .searchHouseHold({
+        provinceId: provinceId,
+        districtId: districtId,
+        villageId: villageId,
+        unitId: unitId,
+        child: child,
+        pregnant: pregnant,
+        headName: headName,
+        currentPage: pageUrl,
+      })
+      .then((res) => {
+        if (res.data.Status) {
+          setData(res.data.Data.houseHoldViewModels);
+          setTotalPage(res.data.Data.TotalPage);
+        } else {
+          message.error({
+            content: t("FETCH_DATA_FAILED"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      });
+    setLoading(false);
   };
 
   const onSearchChange = () => {
@@ -511,44 +547,6 @@ function ManageAssessment(props) {
       headName: headName,
       currentPage: currentPage,
     });
-  };
-
-  const reloadApi = async () => {
-    const {
-      pageUrl,
-      provinceId,
-      districtId,
-      villageId,
-      unitId,
-      child,
-      pregnant,
-      headName,
-    } = getDataFromUrl();
-    setLoading(true);
-    await houseHoldApi
-      .searchHouseHold({
-        provinceId: provinceId,
-        districtId: districtId,
-        villageId: villageId,
-        unitId: unitId,
-        child: child,
-        pregnant: pregnant,
-        headName: headName,
-        currentPage: pageUrl,
-      })
-      .then((res) => {
-        if (res.data.Status) {
-          setData(res.data.Data.houseHoldViewModels);
-          setTotalPage(res.data.Data.TotalPage);
-        } else {
-          message.error({
-            content: t("FETCH_DATA_FAILED"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        }
-      });
-    setLoading(false);
   };
 
   const renderProvinceSelect = () => {

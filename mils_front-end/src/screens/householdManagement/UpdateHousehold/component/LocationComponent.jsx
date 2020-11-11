@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Form, Row, Select, Typography, Upload, message } from "antd";
+import { Col, Form, Row, Select, Typography } from "antd";
 import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
 import { objectValidateForm } from "../validate/objectValidateForm";
 import Input from "antd/es/input";

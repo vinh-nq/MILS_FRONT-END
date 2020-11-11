@@ -1,80 +1,131 @@
-import {Col, Row} from "antd";
+import { Col, Row } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function DevelopmentComponent(props) {
-    return <>
-        <Row className="px-2" gutter={[16, 16]}>
-            <Col span={24} md={12}>
-                <span
-                    className="font-weight-500">The family has set up the house according to the defined village plan</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                <span className="font-weight-500"> All of your land and family members have a land title deed or a land use certificate </span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">The family has a house, a permanent shelter (strong project, the floor, the roof is made of durable materials, the service life is at least 20 years)</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                <span className="font-weight-500">Buildings related to the house, such as kitchens, latrines, stables, horticulture, wooden gardens, are arranged to be clean, beautiful, safe and convenient to use</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Contributed capital or labor to village development</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Be a model farming family in terms of production as a commodity or any production or other occupation that generates a steady income for the family without breaking the rules</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Households must have an average income higher than the regional average or more than 5.6 million kip per person per year, or about $ 700 per person per year</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                <span className="font-weight-500"> As a family with a good education policy, pre-school children (0-3 years old) must attend pre-school or kindergarten, families with school-age children must attend primary school as required</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a model health family</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a cultural family</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a family, exercise gender equality, promote child development and refrain from violence against women and children</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Family members aged 15 and over are politically educated, consciously involved in the village development process</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a united family</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">As a model family following the law (a family free of cases)</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">A family of 3 good women</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Being a drug-free family</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">A good defensive family</span>:{" "}
-            </Col>
-            <Col span={24} md={12}>
-                            <span
-                                className="font-weight-500">Being a good family</span>:{" "}
-            </Col>
-        </Row>
+  const { t } = useTranslation();
+  return (
+    <>
+      <Row className="px-2" gutter={[16, 16]}>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t(
+              "THE_FAMILY_HAS_SET_UP_THE_HOUSE_ACCORDING_TO_THE_DEFINED_VILLAGE_PLAN"
+            )}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t(
+              "EVERY_PIECE_OF_LAND_YOU_AND_YOUR_FAMILY_MEMBERS_HAVE_A_LAND_TITLE_DEED"
+            )}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t("THE_FAMILY_HAS_A_HOUSE_A_PERMANENT_SHELTER")}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t("HOME_RELATED_STRUCTURES_SUCH_AS_KITCHENS")}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t("CONTRIBUTED_CAPITAL_OR_LABOR_TO_THE_DEVELOPMENT_OF_H7_VILLAGE")}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t(
+              "BE_A_MODEL_FARMING_FAMILY_IN_TERMS_OF_PRODUCTION_AS_A_COMMODITY"
+            )}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t(
+              "HOUSEHOLDS_MUST_HAVE_AN_AVERAGE_INCOME_HIGHER_THAN_THE_REGIONAL_AVERAGE"
+            )}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {" "}
+            {t("AS_A_FAMILY_WITH_A_GOOD_EDUCATION_POLICY")}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {" "}
+            {t("AS_A_HEALTH_FAMILY_MODEL_H15")}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">{t("H16_CULTURAL_FAMILY")}</span>:{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t("REFRAIN_FROM_VIOLENCE_AGAINST_WOMEN_AND_CHILDREN")}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t(
+              "FAMILY_MEMBERS_AGED_15_AND_OVER_ARE_EDUCATED_IN_THE_CONCEPT_OF_POLITICS"
+            )}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">{t("H20_SOLIDARITY_FAMILY")}</span>:{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t(
+              "BE_A_MODEL_FAMILY_IMPLEMENTING_THE_LAW_(A_FAMILY_FREE_OF_LAWSUITS)_H21"
+            )}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t("A_GOOD_FEMALE_FAMILY_3_H22")}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t("BEING_A_DRUG_FREE_FAMILY_H23")}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t("A_GOOD_DEFENSE_FAMILY_H25")}
+          </span>
+          :{" "}
+        </Col>
+        <Col span={24}>
+          <span className="font-weight-500">
+            {t("A_GOOD_SECURITY_FAMILY_H26")}
+          </span>
+          :{" "}
+        </Col>
+      </Row>
     </>
+  );
 }
 
 export default DevelopmentComponent;

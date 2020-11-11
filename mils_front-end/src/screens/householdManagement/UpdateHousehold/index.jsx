@@ -194,6 +194,7 @@ function UpdateHousehold(props) {
             ? moment(DateOfEnumeration, "DD-MM-YYYY")
             : undefined;
           setDetailHouseHold(res.data.Data);
+          setHHCode(res.data.Data.HouseholdId);
           form.setFieldsValue(res.data.Data);
           message.success({
             content: t("EDIT_SUCCESS"),

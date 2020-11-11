@@ -188,6 +188,28 @@
   "IS_THERE_ANY_SCHEDULED_PASSENGER_TRANSPORT_STOPPING_IN_THIS_VILLAGE": "ຄອບຄົວໄດ້ຊົມໃຊ້ລົດໂດຍສານທີ່ຜ່ານບ້ານຕາມກໍານົດເວລາ",
   "IS_THIS_VILLAGE_CONNECTED_TO_AN_ELECTRIC_NETWORK": "ໄດ້ຊົມໃຊ້ສັນຍານອິນເຕີເນັດພາຍໃນບ້ານ",
 
+  "DEVELOPMENT_FAMILIES_HAVE_8_STANDARD_GROUPS_11_CONTENTS_19_INDICATORS": "ຄອບຄົວພັດທະນາ ມີ 8 ກຸ່ມ ມາດຕະຖານ 11 ເນື້ອໃນ 19 ຕົວຊີ້ບອກ",
+  "THE_FAMILY_HAS_SET_UP_THE_HOUSE_ACCORDING_TO_THE_DEFINED_VILLAGE_PLAN": "ຄອບຄົວໄດ້ຕັ້ງເຮືອນຢູ່ຕາມແຜນຜັງບ້ານທີ່ໄດ້ກຳນົດໄວ້",
+  "EVERY_PIECE_OF_LAND_YOU_AND_YOUR_FAMILY_MEMBERS_HAVE_A_LAND_TITLE_DEED": "ທີ່ດີນທຸກຕອນຂອງທ່າານ ແລະ ສະມາຊິກພາຍໃນຄອບຄົວ ມີໃສສຳມະໂນຕາດີນ ຫຼື ໃບຢັ້ນງຢືນສິດນຳໃຊ້ທີ່ດິນ",
+  "THE_FAMILY_HAS_A_HOUSE_A_PERMANENT_SHELTER": "ຄອບຄົວມີທີ່ຢູ່ອາໄສ, ເຮືອນແໜ້າໜາ ຖາວອນ (ໂຄງການ ເຂັ້ມແຂງ, ພື້ນແໜ້ນໜາ, ຫຼັງຄາໃຊ້ວັດສະດຸທີ່ທົນທານ ອາຍຸການນຳໃຊ້ຕຳສຸດ 20 ປີຂື້ນໄປ H4)",
+  "HOME_RELATED_STRUCTURES_SUCH_AS_KITCHENS": "ສິ່ງປຸກສ້າງທີ່ຕິດພັນກັບເຮືອນເຊັ່ນ: ເຮືອນຄົວ, ວິດຖ່າຍ, ຄອກສັດ, ພືດສວນຄົວ, ສວນໄມ້ໃຫ້ໝາກ ໄດ້ຮັບການຈັດສັນໃຫ້ມີຄວາມສະອາດຈົບງາມ, ປອດໄພ ແລະ ສະດວກໃຫ້ແກ່ ການນຳໃຊ້ H5",
+  "CONTRIBUTED_CAPITAL_OR_LABOR_TO_THE_DEVELOPMENT_OF_H7_VILLAGE": "ໄດ້ປະກອບສ່ວນທຶນຮອນ ຫຼື ແຮງງານ ເຂົ້າໃນການພັດທະນາບ້ານ H7",
+  "BE_A_MODEL_FARMING_FAMILY_IN_TERMS_OF_PRODUCTION_AS_A_COMMODITY": "ເປັນຄອບຄົວກະສິກຳແບບຢ່າງດ້ານການຜະລິດເປັນສິນຄ້າ ຫຼື ການຜະລິດໃດໜື່ງ ຫຼື ອາຊີບອື່ນໆ ທີ່ສ້າງລາຍໄດ້ໝັ້ນຄົງໃຫ້ແກ່ຄອບຄົວ ບໍ່ຂັດລະບຽບກົດໝາຍ H10",
+  "HOUSEHOLDS_MUST_HAVE_AN_AVERAGE_INCOME_HIGHER_THAN_THE_REGIONAL_AVERAGE": "ຄອບຄົວຕ້ອງມີລາຍໄດ້ສະເລ່ຍສູງກວ່າຄ່າສະເລ່ຍຂອງເຂດແຄວ້ນ ຫຼື ສູງກວ່າ 5,6 ລ້ານກີບຕໍ່ຄົນ ຕໍ່ປີ ຫຼື ປະມານ 700ໂດລາ ຕໍ່ຄົນຕໍ່ປີ.H12",
+  "AS_A_FAMILY_WITH_A_GOOD_EDUCATION_POLICY": "ເປັນຄອບຄົວທີ່ປະຕິບັດນະໂຍບາຍການສຶກສາດີ, ເດັກກ່ອນໄວຮຽນ (0-3ປີ) ຕ້ອງໄດ້ເຂົ້າໂຮງຮຽນຝາກເດັກ ຫຼື ອະນຸບານ, ຄອບຄົວທີ່ມີເດັກເກນອາຍຸເຂົ້າໂຮງຮຽນຕ້ອງໄດ້ຮຽນຊັ້ນປະຖົມຕາມກຳນົດ H14",
+  "AS_A_HEALTH_FAMILY_MODEL_H15": "ເປັນຄອບຄົວສາທາລະນະສຸກແບບຢ່າງ H15",
+  "H16_CULTURAL_FAMILY": "ເປັນຄອບຄົວວັດທະນະທຳ H16",
+  "REFRAIN_FROM_VIOLENCE_AGAINST_WOMEN_AND_CHILDREN": "ເປັນຄອບຄົວປະຕິບັດສິດສະເໜີພາບຍິງ-ຊາຍ, ສົ່ງເສີມການພັດທະນາເດັກ ແລະປະສະຈາກການໃຊ້ຄວາມຮຸນແຮງຕໍ່ແມ່ຍິງ ແລະ ເດັກ H17",
+  "FAMILY_MEMBERS_AGED_15_AND_OVER_ARE_EDUCATED_IN_THE_CONCEPT_OF_POLITICS": "ສະມາຊິກໃນຄອບຄົວ ແຕ່ອາຍຸ 15 ປີຂື້ນໄປ ໄດ້ຮັບການສຶກສາອົບຮົມການເມືອງແນວຄິດ, ມີສະຕິຕື່ນຕົວເຂົ້າຮ່ວມຂະບວນການພັດທະນາຂອງບ້ານ H19",
+  "H20_SOLIDARITY_FAMILY": "ເປັນຄອບຄົວສາມັກຄີປອງດອງ H20",
+  "BE_A_MODEL_FAMILY_IMPLEMENTING_THE_LAW_(A_FAMILY_FREE_OF_LAWSUITS)_H21": "ເປັນຄອບຄົວແບບຢ່າງປະຕິບັດກົດໝາຍ(ເປັນຄອບຄົວປອດຄະດີ) H21",
+  "A_GOOD_FEMALE_FAMILY_3_H22": "ເປັນຄອບຄົວແມ່ຍິງ 3 ດີ H22",
+  "BEING_A_DRUG_FREE_FAMILY_H23": "ເປັນຄອບຄົວປອດສິ່ງເສບຕິດ H23",
+  "A_GOOD_DEFENSE_FAMILY_H25": "ເປັນຄອບຄົວປ້ອງກັນຊາດດີ H25",
+  "A_GOOD_SECURITY_FAMILY_H26": "ເປັນຄອບຄົວປ້ອງກັນຄວາມສະຫງົບດີ H26",
+
+  "LOCATION_IN_MAP": "ບັນທຶກການເກັບຂໍ້ມູນ",
+
   "UNDER_14_YEARS": "ຈຳນວນສະມາຊິກໃນຄອບຄົວ ອາຍຸຕໍ່າກວ່າ 14 ປີລົງມາ",
   "BETWEEN_15-60": "ຈຳນວນສະມາຊິກໃນຄອບຄົວ ອາຍຸ ລະຫວ່າງ 14-60 ປີ",
   "OVER_60": "ຈຳນວນສະມາຊິກໃນຄອບຄົວ ອາຍຸສູງກວ່າ 60 ປີ ຂຶ້ນໄປ",
@@ -366,6 +388,8 @@
   "CODE_DUPLICATE": "Code is duplicate",
   "DELETE": "Delete",
   "CANCEL": "Cancel",
+  "HOUSEHOLD REGISTRATION": "Household registration",
+  "GO_TO_ENROLLMENT_ON_DEMAND": "Go to Enrollment On Demand",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

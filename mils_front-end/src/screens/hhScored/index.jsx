@@ -324,7 +324,7 @@ function HouseholdScore(props) {
       <section className="mb-3">
         <div className="d-flex flex-row align-items-center justify-content-between">
           <span className="h5 mb-0">{t("HH_LIST_SCORED")}</span>
-          <Tooltip placement="bottom" title={t("GO_TO_EROLLMENT_ON_DEMAND")}>
+          <Tooltip placement="bottom" title={t("GO_TO_ENROLLMENT_ON_DEMAND")}>
             <Button
               type="primary"
               className="d-flex align-items-center justify-content-center px-1"

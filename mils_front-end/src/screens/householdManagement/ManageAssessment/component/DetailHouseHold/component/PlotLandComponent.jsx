@@ -15,7 +15,6 @@ import { useTranslation } from "react-i18next";
 import dataDictionaryApi from "../../../../../../api/dataDictionaryApi";
 import { useSelector } from "react-redux";
 import plotLandApi from "../../../../../../api/plotLandApi";
-import Text from "antd/es/typography/Text";
 
 const defaultObject = {
   PlotLandId: "",
