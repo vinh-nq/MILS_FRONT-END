@@ -157,7 +157,7 @@ function ModalUserVillage(props) {
 
   const handleAddNew = async (value) => {
     await userVillageApi
-      .Insert(value)
+      .Insert(value, `Insert Permision For Account ${value.user_id} For Village ${value.village_id}`)
       .then((res) => {
         handleCanncel();
         message.success({

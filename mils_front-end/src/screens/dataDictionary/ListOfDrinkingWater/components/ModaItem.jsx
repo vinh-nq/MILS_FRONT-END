@@ -32,7 +32,7 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertDrinkingWater(value)
+      .InsertDrinkingWater(value, `Insert New Drinking Water [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +53,7 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateDrinkingWater(value)
+      .UpdateDrinkingWater(value, `Update Drinking Water [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({

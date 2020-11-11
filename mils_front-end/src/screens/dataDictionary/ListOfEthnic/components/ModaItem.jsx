@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertEthnic(value)
+      .InsertEthnic(
+        value,
+        `Insert New Ethnic [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +56,7 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateEthnic(value)
+      .UpdateEthnic(value, `Update Ethnic [${value.Id}] - ${value.ValueOfEng}`)
       .then((res) => {
         handleCanncel();
         message.success({
@@ -87,9 +90,7 @@ function ModaItem(props) {
 
   return (
     <Modal
-      title={`${typeModal === "add" ? t("add") : t("edit")} ${t(
-        "ETHNIC"
-      )}`}
+      title={`${typeModal === "add" ? t("add") : t("edit")} ${t("ETHNIC")}`}
       visible={visible}
       width="630px"
       okButtonProps={{

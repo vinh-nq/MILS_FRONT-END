@@ -1,16 +1,16 @@
-import { fetchData } from "./config/fetchApi";
+import { fetchDataAndLog } from "./config/fetchApi";
 const userVillageApi = {
   GetAll: (params) => {
     const url = "api/UserVillage/GetAll";
-    return fetchData(url, "GET", params, null);
+    return fetchDataAndLog(url, "GET", params, null, "Get List User Village");
   },
-  Insert: (data) => {
+  Insert: (data, detail) => {
     const url = "api/UserVillage/Insert";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  Delete: (data) => {
+  Delete: (data, detail) => {
     const url = "api/UserVillage/Delete";
-    return fetchData(url, "GET", data, null);
+    return fetchDataAndLog(url, "GET", data, null, detail);
   },
 };
 export default userVillageApi;

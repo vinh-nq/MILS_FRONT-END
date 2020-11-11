@@ -1,16 +1,16 @@
-import { fetchData } from "./config/fetchApi";
+import { fetchDataAndLog } from "./config/fetchApi";
 const functionManagementApi = {
   GetAllFunctionet: (params) => {
     const url = "api/User/GetAllFunction";
-    return fetchData(url, "GET", params, null);
+    return fetchDataAndLog(url, "GET", params, null, "Get Information All Function");
   },
-  InsertFunction: (data) => {
+  InsertFunction: (data, detail) => {
     const url = "api/User/InsertFunction";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  UpdateFunction: (data) => {
+  UpdateFunction: (data, detail) => {
     const url = "api/User/UpdateFunction";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
 };
 

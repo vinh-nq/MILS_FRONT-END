@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertCookingSource(value)
+      .InsertCookingSource(
+        value,
+        `Insert New Cooking Source [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +56,10 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateCookingSource(value)
+      .UpdateCookingSource(
+        value,
+        `Update Cooking Source [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -106,7 +112,11 @@ function ModaItem(props) {
       }}
       forceRender
     >
-      <Form id="form-cookingSource-management" form={form} onFinish={handleSubmit}>
+      <Form
+        id="form-cookingSource-management"
+        form={form}
+        onFinish={handleSubmit}
+      >
         <div>
           <span>{t("cookingSourceId")}</span>
           <span style={{ paddingLeft: "3px", color: "red" }}>*</span>

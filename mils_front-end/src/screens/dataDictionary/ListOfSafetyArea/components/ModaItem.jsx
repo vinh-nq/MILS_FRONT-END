@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertSafetyArea(value)
+      .InsertSafetyArea(
+        value,
+        `Insert New Safety Area [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +56,10 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateSafetyArea(value)
+      .UpdateSafetyArea(
+        value,
+        `Update Safety Area [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -87,9 +93,7 @@ function ModaItem(props) {
 
   return (
     <Modal
-      title={`${typeModal === "add" ? t("add") : t("edit")} ${t(
-        "SAFETYAREA"
-      )}`}
+      title={`${typeModal === "add" ? t("add") : t("edit")} ${t("SAFETYAREA")}`}
       visible={visible}
       width="630px"
       okButtonProps={{

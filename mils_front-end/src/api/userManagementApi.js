@@ -1,20 +1,20 @@
-import { fetchData } from "./config/fetchApi";
+import { fetchData, fetchDataAndLog } from "./config/fetchApi";
 const userManagementApi = {
   GetAllUser: (params) => {
     const url = "api/User/GetAllUser";
     return fetchData(url, "GET", params, null);
   },
-  InsertUser: (data) => {
+  InsertUser: (data, detail) => {
     const url = "api/User/InsertUser";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  GetUserById: (params) => {
+  GetUserById: (params, detail) => {
     const url = "api/User/GetUserById";
-    return fetchData(url, "GET", params, null);
+    return fetchDataAndLog(url, "GET", params, null, detail);
   },
-  UpdateUser: (data) => {
+  UpdateUser: (data, detail) => {
     const url = "api/User/UpdateUser";
-    return fetchData(url, "POST", null, data);
+    return fetchDataAndLog(url, "POST", null, data, detail);
   },
 };
 

@@ -34,7 +34,7 @@ function ModalFunctionManagement(props) {
 
   const handleAddNew = async (value) => {
     await functionManagementApi
-      .InsertFunction(value)
+      .InsertFunction(value, `Add [${value.FunctionCode}] - ${value.FunctionName} Function`)
       .then((res) => {
         handleCanncel();
         history.push({
@@ -58,7 +58,7 @@ function ModalFunctionManagement(props) {
 
   const handleEditItem = async (value) => {
     await functionManagementApi
-      .UpdateFunction(value)
+      .UpdateFunction(value,`Edit [${value.FunctionCode}] - ${value.FunctionName} Function`)
       .then((res) => {
         handleCanncel();
         history.push({

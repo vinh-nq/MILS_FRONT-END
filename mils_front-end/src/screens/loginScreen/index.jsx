@@ -50,13 +50,15 @@ function Login(props) {
             token: res.access_token,
             userId: res.UserId,
             fullName: res.FullName,
-            UserName: res.UserName
+            UserName: res.UserName,
           },
           { path: "/", maxAge: 60 * 60 * 24 * 7 }
         );
-        message.success(t("LOGIN_SUCCESS"));
-        setLoading(false);
-        history.push("/");
+        getTokenApi.insertLog(res.UserName).then((res) => {
+          message.success(t("LOGIN_SUCCESS"));
+          setLoading(false);
+          history.push("/");
+        });
       })
       .catch((err) => {
         setLoading(false);

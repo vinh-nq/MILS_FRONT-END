@@ -120,7 +120,7 @@ function UpdateHousehold(props) {
     };
     objCover.HHNumber = formatHHNumberAndHHLevel(objCover.HHNumber, 3);
     objCover.HHLevel = formatHHNumberAndHHLevel(objCover.HHLevel, 4);
-    await houseHoldApi.addHouseHold(objCover).then((res) => {
+    await houseHoldApi.addHouseHold(objCover, `Add New HouseHold`).then((res) => {
       if (res.data.Status) {
         setLoading(false);
         if (res.data.Messages === "Household Code already exists") {

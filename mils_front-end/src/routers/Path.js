@@ -61,10 +61,13 @@ export const PATH = {
   LIST_OF_SAFETY_AREA: "/datadictionary/listofsafetyarea",
   EROLLMENT: "/cctprogram/enrollment",
   PMTSCORE: "/cctprogram/pmtscore",
-  EROLLMENT_AUTO_FROM_PMT_RESULT:"/cctprogram/enrollautofrompmtresult",
+  EROLLMENT_AUTO_FROM_PMT_RESULT: "/cctprogram/enrollautofrompmtresult",
   CCT_CONFIRM_STATUS: "/datadictionary/cctconfirmstatus",
   ENROLL_ON_DEMAND: "/cctprogram/enrollondemand",
   GENERATION_OF_PMT_SCORE_CARD: "/householdmanagement/generationofpmtscorecard",
+  CERTIFIES_LIST_OF_THE_BENEFICIARIES:
+    "/cctprogram/certifieslistofthebeneficiaries",
+  USER_TRACKING_LOG: "/system/usertrackinglog",
 };
 
 export const PATH_BREADCRUM = {
@@ -88,8 +91,10 @@ export const PATH_BREADCRUM = {
   permissionmanagement: "/system/roleManagement/permissionmanagement",
   addhousehold: "/householdmanagement/householdregistration/addhousehold",
   updatehousehold: "/householdmanagement/householdregistration/updatehousehold",
-  memberinhousehold: "/householdmanagement/householdregistration/memberinhousehold",
-  updatememberinhousehold: "/householdmanagement/householdregistration/updatememberhousehold",
+  memberinhousehold:
+    "/householdmanagement/householdregistration/memberinhousehold",
+  updatememberinhousehold:
+    "/householdmanagement/householdregistration/updatememberhousehold",
   householdregistration: "/householdmanagement/householdregistration",
   listofprovince: "/datadictionary/listofprovince",
   listofdistrict: "/datadictionary/listofdistrict",
@@ -126,7 +131,10 @@ export const PATH_BREADCRUM = {
   cctconfirmstatus: "/datadictionary/cctconfirmstatus",
   enrollment: "/cctprogram/enrollment",
   pmtscore: "/cctprogram/pmtscore",
-  enrollautofrompmtresult:"/cctprogram/enrollautofrompmtresult",
+  enrollautofrompmtresult: "/cctprogram/enrollautofrompmtresult",
   enrollondemand: "/cctprogram/enrollondemand",
   generationofpmtscorecard: "/householdmanagement/generationofpmtscorecard",
+  certifieslistofthebeneficiaries:
+    "/cctprogram/certifieslistofthebeneficiaries",
+  usertrackinglog: "/system/usertrackinglog",
 };

@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertSchoolEnroll(value)
+      .InsertSchoolEnroll(
+        value,
+        `Insert New School Enroll [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -53,7 +56,10 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateSchoolEnroll(value)
+      .UpdateSchoolEnroll(
+        value,
+        `Update School Enroll [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -106,7 +112,11 @@ function ModaItem(props) {
       }}
       forceRender
     >
-      <Form id="form-schoolEnroll-management" form={form} onFinish={handleSubmit}>
+      <Form
+        id="form-schoolEnroll-management"
+        form={form}
+        onFinish={handleSubmit}
+      >
         <div>
           <span>{t("schoolEnrollId")}</span>
           <span style={{ paddingLeft: "3px", color: "red" }}>*</span>

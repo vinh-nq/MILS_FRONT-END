@@ -98,7 +98,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertVillage(value)
+      .InsertVillage(
+        value,
+        `Insert New Village [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -119,7 +122,10 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateVillage(value)
+      .UpdateVillage(
+        value,
+        `Update Village [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -246,10 +252,7 @@ function ModaItem(props) {
             },
           ]}
         >
-          <Select
-            placeholder="Select district"
-            disabled={checkDisable}
-          >
+          <Select placeholder="Select district" disabled={checkDisable}>
             {listDistrict.map((el) => (
               <Select.Option value={el.DistrictId} key={el.DistrictId}>
                 {dataLanguage === "la" ? el.DistrictName : el.DistrictNameEng}
