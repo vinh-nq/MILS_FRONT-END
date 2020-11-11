@@ -61,6 +61,7 @@ function EnergyUsedComponent(props) {
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             Drinking water facility during dry season
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["WaterAndPermanentEnergyBeneficiary", "WaterDryId"]}
@@ -80,6 +81,7 @@ function EnergyUsedComponent(props) {
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             Drinking water facility during rainy
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["WaterAndPermanentEnergyBeneficiary", "WaterId"]}
@@ -101,6 +103,7 @@ function EnergyUsedComponent(props) {
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             Main source for cooking
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["WaterAndPermanentEnergyBeneficiary", "CookingSourceId"]}
@@ -118,6 +121,7 @@ function EnergyUsedComponent(props) {
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             Main source of energy for lighting
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["WaterAndPermanentEnergyBeneficiary", "EnergySourceId"]}
@@ -137,7 +141,10 @@ function EnergyUsedComponent(props) {
       </Row>
       <Row className="mb-2" gutter={16}>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">Type of toilet</Text>
+          <Text className="font-13 font-weight-500">
+            Type of toilet
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={["WaterAndPermanentEnergyBeneficiary", "ToiletTypeId"]}
             className="mb-0"

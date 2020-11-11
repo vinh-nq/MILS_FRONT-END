@@ -6,13 +6,13 @@ import {
   Input,
   Menu,
   Pagination,
+  Modal,
   Row,
   Select,
   Table,
   Typography,
+  message,
 } from "antd";
-import PlusSquareOutlined from "@ant-design/icons/lib/icons/PlusSquareOutlined";
-import SearchOutlined from "@ant-design/icons/lib/icons/SearchOutlined";
 import HouseHoldMemberList from "./component/HHMemberList";
 import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../../api/houseHoldApi";
@@ -27,8 +27,11 @@ import {
   UserOutlined,
   InfoCircleOutlined,
   BankOutlined,
+  EllipsisOutlined,
+  DeleteOutlined,
+  PlusSquareOutlined,
+  SearchOutlined,
 } from "@ant-design/icons/lib/icons";
-import EllipsisOutlined from "@ant-design/icons/lib/icons/EllipsisOutlined";
 
 function ManageAssessment(props) {
   const [visibleMemberList, setVisibleMemberList] = useState(false);
@@ -54,6 +57,11 @@ function ManageAssessment(props) {
   //get member in household state
   const [memberInHouseHold, setMemberInHouseHold] = useState([]);
   const [plotLandInHouseHold, setPlotLandInHouseHold] = useState([]);
+
+  //delete member in household
+  const [hhCode, setHHCode] = useState("");
+
+  const confirm = Modal.confirm;
 
   const { Option } = Select;
   const { Text } = Typography;
@@ -175,6 +183,18 @@ function ManageAssessment(props) {
             >
               {t("DESCRIPTION")}
             </Menu.Item>
+            <Menu.Item
+              key="4"
+              icon={
+                <DeleteOutlined className="ant--icon__middle text-danger" />
+              }
+              onClick={() => {
+                setHHCode(record.HHCode);
+                showConfirm();
+              }}
+            >
+              <span className="text-danger">{t("DELETE")}</span>
+            </Menu.Item>
           </Menu>
         );
         return (
@@ -209,7 +229,7 @@ function ManageAssessment(props) {
   };
 
   //Lấy dữ liêu từ URL và check
-  const checkDataFromUrl = () => {
+  const getDataFromUrl = () => {
     let pageUrl = getValueOfQueryParams(history.location, "page", "PAGE");
     let provinceId = getValueOfQueryParams(
       history.location,
@@ -238,6 +258,30 @@ function ManageAssessment(props) {
       "headName",
       "KEYWORD"
     );
+
+    return {
+      pageUrl,
+      provinceId,
+      districtId,
+      villageId,
+      unitId,
+      child,
+      pregnant,
+      headName,
+    };
+  };
+
+  const checkDataFromUrl = () => {
+    const {
+      pageUrl,
+      provinceId,
+      districtId,
+      villageId,
+      unitId,
+      child,
+      pregnant,
+      headName,
+    } = getDataFromUrl();
     setSelectedProvince(provinceId);
     setSelectedDistrict(districtId);
     setSelectedVillage(villageId);
@@ -245,6 +289,7 @@ function ManageAssessment(props) {
     setSelectChildren(parseInt(child));
     setSelectPregnant(parseInt(pregnant));
     setHeadName(headName);
+    setPage(pageUrl);
     return {
       currentPage: pageUrl,
       provinceId: provinceId,
@@ -318,12 +363,6 @@ function ManageAssessment(props) {
     return houseHoldApi.getAllUnit({ villageId });
   };
 
-  // const getProvince = async () => {
-  //     await houseHoldApi.getAllProvince().then((res) => {
-  //         setProvince(res.data.Data);
-  //     });
-  // };
-
   const getDistrict = async (provinceId) => {
     await houseHoldApi.getAllDistrict({ provinceId }).then((res) => {
       setDistrict(res.data.Data);
@@ -366,6 +405,31 @@ function ManageAssessment(props) {
   const showModalMemberInHouseHold = async (id) => {
     await getMemberInHouseHold(id);
     setVisibleMemberList(true);
+  };
+
+  const showConfirm = () => {
+    confirm({
+      title: "Do you want to delete these items?",
+      okText: t("DELETE"),
+      onOk: () => {
+        handleDeleteHouseHold();
+      },
+      onCancel: () => {},
+    });
+  };
+
+  const handleDeleteHouseHold = async () => {
+    await houseHoldApi.deleteHouseHold({ householdId: hhCode }).then((res) => {
+      if (res.data.Status) {
+        reloadApi();
+      } else {
+        message.error({
+          content: t("DELETE_FAILED"),
+          key: "message-form-role",
+          duration: 1,
+        });
+      }
+    });
   };
 
   const onSearchChange = () => {
@@ -425,19 +489,66 @@ function ManageAssessment(props) {
 
   const onPageChange = (currentPage) => {
     setPage(currentPage);
+    const {
+      provinceId,
+      districtId,
+      villageId,
+      unitId,
+      child,
+      pregnant,
+      headName,
+    } = getDataFromUrl();
     history.push(
-      `/householdmanagement/householdregistration?page=${currentPage}&provinceId=${selectedProvince}&districtId=${selectedDistrict}&villageId=${selectedVillage}&unitId=${selectedUnit}&child=${selectChildren}&pregnant=${selectPregnant}&headName=${headName}`
+      `/householdmanagement/householdregistration?page=${currentPage}&provinceId=${provinceId}&districtId=${districtId}&villageId=${villageId}&unitId=${unitId}&child=${child}&pregnant=${pregnant}&headName=${headName}`
     );
     getDataHouseHold({
-      provinceId: selectedProvince,
-      districtId: selectedDistrict,
-      villageId: selectedVillage,
-      unitId: selectedUnit,
-      child: selectChildren,
-      pregnant: selectPregnant,
+      provinceId: provinceId,
+      districtId: districtId,
+      villageId: villageId,
+      unitId: unitId,
+      child: child,
+      pregnant: pregnant,
       headName: headName,
       currentPage: currentPage,
     });
+  };
+
+  const reloadApi = async () => {
+    const {
+      pageUrl,
+      provinceId,
+      districtId,
+      villageId,
+      unitId,
+      child,
+      pregnant,
+      headName,
+    } = getDataFromUrl();
+    setLoading(true);
+    await houseHoldApi
+      .searchHouseHold({
+        provinceId: provinceId,
+        districtId: districtId,
+        villageId: villageId,
+        unitId: unitId,
+        child: child,
+        pregnant: pregnant,
+        headName: headName,
+        currentPage: pageUrl,
+      })
+      .then((res) => {
+        if (res.data.Status) {
+          setData(res.data.Data.houseHoldViewModels);
+          setTotalPage(res.data.Data.TotalPage);
+        } else {
+          message.error({
+            content: t("FETCH_DATA_FAILED"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      });
+    setLoading(false);
   };
 
   const renderProvinceSelect = () => {
@@ -613,6 +724,11 @@ function ManageAssessment(props) {
               value={headName}
               onChange={(e) => {
                 setHeadName(e.target.value);
+              }}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  onSearchChange();
+                }
               }}
             />
           </Col>

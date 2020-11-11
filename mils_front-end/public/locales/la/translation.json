@@ -166,6 +166,8 @@
   "ADEQUATE_AGRICULTURAL_EQUIPMENT": "ມີອຸປະກອນກ່ຽວກັບກະສິກໍາພຽງພໍ",
   "ADEQUATE_PRODUCTION_LAND": "ມີທີ່ດິນທຳການຜະລິດພຽງພໍ",
 
+  "HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING": "ມີຊັບສິນ ແລະ ເຄື່ອງໃຊ້ຕ່າງໆ ທີ່ຈຳເປັນສຳລັບການດຳລົງຊິວິດ ແລະ ທຳມາຫາກິນ",
+
   "7.4": "7.4",
   "HAVE_STABLE_OCCUPATION_AND_INCOME": "ມີແຮງງານ ແລະ ອາຊີບ ຫຼືແຫ່ງລາຍຮັບທີ່ໝັ້ນຄົງ",
   "DURING_RAINING": "ແຫຼ່ງນໍ້າຕົ້ນຕໍທີ່ນຳໃຊ້ ໃນລະດູຝົນ",
@@ -357,6 +359,13 @@
   "SIGNATURE": "Signature",
   "INPUT": "Input",
   "PROVINCE_EMPTY": "Province is empty",
+  "CLASS_OF": "Class of",
+  "UPDATEMEMBERHOUSEHOLD": "Update member household",
+  "EMPTY": "Empty",
+  "ROOF_SAFETY_AREA": "Roof safety area",
+  "CODE_DUPLICATE": "Code is duplicate",
+  "DELETE": "Delete",
+  "CANCEL": "Cancel",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

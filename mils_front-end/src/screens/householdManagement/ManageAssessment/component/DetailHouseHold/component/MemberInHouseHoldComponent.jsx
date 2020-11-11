@@ -41,6 +41,7 @@ function MemberInHouseHold(props) {
   const [schoolEnroll, setSchoolEnroll] = useState([]);
   const [hh_code, setHHCode] = useState("");
 
+  const [disabilities, setDisabilities] = useState(true);
   const [isLoading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const { Option } = Select;
@@ -65,10 +66,11 @@ function MemberInHouseHold(props) {
         await houseHoldApi
           .getInformationOfIndividualMember({ memberId: memberId })
           .then((res) => {
-            const { DateOfBirth } = res.data.Data;
+            const { DateOfBirth, Disability } = res.data.Data;
             res.data.Data.DateOfBirth = DateOfBirth
               ? moment(DateOfBirth, "DD-MM-YYYY")
               : undefined;
+            setDisabilities(Disability);
             setDetailMember(res.data.Data);
             form.setFieldsValue(res.data.Data);
           });
@@ -275,9 +277,14 @@ function MemberInHouseHold(props) {
     getAllSchoolEnroll();
   }, [t]);
 
+  const disabledDate = (current) => {
+    return current > moment();
+  };
+
   const handleAdd = async (value) => {
     setLoading(true);
     value.HHCode = hh_code;
+    value.DisabilityTypeId = value.Disability ? value.DisabilityTypeId : "";
     await houseHoldApi.addMember(value).then((res) => {
       if (res.data.Status) {
         setLoading(false);
@@ -305,6 +312,7 @@ function MemberInHouseHold(props) {
       ...value,
     };
     objCover.DateOfBirth = moment(value.DateOfBirth).format();
+    value.DisabilityTypeId = value.Disability ? value.DisabilityTypeId : "";
     await houseHoldApi.updateMember(objCover).then((res) => {
       if (res.data.Status) {
         setLoading(false);
@@ -313,7 +321,6 @@ function MemberInHouseHold(props) {
           key: "message-form-role",
           duration: 1,
         });
-        history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${detailMember.HHCode}`);
       } else {
         setLoading(false);
         message.error({
@@ -383,7 +390,10 @@ function MemberInHouseHold(props) {
       </div>
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">{t("MEMBER_NAME")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("MEMBER_NAME")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={"MemberName"}
             className="mb-0"
@@ -400,13 +410,14 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input
-              placeholder={`${t("INPUT")} ${t("MEMBER_NAME").toLowerCase()}`}
-            />
+            <Input />
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">{t("MARITAL_STATUS")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("MARITAL_STATUS")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={"MaritalStatusId"}
             className="mb-0"
@@ -424,7 +435,8 @@ function MemberInHouseHold(props) {
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("RELATION_TO_HOUSEHOLD")}
+            {t("RELATION_TO_HOUSEHOLD")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"RelationHouseHoldId"}
@@ -440,7 +452,10 @@ function MemberInHouseHold(props) {
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">{t("GENDER")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("GENDER")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={"GenderId"}
             className="mb-0"
@@ -457,7 +472,10 @@ function MemberInHouseHold(props) {
       </Row>
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">{t("DATE_OF_BIRTH")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("DATE_OF_BIRTH")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={"DateOfBirth"}
             className="mb-0"
@@ -468,11 +486,14 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <DatePicker className="w-100" />
+            <DatePicker className="w-100" disabledDate={disabledDate} />
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">{t("AGE")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("AGE")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={"Age"}
             className="mb-0"
@@ -489,13 +510,16 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input placeholder={`${t("INPUT")} ${t("AGE").toLowerCase()}`} />
+            <Input />
           </Form.Item>
         </Col>
       </Row>
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">{t("ETHNIC_ORIGIN")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("ETHNIC_ORIGIN")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={"TribesId"}
             className="mb-0"
@@ -528,7 +552,8 @@ function MemberInHouseHold(props) {
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("ARE_YOU_CURRENTLY_STUDYING")}
+            {t("ARE_YOU_CURRENTLY_STUDYING")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"CurrentlyStudyingId"}
@@ -547,7 +572,8 @@ function MemberInHouseHold(props) {
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")}
+            {t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"MemberLevelId"}
@@ -568,7 +594,8 @@ function MemberInHouseHold(props) {
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("CURRENT_YEAR_LEVEL_OF_EDUCATION")}
+            {t("CURRENT_YEAR_LEVEL_OF_EDUCATION")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"LevelAndClassAreEnrolledId"}
@@ -586,7 +613,10 @@ function MemberInHouseHold(props) {
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">{t("KINDERGARTEN")}</Text>
+          <Text className="font-13 font-weight-500">
+            {`${t("CLASS_OF")} ${t("KINDERGARTEN").toLowerCase()}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={"Kindergarten"}
             className="mb-0"
@@ -603,15 +633,16 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input
-              placeholder={`${t("INPUT")} ${t("KINDERGARTEN").toLowerCase()}`}
-            />
+            <Input />
           </Form.Item>
         </Col>
       </Row>
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">{t("PRIMARY")}</Text>
+          <Text className="font-13 font-weight-500">
+            {`${t("CLASS_OF")} ${t("PRIMARY").toLowerCase()}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={"Primary"}
             className="mb-0"
@@ -628,14 +659,13 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input
-              placeholder={`${t("INPUT")} ${t("PRIMARY").toLowerCase()}`}
-            />
+            <Input />
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("LOWER_SECONDARY")}
+            {`${t("CLASS_OF")} ${t("LOWER_SECONDARY").toLowerCase()}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"LowerSecondary"}
@@ -653,18 +683,15 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input
-              placeholder={`${t("INPUT")} ${t(
-                "LOWER_SECONDARY"
-              ).toLowerCase()}`}
-            />
+            <Input />
           </Form.Item>
         </Col>
       </Row>
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("UPPER_SECONDARY")}
+            {`${t("CLASS_OF")} ${t("UPPER_SECONDARY").toLowerCase()}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"UpperSecondary"}
@@ -682,16 +709,13 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input
-              placeholder={`${t("INPUT")} ${t(
-                "UPPER_SECONDARY"
-              ).toLowerCase()}`}
-            />
+            <Input />
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("VOCATIONAL_SCHOOL")}
+            {`${t("CLASS_OF")} ${t("VOCATIONAL_SCHOOL").toLowerCase()}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"VocationalSchool"}
@@ -713,18 +737,15 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input
-              placeholder={`${t("INPUT")} ${t(
-                "VOCATIONAL_SCHOOL"
-              ).toLowerCase()}`}
-            />
+            <Input />
           </Form.Item>
         </Col>
       </Row>
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("UNIVERSITY_INSTITUTE")}
+            {`${t("CLASS_OF")} ${t("UNIVERSITY_INSTITUTE").toLowerCase()}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"UniversityInstitute"}
@@ -746,16 +767,15 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Input
-              placeholder={`${t("INPUT")} ${t(
-                "UNIVERSITY_INSTITUTE"
-              ).toLowerCase()}`}
-            />
+            <Input />
           </Form.Item>
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING")}
+            {`${t("CLASS_OF")} ${t(
+              "WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING"
+            ).toLowerCase()}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"HHSchoolTypeId"}
@@ -776,7 +796,8 @@ function MemberInHouseHold(props) {
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("HIGHER_EDUCATION_IS_GRADUATED")}
+            {t("HIGHER_EDUCATION_IS_GRADUATED")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"HHLevelClassCompleted"}
@@ -844,7 +865,8 @@ function MemberInHouseHold(props) {
       <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("MAINTAIN_THE_MAIN_WORK_YOU_DID_DURING_THE_LAST_7_DAYS")}
+            {t("MAINTAIN_THE_MAIN_WORK_YOU_DID_DURING_THE_LAST_7_DAYS")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"MainJobId"}
@@ -871,7 +893,8 @@ function MemberInHouseHold(props) {
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {t("WHAT_IS_YOUR_MAIN_JOB")}
+            {t("WHAT_IS_YOUR_MAIN_JOB")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={"MainGoodId"}
@@ -921,8 +944,47 @@ function MemberInHouseHold(props) {
           </Form.Item>
         </Col>
       </Row>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} lg={12}>
+      <Row className="mb-2" gutter={[16, 10]}>
+        <Col md={24} lg={12} xl={12}>
+          <Text className="font-13 font-weight-500">
+            {t("HAVE_A_PHYSICAL_DISORDER")}
+          </Text>
+          <Form.Item name={"Disability"} className="mb-0" initialValue={true}>
+            <Select
+              value={disabilities}
+              onChange={(value) => {
+                form.setFieldsValue({ DisabilityTypeId: "" });
+                setDisabilities(value);
+              }}
+            >
+              <Option value={true}>{t("YES")}</Option>
+              <Option value={false}>{t("NO")}</Option>
+            </Select>
+          </Form.Item>
+        </Col>
+        {disabilities ? (
+          <Col md={24} lg={12} xl={12}>
+            <Text className="font-13 font-weight-500">
+              {t("INDICATE_THE_TYPE_OF_DEFECT")}{" "}
+              <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+            </Text>
+            <Form.Item
+              name={"DisabilityTypeId"}
+              className="mb-0"
+              rules={[
+                {
+                  required: true,
+                  message: `${t("INDICATE_THE_TYPE_OF_DEFECT")} ${t(
+                    "is_not_empty"
+                  )}`,
+                },
+              ]}
+            >
+              <Select>{renderSelect(disability)}</Select>
+            </Form.Item>
+          </Col>
+        ) : null}
+        <Col md={24} lg={12} xl={12}>
           <Text className="font-13 font-weight-500">
             {t("ARE_YOU_PREGNANT")}
           </Text>
@@ -931,38 +993,6 @@ function MemberInHouseHold(props) {
               <Option value={true}>Pregnant</Option>
               <Option value={false}>Not Pregnant</Option>
             </Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("HAVE_A_PHYSICAL_DISORDER")}
-          </Text>
-          <Form.Item name={"Disability"} className="mb-0" initialValue={true}>
-            <Select>
-              <Option value={true}>{t("YES")}</Option>
-              <Option value={false}>{t("NO")}</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("INDICATE_THE_TYPE_OF_DEFECT")}
-          </Text>
-          <Form.Item
-            name={"DisabilityTypeId"}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("INDICATE_THE_TYPE_OF_DEFECT")} ${t(
-                  "is_not_empty"
-                )}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(disability)}</Select>
           </Form.Item>
         </Col>
       </Row>

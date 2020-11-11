@@ -57,18 +57,24 @@ function HouseHoldMemberList(props) {
       title: t("MEMBER_NAME"),
       dataIndex: "MemberName",
       key: "MemberName",
-      render: (data) => <span>{data}</span>,
+      render: (data) => (
+        <div style={{ minWidth: 120 }}>
+          <span>{data}</span>
+        </div>
+      ),
     },
     {
       title: t("MARITAL_STATUS"),
       dataIndex: "maritalStatus",
       key: "maritalStatus",
       render: (data, record) => (
-        <span>
-          {dataLanguage === "la"
-            ? record.MaritalStatus
-            : record.MaritalStatusEng}
-        </span>
+        <div style={{ minWidth: 100 }}>
+          <span>
+            {dataLanguage === "la"
+              ? record.MaritalStatus
+              : record.MaritalStatusEng}
+          </span>
+        </div>
       ),
     },
     {
@@ -76,11 +82,13 @@ function HouseHoldMemberList(props) {
       dataIndex: "RelationToHosueHold",
       key: "RelationToHosueHold",
       render: (data, record) => (
-        <span>
-          {dataLanguage === "la"
-            ? record.RelationToHosueHold
-            : record.RelationToHosueHoldEng}
-        </span>
+        <div style={{ minWidth: 100 }}>
+          <span>
+            {dataLanguage === "la"
+              ? record.RelationToHosueHold
+              : record.RelationToHosueHoldEng}
+          </span>
+        </div>
       ),
     },
     {
@@ -88,13 +96,22 @@ function HouseHoldMemberList(props) {
       dataIndex: "gender",
       key: "gender",
       render: (data, record) => (
-        <span>{dataLanguage === "la" ? record.Gender : record.GenderEng}</span>
+        <div style={{ minWidth: 100 }}>
+          <span>
+            {dataLanguage === "la" ? record.Gender : record.GenderEng}
+          </span>
+        </div>
       ),
     },
     {
       title: t("DOB"),
       dataIndex: "DateOfBirth",
       key: "DateOfBirth",
+      render: (data) => (
+        <div style={{ minWidth: 80 }}>
+          <span>{data}</span>
+        </div>
+      ),
     },
     {
       title: t("AGE"),
@@ -106,7 +123,11 @@ function HouseHoldMemberList(props) {
       dataIndex: "Pregnant",
       key: "Pregnant",
       align: "center",
-      render: (data, record) => <span>{record.Pregnant ? "Yes" : "No"}</span>,
+      render: (data, record) => (
+        <div style={{ minWidth: 80 }}>
+          <span>{record.Pregnant ? "Yes" : "No"}</span>
+        </div>
+      ),
     },
     {
       title: t("VIEW_DETAIL"),

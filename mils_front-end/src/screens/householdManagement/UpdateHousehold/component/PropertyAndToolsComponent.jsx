@@ -47,7 +47,10 @@ function PropertyAndToolsComponent() {
       {/*1-2*/}
       <Row className="mb-2" gutter={16}>
         <Col className="mb-2" span={24}>
-          <Text className="font-13 font-weight-500">{t("UNDER_14_YEARS")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("UNDER_14_YEARS")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "TotalBellow_14"]}
             className="mb-0"
@@ -73,7 +76,10 @@ function PropertyAndToolsComponent() {
           </Form.Item>
         </Col>
         <Col className="mb-2" span={24}>
-          <Text className="font-13 font-weight-500">{t("BETWEEN_15-60")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("BETWEEN_15-60")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "TotalBetween_15_60"]}
             className="mb-0"
@@ -97,7 +103,10 @@ function PropertyAndToolsComponent() {
       {/*3-4*/}
       <Row className="mb-2" gutter={16}>
         <Col className="mb-2" span={24}>
-          <Text className="font-13 font-weight-500">{t("OVER_60")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("OVER_60")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "TotalAbove_60"]}
             className="mb-0"
@@ -120,6 +129,7 @@ function PropertyAndToolsComponent() {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("WORKING_GROUPS_OF_REGULAR_FAMILY_MEMBERS")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "MainJobId"]}
@@ -150,6 +160,7 @@ function PropertyAndToolsComponent() {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("MAIN_OCCUPATIONS_OF_MOST_FAMILY_MEMBERS")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "MainGoodsId"]}
@@ -204,7 +215,10 @@ function PropertyAndToolsComponent() {
           </Form.Item>
         </Col>
         <Col className="mb-2" span={24}>
-          <Text className="font-13 font-weight-500">{t("TYPE_OF_LENDER")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("TYPE_OF_LENDER")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "TypeOfLenderId"]}
             className="mb-0"
@@ -224,6 +238,7 @@ function PropertyAndToolsComponent() {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("WHY_FAMILY_MEMBERS_BORROW_MONEY")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "BorrowingReasonId"]}
@@ -274,6 +289,7 @@ function PropertyAndToolsComponent() {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("SPECIFY_THE_NUMBER_OF_PLOTS")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "NumberPlots"]}
@@ -305,6 +321,7 @@ function PropertyAndToolsComponent() {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("NUMBER_OF_RELATED_PLOTS")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "PlotRepeatCount"]}
@@ -348,6 +365,7 @@ function PropertyAndToolsComponent() {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("LOWER_SECONDARY_EDUCATION")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "CompletedPrimarySchool"]}

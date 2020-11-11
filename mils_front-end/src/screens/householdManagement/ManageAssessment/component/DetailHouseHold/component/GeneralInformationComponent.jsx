@@ -55,33 +55,45 @@ function GeneralInformationComponent(props) {
       </Col>
       <Col span={24} md={12}>
         <span className="font-weight-500">{t("UPLOAD_IMAGE")}</span>:{" "}
-        <Image
-          className="ml-2 pointer detail-hh-image"
-          width={40}
-          height={40}
-          src={`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`}
-          alt={t("NOT_FOUND")}
-        />
+        {GeneralInformationBeneficiary.ImageUrl ? (
+          <Image
+            className="ml-2 pointer detail-hh-image"
+            width={40}
+            height={40}
+            src={`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`}
+            alt={t("NOT_FOUND")}
+          />
+        ) : (
+          t("EMPTY")
+        )}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("SIGNNATURE")}</span>:{" "}
-        <Image
-          className="ml-2 pointer detail-hh-image"
-          width={40}
-          height={40}
-          src={`${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`}
-          alt={t("NOT_FOUND")}
-        />
+        <span className="font-weight-500">{t("SIGNATURE")}</span>:{" "}
+        {GeneralInformationBeneficiary.EnumSignImage ? (
+          <Image
+            className="ml-2 pointer detail-hh-image"
+            width={40}
+            height={40}
+            src={`${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`}
+            alt={t("NOT_FOUND")}
+          />
+        ) : (
+          t("EMPTY")
+        )}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("SIGNNATURE")}</span>:{" "}
-        <Image
-          className="ml-2 pointer detail-hh-image"
-          width={40}
-          height={40}
-          src={`${API_URL}${GeneralInformationBeneficiary.RespSignImage}`}
-          alt={t("NOT_FOUND")}
-        />
+        <span className="font-weight-500">{t("SIGNATURE")}</span>:{" "}
+        {GeneralInformationBeneficiary.RespSignImage ? (
+          <Image
+            className="ml-2 pointer detail-hh-image"
+            width={40}
+            height={40}
+            src={`${API_URL}${GeneralInformationBeneficiary.RespSignImage}`}
+            alt={t("NOT_FOUND")}
+          />
+        ) : (
+          t("EMPTY")
+        )}
       </Col>
     </Row>
   );

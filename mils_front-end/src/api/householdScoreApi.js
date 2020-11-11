@@ -1,10 +1,10 @@
 import { fetchData } from "./config/fetchApi";
 
-const houseHoldScoreApi = {
+const householdScoreApi = {
   getAllHouseholdScore: () => {
     const url = "api/HouseHoldCCT/GetPMTScored";
     return fetchData(url, "GET", null, null);
   },
 };
 
-export default houseHoldScoreApi;
+export default householdScoreApi;

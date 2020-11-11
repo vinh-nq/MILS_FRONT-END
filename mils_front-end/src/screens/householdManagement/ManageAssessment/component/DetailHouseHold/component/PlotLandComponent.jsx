@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import dataDictionaryApi from "../../../../../../api/dataDictionaryApi";
 import { useSelector } from "react-redux";
 import plotLandApi from "../../../../../../api/plotLandApi";
+import Text from "antd/es/typography/Text";
 
 const defaultObject = {
   PlotLandId: "",
@@ -42,7 +43,15 @@ const defaultObject = {
 };
 
 function PlotLandComponent(props) {
-  const { typeModal, visible, setVisible, objectValue, HHCode, detailHouseHold, setDetailHouseHold } = props;
+  const {
+    typeModal,
+    visible,
+    setVisible,
+    objectValue,
+    HHCode,
+    detailHouseHold,
+    setDetailHouseHold,
+  } = props;
   const [ownedLeased, setOwnedLeased] = useState([]);
   const [kindLand, setKindLand] = useState([]);
   const [causePlot, setCausePlot] = useState([]);
@@ -56,7 +65,6 @@ function PlotLandComponent(props) {
   const dataLanguage =
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
     localStorage.getItem("i18nextLng");
-
 
   useEffect(() => {
     if (typeModal === "UPDATE") {
@@ -134,8 +142,6 @@ function PlotLandComponent(props) {
     getTypeOfLand();
   }, [t]);
 
-
-
   const handleCloseModal = () => {
     setVisible(false);
     form.resetFields();
@@ -153,7 +159,7 @@ function PlotLandComponent(props) {
           key: "message-form-role",
           duration: 1,
         });
-        const plotLandArray = {...detailHouseHold};
+        const plotLandArray = { ...detailHouseHold };
         plotLandArray.PlotLands = res.data.Data;
         setDetailHouseHold(plotLandArray);
       } else {
@@ -180,7 +186,7 @@ function PlotLandComponent(props) {
           key: "message-form-role",
           duration: 1,
         });
-        const plotLandArray = {...detailHouseHold};
+        const plotLandArray = { ...detailHouseHold };
         plotLandArray.PlotLands = res.data.Data;
         setDetailHouseHold(plotLandArray);
       } else {
@@ -231,7 +237,10 @@ function PlotLandComponent(props) {
         >
           <Row className="mb-2" gutter={16}>
             <Col span={24}>
-              <Text className="font-13 font-weight-500">Plot ID:</Text>
+              <Text className="font-13 font-weight-500">
+                {t("PLOT_ID")}
+                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+              </Text>
               <Form.Item
                 name={"PlotId"}
                 className="mb-0"
@@ -258,7 +267,10 @@ function PlotLandComponent(props) {
           </Row>
           <Row className="mb-2" gutter={16}>
             <Col span={24} md={12}>
-              <Text className="font-13 font-weight-500">Name of plot</Text>
+              <Text className="font-13 font-weight-500">
+                {t("NAME_OF_PLOT")}
+                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+              </Text>
               <Form.Item
                 name={"NameOfPlot"}
                 className="mb-0"
@@ -283,7 +295,10 @@ function PlotLandComponent(props) {
               </Form.Item>
             </Col>
             <Col span={24} md={12}>
-              <Text className="font-13 font-weight-500">No of plot</Text>
+              <Text className="font-13 font-weight-500">
+                {t("NO_OF_PLOT")}
+                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+              </Text>
               <Form.Item
                 name={"NoOfPlot"}
                 className="mb-0"
@@ -311,7 +326,10 @@ function PlotLandComponent(props) {
           </Row>
           <Row className="mb-2" gutter={16}>
             <Col span={24} md={12}>
-              <Text className="font-13 font-weight-500">Owned or leased</Text>
+              <Text className="font-13 font-weight-500">
+                {t("OWNED_OR_LEASED")}
+                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+              </Text>
               <Form.Item
                 name={"OwnedOrLeasedId"}
                 className="mb-0"
@@ -326,7 +344,10 @@ function PlotLandComponent(props) {
               </Form.Item>
             </Col>
             <Col span={24} md={12}>
-              <Text className="font-13 font-weight-500">Kind of land</Text>
+              <Text className="font-13 font-weight-500">
+                {t("KIND_OF_LAND")}
+                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+              </Text>
               <Form.Item
                 name={"KindOfLandId"}
                 className="mb-0"
@@ -343,7 +364,10 @@ function PlotLandComponent(props) {
           </Row>
           <Row className="mb-2" gutter={16}>
             <Col span={24} md={12}>
-              <Text className="font-13 font-weight-500">Cause of plot</Text>
+              <Text className="font-13 font-weight-500">
+                {t("CAUSE_OF_PLOT")}{" "}
+                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+              </Text>
               <Form.Item
                 name={"CauseOfPlotId"}
                 className="mb-0"
@@ -358,7 +382,10 @@ function PlotLandComponent(props) {
               </Form.Item>
             </Col>
             <Col span={24} md={12}>
-              <Text className="font-13 font-weight-500">Type of land</Text>
+              <Text className="font-13 font-weight-500">
+                {t("TYPE_OF_LAND")}
+                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+              </Text>
               <Form.Item
                 name={"TypeOfLandId"}
                 className="mb-0"

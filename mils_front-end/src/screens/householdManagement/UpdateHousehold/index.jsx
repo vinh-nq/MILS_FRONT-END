@@ -59,12 +59,20 @@ function UpdateHousehold(props) {
             res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration
               ? moment(DateOfEnumeration, "DD-MM-YYYY")
               : undefined;
-            setImageUrl(`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`);
+            setImageUrl(
+              GeneralInformationBeneficiary.ImageUrl
+                ? `${API_URL}${GeneralInformationBeneficiary.ImageUrl}`
+                : ""
+            );
             setEnumSignImage(
-              `${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`
+              GeneralInformationBeneficiary.EnumSignImage
+                ? `${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`
+                : ""
             );
             setRespSignImage(
-              `${API_URL}${GeneralInformationBeneficiary.RespSignImage}`
+              GeneralInformationBeneficiary.RespSignImage
+                ? `${API_URL}${GeneralInformationBeneficiary.RespSignImage}`
+                : ""
             );
             setDetailHouseHold(res.data.Data);
             form.setFieldsValue(res.data.Data);
@@ -115,18 +123,26 @@ function UpdateHousehold(props) {
     await houseHoldApi.addHouseHold(objCover).then((res) => {
       if (res.data.Status) {
         setLoading(false);
-        form.resetFields();
-        setEnumSignImage("");
-        setRespSignImage("");
-        setImageUrl("");
-        setEnumSignImageExtension("");
-        setRespSignImageExtension("");
-        setImageUrlExtension("");
-        message.success({
-          content: t("ADD_SUCCESS"),
-          key: "message-form-role",
-          duration: 1,
-        });
+        if (res.data.Messages === "Household Code already exists") {
+          message.error({
+            content: t("CODE_DUPLICATE"),
+            key: "message-form-role",
+            duration: 2,
+          });
+        } else {
+          form.resetFields();
+          setEnumSignImage("");
+          setRespSignImage("");
+          setImageUrl("");
+          setEnumSignImageExtension("");
+          setRespSignImageExtension("");
+          setImageUrlExtension("");
+          message.success({
+            content: t("ADD_SUCCESS"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
       } else {
         setLoading(false);
         message.error({
@@ -164,19 +180,27 @@ function UpdateHousehold(props) {
     await houseHoldApi.updateHouseHold(objCover).then((res) => {
       if (res.data.Status) {
         setLoading(false);
-        const {
-          DateOfEnumeration,
-        } = res.data.Data.GeneralInformationBeneficiary;
-        res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration
-          ? moment(DateOfEnumeration, "DD-MM-YYYY")
-          : undefined;
-        setDetailHouseHold(res.data.Data);
-        form.setFieldsValue(res.data.Data);
-        message.success({
-          content: t("EDIT_SUCCESS"),
-          key: "message-form-role",
-          duration: 1,
-        });
+        if (res.data.Messages === "Household Code already exists") {
+          message.error({
+            content: t("CODE_DUPLICATE"),
+            key: "message-form-role",
+            duration: 2,
+          });
+        } else {
+          const {
+            DateOfEnumeration,
+          } = res.data.Data.GeneralInformationBeneficiary;
+          res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration
+            ? moment(DateOfEnumeration, "DD-MM-YYYY")
+            : undefined;
+          setDetailHouseHold(res.data.Data);
+          form.setFieldsValue(res.data.Data);
+          message.success({
+            content: t("EDIT_SUCCESS"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
       } else {
         setLoading(false);
         message.error({
@@ -247,7 +271,14 @@ function UpdateHousehold(props) {
             <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
               I. Location
             </div>
-            <LocationComponent
+            <LocationComponent detailHouseHold={detailHouseHold} form={form} />
+          </section>
+
+          <section className="mb-3">
+            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+              II. General Information
+            </div>
+            <GeneralInformationComponent
               detailHouseHold={detailHouseHold}
               form={form}
               typeModal={typeModal}
@@ -260,16 +291,6 @@ function UpdateHousehold(props) {
               setEnumSignImageExtension={setEnumSignImageExtension}
               setRespSignImageExtension={setRespSignImageExtension}
               setImageUrlExtension={setImageUrlExtension}
-            />
-          </section>
-
-          <section className="mb-3">
-            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-              II. General Information
-            </div>
-            <GeneralInformationComponent
-              detailHouseHold={detailHouseHold}
-              form={form}
             />
           </section>
 

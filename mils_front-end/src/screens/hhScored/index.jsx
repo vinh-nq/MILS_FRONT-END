@@ -18,11 +18,10 @@ import { getValueOfQueryParams } from "../../utils/getValueOfQueryParams";
 import houseHoldApi from "../../api/houseHoldApi";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import houseHoldScoreApi from "../../api/householdScoreApi";
+import householdScoreApi from "../../api/householdScoreApi";
 import { regexTemplate } from "../../utils/regexTemplate";
 import "./style.scss";
 import {
-  LinkOutlined,
   SearchOutlined,
   OrderedListOutlined,
 } from "@ant-design/icons/lib/icons";
@@ -95,7 +94,7 @@ function HouseholdScore(props) {
   }, [history, t]);
 
   const getDataScored = () => {
-    return houseHoldScoreApi.getAllHouseholdScore();
+    return householdScoreApi.getAllHouseholdScore();
   };
 
   const setDataScored = (res) => {

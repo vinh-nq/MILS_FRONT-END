@@ -48,6 +48,7 @@ function DetailBeneficiary(props) {
     },
     zoom: 10,
   });
+
   let history = useHistory();
 
   const { t } = useTranslation();
@@ -514,8 +515,7 @@ function DetailBeneficiary(props) {
           {/*Having property and tools necessary for living and making a living*/}
           <div className="tools-indicator">
             <div className="mb-2 p-2 title-detail-household">
-              7.3 Having property and tools necessary for living and making a
-              living
+              7.3 {t("HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING")}
             </div>
 
             <ToolsForLivingComponent
