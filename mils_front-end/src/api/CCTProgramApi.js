@@ -10,7 +10,7 @@ const CCTProgramApi = {
   },
   GenPMTScored: (params) => {
     const url = "api/HouseHoldCCT/GenPMTScored";
-    return fetchDataAndLog(url, "GET", params, null, "Gender List PMT Scored");
+    return fetchDataAndLog(url, "GET", params, null, "Render List PMT Scored");
   },
   AddNewCCTConfirm: (data) => {
     const url = "api/HouseHoldCCT/AddNewCCTConfirm";
@@ -29,6 +29,16 @@ const CCTProgramApi = {
   UpdateCCTConfirm: (data, detail) => {
     const url = "api/HouseHoldCCT/UpdateCCTConfirm";
     return fetchDataAndLog(url, "POST", null, data, detail);
+  },
+  GetApprovedHouseholds: (data) => {
+    const url = "api/HouseHoldCCT/GetApprovedHouseholds";
+    return fetchDataAndLog(
+      url,
+      "GET",
+      data,
+      null,
+      "Get Approved Households List"
+    );
   },
 };
 export default CCTProgramApi;

@@ -52,6 +52,20 @@ const houseHoldApi = {
       `Update Information Household`
     );
   },
+  CheckInsertMember: (data) => {
+    const url = "api/CCTProgram/CheckInsertMember";
+    return fetchDataAndLog(
+      url,
+      "POST",
+      null,
+      data,
+      `Check Status CCT Member Of List People In HouseHold`
+    );
+  },
+  InsertMemberCCT: (data, detail) => {
+    const url = "api/CCTProgram/InsertMemberCCT";
+    return fetchDataAndLog(url, "POST", null, data, detail);
+  },
   deleteHouseHold: (params) => {
     const url = "api/HouseHold/DeleteHouseHold";
     return fetchDataAndLog(url, "GET", params, null, "Delete Household");
