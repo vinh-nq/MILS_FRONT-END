@@ -13,9 +13,14 @@ function HHMemberInfoDetail(props) {
     localStorage.getItem("i18nextLng");
   return (
     <div className="hhMemberInfo">
-      <div className="text-right mb-2">
+      <div
+        className="d-flex align-items-center p-2 font-16 font-500 text-dark"
+        style={{ backgroundColor: "#ddd" }}
+      >
+        <div>{t("INFORMATION_MEMBER_IN_HOUSEHOLD")}</div>
         <Button
           type="primary"
+          className="ml-auto"
           onClick={() => {
             setShowDetailMember(false);
           }}
@@ -23,9 +28,6 @@ function HHMemberInfoDetail(props) {
           <BackwardOutlined className="font-16 ant--icon__middle" />
           {t("BACK")}
         </Button>
-      </div>
-      <div className="bg-primary p-2 font-16 font-500 text-white">
-        {t("HOUSEHOLD_MEMBER_LIST")}
       </div>
       <Row gutter={24} className="mx-0 py-2 border-bottom">
         <Col span={12}>

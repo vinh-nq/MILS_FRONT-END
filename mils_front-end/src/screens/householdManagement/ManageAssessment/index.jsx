@@ -405,14 +405,16 @@ function ManageAssessment(props) {
   };
 
   const showConfirm = (hhCode) => {
-    confirm({
-      title: "Do you want to delete these items?",
-      okText: t("DELETE"),
-      onOk: () => {
-        handleDeleteHouseHold(hhCode);
-      },
-      onCancel: () => {},
-    });
+    setTimeout(() => {
+      confirm({
+        title: "Do you want to delete this household?",
+        okText: t("DELETE"),
+        onOk: () => {
+          handleDeleteHouseHold(hhCode);
+        },
+        onCancel: () => {},
+      });
+    }, 400);
   };
 
   const handleDeleteHouseHold = async (hhCode) => {
@@ -632,11 +634,13 @@ function ManageAssessment(props) {
             <Button
               className="set-center-content"
               type="primary"
-              icon={<PlusSquareOutlined className="font-16" />}
+              icon={<PlusSquareOutlined />}
               onClick={() => {
                 history.push(`${PATH.ADD_HOUSEHOLD}`);
               }}
-            />
+            >
+              {t("ADD")}
+            </Button>
           </span>
         </div>
       </section>

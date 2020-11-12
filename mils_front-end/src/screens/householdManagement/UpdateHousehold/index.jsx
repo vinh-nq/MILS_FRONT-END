@@ -20,7 +20,6 @@ import LocationMapComponent from "./component/LocationMapComponent";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import { PATH } from "../../../routers/Path";
 import { API_URL } from "../../../constants/config";
-import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 
 function UpdateHousehold(props) {
   const { typeModal } = props;
@@ -240,7 +239,7 @@ function UpdateHousehold(props) {
               <Button
                 className="set-center-content mr-2"
                 type="primary"
-                icon={<ArrowLeftOutlined />}
+                icon={<BackwardOutlined />}
                 onClick={() => {
                   if (typeModal === "UPDATE") {
                     history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${HHCode}`);

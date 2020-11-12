@@ -24,6 +24,7 @@ import ShelterComponent from "./component/ShelterComponent";
 import GeneralInformationComponent from "./component/GeneralInformationComponent";
 import AddressComponent from "./component/AddressComponent";
 import "./scss/style.scss";
+import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 
 const Marker = (props) => {
   const { name } = props;
@@ -380,11 +381,23 @@ function DetailBeneficiary(props) {
               <Button
                 className="set-center-content mr-1"
                 type="primary"
+                icon={<BackwardOutlined className="font-16" />}
+                onClick={() => {
+                  props.history.push(PATH.HOUSEHOLD_REGISTRATION);
+                }}
+              >
+                {t("BACK")}
+              </Button>
+              <Button
+                className="set-center-content mr-1"
+                type="primary"
                 icon={<PlusSquareOutlined className="font-16" />}
                 onClick={() => {
                   props.history.push(PATH.ADD_HOUSEHOLD);
                 }}
-              />
+              >
+                {t("ADD")}
+              </Button>
               <Button
                 className="set-center-content mr-1"
                 type="primary"
@@ -394,7 +407,9 @@ function DetailBeneficiary(props) {
                     `${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`
                   );
                 }}
-              />
+              >
+                {t("EDIT")}
+              </Button>
               <Popconfirm
                 title="Are you sure？"
                 okText="Yes"
@@ -407,6 +422,7 @@ function DetailBeneficiary(props) {
                   className="set-center-content"
                   type="primary"
                   icon={<DeleteOutlined className="font-16" />}
+                  danger
                 />
               </Popconfirm>
             </div>
@@ -438,21 +454,21 @@ function DetailBeneficiary(props) {
 
         {/*Household Member*/}
         <div className="household-member">
-          <div className="mb-2 p-2 title-detail-household">
+          <div className="d-flex align-items-center mb-2 p-2 title-detail-household">
             III. {t("HOUSEHOLD_MEMBER_LIST")}
-          </div>
-          {HHCode ? (
-            <div className="d-flex justify-content-end mb-2">
+            {HHCode ? (
               <Button
-                className="set-center-content mr-1"
+                className="ml-auto set-center-content"
                 type="primary"
-                icon={<PlusSquareOutlined className="font-16" />}
+                icon={<PlusSquareOutlined />}
                 onClick={() => {
                   history.push(`${PATH.MEMBER_IN_HOUSEHOLD}?hh_code=${HHCode}`);
                 }}
-              />
-            </div>
-          ) : null}
+              >
+                {t("ADD")}
+              </Button>
+            ) : null}
+          </div>
           <Table
             columns={columns}
             dataSource={detailHouseHold.Members || []}
@@ -464,21 +480,22 @@ function DetailBeneficiary(props) {
 
         {/*Plot land List*/}
         <div className="plot-land-list">
-          <div className="mb-2 p-2 title-detail-household">
+          <div className="d-flex align-items-center mb-2 p-2 title-detail-household">
             IV. {t("PLOT_LAND_LIST")}
-          </div>
-          {HHCode ? (
-            <div className="d-flex justify-content-end mb-2">
+            {HHCode ? (
               <Button
-                className="set-center-content mr-1"
+                className="ml-auto set-center-content"
                 type="primary"
-                icon={<PlusSquareOutlined className="font-16" />}
+                icon={<PlusSquareOutlined />}
                 onClick={() => {
                   setValuePlotLandModal("ADD");
                 }}
-              />
-            </div>
-          ) : null}
+              >
+                {t("ADD")}
+              </Button>
+            ) : null}
+          </div>
+
           <Table
             columns={columnsPlotLandList}
             dataSource={detailHouseHold.PlotLands || []}

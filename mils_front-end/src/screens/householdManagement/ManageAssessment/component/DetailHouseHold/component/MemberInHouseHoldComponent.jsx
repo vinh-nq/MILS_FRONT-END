@@ -23,7 +23,6 @@ import { useHistory } from "react-router-dom";
 import SaveFilled from "@ant-design/icons/lib/icons/SaveFilled";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import { PATH } from "../../../../../../routers/Path";
-import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 
 function MemberInHouseHold(props) {
   const { typeModal = "ADD" } = props;
@@ -367,7 +366,7 @@ function MemberInHouseHold(props) {
           <Button
             className="set-center-content mr-2"
             type="primary"
-            icon={<ArrowLeftOutlined />}
+            icon={<BackwardOutlined />}
             onClick={() => {
               if (typeModal === "ADD") {
                 history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${hh_code}`);

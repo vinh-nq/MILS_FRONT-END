@@ -27,6 +27,7 @@ import {
 } from "@ant-design/icons/lib/icons";
 import { PATH } from "../../routers/Path";
 import CCTProgramApi from "../../api/CCTProgramApi";
+import GenerateDataComponent from "./component/GenerateDataComponent";
 
 function HouseholdScore(props) {
   const [isLoading, setLoading] = useState(false);
@@ -43,6 +44,7 @@ function HouseholdScore(props) {
   const [minScored, setMinScored] = useState("");
   const [maxScored, setMaxScored] = useState("");
 
+  const [showGenerate, setGenerate] = useState(false);
   const { t } = useTranslation();
   const { Text } = Typography;
   const { Option } = Select;
@@ -52,32 +54,6 @@ function HouseholdScore(props) {
   const dataLanguage =
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
     localStorage.getItem("i18nextLng");
-
-  const checkDataFromUrl = () => {
-    let provinceId = getValueOfQueryParams(
-      history.location,
-      "provinceId",
-      "STRING"
-    );
-    let districtId = getValueOfQueryParams(
-      history.location,
-      "districtId",
-      "STRING"
-    );
-    let villageId = getValueOfQueryParams(
-      history.location,
-      "villageId",
-      "STRING"
-    );
-    setSelectedProvince(provinceId);
-    setSelectedDistrict(districtId);
-    setSelectedVillage(villageId);
-    return {
-      provinceId: provinceId,
-      districtId: districtId,
-      villageId: villageId,
-    };
-  };
 
   const compare = (a, b) => {
     if (a.PMTScored < b.PMTScored) {
@@ -90,130 +66,14 @@ function HouseholdScore(props) {
   };
 
   useEffect(() => {
-    getRegions(checkDataFromUrl());
-  }, [history, t]);
-
-  const getDataScored = () => {
-    return householdScoreApi.getAllHouseholdScore();
-  };
-
-  const setDataScored = (res) => {
-    if (res.data.Status) {
-      let { Data } = res.data;
-      Data = Data.sort(compare);
-      setData(Data);
-      setSubData(Data);
-    } else {
-      message.error({
-        content: t("FETCH_DATA_FAILED"),
-        key: "message-form-role",
-        duration: 1,
-      });
-    }
-  };
-
-  const getRegions = async (params) => {
-    setLoading(true);
-    await Promise.all([
-      getProvincePromiseAll(),
-      getDistrictPromiseAll(params.provinceId),
-      getDistrictVillageAll(params.districtId),
-      getDataScored(),
-    ]).then(([resProvince, resDistrict, resVillage, resScored]) => {
-      setProvince(resProvince.data.Data);
-      setDistrict(resDistrict.data.Data);
-      setVillage(resVillage.data.Data);
-      setDataScored(resScored);
-    });
-    setLoading(false);
-  };
-
-  const getProvincePromiseAll = () => {
-    return houseHoldApi.getAllProvince();
-  };
-
-  const getDistrictPromiseAll = (provinceId) => {
-    if (provinceId !== "-1") {
-      return houseHoldApi.getAllDistrict({ provinceId });
-    } else {
-      return {
-        data: {
-          Data: [],
-        },
-      };
-    }
-  };
-
-  const getDistrictVillageAll = (districtId) => {
-    if (districtId !== "-1") {
-      return houseHoldApi.getAllVillage({ districtId });
-    } else {
-      return {
-        data: {
-          Data: [],
-        },
-      };
-    }
-  };
-
-  const getDistrict = async (provinceId) => {
-    await houseHoldApi.getAllDistrict({ provinceId }).then((res) => {
-      setDistrict(res.data.Data);
-    });
-  };
-
-  const getVillage = async (districtId) => {
-    await houseHoldApi
-      .getAllVillage({ districtId })
-      .then((res) => setVillage(res.data.Data));
-  };
-
-  const onSelectProvince = (id) => {
-    setSelectedProvince(id);
-    setSelectedDistrict("");
-    setSelectedVillage("");
-    setDistrict([]);
-    setVillage([]);
-    getDistrict(id);
-  };
-
-  const onSelectDistrict = (id) => {
-    setSelectedDistrict(id);
-    setSelectedVillage("");
-    setVillage([]);
-    getVillage(id);
-  };
-
-  const onSelectVillage = (id) => {
-    setSelectedVillage(id);
-  };
-
-  const onGenerateChange = async () => {
-    let isError = false;
-    if (!selectedProvince) {
-      console.log(123);
-      message.error({
-        content: t("PROVINCE_EMPTY"),
-        key: "message-form-role",
-        duration: 1,
-      });
-      isError = true;
-    }
-    if (!isError) {
+    const getDataScored = async () => {
       setLoading(true);
-      await CCTProgramApi.GetPMTScored({
-        provinceId: selectedProvince,
-        districtId: selectedDistrict,
-        villageId: selectedVillage,
-      }).then((res) => {
+      await householdScoreApi.getAllHouseholdScore().then((res) => {
         if (res.data.Status) {
           let { Data } = res.data;
           Data = Data.sort(compare);
-          setMinScored("");
-          setMaxScored("");
           setData(Data);
           setSubData(Data);
-          setPage(1);
         } else {
           message.error({
             content: t("FETCH_DATA_FAILED"),
@@ -223,7 +83,17 @@ function HouseholdScore(props) {
         }
       });
       setLoading(false);
-    }
+    };
+    getDataScored();
+  }, []);
+
+  const reloadDataGenerate = async (data) => {
+    data = data.sort(compare);
+    setMinScored("");
+    setMaxScored("");
+    setData(data);
+    setSubData(data);
+    setPage(1);
   };
 
   const onScoreChange = (value, name) => {
@@ -324,102 +194,20 @@ function HouseholdScore(props) {
       <section className="mb-3">
         <div className="d-flex flex-row align-items-center justify-content-between">
           <span className="h5 mb-0">{t("HH_LIST_SCORED")}</span>
-          <Tooltip placement="bottom" title={t("GO_TO_ENROLLMENT_ON_DEMAND")}>
-            <Button
-              type="primary"
-              className="d-flex align-items-center justify-content-center px-1"
-              onClick={() => {
-                props.history.push(PATH.ENROLL_ON_DEMAND);
-              }}
-            >
-              Enroll On Demand
-            </Button>
-          </Tooltip>
+          <Button
+            type="primary"
+            className="d-flex align-items-center justify-content-center px-1"
+            onClick={() => {
+              setGenerate(true);
+            }}
+          >
+            {t("GENERATE")}
+          </Button>
         </div>
       </section>
 
       {/* Search*/}
       <section>
-        <Divider orientation="left" className="my-0 font-16 font-weight-500">
-          <span className="text--underline__color">
-            {t("GENERATE_NEW_DATE")}
-          </span>
-        </Divider>
-        <Row gutter={[16, 16]}>
-          <Col span={24} md={12} lg={6}>
-            <Text className="font-13">{t("PROVINCE")}</Text>
-            <Select
-              className="w-100"
-              value={selectedProvince}
-              onChange={onSelectProvince}
-            >
-              {province.map((value, index) => (
-                <Option
-                  value={value.Id}
-                  key={index}
-                  onChange={() => {
-                    onSelectProvince(value.Id);
-                  }}
-                >
-                  {dataLanguage === "la"
-                    ? value.ProvinceName
-                    : value.ProvinceNameEng}
-                </Option>
-              ))}
-            </Select>
-          </Col>
-          <Col span={24} md={12} lg={6}>
-            <Text className="font-13">{t("DISTRICT")}</Text>
-            <Select
-              className="w-100"
-              value={selectedDistrict}
-              onChange={onSelectDistrict}
-            >
-              <Option value={""}>{""}</Option>
-              {district.map((value, index) => (
-                <Option value={value.DistrictId} key={index}>
-                  {dataLanguage === "la"
-                    ? value.DistrictName
-                    : value.DistrictNameEng}
-                </Option>
-              ))}
-            </Select>
-          </Col>
-          <Col span={24} md={12} lg={6}>
-            <Text className="font-13">{t("VILLAGE")}</Text>
-            <Select
-              className="w-100"
-              value={selectedVillage}
-              onChange={onSelectVillage}
-            >
-              <Option value={""}>{""}</Option>
-              {village.map((value, index) => (
-                <Option value={value.VillageId} key={index}>
-                  {dataLanguage === "la"
-                    ? value.VillageName
-                    : value.VillageNameEng || t("EMPTY")}
-                </Option>
-              ))}
-            </Select>
-          </Col>
-          <Col span={24} md={12} lg={6}>
-            <div>
-              <Text className="font-13">{t("GENERATE_NEW_DATE")}</Text>
-            </div>
-            <Button
-              type="primary"
-              icon={
-                <OrderedListOutlined className="ant--icon__middle font-20" />
-              }
-              onClick={onGenerateChange}
-            >
-              {t("GENERATE")}
-            </Button>
-          </Col>
-        </Row>
-        <Divider orientation="left" className="my-0 font-16 font-weight-500">
-          <span className="text--underline__color">{t("SEARCH")}</span>
-        </Divider>
         <Row gutter={[16, 16]}>
           <Col span={24} md={12} lg={6}>
             <Text className="font-13">{t("HEAD_OF_HH_NAME")}</Text>
@@ -429,32 +217,43 @@ function HouseholdScore(props) {
               onChange={(e) => {
                 setSearchText(e.target.value);
               }}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  onClickSearch();
+                }
+              }}
             />
           </Col>
           <Col span={24} md={12} lg={6}>
-            <Row gutter={[8, 16]}>
-              <Col span={12}>
-                <Text className="font-13">{t("PMT_SCORED_FROM")}</Text>
-                <Input
-                  placeholder={t("FROM")}
-                  value={minScored}
-                  onChange={(e) => {
-                    onScoreChange(e.target.value, "FROM");
-                  }}
-                  className="d-inline-block"
-                />
-              </Col>
-              <Col span={12}>
-                <Text className="font-13">{t("PMT_SCORED_TO")}</Text>
-                <Input
-                  value={maxScored}
-                  placeholder={t("TO")}
-                  onChange={(e) => {
-                    onScoreChange(e.target.value, "TO");
-                  }}
-                />
-              </Col>
-            </Row>
+            <Text className="font-13">{t("PMT_SCORED_FROM")}</Text>
+            <Input
+              placeholder={t("FROM")}
+              value={minScored}
+              onChange={(e) => {
+                onScoreChange(e.target.value, "FROM");
+              }}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  onClickSearch();
+                }
+              }}
+              className="d-inline-block"
+            />
+          </Col>
+          <Col span={24} md={12} lg={6}>
+            <Text className="font-13">{t("PMT_SCORED_TO")}</Text>
+            <Input
+              value={maxScored}
+              placeholder={t("TO")}
+              onChange={(e) => {
+                onScoreChange(e.target.value, "TO");
+              }}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  onClickSearch();
+                }
+              }}
+            />
           </Col>
           <Col span={24} md={12} lg={6}>
             <Text className="font-13 d-block">{t("SEARCH")}</Text>
@@ -485,6 +284,13 @@ function HouseholdScore(props) {
           showSizeChanger: false,
         }}
         className="hh-scored--table"
+      />
+
+      <GenerateDataComponent
+        visible={showGenerate}
+        setVisible={setGenerate}
+        reloadData={reloadDataGenerate}
+        dataLanguage={dataLanguage}
       />
     </>
   );
