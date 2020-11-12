@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Tooltip, Button, Divider, Table, Input } from "antd";
 import {
-  PlusSquareOutlined,
   EditOutlined,
   // DeleteOutlined,
 } from "@ant-design/icons";
@@ -157,7 +156,7 @@ export default function ListOfplotType(props) {
             }}
             className="d-flex align-items-center justify-content-center"
           >
-            <PlusSquareOutlined className="font-20" />
+            <i className="fas fa-plus mr-2"></i> {t("ADD")}
           </Button>
         </Tooltip>
       </div>

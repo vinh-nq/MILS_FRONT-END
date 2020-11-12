@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Image, message, Popconfirm, Row, Table } from "antd";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  PlusSquareOutlined,
-} from "@ant-design/icons/lib/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons/lib/icons";
 import { useTranslation } from "react-i18next";
 import houseHoldApi from "../../../../../api/houseHoldApi";
 import { useSelector } from "react-redux";
@@ -384,8 +380,6 @@ function DetailBeneficiary(props) {
             <div className="d-flex ml-auto">
               <Button
                 className="set-center-content mr-lg-4 mr-1"
-                type={"primary"}
-                ghost
                 icon={<ArrowLeftOutlined />}
                 onClick={() => {
                   props.history.push(PATH.HOUSEHOLD_REGISTRATION);
@@ -396,26 +390,22 @@ function DetailBeneficiary(props) {
               <Button
                 className="set-center-content mr-1"
                 type={"primary"}
-                ghost
-                icon={<PlusSquareOutlined />}
                 onClick={() => {
                   props.history.push(PATH.ADD_HOUSEHOLD);
                 }}
               >
-                {t("ADD")}
+                <i className="fas fa-plus mr-2"></i> {t("ADD")}
               </Button>
               <Button
                 className="set-center-content mr-1"
                 type={"primary"}
-                ghost
-                icon={<EditOutlined />}
                 onClick={() => {
                   props.history.push(
                     `${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`
                   );
                 }}
               >
-                {t("EDIT")}
+                <i className="fas fa-edit mr-2"></i> {t("EDIT")}
               </Button>
               <Popconfirm
                 title="Are you sure？"
@@ -425,11 +415,9 @@ function DetailBeneficiary(props) {
                   handleDeleteHouseHold();
                 }}
               >
-                <Button
-                  className="set-center-content"
-                  icon={<DeleteOutlined />}
-                  danger
-                />
+                <Button className="set-center-content" type={"primary"} danger>
+                  <i className="far fa-trash-alt mr-2"></i> {t("DELETE")}
+                </Button>
               </Popconfirm>
             </div>
           ) : null}
@@ -465,14 +453,12 @@ function DetailBeneficiary(props) {
             {HHCode ? (
               <Button
                 className="ml-auto set-center-content"
-                type={"primary"}
-                ghost
-                icon={<PlusSquareOutlined />}
+                type="dashed"
                 onClick={() => {
                   history.push(`${PATH.MEMBER_IN_HOUSEHOLD}?hh_code=${HHCode}`);
                 }}
               >
-                {t("ADD")}
+                <i className="fas fa-plus mr-2"></i> {t("ADD")}
               </Button>
             ) : null}
           </div>
@@ -492,14 +478,12 @@ function DetailBeneficiary(props) {
             {HHCode ? (
               <Button
                 className="ml-auto set-center-content"
-                type={"primary"}
-                ghost
-                icon={<PlusSquareOutlined />}
+                type="dashed"
                 onClick={() => {
                   setValuePlotLandModal("ADD");
                 }}
               >
-                {t("ADD")}
+                <i className="fas fa-plus mr-2"></i> {t("ADD")}
               </Button>
             ) : null}
           </div>

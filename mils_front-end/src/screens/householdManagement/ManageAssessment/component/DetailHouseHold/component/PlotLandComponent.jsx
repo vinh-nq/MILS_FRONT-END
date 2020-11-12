@@ -234,36 +234,36 @@ function PlotLandComponent(props) {
           form={form}
           onFinish={typeModal === "ADD" ? handleAdd : handleUpdate}
         >
-          <Row className="mb-2" gutter={16}>
-            <Col span={24}>
-              <Text className="font-13 font-weight-500">
-                {t("PLOT_ID")}
-                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-              </Text>
-              <Form.Item
-                name={"PlotId"}
-                className="mb-0"
-                rules={[
-                  {
-                    validator(rule, value) {
-                      return handleValidateFrom(
-                        rule,
-                        value,
-                        objectValidateForm.checkString(
-                          50,
-                          true,
-                          "Name of plot"
-                        ),
-                        t
-                      );
-                    },
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
-          </Row>
+          {/*<Row className="mb-2" gutter={16}>*/}
+          {/*  <Col span={24}>*/}
+          {/*    <Text className="font-13 font-weight-500">*/}
+          {/*      {t("PLOT_ID")}*/}
+          {/*      <span style={{ paddingLeft: "3px", color: "red" }}>*</span>*/}
+          {/*    </Text>*/}
+          {/*    <Form.Item*/}
+          {/*      name={"PlotId"}*/}
+          {/*      className="mb-0"*/}
+          {/*      rules={[*/}
+          {/*        {*/}
+          {/*          validator(rule, value) {*/}
+          {/*            return handleValidateFrom(*/}
+          {/*              rule,*/}
+          {/*              value,*/}
+          {/*              objectValidateForm.checkString(*/}
+          {/*                50,*/}
+          {/*                true,*/}
+          {/*                "Name of plot"*/}
+          {/*              ),*/}
+          {/*              t*/}
+          {/*            );*/}
+          {/*          },*/}
+          {/*        },*/}
+          {/*      ]}*/}
+          {/*    >*/}
+          {/*      <Input />*/}
+          {/*    </Form.Item>*/}
+          {/*  </Col>*/}
+          {/*</Row>*/}
           <Row className="mb-2" gutter={16}>
             <Col span={24} md={12}>
               <Text className="font-13 font-weight-500">

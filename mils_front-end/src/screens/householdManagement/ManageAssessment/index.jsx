@@ -29,8 +29,6 @@ import {
   BankOutlined,
   EllipsisOutlined,
   DeleteOutlined,
-  PlusSquareOutlined,
-  SearchOutlined,
 } from "@ant-design/icons/lib/icons";
 
 function ManageAssessment(props) {
@@ -634,12 +632,11 @@ function ManageAssessment(props) {
             <Button
               className="set-center-content"
               type="primary"
-              icon={<PlusSquareOutlined />}
               onClick={() => {
                 history.push(`${PATH.ADD_HOUSEHOLD}`);
               }}
             >
-              {t("ADD")}
+              <i className="fas fa-plus mr-2"></i> {t("ADD")}
             </Button>
           </span>
         </div>
@@ -738,12 +735,8 @@ function ManageAssessment(props) {
             <div>
               <Text className="font-13">{t("SEARCH")}</Text>
             </div>
-            <Button
-              type="primary"
-              icon={<SearchOutlined className="ant--icon__middle" />}
-              onClick={onSearchChange}
-            >
-              {t("SEARCH")}
+            <Button type="primary" onClick={onSearchChange}>
+              <i className="fas fa-search mr-2"></i> {t("SEARCH")}
             </Button>
           </Col>
         </Row>

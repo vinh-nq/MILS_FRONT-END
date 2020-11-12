@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Tooltip, Button, Divider, Table, message, Input, Modal } from "antd";
 import {
-  PlusSquareOutlined,
   InfoCircleOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
@@ -166,7 +165,7 @@ export default function UserVillageManagement(props) {
             }}
             className="d-flex align-items-center justify-content-center"
           >
-            <PlusSquareOutlined className="font-20" />
+            <i className="fas fa-plus mr-2"></i> {t("ADD")}
           </Button>
         </Tooltip>
       </div>

@@ -1,44 +1,18 @@
 import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import {
-  Button,
-  Col,
-  Divider,
-  Input,
-  message,
-  Row,
-  Select,
-  Table,
-  Tag,
-  Tooltip,
-  Typography,
-} from "antd";
+import { Button, Col, Input, message, Row, Table, Tag, Typography } from "antd";
 import { useTranslation } from "react-i18next";
-import { getValueOfQueryParams } from "../../utils/getValueOfQueryParams";
-import houseHoldApi from "../../api/houseHoldApi";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import householdScoreApi from "../../api/householdScoreApi";
 import { regexTemplate } from "../../utils/regexTemplate";
 import "./style.scss";
-import {
-  SearchOutlined,
-  OrderedListOutlined,
-} from "@ant-design/icons/lib/icons";
-import { PATH } from "../../routers/Path";
-import CCTProgramApi from "../../api/CCTProgramApi";
+
 import GenerateDataComponent from "./component/GenerateDataComponent";
 
 function HouseholdScore(props) {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [subData, setSubData] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedVillage, setSelectedVillage] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [province, setProvince] = useState([]);
-  const [village, setVillage] = useState([]);
-  const [district, setDistrict] = useState([]);
 
   const [searchText, setSearchText] = useState("");
   const [minScored, setMinScored] = useState("");
@@ -47,8 +21,6 @@ function HouseholdScore(props) {
   const [showGenerate, setGenerate] = useState(false);
   const { t } = useTranslation();
   const { Text } = Typography;
-  const { Option } = Select;
-  const history = useHistory();
   const [page, setPage] = useState(1);
 
   const dataLanguage =
@@ -85,7 +57,7 @@ function HouseholdScore(props) {
       setLoading(false);
     };
     getDataScored();
-  }, []);
+  }, [t]);
 
   const reloadDataGenerate = async (data) => {
     data = data.sort(compare);
@@ -200,7 +172,7 @@ function HouseholdScore(props) {
               setGenerate(true);
             }}
           >
-            <i className="fas fa-cloud-download-alt mr-2"></i> {t("GENERATE")}
+            <i className="fas fa-download mr-2"></i> {t("GENERATE")}
           </Button>
         </div>
       </section>
@@ -256,11 +228,8 @@ function HouseholdScore(props) {
           </Col>
           <Col span={24} md={12} lg={6}>
             <Text className="font-13 d-block">{t("SEARCH")}</Text>
-            <Button
-              type="primary"
-              icon={<SearchOutlined className="ant--icon__middle" />}
-              onClick={onClickSearch}
-            >
+            <Button type="primary" onClick={onClickSearch}>
+              <i className="fas fa-search mr-2"></i>
               {t("SEARCH")}
             </Button>
           </Col>

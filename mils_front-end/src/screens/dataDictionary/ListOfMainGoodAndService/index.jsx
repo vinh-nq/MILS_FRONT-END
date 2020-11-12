@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Tooltip, Button, Divider, Table, Input } from "antd";
 import {
-  PlusSquareOutlined,
   EditOutlined,
   // DeleteOutlined,
 } from "@ant-design/icons";
@@ -41,7 +40,8 @@ export default function ListOfMainGoodAndService(props) {
   useEffect(() => {
     return history.listen((location) => {
       if (
-        `${location.pathname}${location.search}` === PATH.LIST_OF_MAIN_GOOD_AND_SERVICES
+        `${location.pathname}${location.search}` ===
+        PATH.LIST_OF_MAIN_GOOD_AND_SERVICES
       ) {
         setKeyword("");
       }
@@ -125,7 +125,9 @@ export default function ListOfMainGoodAndService(props) {
 
   const onChangePage = (values) => {
     const value = keyword ? `keyword=${keyword}&` : "";
-    props.history.push(`${PATH.LIST_OF_MAIN_GOOD_AND_SERVICES}?${value}page=${values}`);
+    props.history.push(
+      `${PATH.LIST_OF_MAIN_GOOD_AND_SERVICES}?${value}page=${values}`
+    );
     setPage(values);
   };
 
@@ -159,7 +161,7 @@ export default function ListOfMainGoodAndService(props) {
             }}
             className="d-flex align-items-center justify-content-center"
           >
-            <PlusSquareOutlined className="font-20" />
+            <i className="fas fa-plus mr-2"></i> {t("ADD")}
           </Button>
         </Tooltip>
       </div>
@@ -198,7 +200,9 @@ export default function ListOfMainGoodAndService(props) {
         typeModal={typeModal}
         arrayDuplicate={listWallMetarial.map((el) => `${el.Id}`)}
         reloadData={(keyword) => {
-          history.push(`${PATH.LIST_OF_MAIN_GOOD_AND_SERVICES}?keyword=${keyword}`);
+          history.push(
+            `${PATH.LIST_OF_MAIN_GOOD_AND_SERVICES}?keyword=${keyword}`
+          );
         }}
       />
     </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Tooltip, Button, Divider, Table, Input, Select } from "antd";
-import { PlusSquareOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { getValueFromLink } from "../../../utils/getValueFromLink";
 import { regexTemplate } from "../../../utils/regexTemplate";
 import LoadingSpinner from "../../../components/LoadingSpinner";
@@ -188,7 +188,7 @@ export default function ListOfDistrict(props) {
             }}
             className="d-flex align-items-center justify-content-center"
           >
-            <PlusSquareOutlined className="font-20" />
+            <i className="fas fa-plus mr-2"></i> {t("ADD")}
           </Button>
         </Tooltip>
       </div>

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Tooltip, Button, Divider, Table, message, Input, Tag } from "antd";
 import {
-  PlusSquareOutlined,
   // ControlOutlined,
   EditOutlined,
   // DeleteOutlined,
@@ -222,7 +221,7 @@ export default function UserManagement(props) {
             }}
             className="d-flex align-items-center justify-content-center"
           >
-            <PlusSquareOutlined className="font-20" />
+            <i className="fas fa-plus mr-2"></i> {t("ADD")}
           </Button>
         </Tooltip>
       </div>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Tooltip, Button, Divider, Table, message, Input } from "antd";
 import {
-  PlusSquareOutlined,
   ControlOutlined,
   EditOutlined,
 } from "@ant-design/icons";
@@ -131,7 +130,7 @@ export default function RoleManagement(props) {
             }}
             className="d-flex align-items-center justify-content-center"
           >
-            <PlusSquareOutlined className="font-20" />
+            <i className="fas fa-plus mr-2"></i> {t("ADD")}
           </Button>
         </Tooltip>
       </div>

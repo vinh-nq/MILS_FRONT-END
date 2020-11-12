@@ -33,7 +33,7 @@ function GenerateDataComponent(props) {
       });
     };
     getAllProvince();
-  }, []);
+  }, [t]);
 
   const getAllDistrict = (provinceId) => {
     houseHoldApi.getAllDistrict({ provinceId }).then((res) => {
