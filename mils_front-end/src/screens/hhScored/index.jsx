@@ -425,6 +425,7 @@ function HouseholdScore(props) {
             <Text className="font-13">{t("HEAD_OF_HH_NAME")}</Text>
             <Input
               value={searchText}
+              placeholder={t("SEARCH_HEAD_OF_HH_NAME")}
               onChange={(e) => {
                 setSearchText(e.target.value);
               }}

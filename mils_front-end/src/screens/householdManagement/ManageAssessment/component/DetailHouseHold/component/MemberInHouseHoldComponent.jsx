@@ -23,6 +23,7 @@ import { useHistory } from "react-router-dom";
 import SaveFilled from "@ant-design/icons/lib/icons/SaveFilled";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import { PATH } from "../../../../../../routers/Path";
+import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 
 function MemberInHouseHold(props) {
   const { typeModal = "ADD" } = props;
@@ -362,20 +363,11 @@ function MemberInHouseHold(props) {
         <span className="h5 mb-0">
           {typeModal === "ADD" ? t("add") : t("update")} {t("FAMILY_MEMBER")}
         </span>
-        <div className="d-flex ml-auto">
-          <Form.Item>
-            <Button
-              className="set-center-content mr-2"
-              type="primary"
-              icon={<SaveFilled className="font-16" />}
-              key="submit"
-              htmlType="submit"
-            />
-          </Form.Item>
+        <div className="d-flex ml-auto align-items-center mt-md-0 mt-2">
           <Button
-            className="set-center-content"
+            className="set-center-content mr-2"
             type="primary"
-            icon={<BackwardOutlined className="font-16" />}
+            icon={<ArrowLeftOutlined />}
             onClick={() => {
               if (typeModal === "ADD") {
                 history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${hh_code}`);
@@ -385,7 +377,19 @@ function MemberInHouseHold(props) {
                 );
               }
             }}
-          />
+          >
+            {t("BACK")}
+          </Button>
+          <Button
+            className="set-center-content"
+            type="primary"
+            icon={<SaveFilled />}
+            form="form-household-member"
+            key="submit"
+            htmlType="submit"
+          >
+            {t("SAVE")}
+          </Button>
         </div>
       </div>
       <Row className="mb-2" gutter={16}>

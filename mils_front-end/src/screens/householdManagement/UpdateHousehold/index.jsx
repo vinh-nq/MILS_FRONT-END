@@ -20,6 +20,7 @@ import LocationMapComponent from "./component/LocationMapComponent";
 import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import { PATH } from "../../../routers/Path";
 import { API_URL } from "../../../constants/config";
+import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 
 function UpdateHousehold(props) {
   const { typeModal } = props;
@@ -120,38 +121,40 @@ function UpdateHousehold(props) {
     };
     objCover.HHNumber = formatHHNumberAndHHLevel(objCover.HHNumber, 3);
     objCover.HHLevel = formatHHNumberAndHHLevel(objCover.HHLevel, 4);
-    await houseHoldApi.addHouseHold(objCover, `Add New HouseHold`).then((res) => {
-      if (res.data.Status) {
-        setLoading(false);
-        if (res.data.Messages === "Household Code already exists") {
-          message.error({
-            content: t("CODE_DUPLICATE"),
-            key: "message-form-role",
-            duration: 2,
-          });
+    await houseHoldApi
+      .addHouseHold(objCover, `Add New HouseHold`)
+      .then((res) => {
+        if (res.data.Status) {
+          setLoading(false);
+          if (res.data.Messages === "Household Code already exists") {
+            message.error({
+              content: t("CODE_DUPLICATE"),
+              key: "message-form-role",
+              duration: 2,
+            });
+          } else {
+            form.resetFields();
+            setEnumSignImage("");
+            setRespSignImage("");
+            setImageUrl("");
+            setEnumSignImageExtension("");
+            setRespSignImageExtension("");
+            setImageUrlExtension("");
+            message.success({
+              content: t("ADD_SUCCESS"),
+              key: "message-form-role",
+              duration: 1,
+            });
+          }
         } else {
-          form.resetFields();
-          setEnumSignImage("");
-          setRespSignImage("");
-          setImageUrl("");
-          setEnumSignImageExtension("");
-          setRespSignImageExtension("");
-          setImageUrlExtension("");
-          message.success({
-            content: t("ADD_SUCCESS"),
+          setLoading(false);
+          message.error({
+            content: t("ADD_FAILED"),
             key: "message-form-role",
             duration: 1,
           });
         }
-      } else {
-        setLoading(false);
-        message.error({
-          content: t("ADD_FAILED"),
-          key: "message-form-role",
-          duration: 1,
-        });
-      }
-    });
+      });
   };
 
   const handleUpdate = async (value) => {
@@ -222,124 +225,131 @@ function UpdateHousehold(props) {
   };
 
   return (
-    <div className="add-beneficiary-form">
-      {/*Header and title*/}
-      {isLoading ? (
-        <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
-      ) : null}
-      <section className="border-bottom mb-3">
-        <div className="d-flex align-items-center mb-3">
-          <span className="h5 mb-0">
-            {typeModal === "ADD" ? t("add") : t("update")} Household
-          </span>
-          <div className="d-flex ml-auto">
-            <Form.Item>
+    <>
+      <div className="add-beneficiary-form">
+        {/*Header and title*/}
+        {isLoading ? (
+          <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
+        ) : null}
+        <section className="border-bottom mb-3">
+          <div className="d-md-flex align-items-center mb-3">
+            <span className="h5 mb-0">
+              {typeModal === "ADD" ? t("add") : t("update")} Household
+            </span>
+            <div className="d-flex ml-auto align-items-center mt-md-0 mt-2">
               <Button
                 className="set-center-content mr-2"
                 type="primary"
-                icon={<SaveFilled className="font-16" />}
+                icon={<ArrowLeftOutlined />}
+                onClick={() => {
+                  if (typeModal === "UPDATE") {
+                    history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${HHCode}`);
+                  } else {
+                    history.push(`${PATH.HOUSEHOLD_REGISTRATION}`);
+                  }
+                }}
+              >
+                {t("BACK")}
+              </Button>
+              <Button
+                className="set-center-content"
+                type="primary"
+                icon={<SaveFilled />}
                 form="form-household"
                 key="submit"
                 htmlType="submit"
-              />
-            </Form.Item>
-            <Button
-              className="set-center-content"
-              type="primary"
-              icon={<BackwardOutlined className="font-16" />}
-              onClick={() => {
-                if (typeModal === "UPDATE") {
-                  history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${HHCode}`);
-                } else {
-                  history.push(`${PATH.HOUSEHOLD_REGISTRATION}`);
-                }
-              }}
-            />
+              >
+                {t("SAVE")}
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/*Content*/}
-      {_.isEmpty(detailHouseHold) && typeModal === "UPDATE" ? null : (
-        <Form
-          form={form}
-          name="control-hooks"
-          id="form-household"
-          onFinish={typeModal === "ADD" ? handleAdd : handleUpdate}
-          onFinishFailed={submitFailed}
-        >
-          <section className="mb-3">
-            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-              I. Location
-            </div>
-            <LocationComponent detailHouseHold={detailHouseHold} form={form} />
-          </section>
+        {/*Content*/}
+        {_.isEmpty(detailHouseHold) && typeModal === "UPDATE" ? null : (
+          <Form
+            form={form}
+            name="control-hooks"
+            id="form-household"
+            onFinish={typeModal === "ADD" ? handleAdd : handleUpdate}
+            onFinishFailed={submitFailed}
+          >
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+                I. Location
+              </div>
+              <LocationComponent
+                detailHouseHold={detailHouseHold}
+                form={form}
+              />
+            </section>
 
-          <section className="mb-3">
-            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-              II. General Information
-            </div>
-            <GeneralInformationComponent
-              detailHouseHold={detailHouseHold}
-              form={form}
-              typeModal={typeModal}
-              EnumSignImage={EnumSignImage}
-              RespSignImage={RespSignImage}
-              ImageUrl={ImageUrl}
-              setEnumSignImage={setEnumSignImage}
-              setRespSignImage={setRespSignImage}
-              setImageUrl={setImageUrl}
-              setEnumSignImageExtension={setEnumSignImageExtension}
-              setRespSignImageExtension={setRespSignImageExtension}
-              setImageUrlExtension={setImageUrlExtension}
-            />
-          </section>
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+                II. General Information
+              </div>
+              <GeneralInformationComponent
+                detailHouseHold={detailHouseHold}
+                form={form}
+                typeModal={typeModal}
+                EnumSignImage={EnumSignImage}
+                RespSignImage={RespSignImage}
+                ImageUrl={ImageUrl}
+                setEnumSignImage={setEnumSignImage}
+                setRespSignImage={setRespSignImage}
+                setImageUrl={setImageUrl}
+                setEnumSignImageExtension={setEnumSignImageExtension}
+                setRespSignImageExtension={setRespSignImageExtension}
+                setImageUrlExtension={setImageUrlExtension}
+              />
+            </section>
 
-          <section className="mb-3">
-            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-              V. Clean water and permanent energy use
-            </div>
-            <EnergyUsedComponent />
-          </section>
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+                V. Clean water and permanent energy use
+              </div>
+              <EnergyUsedComponent />
+            </section>
 
-          <section className="mb-3">
-            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-              7.1 {t("SHELTER")}
-            </div>
-            <ShelterComponent />
-          </section>
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+                7.1 {t("SHELTER")}
+              </div>
+              <ShelterComponent />
+            </section>
 
-          <section className="mb-3">
-            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-              7.2{" "}
-              {t("HAVING_ESSENTIAL_PROPERTY_AND_INSRTRUMENTS_FOR_DAILY_LIFE")}
-            </div>
-            <InstrumentsForDailyLifeComponent />
-          </section>
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+                7.2{" "}
+                {t("HAVING_ESSENTIAL_PROPERTY_AND_INSRTRUMENTS_FOR_DAILY_LIFE")}
+              </div>
+              <InstrumentsForDailyLifeComponent />
+            </section>
 
-          <section className="mb-3">
-            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-              7.3 Having property and tools necessary for living and making a
-              living
-            </div>
-            <PropertyAndToolsComponent />
-          </section>
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+                7.3 Having property and tools necessary for living and making a
+                living
+              </div>
+              <PropertyAndToolsComponent />
+            </section>
 
-          <section className="mb-3">
-            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-              7.4 Have a stable job and occupation or source of income
-            </div>
-            <SourceSurvivalComponent />
-          </section>
-          <section className="mb-3">
-            <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-              7.4 Location in map
-            </div>
-            <LocationMapComponent />
-          </section>
-        </Form>
-      )}
-    </div>
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+                7.4 Have a stable job and occupation or source of income
+              </div>
+              <SourceSurvivalComponent />
+            </section>
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+                7.4 Location in map
+              </div>
+              <LocationMapComponent />
+            </section>
+          </Form>
+        )}
+      </div>
+    </>
   );
 }
 

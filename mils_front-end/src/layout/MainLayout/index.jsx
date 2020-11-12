@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles.scss";
-import { Breadcrumb, Drawer, Layout } from "antd";
+import { BackTop, Breadcrumb, Drawer, Layout } from "antd";
 import MenuComponent from "../../components/MenuComponent";
 import NavbarComponent from "../../components/NavbarComponent";
 import SiderUserInformation from "../../components/SiderUserInfo";
@@ -91,7 +91,7 @@ export default function MainLayout(props) {
               <MenuComponent listMenu={listMenu} />
             </div>
           </Sider>
-          <Layout style={{ padding: "0 24px 24px" }}>
+          <Layout id="my-layout" style={{ padding: "0 24px 24px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
               {(history.location.pathname.split("/").filter((el) => el).length
                 ? history.location.pathname.split("/").filter((el) => el)
@@ -117,6 +117,10 @@ export default function MainLayout(props) {
             >
               {props.children}
             </Content>
+            <BackTop
+              className="scroll-top"
+              target={() => document.getElementById("my-layout")}
+            />
           </Layout>
         </Layout>
       </Layout>
