@@ -24,7 +24,7 @@ import ShelterComponent from "./component/ShelterComponent";
 import GeneralInformationComponent from "./component/GeneralInformationComponent";
 import AddressComponent from "./component/AddressComponent";
 import "./scss/style.scss";
-import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
+import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 
 const Marker = (props) => {
   const { name } = props;
@@ -227,8 +227,10 @@ function DetailBeneficiary(props) {
         <div className="d-flex justify-content-end" style={{ minWidth: 120 }}>
           <Button
             className="set-center-content mr-1"
-            type="primary"
-            icon={<EditOutlined className="font-16" />}
+            icon={<EditOutlined />}
+            size={"small"}
+            type={"primary"}
+            ghost
             onClick={() => {
               history.push(
                 `${PATH.UPDATE_MEMBER_IN_HOUSEHOLD}?memberId=${record.MemberId}`
@@ -245,9 +247,9 @@ function DetailBeneficiary(props) {
           >
             <Button
               className="set-center-content"
-              type="primary"
               danger
-              icon={<DeleteOutlined className="font-16" />}
+              size={"small"}
+              icon={<DeleteOutlined />}
             />
           </Popconfirm>
         </div>
@@ -314,8 +316,10 @@ function DetailBeneficiary(props) {
         <div className="d-flex justify-content-end" style={{ minWidth: 120 }}>
           <Button
             className="set-center-content mr-1"
-            type="primary"
-            icon={<EditOutlined className="font-16" />}
+            size={"small"}
+            type={"primary"}
+            ghost
+            icon={<EditOutlined />}
             onClick={() => {
               setValuePlotLandModal("UPDATE", record);
             }}
@@ -330,7 +334,7 @@ function DetailBeneficiary(props) {
           >
             <Button
               className="set-center-content"
-              type="primary"
+              size={"small"}
               danger
               icon={<DeleteOutlined className="font-16" />}
             />
@@ -374,14 +378,15 @@ function DetailBeneficiary(props) {
       ) : null}
       {/*Header and title*/}
       <section className="border-bottom mb-3">
-        <div className="d-flex align-items-center mb-3">
+        <div className="d-md-flex align-items-center mb-3">
           <span className="h5 mb-0">{t("BENEFICIARY_FORM")}</span>
           {HHCode ? (
             <div className="d-flex ml-auto">
               <Button
-                className="set-center-content mr-1"
-                type="primary"
-                icon={<BackwardOutlined className="font-16" />}
+                className="set-center-content mr-lg-4 mr-1"
+                type={"primary"}
+                ghost
+                icon={<ArrowLeftOutlined />}
                 onClick={() => {
                   props.history.push(PATH.HOUSEHOLD_REGISTRATION);
                 }}
@@ -390,8 +395,9 @@ function DetailBeneficiary(props) {
               </Button>
               <Button
                 className="set-center-content mr-1"
-                type="primary"
-                icon={<PlusSquareOutlined className="font-16" />}
+                type={"primary"}
+                ghost
+                icon={<PlusSquareOutlined />}
                 onClick={() => {
                   props.history.push(PATH.ADD_HOUSEHOLD);
                 }}
@@ -400,8 +406,9 @@ function DetailBeneficiary(props) {
               </Button>
               <Button
                 className="set-center-content mr-1"
-                type="primary"
-                icon={<EditOutlined className="font-16" />}
+                type={"primary"}
+                ghost
+                icon={<EditOutlined />}
                 onClick={() => {
                   props.history.push(
                     `${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`
@@ -420,8 +427,7 @@ function DetailBeneficiary(props) {
               >
                 <Button
                   className="set-center-content"
-                  type="primary"
-                  icon={<DeleteOutlined className="font-16" />}
+                  icon={<DeleteOutlined />}
                   danger
                 />
               </Popconfirm>
@@ -459,7 +465,8 @@ function DetailBeneficiary(props) {
             {HHCode ? (
               <Button
                 className="ml-auto set-center-content"
-                type="primary"
+                type={"primary"}
+                ghost
                 icon={<PlusSquareOutlined />}
                 onClick={() => {
                   history.push(`${PATH.MEMBER_IN_HOUSEHOLD}?hh_code=${HHCode}`);
@@ -485,7 +492,8 @@ function DetailBeneficiary(props) {
             {HHCode ? (
               <Button
                 className="ml-auto set-center-content"
-                type="primary"
+                type={"primary"}
+                ghost
                 icon={<PlusSquareOutlined />}
                 onClick={() => {
                   setValuePlotLandModal("ADD");

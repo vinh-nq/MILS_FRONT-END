@@ -1,8 +1,8 @@
 import { Button, Col, Row, Tag } from "antd";
-import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 
 function HHMemberInfoDetail(props) {
   const { objUser, setShowDetailMember } = props;
@@ -19,13 +19,12 @@ function HHMemberInfoDetail(props) {
       >
         <div>{t("INFORMATION_MEMBER_IN_HOUSEHOLD")}</div>
         <Button
-          type="primary"
           className="ml-auto"
           onClick={() => {
             setShowDetailMember(false);
           }}
         >
-          <BackwardOutlined className="font-16 ant--icon__middle" />
+          <ArrowLeftOutlined className="ant--icon__middle" />
           {t("BACK")}
         </Button>
       </div>

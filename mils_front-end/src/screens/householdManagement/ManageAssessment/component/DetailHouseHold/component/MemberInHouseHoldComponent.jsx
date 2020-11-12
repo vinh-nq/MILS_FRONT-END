@@ -21,8 +21,8 @@ import moment from "moment";
 import LoadingSpinner from "../../../../../../components/LoadingSpinner";
 import { useHistory } from "react-router-dom";
 import SaveFilled from "@ant-design/icons/lib/icons/SaveFilled";
-import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import { PATH } from "../../../../../../routers/Path";
+import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 
 function MemberInHouseHold(props) {
   const { typeModal = "ADD" } = props;
@@ -365,8 +365,9 @@ function MemberInHouseHold(props) {
         <div className="d-flex ml-auto align-items-center mt-md-0 mt-2">
           <Button
             className="set-center-content mr-2"
-            type="primary"
-            icon={<BackwardOutlined />}
+            icon={<ArrowLeftOutlined />}
+            type={"primary"}
+            ghost
             onClick={() => {
               if (typeModal === "ADD") {
                 history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${hh_code}`);
@@ -381,8 +382,8 @@ function MemberInHouseHold(props) {
           </Button>
           <Button
             className="set-center-content"
-            type="primary"
             icon={<SaveFilled />}
+            style={{ borderColor: "#0C960C", color: "#0C960C" }}
             form="form-household-member"
             key="submit"
             htmlType="submit"

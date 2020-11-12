@@ -17,9 +17,9 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import EnergyUsedComponent from "./component/EneryUsedComponent";
 import { useHistory } from "react-router-dom";
 import LocationMapComponent from "./component/LocationMapComponent";
-import BackwardOutlined from "@ant-design/icons/lib/icons/BackwardOutlined";
 import { PATH } from "../../../routers/Path";
 import { API_URL } from "../../../constants/config";
+import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 
 function UpdateHousehold(props) {
   const { typeModal } = props;
@@ -238,8 +238,9 @@ function UpdateHousehold(props) {
             <div className="d-flex ml-auto align-items-center mt-md-0 mt-2">
               <Button
                 className="set-center-content mr-2"
-                type="primary"
-                icon={<BackwardOutlined />}
+                icon={<ArrowLeftOutlined />}
+                type={"primary"}
+                ghost
                 onClick={() => {
                   if (typeModal === "UPDATE") {
                     history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${HHCode}`);
@@ -252,7 +253,7 @@ function UpdateHousehold(props) {
               </Button>
               <Button
                 className="set-center-content"
-                type="primary"
+                style={{ borderColor: "#0C960C", color: "#0C960C" }}
                 icon={<SaveFilled />}
                 form="form-household"
                 key="submit"
@@ -274,9 +275,7 @@ function UpdateHousehold(props) {
             onFinishFailed={submitFailed}
           >
             <section className="mb-3">
-              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
-                I. Location
-              </div>
+              <div className="mb-3 p-2 title-add-household">I. Location</div>
               <LocationComponent
                 detailHouseHold={detailHouseHold}
                 form={form}
@@ -284,7 +283,7 @@ function UpdateHousehold(props) {
             </section>
 
             <section className="mb-3">
-              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+              <div className="mb-3 p-2 title-add-household">
                 II. General Information
               </div>
               <GeneralInformationComponent
@@ -304,21 +303,21 @@ function UpdateHousehold(props) {
             </section>
 
             <section className="mb-3">
-              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+              <div className="mb-3 p-2 title-add-household">
                 V. Clean water and permanent energy use
               </div>
               <EnergyUsedComponent />
             </section>
 
             <section className="mb-3">
-              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+              <div className="mb-3 p-2 title-add-household">
                 7.1 {t("SHELTER")}
               </div>
               <ShelterComponent />
             </section>
 
             <section className="mb-3">
-              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+              <div className="mb-3 p-2 title-add-household">
                 7.2{" "}
                 {t("HAVING_ESSENTIAL_PROPERTY_AND_INSRTRUMENTS_FOR_DAILY_LIFE")}
               </div>
@@ -326,7 +325,7 @@ function UpdateHousehold(props) {
             </section>
 
             <section className="mb-3">
-              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+              <div className="mb-3 p-2 title-add-household">
                 7.3 Having property and tools necessary for living and making a
                 living
               </div>
@@ -334,13 +333,13 @@ function UpdateHousehold(props) {
             </section>
 
             <section className="mb-3">
-              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+              <div className="mb-3 p-2 title-add-household">
                 7.4 Have a stable job and occupation or source of income
               </div>
               <SourceSurvivalComponent />
             </section>
             <section className="mb-3">
-              <div className="mb-3 p-2 title-gray text-dark font-16 font-weight-500">
+              <div className="mb-3 p-2 title-add-household">
                 7.4 Location in map
               </div>
               <LocationMapComponent />

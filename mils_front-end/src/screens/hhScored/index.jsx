@@ -196,12 +196,11 @@ function HouseholdScore(props) {
           <span className="h5 mb-0">{t("HH_LIST_SCORED")}</span>
           <Button
             type="primary"
-            className="d-flex align-items-center justify-content-center px-1"
             onClick={() => {
               setGenerate(true);
             }}
           >
-            {t("GENERATE")}
+            <i className="fas fa-cloud-download-alt mr-2"></i> {t("GENERATE")}
           </Button>
         </div>
       </section>
