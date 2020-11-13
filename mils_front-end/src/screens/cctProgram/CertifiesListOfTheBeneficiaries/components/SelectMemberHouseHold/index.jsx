@@ -119,7 +119,8 @@ export default function SelectMemberHouseHold(props) {
         Members: listMember.map((el) => ({
           cct_member_id: el.MemberId,
           cct_member_name: el.MemberName,
-          cct_hh_member_id: el.PPId,
+          cct_hh_member_id:
+            [...`${el.PPId}`].length < 2 ? `0${el.PPId}` : el.PPId,
           created_date: null,
           expire_date: null,
           type_of_card: null,
@@ -136,7 +137,7 @@ export default function SelectMemberHouseHold(props) {
         dispatch({
           type: actionRedux.SET_LIST_MEMBER,
           payload: res.data.Members.map((el) => ({
-            MemberId: el.cct_member_id,
+            MemberId: `${el.cct_member_id}`,
             MemberName: el.cct_member_name,
             PPId: el.cct_hh_member_id,
             created_date: el.created_date,
@@ -223,6 +224,7 @@ export default function SelectMemberHouseHold(props) {
       </div>
       <div className="col mb-2">
         <Table
+          style={{ overflow: "auto" }}
           className="container-table-CCT"
           columns={columns}
           dataSource={listHouseHold || []}

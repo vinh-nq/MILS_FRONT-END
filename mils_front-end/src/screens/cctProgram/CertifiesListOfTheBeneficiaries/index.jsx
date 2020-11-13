@@ -10,6 +10,7 @@ import SuccessScreen from "./components/SuccessScreen";
 import "./styles.scss";
 import { useDispatch } from "react-redux";
 import { actionRedux } from "../../../redux/actions";
+import { useEffect } from "react";
 
 export default function CertifiesListOfTheBeneficiaries(props) {
   const { t } = useTranslation();
@@ -80,6 +81,21 @@ export default function CertifiesListOfTheBeneficiaries(props) {
         break;
     }
   };
+
+  useEffect(() => {
+    setPage(1);
+    setValueLocation([]);
+    setKeyword("");
+    setTotalPage(0);
+    setListHouseHold([]);
+    setCurrent(0);
+    setListHouseHold(null);
+    setIdLocation(null);
+    dispatch({
+      type: actionRedux.SET_LIST_MEMBER,
+      payload: [],
+    });
+  }, [dispatch]);
 
   const resetData = () => {
     setPage(1);

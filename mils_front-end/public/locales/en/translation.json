@@ -492,6 +492,14 @@
   "Number Of Selected Member":"Number Of Selected Member",
   "List People Already A Member":"List People Already A Member",
   "List People":"List People",
+  "card_number":"Card Number",
+  "cct_member_name":"Member Name",
+  "created_date":"Create Date",
+  "expire_date":"Expire Date",
+  "active":"Active",
+  "deactive":"Deactive",
+  "LISTOFCCTMEMBER":"List CCT Member",
+  "ID":"ID",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

@@ -38,7 +38,7 @@ function GenerateDataComponent(props) {
   const getAllDistrict = (provinceId) => {
     houseHoldApi.getAllDistrict({ provinceId }).then((res) => {
       if (res.data.Status) {
-        console.log("generate", res.data.Data);
+        // console.log("generate", res.data.Data);
         setDistrict(res.data.Data);
       } else {
         message.error({

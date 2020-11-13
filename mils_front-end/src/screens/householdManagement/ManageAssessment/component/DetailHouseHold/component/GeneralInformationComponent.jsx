@@ -6,7 +6,7 @@ import { API_URL } from "../../../../../../constants/config";
 function GeneralInformationComponent(props) {
   const { GeneralInformationBeneficiary } = props;
   const { t } = useTranslation();
-  console.log("run here");
+  // console.log("run here");
   return (
     <Row className="px-2" gutter={[16, 16]}>
       <Col span={24} md={12}>

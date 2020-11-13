@@ -15,7 +15,7 @@ function InformationMember(props) {
   return (
     <div className="hhMemberInfo-container">
       <div className="d-flex align-items-center justify-content-between title-content-member">
-        <div className="p-2 font-500">{t("HOUSEHOLD_MEMBER_LIST")}</div>
+        <div className="p-2 font-500">{t("INFORMATION_MEMBER_IN_HOUSEHOLD")}</div>
         <Tooltip placement="top" title={"Hide Information Memeber"}>
           <CloseSquareOutlined
             style={{ color: "red" }}

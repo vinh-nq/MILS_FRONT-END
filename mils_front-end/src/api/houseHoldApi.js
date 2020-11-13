@@ -66,6 +66,14 @@ const houseHoldApi = {
     const url = "api/CCTProgram/InsertMemberCCT";
     return fetchDataAndLog(url, "POST", null, data, detail);
   },
+  getAllMemberInCCTProgram: (params) => {
+    const url = "api/CCTProgram/GetAll";
+    return fetchData(url, "GET", params, null);
+  },
+  UpdateCCTMember: (data, detail) => {
+    const url = "api/CCTProgram/UpdateCCTMember";
+    return fetchDataAndLog(url, "POST", null, data, detail);
+  },
   deleteHouseHold: (params) => {
     const url = "api/HouseHold/DeleteHouseHold";
     return fetchDataAndLog(url, "GET", params, null, "Delete Household");
