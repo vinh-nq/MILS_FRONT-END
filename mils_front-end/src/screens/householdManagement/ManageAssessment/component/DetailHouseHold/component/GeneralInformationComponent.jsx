@@ -68,31 +68,39 @@ function GeneralInformationComponent(props) {
         )}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("SIGNATURE")}</span>:{" "}
         {GeneralInformationBeneficiary.EnumSignImage ? (
-          <Image
-            className="ml-2 pointer detail-hh-image"
-            width={40}
-            height={40}
-            src={`${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`}
-            alt={t("NOT_FOUND")}
-          />
+          <div className="signature-image">
+            <p className="font-weight-500 mb-0">{t("SIGNATURE")}:</p>
+            <Image
+              className="pointer"
+              width={180}
+              height={120}
+              src={`${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`}
+              alt={t("NOT_FOUND")}
+            />
+          </div>
         ) : (
-          t("EMPTY")
+          <span className="font-weight-500">
+            {t("SIGNATURE")}: {t("EMPTY")}
+          </span>
         )}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("SIGNATURE")}</span>:{" "}
         {GeneralInformationBeneficiary.RespSignImage ? (
-          <Image
-            className="ml-2 pointer detail-hh-image"
-            width={40}
-            height={40}
-            src={`${API_URL}${GeneralInformationBeneficiary.RespSignImage}`}
-            alt={t("NOT_FOUND")}
-          />
+          <div className="signature-image">
+            <p className="font-weight-500 mb-0">{t("SIGNATURE")}:</p>
+            <Image
+              className="pointer"
+              width={180}
+              height={120}
+              src={`${API_URL}${GeneralInformationBeneficiary.RespSignImage}`}
+              alt={t("NOT_FOUND")}
+            />
+          </div>
         ) : (
-          t("EMPTY")
+          <span className="font-weight-500">
+            {t("SIGNATURE")}: {t("EMPTY")}
+          </span>
         )}
       </Col>
     </Row>

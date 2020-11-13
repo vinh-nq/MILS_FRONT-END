@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles.scss";
-import { BackTop, Breadcrumb, Drawer, Layout } from "antd";
+import { Breadcrumb, Drawer, Layout } from "antd";
 import MenuComponent from "../../components/MenuComponent";
 import NavbarComponent from "../../components/NavbarComponent";
 import SiderUserInformation from "../../components/SiderUserInfo";
@@ -117,10 +117,6 @@ export default function MainLayout(props) {
             >
               {props.children}
             </Content>
-            <BackTop
-              className="scroll-top"
-              target={() => document.getElementById("my-layout")}
-            />
           </Layout>
         </Layout>
       </Layout>

@@ -12,3 +12,17 @@
     object-fit: cover;
   }
 }
+
+.signature-image {
+  position: relative;
+  width: fit-content;
+  & > span {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  img {
+    object-fit: cover;
+  }
+}

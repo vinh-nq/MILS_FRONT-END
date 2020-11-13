@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Image, message, Popconfirm, Row, Table } from "antd";
+import {
+  BackTop,
+  Button,
+  Col,
+  Image,
+  message,
+  Popconfirm,
+  Row,
+  Table,
+} from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons/lib/icons";
 import { useTranslation } from "react-i18next";
 import houseHoldApi from "../../../../../api/houseHoldApi";
@@ -66,21 +75,19 @@ function DetailBeneficiary(props) {
         .getDetailHouseHold({ householdId: hh_code })
         .then((res) => {
           const { LatLongForBeneficiary } = res.data.Data;
-          let location = { ...defaultProps };
-          location = {
-            ...location,
+          setDefaultProps((oldProps) => ({
+            ...oldProps,
             center: {
               lat: parseFloat(LatLongForBeneficiary.Lat),
               lng: parseFloat(LatLongForBeneficiary.Long),
             },
-          };
-          setDefaultProps(location);
+          }));
           setDetailHouseHold(res.data.Data);
         });
       setLoading(false);
     };
     getDetailHouseHold(hh_code);
-  }, []);
+  }, [history.location]);
 
   const changeYesNoForQuestion = (value) => {
     if (value === false || value === "false") {
@@ -369,6 +376,10 @@ function DetailBeneficiary(props) {
 
   return (
     <div className="detail-beneficiary-form">
+      <BackTop
+        className="scroll-top"
+        target={() => document.getElementById("my-layout")}
+      />
       {isLoading ? (
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
       ) : null}
@@ -585,7 +596,7 @@ function DetailBeneficiary(props) {
                   width={30}
                   height={30}
                   src={LatLongForBeneficiary.ImageUrl}
-                  fallback={t("NOT_FOUND")}
+                  alt={t("NOT_FOUND")}
                 />
               </div>
               <p className="mb-2 font-weight-500 font-15">Location(GPS):</p>

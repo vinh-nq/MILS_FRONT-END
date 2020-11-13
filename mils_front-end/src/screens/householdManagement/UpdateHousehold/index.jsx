@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, message } from "antd";
+import { BackTop, Button, Form, message } from "antd";
 import SaveFilled from "@ant-design/icons/lib/icons/SaveFilled";
 import LocationComponent from "./component/LocationComponent";
 import GeneralInformationComponent from "./component/GeneralInformationComponent";
@@ -230,6 +230,10 @@ function UpdateHousehold(props) {
         {isLoading ? (
           <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
         ) : null}
+        <BackTop
+          className="scroll-top"
+          target={() => document.getElementById("my-layout")}
+        />
         <section className="border-bottom mb-3">
           <div className="d-md-flex align-items-center mb-3">
             <span className="h5 mb-0">

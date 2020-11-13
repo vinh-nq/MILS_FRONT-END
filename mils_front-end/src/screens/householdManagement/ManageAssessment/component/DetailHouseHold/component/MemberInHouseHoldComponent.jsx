@@ -1,4 +1,5 @@
 import {
+  BackTop,
   Button,
   Col,
   DatePicker,
@@ -87,195 +88,277 @@ function MemberInHouseHold(props) {
     }
   }, [form, history.location, typeModal]);
 
-  //get all ethnic useEffect
   useEffect(() => {
-    const getAllEthnicOrigin = async () => {
-      await dataDictionaryApi
-        .GetAllEthnic({ keyword: "" })
-        .then((res) => {
-          setEthnicOrigin(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
+    const getAllSelect = async () => {
+      await Promise.all([
+        getAllEthnicOrigin(),
+        getAllMainJob(),
+        getAllMainGood(),
+        getAllSchoolType(),
+        getAllLevel(),
+        getAllMarital(),
+        getAllRelation(),
+        getAllDisability(),
+        getAllGender(),
+        getAllSchoolEnroll(),
+      ]).then(
+        ([
+          dataEthnic,
+          dataMainJob,
+          dataMainGood,
+          dataSchoolType,
+          dataLevel,
+          dataMartial,
+          dataRelation,
+          dataDisability,
+          dataGender,
+          dataSchoolEnroll,
+        ]) => {
+          setEthnicOrigin(dataEthnic.data.Data);
+          setMainJob(dataMainJob.data.Data);
+          setMainService(dataMainGood.data.Data);
+          setSchoolType(dataSchoolType.data.Data);
+          setLevel(dataLevel.data.Data);
+          setMaritalStatus(dataMartial.data.Data);
+          setRelation(dataRelation.data.Data);
+          setDisability(dataDisability.data.Data);
+          setGender(dataGender.data.Data);
+          setSchoolEnroll(dataSchoolEnroll.data.Data);
+        }
+      );
     };
-    getAllEthnicOrigin();
-  }, [t]);
+    getAllSelect();
+  }, []);
+
+  const getAllEthnicOrigin = () => {
+    return dataDictionaryApi.GetAllEthnic({ keyword: "" });
+  };
+
+  const getAllMainJob = () => {
+    return dataDictionaryApi.GetAllMainJob({ keyword: "" });
+  };
+
+  const getAllMainGood = () => {
+    return dataDictionaryApi.GetAllMainGoodsServices({ keyword: "" });
+  };
+
+  const getAllSchoolType = () => {
+    return dataDictionaryApi.GetAllSchoolType({ keyword: "" });
+  };
+
+  const getAllLevel = () => {
+    return dataDictionaryApi.GetAllLevel({ keyword: "" });
+  };
+
+  const getAllMarital = () => {
+    return dataDictionaryApi.GetAllMaritalStatus({ keyword: "" });
+  };
+
+  const getAllRelation = () => {
+    return dataDictionaryApi.GetAllRelation({ keyword: "" });
+  };
+
+  const getAllDisability = () => {
+    return dataDictionaryApi.GetAllDisability({ keyword: "" });
+  };
+
+  const getAllGender = () => {
+    return dataDictionaryApi.GetAllGender({ keyword: "" });
+  };
+
+  const getAllSchoolEnroll = () => {
+    return dataDictionaryApi.GetAllSchoolEnroll({ keyword: "" });
+  };
+
+  //get all ethnic useEffect
+  // useEffect(() => {
+  //   const getAllEthnicOrigin = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllEthnic({ keyword: "" })
+  //       .then((res) => {
+  //         setEthnicOrigin(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   getAllEthnicOrigin();
+  // }, [t]);
 
   //get all mainjob useEffect
-  useEffect(() => {
-    const getAllMainJob = async () => {
-      await dataDictionaryApi
-        .GetAllMainJob({ keyword: "" })
-        .then((res) => {
-          setMainJob(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAllMainJob();
-  }, [t]);
+  // useEffect(() => {
+  //   const getAllMainJob = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllMainJob({ keyword: "" })
+  //       .then((res) => {
+  //         setMainJob(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   getAllMainJob();
+  // }, [t]);
 
   //get all mainGood service
-  useEffect(() => {
-    const getAllMainGood = async () => {
-      await dataDictionaryApi
-        .GetAllMainGoodsServices({ keyword: "" })
-        .then((res) => {
-          setMainService(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAllMainGood();
-  }, [t]);
+  // useEffect(() => {
+  //   const getAllMainGood = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllMainGoodsServices({ keyword: "" })
+  //       .then((res) => {
+  //         setMainService(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   getAllMainGood();
+  // }, [t]);
 
   //Get all school
-  useEffect(() => {
-    const getAllSchoolType = async () => {
-      await dataDictionaryApi
-        .GetAllSchoolType({ keyword: "" })
-        .then((res) => {
-          setSchoolType(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAllSchoolType();
-  }, [t]);
+  // useEffect(() => {
+  //   const getAllSchoolType = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllSchoolType({ keyword: "" })
+  //       .then((res) => {
+  //         setSchoolType(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   getAllSchoolType();
+  // }, [t]);
 
   //Get all level
-  useEffect(() => {
-    const getAllLevel = async () => {
-      await dataDictionaryApi
-        .GetAllLevel({ keyword: "" })
-        .then((res) => {
-          setLevel(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAllLevel();
-  }, [t]);
+  // useEffect(() => {
+  //   const getAllLevel = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllLevel({ keyword: "" })
+  //       .then((res) => {
+  //         setLevel(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   getAllLevel();
+  // }, [t]);
 
   //Get all Marital Status
-  useEffect(() => {
-    const getAllMarital = async () => {
-      await dataDictionaryApi
-        .GetAllMaritalStatus({ keyword: "" })
-        .then((res) => {
-          setMaritalStatus(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAllMarital();
-  }, [t]);
+  // useEffect(() => {
+  //   const getAllMarital = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllMaritalStatus({ keyword: "" })
+  //       .then((res) => {
+  //         setMaritalStatus(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   getAllMarital();
+  // }, [t]);
 
   //Get all Relation
-  useEffect(() => {
-    const getAllMarital = async () => {
-      await dataDictionaryApi
-        .GetAllRelation({ keyword: "" })
-        .then((res) => {
-          setRelation(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAllMarital();
-  }, [t]);
+  // useEffect(() => {
+  //   const GetAllRelation = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllRelation({ keyword: "" })
+  //       .then((res) => {
+  //         setRelation(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   GetAllRelation();
+  // }, [t]);
 
   //Get all Disability
-  useEffect(() => {
-    const getAllMarital = async () => {
-      await dataDictionaryApi
-        .GetAllDisability({ keyword: "" })
-        .then((res) => {
-          setDisability(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAllMarital();
-  }, [t]);
+  // useEffect(() => {
+  //   const GetAllDisability = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllDisability({ keyword: "" })
+  //       .then((res) => {
+  //         setDisability(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   GetAllDisability();
+  // }, [t]);
 
   //get all render
-  useEffect(() => {
-    const getAllGender = async () => {
-      await dataDictionaryApi
-        .GetAllGender({ keyword: "" })
-        .then((res) => {
-          setGender(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAllGender();
-  }, [t]);
+  // useEffect(() => {
+  //   const getAllGender = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllGender({ keyword: "" })
+  //       .then((res) => {
+  //         setGender(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   getAllGender();
+  // }, [t]);
 
   //get all school enroll
-  useEffect(() => {
-    const getAllSchoolEnroll = async () => {
-      await dataDictionaryApi
-        .GetAllSchoolEnroll({ keyword: "" })
-        .then((res) => {
-          setSchoolEnroll(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("Error"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAllSchoolEnroll();
-  }, [t]);
+  // useEffect(() => {
+  //   const getAllSchoolEnroll = async () => {
+  //     await dataDictionaryApi
+  //       .GetAllSchoolEnroll({ keyword: "" })
+  //       .then((res) => {
+  //         setSchoolEnroll(res.data.Data);
+  //       })
+  //       .catch(() => {
+  //         message.error({
+  //           content: t("Error"),
+  //           key: "message-form-role",
+  //           duration: 1,
+  //         });
+  //       });
+  //   };
+  //   getAllSchoolEnroll();
+  // }, [t]);
 
   const disabledDate = (current) => {
     return current > moment();
@@ -358,6 +441,10 @@ function MemberInHouseHold(props) {
       {isLoading ? (
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
       ) : null}
+      <BackTop
+        className="scroll-top"
+        target={() => document.getElementById("my-layout")}
+      />
       <div className="d-flex align-items-center mb-3">
         <span className="h5 mb-0">
           {typeModal === "ADD" ? t("add") : t("update")} {t("FAMILY_MEMBER")}
@@ -392,7 +479,7 @@ function MemberInHouseHold(props) {
           </Button>
         </div>
       </div>
-      <Row className="mb-2" gutter={16}>
+      <Row className="mb-2" gutter={[16, 16]}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("MEMBER_NAME")}{" "}
@@ -435,8 +522,6 @@ function MemberInHouseHold(props) {
             <Select>{renderSelect(maritalStatus)}</Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("RELATION_TO_HOUSEHOLD")}{" "}
@@ -473,8 +558,6 @@ function MemberInHouseHold(props) {
             <Select>{renderSelect(gender)}</Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("DATE_OF_BIRTH")}{" "}
@@ -517,8 +600,6 @@ function MemberInHouseHold(props) {
             <Input />
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("ETHNIC_ORIGIN")}{" "}
@@ -552,8 +633,6 @@ function MemberInHouseHold(props) {
             </Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("ARE_YOU_CURRENTLY_STUDYING")}{" "}
@@ -594,8 +673,6 @@ function MemberInHouseHold(props) {
             <Select>{renderSelect(level)}</Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("CURRENT_YEAR_LEVEL_OF_EDUCATION")}{" "}
@@ -618,7 +695,7 @@ function MemberInHouseHold(props) {
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {`${t("CLASS_OF")} ${t("KINDERGARTEN").toLowerCase()}`}{" "}
+            {`${t("KINDERGARTEN")}`}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -640,11 +717,9 @@ function MemberInHouseHold(props) {
             <Input />
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {`${t("CLASS_OF")} ${t("PRIMARY").toLowerCase()}`}{" "}
+            {`${t("PRIMARY")}`}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -668,7 +743,7 @@ function MemberInHouseHold(props) {
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {`${t("CLASS_OF")} ${t("LOWER_SECONDARY").toLowerCase()}`}{" "}
+            {` ${t("LOWER_SECONDARY")}`}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -690,11 +765,9 @@ function MemberInHouseHold(props) {
             <Input />
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {`${t("CLASS_OF")} ${t("UPPER_SECONDARY").toLowerCase()}`}{" "}
+            {`${t("UPPER_SECONDARY")}`}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -718,7 +791,7 @@ function MemberInHouseHold(props) {
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {`${t("CLASS_OF")} ${t("VOCATIONAL_SCHOOL").toLowerCase()}`}{" "}
+            {`${t("VOCATIONAL_SCHOOL")}`}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -744,11 +817,9 @@ function MemberInHouseHold(props) {
             <Input />
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {`${t("CLASS_OF")} ${t("UNIVERSITY_INSTITUTE").toLowerCase()}`}{" "}
+            {`${t("UNIVERSITY_INSTITUTE")} `}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -776,9 +847,7 @@ function MemberInHouseHold(props) {
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
-            {`${t("CLASS_OF")} ${t(
-              "WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING"
-            ).toLowerCase()}`}{" "}
+            {`${t("WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING")}`}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -796,8 +865,6 @@ function MemberInHouseHold(props) {
             <Select>{renderSelect(schoolType)}</Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("HIGHER_EDUCATION_IS_GRADUATED")}{" "}
@@ -808,6 +875,142 @@ function MemberInHouseHold(props) {
             className="mb-0"
             rules={[
               {
+                required: true,
+                message: `${t("HIGHER_EDUCATION_IS_GRADUATED")} ${t(
+                  "is_not_empty"
+                )}`,
+              },
+            ]}
+          >
+            <Select>{renderSelect(level)}</Select>
+          </Form.Item>
+        </Col>
+        <Col span={24} lg={12}>
+          <Text className="font-13 font-weight-500">
+            {t("HIGHER_EDUCATION_IS_GRADUATED")}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={"HHLevelCompleted"}
+            className="mb-0"
+            rules={[
+              {
+                required: true,
+                message: `${t("HIGHER_EDUCATION_IS_GRADUATED")} ${t(
+                  "is_not_empty"
+                )}`,
+              },
+            ]}
+          >
+            <Select>{renderSelect(level)}</Select>
+          </Form.Item>
+        </Col>
+        <Col span={24} lg={12}>
+          <Text className="font-13 font-weight-500">
+            {`${t("KINDERGARTEN")}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={"HHClassLcPre"}
+            className="mb-0"
+            rules={[
+              {
+                validator(rule, value) {
+                  return handleValidateFrom(
+                    rule,
+                    value,
+                    objectValidateForm.checkString(50, true, "KINDERGARTEN"),
+                    t
+                  );
+                },
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={24} lg={12}>
+          <Text className="font-13 font-weight-500">
+            {`${t("PRIMARY")}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={"HHClassLcPrimary"}
+            className="mb-0"
+            rules={[
+              {
+                validator(rule, value) {
+                  return handleValidateFrom(
+                    rule,
+                    value,
+                    objectValidateForm.checkString(50, true, "PRIMARY"),
+                    t
+                  );
+                },
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={24} lg={12}>
+          <Text className="font-13 font-weight-500">
+            {`${t("LOWER_SECONDARY")}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={"HHClassLcLs"}
+            className="mb-0"
+            rules={[
+              {
+                validator(rule, value) {
+                  return handleValidateFrom(
+                    rule,
+                    value,
+                    objectValidateForm.checkString(50, true, "LOWER_SECONDARY"),
+                    t
+                  );
+                },
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={24} lg={12}>
+          <Text className="font-13 font-weight-500">
+            {`${t("UPPER_SECONDARY")}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={"HHClassLcUs"}
+            className="mb-0"
+            rules={[
+              {
+                validator(rule, value) {
+                  return handleValidateFrom(
+                    rule,
+                    value,
+                    objectValidateForm.checkString(50, true, "UPPER_SECONDARY"),
+                    t
+                  );
+                },
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={24} lg={12}>
+          <Text className="font-13 font-weight-500">
+            {`${t("VOCATIONAL_SCHOOL")}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={"HHClassLcVoc"}
+            className="mb-0"
+            rules={[
+              {
                 validator(rule, value) {
                   return handleValidateFrom(
                     rule,
@@ -815,7 +1018,7 @@ function MemberInHouseHold(props) {
                     objectValidateForm.checkString(
                       50,
                       true,
-                      "HIGHER_EDUCATION_IS_GRADUATED"
+                      "VOCATIONAL_SCHOOL"
                     ),
                     t
                   );
@@ -828,6 +1031,34 @@ function MemberInHouseHold(props) {
         </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
+            {` ${t("UNIVERSITY_INSTITUTE")}`}{" "}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={"HHClassLcUniv"}
+            className="mb-0"
+            rules={[
+              {
+                validator(rule, value) {
+                  return handleValidateFrom(
+                    rule,
+                    value,
+                    objectValidateForm.checkString(
+                      50,
+                      true,
+                      "UNIVERSITY_INSTITUTE"
+                    ),
+                    t
+                  );
+                },
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={24}>
+          <Text className="font-13 font-weight-500">
             {t(
               "HAVE_YOU_WORKED_ON_YOUR_OWN_OR_ANY_OF_YOUR_OWN_BUSINESS_OR_ANY_OF_YOUR_FAMILY_MEMBERS"
             )}
@@ -839,9 +1070,7 @@ function MemberInHouseHold(props) {
             </Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} lg={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
             {t(
               "HAVE_YOU_BEEN_WORKING_ON_YOUR_OWN_FARM_OR_WITH_A_FAMILY_MEMBER"
@@ -854,7 +1083,7 @@ function MemberInHouseHold(props) {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={24} lg={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
             {t("HAVE_YOU_WORKED_ELSEWHERE_IN_THE_LAST_7_DAYS")}
           </Text>
@@ -865,8 +1094,23 @@ function MemberInHouseHold(props) {
             </Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
+        <Col span={24}>
+          <Text className="font-13 font-weight-500">
+            {t(
+              "SOCIAL_SECURITY_MEMBER_OF_ANY_UNIT_OR_PARTICIPATED_IN_A_HEALTH"
+            )}
+          </Text>
+          <Form.Item
+            name={"HealthInsurance"}
+            className="mb-0"
+            initialValue={true}
+          >
+            <Select>
+              <Option value={true}>{t("YES")}</Option>
+              <Option value={false}>{t("NO")}</Option>
+            </Select>
+          </Form.Item>
+        </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("MAINTAIN_THE_MAIN_WORK_YOU_DID_DURING_THE_LAST_7_DAYS")}{" "}
@@ -913,25 +1157,6 @@ function MemberInHouseHold(props) {
             <Select>{renderSelect(mainService)}</Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t(
-              "SOCIAL_SECURITY_MEMBER_OF_ANY_UNIT_OR_PARTICIPATED_IN_A_HEALTH"
-            )}
-          </Text>
-          <Form.Item
-            name={"HealthInsurance"}
-            className="mb-0"
-            initialValue={true}
-          >
-            <Select>
-              <Option value={true}>{t("YES")}</Option>
-              <Option value={false}>{t("NO")}</Option>
-            </Select>
-          </Form.Item>
-        </Col>
         <Col span={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("ARE_YOU_A_SOCIAL_SECURITY_MEMBER_OF_A_PRIVATE_COMPANY")}
@@ -947,9 +1172,18 @@ function MemberInHouseHold(props) {
             </Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={[16, 10]}>
-        <Col md={24} lg={12} xl={12}>
+        <Col md={24} lg={12}>
+          <Text className="font-13 font-weight-500">
+            {t("ARE_YOU_PREGNANT")}
+          </Text>
+          <Form.Item name={"Pregnant"} className="mb-0" initialValue={true}>
+            <Select>
+              <Option value={true}>Pregnant</Option>
+              <Option value={false}>Not Pregnant</Option>
+            </Select>
+          </Form.Item>
+        </Col>
+        <Col md={24} lg={12}>
           <Text className="font-13 font-weight-500">
             {t("HAVE_A_PHYSICAL_DISORDER")}
           </Text>
@@ -967,7 +1201,7 @@ function MemberInHouseHold(props) {
           </Form.Item>
         </Col>
         {disabilities ? (
-          <Col md={24} lg={12} xl={12}>
+          <Col md={24} lg={12}>
             <Text className="font-13 font-weight-500">
               {t("INDICATE_THE_TYPE_OF_DEFECT")}{" "}
               <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
@@ -988,17 +1222,6 @@ function MemberInHouseHold(props) {
             </Form.Item>
           </Col>
         ) : null}
-        <Col md={24} lg={12} xl={12}>
-          <Text className="font-13 font-weight-500">
-            {t("ARE_YOU_PREGNANT")}
-          </Text>
-          <Form.Item name={"Pregnant"} className="mb-0" initialValue={true}>
-            <Select>
-              <Option value={true}>Pregnant</Option>
-              <Option value={false}>Not Pregnant</Option>
-            </Select>
-          </Form.Item>
-        </Col>
       </Row>
     </Form>
   );

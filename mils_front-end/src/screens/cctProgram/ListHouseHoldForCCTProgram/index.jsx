@@ -42,39 +42,6 @@ function ListHouseholdForCCTProgram(props) {
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
     localStorage.getItem("i18nextLng");
 
-  useEffect(() => {
-    const { page, status, isLocked, hhName } = getDataFromUrl();
-    setPage(page);
-    setSelectLocked(isLocked ? isLocked : "all");
-    setSelectedStatus(status ? status : "all");
-    setHHName(hhName);
-    getDataConfirm({
-      currentPage: page,
-      isLocked: isLocked === "all" || !isLocked ? "-1" : isLocked,
-      status: status === "all" || !isLocked ? "-1" : status,
-      hhHeadName: hhName,
-    });
-  }, []);
-
-  useEffect(() => {
-    const getAllStatusConfirm = async () => {
-      await dataDictionaryApi
-        .GetAllCCTConfirmStatus({ keyword: "" })
-        .then((res) => {
-          if (res.data.Status) {
-            setStatusConfirm(res.data.Data);
-          } else {
-            message.error({
-              content: t("FETCH_DATA_FAILED"),
-              key: "message-form-role",
-              duration: 1,
-            });
-          }
-        });
-    };
-    getAllStatusConfirm();
-  }, [t]);
-
   //get params from URL
   const getDataFromUrl = () => {
     let page = getValueOfQueryParams(history.location, "page");
@@ -109,6 +76,39 @@ function ListHouseholdForCCTProgram(props) {
     });
     setLoading(false);
   };
+
+  useEffect(() => {
+    const { page, status, isLocked, hhName } = getDataFromUrl();
+    setPage(page);
+    setSelectLocked(isLocked ? isLocked : "all");
+    setSelectedStatus(status ? status : "all");
+    setHHName(hhName);
+    getDataConfirm({
+      currentPage: page,
+      isLocked: isLocked === "all" || !isLocked ? "-1" : isLocked,
+      status: status === "all" || !isLocked ? "-1" : status,
+      hhHeadName: hhName,
+    });
+  }, []);
+
+  useEffect(() => {
+    const getAllStatusConfirm = async () => {
+      await dataDictionaryApi
+        .GetAllCCTConfirmStatus({ keyword: "" })
+        .then((res) => {
+          if (res.data.Status) {
+            setStatusConfirm(res.data.Data);
+          } else {
+            message.error({
+              content: t("FETCH_DATA_FAILED"),
+              key: "message-form-role",
+              duration: 1,
+            });
+          }
+        });
+    };
+    getAllStatusConfirm();
+  }, [t]);
 
   const onClickSearch = () => {
     setPage(1);
