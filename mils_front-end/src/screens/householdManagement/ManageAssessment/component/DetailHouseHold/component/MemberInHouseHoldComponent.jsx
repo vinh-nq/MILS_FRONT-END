@@ -731,7 +731,7 @@ function MemberInHouseHold(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkString(50, true, "PRIMARY"),
+                    objectValidateForm.checkString(20, true, "PRIMARY"),
                     t
                   );
                 },
@@ -755,7 +755,7 @@ function MemberInHouseHold(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkString(50, true, "LOWER_SECONDARY"),
+                    objectValidateForm.checkString(20, true, "LOWER_SECONDARY"),
                     t
                   );
                 },
@@ -779,7 +779,7 @@ function MemberInHouseHold(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkString(50, true, "UPPER_SECONDARY"),
+                    objectValidateForm.checkString(20, true, "UPPER_SECONDARY"),
                     t
                   );
                 },
@@ -804,7 +804,7 @@ function MemberInHouseHold(props) {
                     rule,
                     value,
                     objectValidateForm.checkString(
-                      50,
+                      20,
                       true,
                       "VOCATIONAL_SCHOOL"
                     ),
@@ -832,7 +832,7 @@ function MemberInHouseHold(props) {
                     rule,
                     value,
                     objectValidateForm.checkString(
-                      50,
+                      20,
                       true,
                       "UNIVERSITY_INSTITUTE"
                     ),
@@ -919,7 +919,7 @@ function MemberInHouseHold(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkString(50, true, "KINDERGARTEN"),
+                    objectValidateForm.checkString(20, true, "KINDERGARTEN"),
                     t
                   );
                 },
@@ -943,7 +943,7 @@ function MemberInHouseHold(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkString(50, true, "PRIMARY"),
+                    objectValidateForm.checkString(20, true, "PRIMARY"),
                     t
                   );
                 },
@@ -967,7 +967,7 @@ function MemberInHouseHold(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkString(50, true, "LOWER_SECONDARY"),
+                    objectValidateForm.checkString(20, true, "LOWER_SECONDARY"),
                     t
                   );
                 },
@@ -991,7 +991,7 @@ function MemberInHouseHold(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkString(50, true, "UPPER_SECONDARY"),
+                    objectValidateForm.checkString(20, true, "UPPER_SECONDARY"),
                     t
                   );
                 },
@@ -1016,7 +1016,7 @@ function MemberInHouseHold(props) {
                     rule,
                     value,
                     objectValidateForm.checkString(
-                      50,
+                      20,
                       true,
                       "VOCATIONAL_SCHOOL"
                     ),
@@ -1044,7 +1044,7 @@ function MemberInHouseHold(props) {
                     rule,
                     value,
                     objectValidateForm.checkString(
-                      50,
+                      20,
                       true,
                       "UNIVERSITY_INSTITUTE"
                     ),

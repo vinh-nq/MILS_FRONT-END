@@ -266,17 +266,36 @@ function ManageAssessment(props) {
     };
   };
 
-  const checkDataFromUrl = () => {
-    const {
-      pageUrl,
-      provinceId,
-      districtId,
-      villageId,
-      unitId,
-      child,
-      pregnant,
-      headName,
-    } = getDataFromUrl();
+  useEffect(() => {
+    let pageUrl = getValueOfQueryParams(history.location, "page", "PAGE");
+    let provinceId = getValueOfQueryParams(
+      history.location,
+      "provinceId",
+      "STRING"
+    );
+    let districtId = getValueOfQueryParams(
+      history.location,
+      "districtId",
+      "STRING"
+    );
+    let villageId = getValueOfQueryParams(
+      history.location,
+      "villageId",
+      "STRING"
+    );
+    let unitId = getValueOfQueryParams(history.location, "unitId", "STRING");
+    let child = getValueOfQueryParams(history.location, "child", "NUMBER");
+    let pregnant = getValueOfQueryParams(
+      history.location,
+      "pregnant",
+      "NUMBER"
+    );
+    let headName = getValueOfQueryParams(
+      history.location,
+      "headName",
+      "KEYWORD"
+    );
+
     setSelectedProvince(provinceId);
     setSelectedDistrict(districtId);
     setSelectedVillage(villageId);
@@ -285,7 +304,8 @@ function ManageAssessment(props) {
     setSelectPregnant(parseInt(pregnant));
     setHeadName(headName);
     setPage(pageUrl);
-    return {
+
+    const objectParams = {
       currentPage: pageUrl,
       provinceId: provinceId,
       districtId: districtId,
@@ -295,32 +315,29 @@ function ManageAssessment(props) {
       pregnant: pregnant,
       headName: headName,
     };
-  };
 
-  useEffect(() => {
-    getDataHouseHold(checkDataFromUrl());
-  }, []);
-
-  const getDataHouseHold = async (params) => {
-    setLoading(true);
-    await Promise.all([
-      getHouseHoldList(params),
-      getProvincePromiseAll(),
-      getDistrictPromiseAll(params.provinceId),
-      getDistrictVillageAll(params.districtId),
-      getUnitPromiseAll(params.villageId),
-    ]).then(
-      ([resHouseHoldList, resProvince, resDistrict, resVillage, resUnit]) => {
-        setData(resHouseHoldList.data.Data.houseHoldViewModels);
-        setTotalPage(resHouseHoldList.data.Data.TotalPage);
-        setProvince(resProvince.data.Data);
-        setDistrict(resDistrict.data.Data);
-        setVillage(resVillage.data.Data);
-        setUnit(resUnit.data.Data);
-      }
-    );
-    setLoading(false);
-  };
+    const getDataHouseHold = async (params) => {
+      setLoading(true);
+      await Promise.all([
+        getHouseHoldList(params),
+        getProvincePromiseAll(),
+        getDistrictPromiseAll(params.provinceId),
+        getDistrictVillageAll(params.districtId),
+        getUnitPromiseAll(params.villageId),
+      ]).then(
+        ([resHouseHoldList, resProvince, resDistrict, resVillage, resUnit]) => {
+          setData(resHouseHoldList.data.Data.houseHoldViewModels);
+          setTotalPage(resHouseHoldList.data.Data.TotalPage);
+          setProvince(resProvince.data.Data);
+          setDistrict(resDistrict.data.Data);
+          setVillage(resVillage.data.Data);
+          setUnit(resUnit.data.Data);
+        }
+      );
+      setLoading(false);
+    };
+    getDataHouseHold(objectParams);
+  }, [history.location]);
 
   const getHouseHoldList = (params) => {
     return houseHoldApi.searchHouseHold(params);
@@ -355,7 +372,15 @@ function ManageAssessment(props) {
   };
 
   const getUnitPromiseAll = (villageId) => {
-    return houseHoldApi.getAllUnit({ villageId });
+    if (villageId !== "-1") {
+      return houseHoldApi.getAllUnit({ villageId });
+    } else {
+      return {
+        data: {
+          Data: [],
+        },
+      };
+    }
   };
 
   const getDistrict = async (provinceId) => {
@@ -472,16 +497,6 @@ function ManageAssessment(props) {
     history.push(
       `/householdmanagement/householdregistration?page=1&provinceId=${selectedProvince}&districtId=${selectedDistrict}&villageId=${selectedVillage}&unitId=${selectedUnit}&child=${selectChildren}&pregnant=${selectPregnant}&headName=${headName}`
     );
-    getDataHouseHold({
-      provinceId: selectedProvince,
-      districtId: selectedDistrict,
-      villageId: selectedVillage,
-      unitId: selectedUnit,
-      child: selectChildren,
-      pregnant: selectPregnant,
-      headName: headName,
-      currentPage: 1,
-    });
   };
 
   const onSelectProvince = (id) => {
@@ -537,16 +552,6 @@ function ManageAssessment(props) {
     history.push(
       `/householdmanagement/householdregistration?page=${currentPage}&provinceId=${provinceId}&districtId=${districtId}&villageId=${villageId}&unitId=${unitId}&child=${child}&pregnant=${pregnant}&headName=${headName}`
     );
-    getDataHouseHold({
-      provinceId: provinceId,
-      districtId: districtId,
-      villageId: villageId,
-      unitId: unitId,
-      child: child,
-      pregnant: pregnant,
-      headName: headName,
-      currentPage: currentPage,
-    });
   };
 
   const renderProvinceSelect = () => {

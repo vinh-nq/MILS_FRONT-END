@@ -60,36 +60,61 @@ function ListHouseholdForCCTProgram(props) {
     };
   };
 
-  const getDataConfirm = async (obj) => {
-    setLoading(true);
-    await GetHHCCTConfirms.GetHHCCTConfirms(obj).then((res) => {
-      if (res.data.Status) {
-        setData(res.data.Data.hhCCTConfirms);
-        setTotalPage(res.data.Data.TotalPage);
-      } else {
-        message.error({
-          content: t("FETCH_DATA_FAILED"),
-          key: "message-form-role",
-          duration: 1,
-        });
-      }
-    });
-    setLoading(false);
-  };
+  // const getDataConfirm = async (obj) => {
+  //   setLoading(true);
+  //   await GetHHCCTConfirms.GetHHCCTConfirms(obj).then((res) => {
+  //     if (res.data.Status) {
+  //       setData(res.data.Data.hhCCTConfirms);
+  //       setTotalPage(res.data.Data.TotalPage);
+  //     } else {
+  //       message.error({
+  //         content: t("FETCH_DATA_FAILED"),
+  //         key: "message-form-role",
+  //         duration: 1,
+  //       });
+  //     }
+  //   });
+  //   setLoading(false);
+  // };
 
   useEffect(() => {
-    const { page, status, isLocked, hhName } = getDataFromUrl();
+    // const { page, status, isLocked, hhName } = getDataFromUrl();
+    let page = getValueOfQueryParams(history.location, "page");
+    let status = getValueOfQueryParams(history.location, "status", "STRING");
+    let isLocked = getValueOfQueryParams(
+      history.location,
+      "islocked",
+      "STRING"
+    );
+    let hhName = getValueOfQueryParams(history.location, "hhName", "STRING");
     setPage(page);
     setSelectLocked(isLocked ? isLocked : "all");
     setSelectedStatus(status ? status : "all");
     setHHName(hhName);
-    getDataConfirm({
+    const objParams = {
       currentPage: page,
       isLocked: isLocked === "all" || !isLocked ? "-1" : isLocked,
       status: status === "all" || !isLocked ? "-1" : status,
       hhHeadName: hhName,
-    });
-  }, []);
+    };
+    const getDataConfirm = async (objParams) => {
+      setLoading(true);
+      await GetHHCCTConfirms.GetHHCCTConfirms(objParams).then((res) => {
+        if (res.data.Status) {
+          setData(res.data.Data.hhCCTConfirms);
+          setTotalPage(res.data.Data.TotalPage);
+        } else {
+          message.error({
+            content: t("FETCH_DATA_FAILED"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      });
+      setLoading(false);
+    };
+    getDataConfirm(objParams);
+  }, [history.location, t]);
 
   useEffect(() => {
     const getAllStatusConfirm = async () => {
@@ -111,30 +136,18 @@ function ListHouseholdForCCTProgram(props) {
   }, [t]);
 
   const onClickSearch = () => {
-    setPage(1);
     history.push(
       `${PATH.EROLLMENT}?page=1&status=${selectedStatus}&islocked=${selectedLocked}&hhName=${hhName}`
     );
-    getDataConfirm({
-      currentPage: 1,
-      isLocked: selectedLocked !== "all" ? selectedLocked : "-1",
-      status: selectedStatus !== "all" ? selectedStatus : "-1",
-      hhHeadName: hhName,
-    });
   };
 
   const handlePageChange = (value) => {
-    setPage(value);
-    const { status, isLocked, hhName } = getDataFromUrl();
+    let { status, isLocked, hhName } = getDataFromUrl();
+    isLocked = isLocked ? isLocked : "all";
+    status = status ? status : "all";
     history.push(
       `${PATH.EROLLMENT}?page=${value}&status=${status}&islocked=${isLocked}&hhName=${hhName}`
     );
-    getDataConfirm({
-      currentPage: value,
-      isLocked: isLocked === "all" || !isLocked ? "-1" : isLocked,
-      status: status === "all" || !isLocked ? "-1" : status,
-      hhHeadName: hhName,
-    });
   };
 
   const columns = [

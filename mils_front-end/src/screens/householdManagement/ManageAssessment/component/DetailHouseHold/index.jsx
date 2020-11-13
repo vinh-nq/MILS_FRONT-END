@@ -381,6 +381,10 @@ function DetailBeneficiary(props) {
       {isLoading ? (
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
       ) : null}
+      <BackTop
+        className="scroll-top"
+        target={() => document.getElementById("my-layout")}
+      />
       {/*Header and title*/}
       <section className="border-bottom mb-3">
         <div className="d-md-flex align-items-center mb-3">
@@ -591,8 +595,8 @@ function DetailBeneficiary(props) {
                 Photo
                 <Image
                   className="ml-2 pointer"
-                  width={30}
-                  height={30}
+                  width={40}
+                  height={40}
                   src={LatLongForBeneficiary.ImageUrl}
                   alt={t("NOT_FOUND")}
                 />
