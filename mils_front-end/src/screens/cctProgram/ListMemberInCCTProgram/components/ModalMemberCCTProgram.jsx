@@ -46,7 +46,7 @@ function ModalMemberCCTProgram(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-member",
           duration: 1,
         })
@@ -145,8 +145,21 @@ function ModalMemberCCTProgram(props) {
             >
               {t("expire_date")} :{" "}
             </span>
-            <Form.Item name="expire_date" className="ml-1">
-              <DatePicker format="DD/MM/YYYY" disabledDate={disabledDate} />
+            <Form.Item
+              name="expire_date"
+              className="ml-1"
+              rules={[
+                {
+                  required: true,
+                  message: `${t("expire_date")} ${t("is_not_empty")}`,
+                },
+              ]}
+            >
+              <DatePicker
+                format="DD/MM/YYYY"
+                disabledDate={disabledDate}
+                inputReadOnly={true}
+              />
             </Form.Item>
           </div>
           <div className="col-xl-4 col-lg-4 col-sm-4 col-12 mb-3 d-flex flex-row">

@@ -68,13 +68,12 @@ export const fetchDataAndLog = async (url, method, params, data, detail) => {
           return response;
         }
       },
-      ([error]) => {
+      (error) => {
         switch (error.response.data.StatusCode) {
           case 401:
             window.location.href = window.location.origin + "/login";
             break;
           case 403:
-            cookies.remove("user");
             window.location.href =
               window.location.origin + "/error-authentication";
             throw new Error(error.response.data.Message);
@@ -88,7 +87,6 @@ export const fetchDataAndLog = async (url, method, params, data, detail) => {
 };
 
 export const fetchData = (url, method, params, data) => {
-  let cookies = new Cookies();
   return fetchDataAPI(url, method, params, data).then(
     (response) => {
       if (response.data.Status) {
@@ -106,7 +104,6 @@ export const fetchData = (url, method, params, data) => {
           window.location.href = window.location.origin + "/login";
           break;
         case 403:
-          cookies.remove("user");
           window.location.href =
             window.location.origin + "/error-authentication";
           throw new Error(error.response.data.Message);

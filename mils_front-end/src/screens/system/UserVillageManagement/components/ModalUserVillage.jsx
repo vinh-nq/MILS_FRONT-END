@@ -24,6 +24,10 @@ function ModalUserVillage(props) {
   const [listVillage, setListVillage] = useState([]);
   const [checkDisable, setCheckDisale] = useState(true);
   const [checkDisableVillage, setCheckDisaleVillage] = useState(true);
+
+  const [loadingDistrict, setLoadingDistrict] = useState(false);
+  const [loadingVillage, setLoadingVillage] = useState(false);
+
   const dataLanguage =
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
     localStorage.getItem("i18nextLng");
@@ -124,6 +128,7 @@ function ModalUserVillage(props) {
 
   const fetchDataDistrict = async (idProvince) => {
     // setListDistrict([]);
+    setLoadingDistrict(true);
     await houseHoldApi
       .getAllDistrict({
         provinceId: idProvince,
@@ -132,12 +137,14 @@ function ModalUserVillage(props) {
         if (typeModal === "add") {
           setCheckDisale(false);
         }
+        setLoadingDistrict(false);
         setListDistrict(res.data.Data);
       });
   };
 
   const fetchDataVillage = async (idDistrict) => {
     setListVillage([]);
+    setLoadingVillage(true);
     await houseHoldApi
       .getAllVillage({
         districtId: idDistrict,
@@ -146,6 +153,7 @@ function ModalUserVillage(props) {
         if (typeModal === "add") {
           setCheckDisaleVillage(false);
         }
+        setLoadingVillage(false);
         setListVillage(res.data.Data);
       });
   };
@@ -157,7 +165,10 @@ function ModalUserVillage(props) {
 
   const handleAddNew = async (value) => {
     await userVillageApi
-      .Insert(value, `Insert Permision For Account ${value.user_id} For Village ${value.village_id}`)
+      .Insert(
+        value,
+        `Insert Permision For Account ${value.user_id} For Village ${value.village_id}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -332,6 +343,7 @@ function ModalUserVillage(props) {
               setCheckDisaleVillage(true);
               fetchDataVillage(value);
             }}
+            loading={loadingDistrict}
           >
             {listDistrict.map((el) => (
               <Select.Option value={el.DistrictId} key={el.DistrictId}>
@@ -353,7 +365,11 @@ function ModalUserVillage(props) {
             },
           ]}
         >
-          <Select placeholder="Select village" disabled={checkDisableVillage}>
+          <Select
+            placeholder="Select village"
+            disabled={checkDisableVillage}
+            loading={loadingVillage}
+          >
             {listVillage.map((el) => (
               <Select.Option value={el.VillageId} key={el.VillageId}>
                 {listVillage === "la" ? el.VillageName : el.VillageNameEng}
