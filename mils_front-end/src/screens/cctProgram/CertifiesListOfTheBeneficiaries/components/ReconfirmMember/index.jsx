@@ -69,7 +69,8 @@ export default function ReconfirmMember(props) {
             .map((el) => ({
               cct_member_id: el.MemberId,
               cct_member_name: el.MemberName,
-              cct_hh_member_id: el.PPId,
+              cct_hh_member_id:
+                [...`${el.PPId}`].length < 2 ? `0${el.PPId}` : el.PPId,
               created_date: null,
               expire_date: null,
               type_of_card: null,
@@ -137,7 +138,7 @@ export default function ReconfirmMember(props) {
             {t("List People Already A Member")}
           </span>
           <Table
-            style={{ width: "100%" }}
+            style={{ width: "100%", overflow: "auto" }}
             className="table-container-expand-reconfirm"
             columns={columnsTableMemberHaveCard}
             dataSource={listMember.filter((el) => el.have_card) || []}
@@ -149,7 +150,7 @@ export default function ReconfirmMember(props) {
       <div className="col">
         <span style={{ fontSize: "18px" }}>{t("List People")}</span>
         <Table
-          style={{ width: "100%" }}
+          style={{ width: "100%", overflow: "auto" }}
           className="table-container-expand-reconfirm"
           columns={columns}
           dataSource={listMember.filter((el) => !el.have_card) || []}

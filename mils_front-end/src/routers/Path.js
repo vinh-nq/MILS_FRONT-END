@@ -68,6 +68,7 @@ export const PATH = {
   CERTIFIES_LIST_OF_THE_BENEFICIARIES:
     "/cctprogram/certifieslistofthebeneficiaries",
   USER_TRACKING_LOG: "/system/usertrackinglog",
+  LIST_OF_CCT_MEMBER: "/cctprogram/listofcctmember",
 };
 
 export const PATH_BREADCRUM = {
@@ -137,4 +138,5 @@ export const PATH_BREADCRUM = {
   certifieslistofthebeneficiaries:
     "/cctprogram/certifieslistofthebeneficiaries",
   usertrackinglog: "/system/usertrackinglog",
+  listofcctmember: "/cctprogram/listofcctmember",
 };

@@ -59,6 +59,7 @@ import HouseholdScore from "./screens/hhScored";
 import ListHouseholdForCCTProgram from "./screens/cctProgram/ListHouseHoldForCCTProgram";
 import CertifiesListOfTheBeneficiaries from "./screens/cctProgram/CertifiesListOfTheBeneficiaries";
 import UserTrackingLog from "./screens/system/UserTrackingLog";
+import ListMemberInCCTProgram from "./screens/cctProgram/ListMemberInCCTProgram";
 class App extends React.Component {
   render() {
     return (
@@ -86,6 +87,11 @@ class App extends React.Component {
             <MainRouteWrapper
               component={FunctionManagement}
               path={PATH.FUNCTION_LIST_MANAGEMENT}
+              exact
+            />
+            <MainRouteWrapper
+              component={ListMemberInCCTProgram}
+              path={PATH.LIST_OF_CCT_MEMBER}
               exact
             />
             <MainRouteWrapper

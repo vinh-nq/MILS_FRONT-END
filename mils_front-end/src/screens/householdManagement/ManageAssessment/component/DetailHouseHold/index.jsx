@@ -75,13 +75,15 @@ function DetailBeneficiary(props) {
         .getDetailHouseHold({ householdId: hh_code })
         .then((res) => {
           const { LatLongForBeneficiary } = res.data.Data;
-          setDefaultProps((oldProps) => ({
-            ...oldProps,
-            center: {
-              lat: parseFloat(LatLongForBeneficiary.Lat),
-              lng: parseFloat(LatLongForBeneficiary.Long),
-            },
-          }));
+          setDefaultProps((defaultProps) => {
+            return {
+              ...defaultProps,
+              center: {
+                lat: Number(LatLongForBeneficiary.Lat),
+                lng: Number(LatLongForBeneficiary.Long),
+              },
+            };
+          });
           setDetailHouseHold(res.data.Data);
         });
       setLoading(false);
@@ -376,10 +378,6 @@ function DetailBeneficiary(props) {
 
   return (
     <div className="detail-beneficiary-form">
-      <BackTop
-        className="scroll-top"
-        target={() => document.getElementById("my-layout")}
-      />
       {isLoading ? (
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
       ) : null}

@@ -25,7 +25,7 @@ export default function SuccessScreen(props) {
           type="primary"
           key="console-add"
           onClick={() => {
-            history.push(PATH.EROLLMENT_AUTO_FROM_PMT_RESULT);
+            history.push(PATH.LIST_OF_CCT_MEMBER);
           }}
         >
           {t("See List Member")}
