@@ -163,11 +163,11 @@ export default function PermissionManagement(props) {
       })
       .then(() => {
         setCheckLoading(false);
-        message.success("ADD_SUCCESS");
+        message.success(t("ADD_SUCCESS"));
       })
       .catch(() => {
         setCheckLoading(false);
-        message.error("ERROR");
+        message.error(t("ERROR"));
       });
   };
 

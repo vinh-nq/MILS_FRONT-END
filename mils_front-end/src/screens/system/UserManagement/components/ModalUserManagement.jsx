@@ -121,7 +121,7 @@ function ModalUserManagement(props) {
       .catch((error) => {
         handleCanncel();
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-user",
           duration: 1,
         });
@@ -129,7 +129,11 @@ function ModalUserManagement(props) {
   };
 
   const handleSubmit = (valueForm) => {
-    message.loading({ content: "Loading...", key: "message-form-user" });
+    message.loading({
+      content: "Loading...",
+      key: "message-form-user",
+      duration: 3000,
+    });
     if (typeModal === "add") {
       handleAddNew({
         ...valueForm,
