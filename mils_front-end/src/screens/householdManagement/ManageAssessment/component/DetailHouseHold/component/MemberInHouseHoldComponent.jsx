@@ -10,6 +10,7 @@ import {
   Select,
   Typography,
 } from "antd";
+
 import { handleValidateFrom } from "../../../../../../utils/handleValidateFrom";
 import { objectValidateForm } from "../validate/objectValidateForm";
 import React, { useEffect, useState } from "react";
@@ -40,7 +41,13 @@ function MemberInHouseHold(props) {
   const [disability, setDisability] = useState([]);
   const [gender, setGender] = useState([]);
   const [schoolEnroll, setSchoolEnroll] = useState([]);
-  const [hh_code, setHHCode] = useState("");
+  const [hh_code, setHHCode] = useState();
+
+  //School selected
+  const [haveGoToSchool, setGoToSchool] = useState(true);
+  const [enrollInSchool, setEnrollInSchool] = useState("1");
+  const [age, setAge] = useState("");
+  const [checkGender, setCheckGender] = useState("");
 
   const [disabilities, setDisabilities] = useState(true);
   const [isLoading, setLoading] = useState(false);
@@ -73,6 +80,10 @@ function MemberInHouseHold(props) {
               : undefined;
             setDisabilities(Disability);
             setDetailMember(res.data.Data);
+            setGoToSchool(res.data.Data.AreEnrolledInSchool);
+            setEnrollInSchool(res.data.Data.CurrentlyStudyingId);
+            setAge(res.data.Data.Age);
+            setCheckGender(res.data.Data.GenderId);
             form.setFieldsValue(res.data.Data);
           });
         setLoading(false);
@@ -169,196 +180,6 @@ function MemberInHouseHold(props) {
   const getAllSchoolEnroll = () => {
     return dataDictionaryApi.GetAllSchoolEnroll({ keyword: "" });
   };
-
-  //get all ethnic useEffect
-  // useEffect(() => {
-  //   const getAllEthnicOrigin = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllEthnic({ keyword: "" })
-  //       .then((res) => {
-  //         setEthnicOrigin(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   getAllEthnicOrigin();
-  // }, [t]);
-
-  //get all mainjob useEffect
-  // useEffect(() => {
-  //   const getAllMainJob = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllMainJob({ keyword: "" })
-  //       .then((res) => {
-  //         setMainJob(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   getAllMainJob();
-  // }, [t]);
-
-  //get all mainGood service
-  // useEffect(() => {
-  //   const getAllMainGood = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllMainGoodsServices({ keyword: "" })
-  //       .then((res) => {
-  //         setMainService(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   getAllMainGood();
-  // }, [t]);
-
-  //Get all school
-  // useEffect(() => {
-  //   const getAllSchoolType = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllSchoolType({ keyword: "" })
-  //       .then((res) => {
-  //         setSchoolType(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   getAllSchoolType();
-  // }, [t]);
-
-  //Get all level
-  // useEffect(() => {
-  //   const getAllLevel = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllLevel({ keyword: "" })
-  //       .then((res) => {
-  //         setLevel(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   getAllLevel();
-  // }, [t]);
-
-  //Get all Marital Status
-  // useEffect(() => {
-  //   const getAllMarital = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllMaritalStatus({ keyword: "" })
-  //       .then((res) => {
-  //         setMaritalStatus(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   getAllMarital();
-  // }, [t]);
-
-  //Get all Relation
-  // useEffect(() => {
-  //   const GetAllRelation = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllRelation({ keyword: "" })
-  //       .then((res) => {
-  //         setRelation(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   GetAllRelation();
-  // }, [t]);
-
-  //Get all Disability
-  // useEffect(() => {
-  //   const GetAllDisability = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllDisability({ keyword: "" })
-  //       .then((res) => {
-  //         setDisability(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   GetAllDisability();
-  // }, [t]);
-
-  //get all render
-  // useEffect(() => {
-  //   const getAllGender = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllGender({ keyword: "" })
-  //       .then((res) => {
-  //         setGender(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   getAllGender();
-  // }, [t]);
-
-  //get all school enroll
-  // useEffect(() => {
-  //   const getAllSchoolEnroll = async () => {
-  //     await dataDictionaryApi
-  //       .GetAllSchoolEnroll({ keyword: "" })
-  //       .then((res) => {
-  //         setSchoolEnroll(res.data.Data);
-  //       })
-  //       .catch(() => {
-  //         message.error({
-  //           content: t("Error"),
-  //           key: "message-form-role",
-  //           duration: 1,
-  //         });
-  //       });
-  //   };
-  //   getAllSchoolEnroll();
-  // }, [t]);
 
   const disabledDate = (current) => {
     return current > moment();
@@ -480,9 +301,9 @@ function MemberInHouseHold(props) {
         </div>
       </div>
       <Row className="mb-2" gutter={[16, 16]}>
-        <Col span={24} lg={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
-            {t("MEMBER_NAME")}{" "}
+            1.{t("MEMBER_NAME")}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -504,9 +325,9 @@ function MemberInHouseHold(props) {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={24} lg={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
-            {t("MARITAL_STATUS")}{" "}
+            2.{t("MARITAL_STATUS")}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -522,9 +343,9 @@ function MemberInHouseHold(props) {
             <Select>{renderSelect(maritalStatus)}</Select>
           </Form.Item>
         </Col>
-        <Col span={24} lg={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
-            {t("RELATION_TO_HOUSEHOLD")}{" "}
+            3.{t("RELATION_TO_HOUSEHOLD")}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -540,9 +361,9 @@ function MemberInHouseHold(props) {
             <Select>{renderSelect(relation)}</Select>
           </Form.Item>
         </Col>
-        <Col span={24} lg={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
-            {t("GENDER")}{" "}
+            4.{t("GENDER")}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -555,12 +376,18 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <Select>{renderSelect(gender)}</Select>
+            <Select
+              onChange={(value) => {
+                setCheckGender(value);
+              }}
+            >
+              {renderSelect(gender)}
+            </Select>
           </Form.Item>
         </Col>
-        <Col span={24} lg={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
-            {t("DATE_OF_BIRTH")}{" "}
+            5.{t("DATE_OF_BIRTH")}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -573,36 +400,31 @@ function MemberInHouseHold(props) {
               },
             ]}
           >
-            <DatePicker className="w-100" disabledDate={disabledDate} />
+            <DatePicker
+              onChange={(value, dateString) => {
+                const years = moment().diff(dateString, "years", false);
+                setAge(years);
+                form.setFieldsValue({
+                  Age: years,
+                });
+              }}
+              className="w-100"
+              disabledDate={disabledDate}
+            />
           </Form.Item>
         </Col>
-        <Col span={24} lg={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
             {t("AGE")}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
-          <Form.Item
-            name={"Age"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkNumber(200, 0, "AGE", true),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
+          <Form.Item name={"Age"} className="mb-0">
+            <Input readOnly={true} />
           </Form.Item>
         </Col>
-        <Col span={24} lg={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
-            {t("ETHNIC_ORIGIN")}{" "}
+            6.{t("ETHNIC_ORIGIN")}{" "}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -618,609 +440,811 @@ function MemberInHouseHold(props) {
             <Select>{renderSelect(ethnicOrigin)}</Select>
           </Form.Item>
         </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("HAVE_YOU_EVER_BEEN_TO_SCHOOL_BEFORE")}
-          </Text>
-          <Form.Item
-            name={"AreEnrolledInSchool"}
-            className="mb-0"
-            initialValue={true}
-          >
-            <Select>
-              <Option value={true}>Yes</Option>
-              <Option value={false}>No</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("ARE_YOU_CURRENTLY_STUDYING")}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"CurrentlyStudyingId"}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("ARE_YOU_CURRENTLY_STUDYING")} ${t(
-                  "is_not_empty"
-                )}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(schoolEnroll)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"MemberLevelId"}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")} ${t(
-                  "is_not_empty"
-                )}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(level)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("CURRENT_YEAR_LEVEL_OF_EDUCATION")}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"LevelAndClassAreEnrolledId"}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")} ${t(
-                  "is_not_empty"
-                )}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(level)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("KINDERGARTEN")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"Kindergarten"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(50, true, "KINDERGARTEN"),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("PRIMARY")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"Primary"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(20, true, "PRIMARY"),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {` ${t("LOWER_SECONDARY")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"LowerSecondary"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(20, true, "LOWER_SECONDARY"),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("UPPER_SECONDARY")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"UpperSecondary"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(20, true, "UPPER_SECONDARY"),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("VOCATIONAL_SCHOOL")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"VocationalSchool"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(
-                      20,
-                      true,
-                      "VOCATIONAL_SCHOOL"
-                    ),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("UNIVERSITY_INSTITUTE")} `}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"UniversityInstitute"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(
-                      20,
-                      true,
-                      "UNIVERSITY_INSTITUTE"
-                    ),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"HHSchoolTypeId"}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING")} ${t(
-                  "is_not_empty"
-                )}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(schoolType)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("HIGHER_EDUCATION_IS_GRADUATED")}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"HHLevelClassCompleted"}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("HIGHER_EDUCATION_IS_GRADUATED")} ${t(
-                  "is_not_empty"
-                )}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(level)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("HIGHER_EDUCATION_IS_GRADUATED")}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"HHLevelCompleted"}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("HIGHER_EDUCATION_IS_GRADUATED")} ${t(
-                  "is_not_empty"
-                )}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(level)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("KINDERGARTEN")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"HHClassLcPre"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(20, true, "KINDERGARTEN"),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("PRIMARY")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"HHClassLcPrimary"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(20, true, "PRIMARY"),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("LOWER_SECONDARY")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"HHClassLcLs"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(20, true, "LOWER_SECONDARY"),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("UPPER_SECONDARY")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"HHClassLcUs"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(20, true, "UPPER_SECONDARY"),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {`${t("VOCATIONAL_SCHOOL")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"HHClassLcVoc"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(
-                      20,
-                      true,
-                      "VOCATIONAL_SCHOOL"
-                    ),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {` ${t("UNIVERSITY_INSTITUTE")}`}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"HHClassLcUniv"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(
-                      20,
-                      true,
-                      "UNIVERSITY_INSTITUTE"
-                    ),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Text className="font-13 font-weight-500">
-            {t(
-              "HAVE_YOU_WORKED_ON_YOUR_OWN_OR_ANY_OF_YOUR_OWN_BUSINESS_OR_ANY_OF_YOUR_FAMILY_MEMBERS"
-            )}
-          </Text>
-          <Form.Item name={"Business"} className="mb-0" initialValue={true}>
-            <Select>
-              <Option value={true}>{t("YES")}</Option>
-              <Option value={false}>{t("NO")}</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Text className="font-13 font-weight-500">
-            {t(
-              "HAVE_YOU_BEEN_WORKING_ON_YOUR_OWN_FARM_OR_WITH_A_FAMILY_MEMBER"
-            )}
-          </Text>
-          <Form.Item name={"Agricature"} className="mb-0" initialValue={true}>
-            <Select>
-              <Option value={true}>{t("YES")}</Option>
-              <Option value={false}>{t("NO")}</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Text className="font-13 font-weight-500">
-            {t("HAVE_YOU_WORKED_ELSEWHERE_IN_THE_LAST_7_DAYS")}
-          </Text>
-          <Form.Item name={"Outside"} className="mb-0" initialValue={true}>
-            <Select>
-              <Option value={true}>{t("YES")}</Option>
-              <Option value={false}>{t("NO")}</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Text className="font-13 font-weight-500">
-            {t(
-              "SOCIAL_SECURITY_MEMBER_OF_ANY_UNIT_OR_PARTICIPATED_IN_A_HEALTH"
-            )}
-          </Text>
-          <Form.Item
-            name={"HealthInsurance"}
-            className="mb-0"
-            initialValue={true}
-          >
-            <Select>
-              <Option value={true}>{t("YES")}</Option>
-              <Option value={false}>{t("NO")}</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("MAINTAIN_THE_MAIN_WORK_YOU_DID_DURING_THE_LAST_7_DAYS")}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"MainJobId"}
-            className="mb-0"
-            rules={[
-              {
-                validator(rule, value) {
-                  return handleValidateFrom(
-                    rule,
-                    value,
-                    objectValidateForm.checkString(
-                      50,
-                      true,
-                      "MAINTAIN_THE_MAIN_WORK_YOU_DID_DURING_THE_LAST_7_DAYS"
-                    ),
-                    t
-                  );
-                },
-              },
-            ]}
-          >
-            <Select>{renderSelect(mainJob)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("WHAT_IS_YOUR_MAIN_JOB")}{" "}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={"MainGoodId"}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("WHAT_IS_YOUR_MAIN_JOB")} ${t("is_not_empty")}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(mainService)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("ARE_YOU_A_SOCIAL_SECURITY_MEMBER_OF_A_PRIVATE_COMPANY")}
-          </Text>
-          <Form.Item
-            name={"PrivateHealthInsurance"}
-            className="mb-0"
-            initialValue={true}
-          >
-            <Select>
-              <Option value={true}>{t("YES")}</Option>
-              <Option value={false}>{t("NO")}</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        <Col md={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("ARE_YOU_PREGNANT")}
-          </Text>
-          <Form.Item name={"Pregnant"} className="mb-0" initialValue={true}>
-            <Select>
-              <Option value={true}>Pregnant</Option>
-              <Option value={false}>Not Pregnant</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        <Col md={24} lg={12}>
-          <Text className="font-13 font-weight-500">
-            {t("HAVE_A_PHYSICAL_DISORDER")}
-          </Text>
-          <Form.Item name={"Disability"} className="mb-0" initialValue={true}>
-            <Select
-              value={disabilities}
-              onChange={(value) => {
-                form.setFieldsValue({ DisabilityTypeId: "" });
-                setDisabilities(value);
-              }}
-            >
-              <Option value={true}>{t("YES")}</Option>
-              <Option value={false}>{t("NO")}</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        {disabilities ? (
-          <Col md={24} lg={12}>
-            <Text className="font-13 font-weight-500">
-              {t("INDICATE_THE_TYPE_OF_DEFECT")}{" "}
-              <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-            </Text>
-            <Form.Item
-              name={"DisabilityTypeId"}
-              className="mb-0"
-              rules={[
-                {
-                  required: true,
-                  message: `${t("INDICATE_THE_TYPE_OF_DEFECT")} ${t(
-                    "is_not_empty"
-                  )}`,
-                },
-              ]}
-            >
-              <Select>{renderSelect(disability)}</Select>
-            </Form.Item>
-          </Col>
+        {/*Nếu tuổi lớn hơn 2 thì hiển thị các câu hỏi từ 6 tới 9*/}
+        {age >= 2 ? (
+          <>
+            <Col span={24}>
+              <Text className="font-13 font-weight-500">
+                7.{t("HAVE_YOU_EVER_BEEN_TO_SCHOOL_BEFORE")}
+              </Text>
+              <Form.Item
+                name={"AreEnrolledInSchool"}
+                className="mb-0"
+                initialValue={true}
+              >
+                <Select
+                  value={haveGoToSchool}
+                  onChange={(value) => {
+                    setGoToSchool(value);
+                  }}
+                >
+                  <Option value={true}>Yes</Option>
+                  <Option value={false}>No</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            {/*Are you enrolled in school now? */}
+            <Col span={24}>
+              <Text className="font-13 font-weight-500">
+                8.{t("ARE_YOU_CURRENTLY_STUDYING")}{" "}
+                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+              </Text>
+              <Form.Item
+                name={"CurrentlyStudyingId"}
+                className="mb-0"
+                initialValue={"1"}
+                rules={[
+                  {
+                    required: true,
+                    message: `${t("ARE_YOU_CURRENTLY_STUDYING")} ${t(
+                      "is_not_empty"
+                    )}`,
+                  },
+                ]}
+              >
+                <Select
+                  onChange={(id) => {
+                    setEnrollInSchool(id);
+                  }}
+                  value={enrollInSchool}
+                >
+                  {renderSelect(schoolEnroll)}
+                </Select>
+              </Form.Item>
+            </Col>
+
+            {/*Có còn đi học bây giờ hay không?*/}
+            {enrollInSchool === "1" || enrollInSchool === "2" ? (
+              <>
+                <Col span={24}>
+                  <Text className="font-13 font-weight-500">
+                    9.{t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")}{" "}
+                    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+                  </Text>
+                  <Form.Item
+                    name={"MemberLevelId"}
+                    className="mb-0"
+                    rules={[
+                      {
+                        required: true,
+                        message: `${t(
+                          "WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION"
+                        )} ${t("is_not_empty")}`,
+                      },
+                    ]}
+                  >
+                    <Select>{renderSelect(level)}</Select>
+                  </Form.Item>
+                </Col>
+                <Col span={24}>
+                  <Text className="font-13 font-weight-500">
+                    {t("CURRENT_YEAR_LEVEL_OF_EDUCATION")}{" "}
+                    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+                  </Text>
+                  <Form.Item
+                    name={"LevelAndClassAreEnrolledId"}
+                    className="mb-0"
+                    rules={[
+                      {
+                        required: true,
+                        message: `${t(
+                          "WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION"
+                        )} ${t("is_not_empty")}`,
+                      },
+                    ]}
+                  >
+                    <Select>{renderSelect(level)}</Select>
+                  </Form.Item>
+                </Col>
+                <Col span={24} md={age >= 6 ? 12 : 24}>
+                  <Text className="font-13 font-weight-500">
+                    {`${t("KINDERGARTEN")}`}
+                    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+                  </Text>
+                  <Form.Item
+                    name={"Kindergarten"}
+                    className="mb-0"
+                    rules={[
+                      {
+                        required: true,
+                        message: `${t("KINDERGARTEN")} ${t("is_not_empty")}`,
+                      },
+                    ]}
+                  >
+                    <Select>
+                      <Option value={0}>0</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                {age >= 6 ? (
+                  <>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {`${t("PRIMARY")}`}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"Primary"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("PRIMARY")} ${t("is_not_empty")}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue(
+                              "HHClassLcPrimary"
+                            );
+                            if (value && id < value) {
+                              form.setFieldsValue({
+                                Primary: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                          <Option value={4}>4</Option>
+                          <Option value={5}>5</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {` ${t("LOWER_SECONDARY")}`}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"LowerSecondary"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("LOWER_SECONDARY")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue("HHClassLcLs");
+                            if (value && id < value) {
+                              form.setFieldsValue({
+                                LowerSecondary: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                          <Option value={4}>4</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {`${t("UPPER_SECONDARY")}`}{" "}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"UpperSecondary"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("LOWER_SECONDARY")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue("HHClassLcUs");
+                            if (value && id < value) {
+                              form.setFieldsValue({
+                                UpperSecondary: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {`${t("VOCATIONAL_SCHOOL")}`}{" "}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"VocationalSchool"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("VOCATIONAL_SCHOOL")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue("HHClassLcVoc");
+                            if (value && id < value) {
+                              form.setFieldsValue({
+                                VocationalSchool: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {`${t("UNIVERSITY_INSTITUTE")} `}{" "}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"UniversityInstitute"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("UNIVERSITY_INSTITUTE")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue("HHClassLcUniv");
+                            if (value && id < value) {
+                              form.setFieldsValue({
+                                UniversityInstitute: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                          <Option value={4}>4</Option>
+                          <Option value={5}>5</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                  </>
+                ) : null}
+              </>
+            ) : null}
+
+            {/*Nếu tuổi lớn hơn 6 thì hiển thị các câu hỏi còn lại*/}
+            {age >= 6 ? (
+              <>
+                {enrollInSchool === "1" || enrollInSchool === "2" ? (
+                  <Col span={24}>
+                    <Text className="font-13 font-weight-500">
+                      10.{`${t("WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING")}`}{" "}
+                      <span style={{ paddingLeft: "3px", color: "red" }}>
+                        *
+                      </span>
+                    </Text>
+                    <Form.Item
+                      name={"HHSchoolTypeId"}
+                      className="mb-0"
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t(
+                            "WHAT_TYPE_OF_SCHOOL_ARE_YOU_ATTENDING"
+                          )} ${t("is_not_empty")}`,
+                        },
+                      ]}
+                    >
+                      <Select>{renderSelect(schoolType)}</Select>
+                    </Form.Item>
+                  </Col>
+                ) : null}
+
+                {(enrollInSchool === "1" ||
+                  enrollInSchool === "2" ||
+                  enrollInSchool === "3") &&
+                haveGoToSchool === true ? (
+                  <>
+                    <Col span={24}>
+                      <Text className="font-13 font-weight-500">
+                        11.{t("HIGHER_EDUCATION_IS_GRADUATED")}{" "}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"HHLevelClassCompleted"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("HIGHER_EDUCATION_IS_GRADUATED")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select>{renderSelect(level)}</Select>
+                      </Form.Item>
+                    </Col>
+                    {/*<Col span={24}>*/}
+                    {/*  <Text className="font-13 font-weight-500">*/}
+                    {/*    {t("HIGHER_EDUCATION_IS_GRADUATED")}{" "}*/}
+                    {/*    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>*/}
+                    {/*  </Text>*/}
+                    {/*  <Form.Item*/}
+                    {/*    name={"HHLevelCompleted"}*/}
+                    {/*    className="mb-0"*/}
+                    {/*    rules={[*/}
+                    {/*      {*/}
+                    {/*        required: true,*/}
+                    {/*        message: `${t("HIGHER_EDUCATION_IS_GRADUATED")} ${t(*/}
+                    {/*          "is_not_empty"*/}
+                    {/*        )}`,*/}
+                    {/*      },*/}
+                    {/*    ]}*/}
+                    {/*  >*/}
+                    {/*    <Select>{renderSelect(level)}</Select>*/}
+                    {/*  </Form.Item>*/}
+                    {/*</Col>*/}
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {`${t("HIGHEST_KINDERGARTEN")}`}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"HHClassLcPre"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("HIGHEST_KINDERGARTEN")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select>
+                          <Option value={0}>0</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {`${t("HIGHEST_PRIMARY")}`}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"HHClassLcPrimary"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("HIGHEST_PRIMARY")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue("Primary");
+                            if (value && id > value) {
+                              form.setFieldsValue({
+                                HHClassLcPrimary: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                          <Option value={4}>4</Option>
+                          <Option value={5}>5</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {` ${t("HIGHEST_LOWER_SECONDARY")}`}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"HHClassLcLs"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("HIGHEST_LOWER_SECONDARY")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue("LowerSecondary");
+                            if (value && id > value) {
+                              form.setFieldsValue({
+                                HHClassLcLs: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                          <Option value={4}>4</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {`${t("HIGHEST_UPPER_SECONDARY")}`}{" "}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"HHClassLcUs"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("HIGHEST_UPPER_SECONDARY")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue("UpperSecondary");
+                            if (value && id > value) {
+                              form.setFieldsValue({
+                                HHClassLcUs: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {`${t("HIGHEST_VOCATIONAL_SCHOOL")}`}{" "}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"HHClassLcVoc"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("HIGHEST_VOCATIONAL_SCHOOL")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue(
+                              "VocationalSchool"
+                            );
+                            if (value && id > value) {
+                              form.setFieldsValue({
+                                HHClassLcVoc: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24} md={12}>
+                      <Text className="font-13 font-weight-500">
+                        {`${t("HIGHEST_UNIVERSITY_INSTITUTE")} `}{" "}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"HHClassLcUniv"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("HIGHEST_UNIVERSITY_INSTITUTE")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select
+                          onChange={(id) => {
+                            const value = form.getFieldValue(
+                              "UniversityInstitute"
+                            );
+                            if (value && id > value) {
+                              form.setFieldsValue({
+                                HHClassLcUniv: value,
+                              });
+                            }
+                          }}
+                        >
+                          <Option value={1}>1</Option>
+                          <Option value={2}>2</Option>
+                          <Option value={3}>3</Option>
+                          <Option value={4}>4</Option>
+                          <Option value={5}>5</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                  </>
+                ) : null}
+
+                {enrollInSchool === "3" && haveGoToSchool === false ? (
+                  <></>
+                ) : null}
+                {age >= 15 && age <= 60 ? (
+                  <>
+                    <Col span={24}>
+                      <Text className="font-13 font-weight-500">
+                        12.
+                        {t(
+                          "HAVE_YOU_WORKED_ON_YOUR_OWN_OR_ANY_OF_YOUR_OWN_BUSINESS_OR_ANY_OF_YOUR_FAMILY_MEMBERS"
+                        )}
+                      </Text>
+                      <Form.Item
+                        name={"Business"}
+                        className="mb-0"
+                        initialValue={true}
+                      >
+                        <Select>
+                          <Option value={true}>{t("YES")}</Option>
+                          <Option value={false}>{t("NO")}</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Text className="font-13 font-weight-500">
+                        13.
+                        {t(
+                          "HAVE_YOU_BEEN_WORKING_ON_YOUR_OWN_FARM_OR_WITH_A_FAMILY_MEMBER"
+                        )}
+                      </Text>
+                      <Form.Item
+                        name={"Agricature"}
+                        className="mb-0"
+                        initialValue={true}
+                      >
+                        <Select>
+                          <Option value={true}>{t("YES")}</Option>
+                          <Option value={false}>{t("NO")}</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Text className="font-13 font-weight-500">
+                        14.{t("HAVE_YOU_WORKED_ELSEWHERE_IN_THE_LAST_7_DAYS")}
+                      </Text>
+                      <Form.Item
+                        name={"Outside"}
+                        className="mb-0"
+                        initialValue={true}
+                      >
+                        <Select>
+                          <Option value={true}>{t("YES")}</Option>
+                          <Option value={false}>{t("NO")}</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Text className="font-13 font-weight-500">
+                        15.
+                        {t(
+                          "SOCIAL_SECURITY_MEMBER_OF_ANY_UNIT_OR_PARTICIPATED_IN_A_HEALTH"
+                        )}
+                      </Text>
+                      <Form.Item
+                        name={"HealthInsurance"}
+                        className="mb-0"
+                        initialValue={true}
+                      >
+                        <Select>
+                          <Option value={true}>{t("YES")}</Option>
+                          <Option value={false}>{t("NO")}</Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Text className="font-13 font-weight-500">
+                        16.
+                        {t(
+                          "MAINTAIN_THE_MAIN_WORK_YOU_DID_DURING_THE_LAST_7_DAYS"
+                        )}{" "}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"MainJobId"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            validator(rule, value) {
+                              return handleValidateFrom(
+                                rule,
+                                value,
+                                objectValidateForm.checkString(
+                                  50,
+                                  true,
+                                  "MAINTAIN_THE_MAIN_WORK_YOU_DID_DURING_THE_LAST_7_DAYS"
+                                ),
+                                t
+                              );
+                            },
+                          },
+                        ]}
+                      >
+                        <Select>{renderSelect(mainJob)}</Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Text className="font-13 font-weight-500">
+                        17.{t("WHAT_IS_YOUR_MAIN_JOB")}{" "}
+                        <span style={{ paddingLeft: "3px", color: "red" }}>
+                          *
+                        </span>
+                      </Text>
+                      <Form.Item
+                        name={"MainGoodId"}
+                        className="mb-0"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t("WHAT_IS_YOUR_MAIN_JOB")} ${t(
+                              "is_not_empty"
+                            )}`,
+                          },
+                        ]}
+                      >
+                        <Select>{renderSelect(mainService)}</Select>
+                      </Form.Item>
+                    </Col>
+                  </>
+                ) : null}
+                <Col span={24}>
+                  <Text className="font-13 font-weight-500">
+                    18.
+                    {t("ARE_YOU_A_SOCIAL_SECURITY_MEMBER_OF_A_PRIVATE_COMPANY")}
+                  </Text>
+                  <Form.Item
+                    name={"PrivateHealthInsurance"}
+                    className="mb-0"
+                    initialValue={true}
+                  >
+                    <Select>
+                      <Option value={true}>{t("YES")}</Option>
+                      <Option value={false}>{t("NO")}</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                {checkGender === "2" && age >= 10 ? (
+                  <Col span={24}>
+                    <Text className="font-13 font-weight-500">
+                      19.{t("ARE_YOU_PREGNANT")}
+                    </Text>
+                    <Form.Item
+                      name={"Pregnant"}
+                      className="mb-0"
+                      initialValue={true}
+                    >
+                      <Select>
+                        <Option value={true}>Pregnant</Option>
+                        <Option value={false}>Not Pregnant</Option>
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                ) : null}
+
+                <Col span={24}>
+                  <Text className="font-13 font-weight-500">
+                    20.{t("HAVE_A_PHYSICAL_DISORDER")}
+                  </Text>
+                  <Form.Item
+                    name={"Disability"}
+                    className="mb-0"
+                    initialValue={true}
+                  >
+                    <Select
+                      value={disabilities}
+                      onChange={(value) => {
+                        form.setFields([
+                          {
+                            name: "DisabilityTypeId",
+                            value: "",
+                            errors: [],
+                          },
+                        ]);
+                        setDisabilities(value);
+                      }}
+                    >
+                      <Option value={true}>{t("YES")}</Option>
+                      <Option value={false}>{t("NO")}</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col span={24}>
+                  <Text className="font-13 font-weight-500">
+                    21.{t("INDICATE_THE_TYPE_OF_DEFECT")}{" "}
+                  </Text>
+                  <Form.Item
+                    name={"DisabilityTypeId"}
+                    className="mb-0"
+                    rules={[
+                      {
+                        required: disabilities ? true : false,
+                        message: `${t("INDICATE_THE_TYPE_OF_DEFECT")} ${t(
+                          "is_not_empty"
+                        )}`,
+                      },
+                    ]}
+                  >
+                    <Select disabled={disabilities ? false : true}>
+                      {renderSelect(disability)}
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </>
+            ) : null}
+          </>
         ) : null}
       </Row>
     </Form>
