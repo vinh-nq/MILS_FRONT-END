@@ -60,6 +60,10 @@ export default function CertifiesListOfTheBeneficiaries(props) {
       message.error("Please select Province/ Disytrict/ Village!");
       return;
     }
+    dispatch({
+      type: actionRedux.SET_LIST_MEMBER,
+      payload: [],
+    });
     setKeyword("");
     switch (valueLocation.length) {
       case 1:
