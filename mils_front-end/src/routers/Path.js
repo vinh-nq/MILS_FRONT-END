@@ -69,6 +69,9 @@ export const PATH = {
     "/cctprogram/certifieslistofthebeneficiaries",
   USER_TRACKING_LOG: "/system/usertrackinglog",
   LIST_OF_CCT_MEMBER: "/cctprogram/listofcctmember",
+  LIST_OF_WATER_DRY: "/datadictionary/listofwaterdry",
+  LIST_OF_WATER: "/datadictionary/listofwater",
+  LIST_OF_UNIT: "/datadictionary/listofunit",
 };
 
 export const PATH_BREADCRUM = {
@@ -139,4 +142,7 @@ export const PATH_BREADCRUM = {
     "/cctprogram/certifieslistofthebeneficiaries",
   usertrackinglog: "/system/usertrackinglog",
   listofcctmember: "/cctprogram/listofcctmember",
+  listofwaterdry: "/datadictionary/listofwaterdry",
+  listofwater: "/datadictionary/listofwater",
+  listofunit: "/datadictionary/listofunit",
 };

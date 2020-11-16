@@ -506,6 +506,18 @@
   "deactive": "Deactive",
   "LISTOFCCTMEMBER": "List CCT Member",
   "ID": "ID",
+  "LISTOFUNIT":"List Of Unit",
+  "UnitId":"Unit ID",
+  "UnitName":"Unit (Laos)",
+  "UnitNameEng":"Unit (Eng)",
+  "LISTOFWATERDRY":"List Of WaterDry",
+  "waterDryId":"WaterDry ID",
+  "waterDryLao":"WaterDry (Laos)",
+  "waterDryEng":"WaterDry (Eng)",
+  "LISTOFWATER":"List Of Water",
+  "waterId":"Water ID",
+  "waterLao":"WaterDry (Laos)",
+  "waterEng":"WaterDry (Eng)",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

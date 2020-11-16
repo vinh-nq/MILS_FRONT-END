@@ -364,5 +364,37 @@ const dataDictionaryApi = {
     const url = "api/Dictionary/UpdateCCTConfirmStatus";
     return fetchDataAndLog(url, "POST", null, data, detail);
   },
+  GetAllWater: (params) => {
+    const url = "api/Dictionary/GetAllWater";
+    return fetchData(url, "GET", params, null);
+  },
+  InsertWater: (data, detail) => {
+    const url = "api/Dictionary/InsertWater";
+    return fetchDataAndLog(url, "POST", null, data, detail);
+  },
+  UpdateWater: (data, detail) => {
+    const url = "api/Dictionary/UpdateWater";
+    return fetchDataAndLog(url, "POST", null, data, detail);
+  },
+  GetAllWaterDry: (params) => {
+    const url = "api/Dictionary/GetAllWaterDry";
+    return fetchData(url, "GET", params, null);
+  },
+  InsertWaterDry: (data, detail) => {
+    const url = "api/Dictionary/InsertWaterDry";
+    return fetchDataAndLog(url, "POST", null, data, detail);
+  },
+  UpdateWaterDry: (data, detail) => {
+    const url = "api/Dictionary/UpdateWaterDry";
+    return fetchDataAndLog(url, "POST", null, data, detail);
+  },
+  GetAllUnit: (params) => {
+    const url = "api/Dictionary/GetAllUnit";
+    return fetchData(url, "GET", params, null);
+  },
+  InsertUnit: (data, detail) => {
+    const url = "api/Dictionary/InsertUnit";
+    return fetchDataAndLog(url, "POST", null, data, detail);
+  },
 };
 export default dataDictionaryApi;

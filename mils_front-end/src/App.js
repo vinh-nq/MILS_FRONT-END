@@ -60,6 +60,9 @@ import ListHouseholdForCCTProgram from "./screens/cctProgram/ListHouseHoldForCCT
 import CertifiesListOfTheBeneficiaries from "./screens/cctProgram/CertifiesListOfTheBeneficiaries";
 import UserTrackingLog from "./screens/system/UserTrackingLog";
 import ListMemberInCCTProgram from "./screens/cctProgram/ListMemberInCCTProgram";
+import ListOfWaterDry from "./screens/dataDictionary/ListOfWaterDry";
+import ListOfWater from "./screens/dataDictionary/ListOfWater";
+import ListOfUnit from "./screens/dataDictionary/ListOfUnit";
 class App extends React.Component {
   render() {
     return (
@@ -120,6 +123,11 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
+              component={ListOfUnit}
+              path={PATH.LIST_OF_UNIT}
+              exact
+            />
+            <MainRouteWrapper
               component={ListOfRoofMetarail}
               path={PATH.LIST_OF_ROOF_MATERIAL}
               exact
@@ -132,6 +140,11 @@ class App extends React.Component {
             <MainRouteWrapper
               component={ListOfDrinkingWater}
               path={PATH.LIST_OF_DRINKING_WATER}
+              exact
+            />
+            <MainRouteWrapper
+              component={ListOfWater}
+              path={PATH.LIST_OF_WATER}
               exact
             />
             <MainRouteWrapper
@@ -157,6 +170,11 @@ class App extends React.Component {
             <MainRouteWrapper
               component={ListOfLevel}
               path={PATH.LIST_OF_LEVEL}
+              exact
+            />
+            <MainRouteWrapper
+              component={ListOfWaterDry}
+              path={PATH.LIST_OF_WATER_DRY}
               exact
             />
             <MainRouteWrapper
