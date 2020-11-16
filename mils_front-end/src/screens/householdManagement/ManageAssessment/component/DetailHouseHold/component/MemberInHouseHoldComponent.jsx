@@ -48,6 +48,7 @@ function MemberInHouseHold(props) {
   const [enrollInSchool, setEnrollInSchool] = useState("1");
   const [age, setAge] = useState("");
   const [checkGender, setCheckGender] = useState("");
+  const [typeOfSchool, setTypeOfSchool] = useState("");
 
   const [disabilities, setDisabilities] = useState(true);
   const [isLoading, setLoading] = useState(false);
@@ -84,6 +85,7 @@ function MemberInHouseHold(props) {
             setEnrollInSchool(res.data.Data.CurrentlyStudyingId);
             setAge(res.data.Data.Age);
             setCheckGender(res.data.Data.GenderId);
+            setTypeOfSchool(res.data.Data.HHSchoolTypeId);
             form.setFieldsValue(res.data.Data);
           });
         setLoading(false);
@@ -185,10 +187,41 @@ function MemberInHouseHold(props) {
     return current > moment();
   };
 
+  const updateValueEducation = (value) => {
+    value.MemberLevelId = value.MemberLevelId ? value.MemberLevelId : "";
+    value.LevelAndClassAreEnrolledId = value.LevelAndClassAreEnrolledId
+      ? value.LevelAndClassAreEnrolledId
+      : "";
+    value.Kindergarten = value.Kindergarten ? value.Kindergarten : "";
+    value.Primary = value.Primary ? value.Primary : "";
+    value.LowerSecondary = value.LowerSecondary ? value.LowerSecondary : "";
+    value.UpperSecondary = value.UpperSecondary ? value.UpperSecondary : "";
+    value.VocationalSchool = value.VocationalSchool
+      ? value.VocationalSchool
+      : "";
+    value.UniversityInstitute = value.UniversityInstitute
+      ? value.UniversityInstitute
+      : "";
+    value.HHSchoolTypeId = value.HHSchoolTypeId ? value.HHSchoolTypeId : "";
+    value.HHLevelClassCompleted = value.HHLevelClassCompleted
+      ? value.HHLevelClassCompleted
+      : "";
+    value.HHClassLcPre = value.HHClassLcPre ? value.HHClassLcPre : "";
+    value.HHClassLcPrimary = value.HHClassLcPrimary
+      ? value.HHClassLcPrimary
+      : "";
+    value.HHClassLcLs = value.HHClassLcLs ? value.HHClassLcLs : "";
+    value.HHClassLcUs = value.HHClassLcUs ? value.HHClassLcUs : "";
+    value.HHClassLcVoc = value.HHClassLcVoc ? value.HHClassLcVoc : "";
+    value.HHClassLcUniv = value.HHClassLcUniv ? value.HHClassLcUniv : "";
+    return value;
+  };
+
   const handleAdd = async (value) => {
     setLoading(true);
     value.HHCode = hh_code;
     value.DisabilityTypeId = value.Disability ? value.DisabilityTypeId : "";
+    value = updateValueEducation(value);
     await houseHoldApi.addMember(value).then((res) => {
       if (res.data.Status) {
         setLoading(false);
@@ -211,12 +244,13 @@ function MemberInHouseHold(props) {
 
   const handleUpdate = async (value) => {
     setLoading(true);
+    value = updateValueEducation(value);
+    value.DisabilityTypeId = value.Disability ? value.DisabilityTypeId : "";
     const objCover = {
       ...detailMember,
       ...value,
     };
     objCover.DateOfBirth = moment(value.DateOfBirth).format();
-    value.DisabilityTypeId = value.Disability ? value.DisabilityTypeId : "";
     await houseHoldApi.updateMember(objCover).then((res) => {
       if (res.data.Status) {
         setLoading(false);
@@ -234,6 +268,96 @@ function MemberInHouseHold(props) {
         });
       }
     });
+  };
+
+  const resetFieldsEducationOnSelect = () => {
+    form.setFields([
+      {
+        name: "MemberLevelId",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "LevelAndClassAreEnrolledId",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "Kindergarten",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "Primary",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "LowerSecondary",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "UpperSecondary",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "VocationalSchool",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "UniversityInstitute",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "HHSchoolTypeId",
+        value: "",
+        errors: [],
+      },
+    ]);
+  };
+
+  const resetFieldsHighestEducationOnSelect = () => {
+    form.setFields([
+      {
+        name: "HHLevelClassCompleted",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "HHClassLcPre",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "HHClassLcPrimary",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "HHClassLcLs",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "HHClassLcUs",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "HHClassLcVoc",
+        value: "",
+        errors: [],
+      },
+      {
+        name: "HHClassLcUniv",
+        value: "",
+        errors: [],
+      },
+    ]);
   };
 
   const submitFailed = async () => {
@@ -456,6 +580,9 @@ function MemberInHouseHold(props) {
                   value={haveGoToSchool}
                   onChange={(value) => {
                     setGoToSchool(value);
+                    if (enrollInSchool === "3" && !value) {
+                      resetFieldsHighestEducationOnSelect();
+                    }
                   }}
                 >
                   <Option value={true}>Yes</Option>
@@ -467,7 +594,7 @@ function MemberInHouseHold(props) {
             <Col span={24}>
               <Text className="font-13 font-weight-500">
                 8.{t("ARE_YOU_CURRENTLY_STUDYING")}{" "}
-                <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+                {/*<span style={{ paddingLeft: "3px", color: "red" }}>*</span>*/}
               </Text>
               <Form.Item
                 name={"CurrentlyStudyingId"}
@@ -485,6 +612,12 @@ function MemberInHouseHold(props) {
                 <Select
                   onChange={(id) => {
                     setEnrollInSchool(id);
+                    if (id === "3") {
+                      resetFieldsEducationOnSelect();
+                    }
+                    if (id === "3" && !haveGoToSchool) {
+                      resetFieldsHighestEducationOnSelect();
+                    }
                   }}
                   value={enrollInSchool}
                 >
@@ -499,19 +632,19 @@ function MemberInHouseHold(props) {
                 <Col span={24}>
                   <Text className="font-13 font-weight-500">
                     9.{t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")}{" "}
-                    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+                    {/*<span style={{ paddingLeft: "3px", color: "red" }}>*</span>*/}
                   </Text>
                   <Form.Item
                     name={"MemberLevelId"}
                     className="mb-0"
-                    rules={[
-                      {
-                        required: true,
-                        message: `${t(
-                          "WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION"
-                        )} ${t("is_not_empty")}`,
-                      },
-                    ]}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: `${t(
+                    //       "WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION"
+                    //     )} ${t("is_not_empty")}`,
+                    //   },
+                    // ]}
                   >
                     <Select>{renderSelect(level)}</Select>
                   </Form.Item>
@@ -519,19 +652,19 @@ function MemberInHouseHold(props) {
                 <Col span={24}>
                   <Text className="font-13 font-weight-500">
                     {t("CURRENT_YEAR_LEVEL_OF_EDUCATION")}{" "}
-                    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+                    {/*<span style={{ paddingLeft: "3px", color: "red" }}>*</span>*/}
                   </Text>
                   <Form.Item
                     name={"LevelAndClassAreEnrolledId"}
                     className="mb-0"
-                    rules={[
-                      {
-                        required: true,
-                        message: `${t(
-                          "WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION"
-                        )} ${t("is_not_empty")}`,
-                      },
-                    ]}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: `${t(
+                    //       "WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION"
+                    //     )} ${t("is_not_empty")}`,
+                    //   },
+                    // ]}
                   >
                     <Select>{renderSelect(level)}</Select>
                   </Form.Item>
@@ -539,17 +672,17 @@ function MemberInHouseHold(props) {
                 <Col span={24} md={age >= 6 ? 12 : 24}>
                   <Text className="font-13 font-weight-500">
                     {`${t("KINDERGARTEN")}`}
-                    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+                    {/*<span style={{ paddingLeft: "3px", color: "red" }}>*</span>*/}
                   </Text>
                   <Form.Item
                     name={"Kindergarten"}
                     className="mb-0"
-                    rules={[
-                      {
-                        required: true,
-                        message: `${t("KINDERGARTEN")} ${t("is_not_empty")}`,
-                      },
-                    ]}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: `${t("KINDERGARTEN")} ${t("is_not_empty")}`,
+                    //   },
+                    // ]}
                   >
                     <Select>
                       <Option value={0}>0</Option>
@@ -561,19 +694,19 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {`${t("PRIMARY")}`}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"Primary"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("PRIMARY")} ${t("is_not_empty")}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("PRIMARY")} ${t("is_not_empty")}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -598,21 +731,21 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {` ${t("LOWER_SECONDARY")}`}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"LowerSecondary"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("LOWER_SECONDARY")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("LOWER_SECONDARY")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -634,21 +767,21 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {`${t("UPPER_SECONDARY")}`}{" "}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"UpperSecondary"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("LOWER_SECONDARY")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("LOWER_SECONDARY")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -669,21 +802,21 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {`${t("VOCATIONAL_SCHOOL")}`}{" "}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"VocationalSchool"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("VOCATIONAL_SCHOOL")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("VOCATIONAL_SCHOOL")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -704,21 +837,21 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {`${t("UNIVERSITY_INSTITUTE")} `}{" "}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"UniversityInstitute"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("UNIVERSITY_INSTITUTE")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("UNIVERSITY_INSTITUTE")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -766,76 +899,63 @@ function MemberInHouseHold(props) {
                         },
                       ]}
                     >
-                      <Select>{renderSelect(schoolType)}</Select>
+                      <Select
+                        onChange={(value) => {
+                          setTypeOfSchool(value);
+                          if (value === "3") {
+                            resetFieldsHighestEducationOnSelect();
+                          }
+                        }}
+                      >
+                        {renderSelect(schoolType)}
+                      </Select>
                     </Form.Item>
                   </Col>
                 ) : null}
 
-                {(enrollInSchool === "1" ||
-                  enrollInSchool === "2" ||
-                  enrollInSchool === "3") &&
-                haveGoToSchool === true ? (
+                {(enrollInSchool === "3" && !haveGoToSchool) ||
+                typeOfSchool === "3" ? null : (
                   <>
                     <Col span={24}>
                       <Text className="font-13 font-weight-500">
                         11.{t("HIGHER_EDUCATION_IS_GRADUATED")}{" "}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"HHLevelClassCompleted"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("HIGHER_EDUCATION_IS_GRADUATED")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("HIGHER_EDUCATION_IS_GRADUATED")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select>{renderSelect(level)}</Select>
                       </Form.Item>
                     </Col>
-                    {/*<Col span={24}>*/}
-                    {/*  <Text className="font-13 font-weight-500">*/}
-                    {/*    {t("HIGHER_EDUCATION_IS_GRADUATED")}{" "}*/}
-                    {/*    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>*/}
-                    {/*  </Text>*/}
-                    {/*  <Form.Item*/}
-                    {/*    name={"HHLevelCompleted"}*/}
-                    {/*    className="mb-0"*/}
-                    {/*    rules={[*/}
-                    {/*      {*/}
-                    {/*        required: true,*/}
-                    {/*        message: `${t("HIGHER_EDUCATION_IS_GRADUATED")} ${t(*/}
-                    {/*          "is_not_empty"*/}
-                    {/*        )}`,*/}
-                    {/*      },*/}
-                    {/*    ]}*/}
-                    {/*  >*/}
-                    {/*    <Select>{renderSelect(level)}</Select>*/}
-                    {/*  </Form.Item>*/}
-                    {/*</Col>*/}
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {`${t("HIGHEST_KINDERGARTEN")}`}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"HHClassLcPre"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("HIGHEST_KINDERGARTEN")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("HIGHEST_KINDERGARTEN")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select>
                           <Option value={0}>0</Option>
@@ -845,21 +965,21 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {`${t("HIGHEST_PRIMARY")}`}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"HHClassLcPrimary"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("HIGHEST_PRIMARY")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("HIGHEST_PRIMARY")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -882,21 +1002,21 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {` ${t("HIGHEST_LOWER_SECONDARY")}`}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"HHClassLcLs"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("HIGHEST_LOWER_SECONDARY")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("HIGHEST_LOWER_SECONDARY")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -918,21 +1038,21 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {`${t("HIGHEST_UPPER_SECONDARY")}`}{" "}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"HHClassLcUs"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("HIGHEST_UPPER_SECONDARY")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("HIGHEST_UPPER_SECONDARY")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -953,21 +1073,21 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {`${t("HIGHEST_VOCATIONAL_SCHOOL")}`}{" "}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"HHClassLcVoc"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("HIGHEST_VOCATIONAL_SCHOOL")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("HIGHEST_VOCATIONAL_SCHOOL")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -990,21 +1110,21 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         {`${t("HIGHEST_UNIVERSITY_INSTITUTE")} `}{" "}
-                        <span style={{ paddingLeft: "3px", color: "red" }}>
-                          *
-                        </span>
+                        {/*<span style={{ paddingLeft: "3px", color: "red" }}>*/}
+                        {/*  **/}
+                        {/*</span>*/}
                       </Text>
                       <Form.Item
                         name={"HHClassLcUniv"}
                         className="mb-0"
-                        rules={[
-                          {
-                            required: true,
-                            message: `${t("HIGHEST_UNIVERSITY_INSTITUTE")} ${t(
-                              "is_not_empty"
-                            )}`,
-                          },
-                        ]}
+                        // rules={[
+                        //   {
+                        //     required: true,
+                        //     message: `${t("HIGHEST_UNIVERSITY_INSTITUTE")} ${t(
+                        //       "is_not_empty"
+                        //     )}`,
+                        //   },
+                        // ]}
                       >
                         <Select
                           onChange={(id) => {
@@ -1027,11 +1147,7 @@ function MemberInHouseHold(props) {
                       </Form.Item>
                     </Col>
                   </>
-                ) : null}
-
-                {enrollInSchool === "3" && haveGoToSchool === false ? (
-                  <></>
-                ) : null}
+                )}
                 {age >= 15 && age <= 60 ? (
                   <>
                     <Col span={24}>
