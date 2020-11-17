@@ -221,6 +221,7 @@ function GeneralInformationComponent(props) {
           <Form.Item
             name={["GeneralInformationBeneficiary", "DateOfEnumeration"]}
             className="mb-0"
+            initialValue={moment()}
             rules={[
               {
                 required: true,
