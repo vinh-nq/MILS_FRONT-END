@@ -14,6 +14,7 @@ import dataDictionaryApi from "../../../api/dataDictionaryApi";
 import { PATH } from "../../../routers/Path";
 import ModaItem from "./components/ModaItem";
 import "./styles.scss";
+import { messageError } from "../../../components/MessageError";
 
 let timeOut = "";
 export default function ListOfRelation(props) {
@@ -59,6 +60,13 @@ export default function ListOfRelation(props) {
       .then((res) => {
         setCheckLoading(false);
         setListRelation(res.data.Data);
+      })
+      .catch((error) => {
+        setCheckLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 
@@ -178,9 +186,10 @@ export default function ListOfRelation(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 8,
+          pageSize: 12,
           total: listRelation.length,
           onChange: (page) => {
             onChangePage(page);

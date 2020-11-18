@@ -13,6 +13,7 @@ import Highlighter from "react-highlight-words";
 import dataDictionaryApi from "../../../api/dataDictionaryApi";
 import { PATH } from "../../../routers/Path";
 import ModaItem from "./components/ModaItem";
+import { messageError } from "../../../components/MessageError/index.js";
 import "./styles.scss";
 
 let timeOut = "";
@@ -47,20 +48,26 @@ export default function ListOfEthnic(props) {
 
   useEffect(() => {
     setKeyword(getValueFromLink(props.location, "keyword", "STRING"));
+    const fetchDataProvince = async (location) => {
+      setCheckLoading(true);
+      await dataDictionaryApi
+        .GetAllEthnic({
+          keyword: getValueFromLink(location, "keyword", "STRING"),
+        })
+        .then((res) => {
+          setCheckLoading(false);
+          setListWallMetarial(res.data.Data);
+        })
+        .catch((error) => {
+          setCheckLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
+        });
+    };
     fetchDataProvince(props.location);
   }, [props.location]);
-
-  const fetchDataProvince = async (location) => {
-    setCheckLoading(true);
-    await dataDictionaryApi
-      .GetAllEthnic({
-        keyword: getValueFromLink(location, "keyword", "STRING"),
-      })
-      .then((res) => {
-        setCheckLoading(false);
-        setListWallMetarial(res.data.Data);
-      });
-  };
 
   const columns = [
     {
@@ -178,9 +185,10 @@ export default function ListOfEthnic(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 8,
+          pageSize: 12,
           total: listWallMetarial.length,
           onChange: (page) => {
             onChangePage(page);

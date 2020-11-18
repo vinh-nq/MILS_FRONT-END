@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertDrinkingWater(value, `Insert New Drinking Water [${value.Id}] - ${value.ValueOfEng}`)
+      .InsertDrinkingWater(
+        value,
+        `Insert New Drinking Water [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -44,7 +47,7 @@ function ModaItem(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-role",
           duration: 1,
         })
@@ -53,7 +56,10 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateDrinkingWater(value, `Update Drinking Water [${value.Id}] - ${value.ValueOfEng}`)
+      .UpdateDrinkingWater(
+        value,
+        `Update Drinking Water [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -65,7 +71,7 @@ function ModaItem(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-role",
           duration: 1,
         })
@@ -73,7 +79,11 @@ function ModaItem(props) {
   };
 
   const handleSubmit = (valueForm) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    message.loading({
+      content: "Loading...",
+      key: "message-form-role",
+      duration: 20,
+    });
     if (typeModal === "add") {
       handleAddNew(valueForm);
     }
@@ -106,7 +116,11 @@ function ModaItem(props) {
       }}
       forceRender
     >
-      <Form id="form-drinkingwater-management" form={form} onFinish={handleSubmit}>
+      <Form
+        id="form-drinkingwater-management"
+        form={form}
+        onFinish={handleSubmit}
+      >
         <div>
           <span>{t("drinkingWaterId")}</span>
           <span style={{ paddingLeft: "3px", color: "red" }}>*</span>

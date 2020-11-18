@@ -336,8 +336,8 @@
   "plotCauseLao": "Plot Cause (Laos)",
   "plotCauseEng": "Plot Cause (Eng)",
   "plotTypeId": "Plot Type Id",
-  "plotTypeLao": "Plot Cause (Laos)",
-  "plotTypeEng": "Plot Cause  (Eng)",
+  "plotTypeLao": "Plot Type (Laos)",
+  "plotTypeEng": "Plot Type (Eng)",
   "landTypeId": "Land Type Id",
   "landTypeLao": "Land Type (Laos)",
   "landTypeEng": "Land Type  (Eng)",
@@ -537,6 +537,11 @@
   "Daily Form Submissions": "Daily Form Submissions",
   "Beneficiary Segreggations": "Beneficiary Segreggations",
   "Total Daily Form": "Total Daily Form",
+  "ParaId":"ID",
+  "ParaCode":"Paramater Code",
+  "ParaName":"Paramater Name (Laos)",
+  "ParaNameEng":"Parameter Name (Eng)",
+  "ParaValue":"Parameter Value",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import houseHoldApi from "../../../../../../api/houseHoldApi";
 import dataDictionaryApi from "../../../../../../api/dataDictionaryApi";
 import "./styles.scss";
+import { messageError } from "../../../../../../components/MessageError";
 
 export default function CascaderFilter(props) {
   const { t } = useTranslation();
@@ -37,6 +38,12 @@ export default function CascaderFilter(props) {
               type: "province",
             }))
           );
+        })
+        .catch((error) => {
+          messageError({
+            content: error,
+            duration: 2,
+          });
         });
     };
     fetchDataProvince();
@@ -118,24 +125,37 @@ export default function CascaderFilter(props) {
             }));
             setOptions(options);
             setListDistrict(res.data.Data);
+          })
+          .catch((error) => {
+            messageError({
+              content: error,
+              duration: 2,
+            });
           });
       };
       fetchDataDistrict(targetOption.value);
     }
     if (targetOption.type === "district") {
       const fetchDataVillage = async (districtId) => {
-        await houseHoldApi.getAllVillage({ districtId }).then((res) => {
-          targetOption.loading = false;
-          targetOption.children = res.data.Data.map((el) => ({
-            ...el,
-            value: el.VillageId,
-            label: dataLanguage === "la" ? el.VillageName : el.VillageNameEng,
-          }));
-          setOptions(options);
-          setListVillage(res.data.Data);
-        });
+        await houseHoldApi
+          .getAllVillage({ districtId })
+          .then((res) => {
+            targetOption.loading = false;
+            targetOption.children = res.data.Data.map((el) => ({
+              ...el,
+              value: el.VillageId,
+              label: dataLanguage === "la" ? el.VillageName : el.VillageNameEng,
+            }));
+            setOptions(options);
+            setListVillage(res.data.Data);
+          })
+          .catch((error) => {
+            messageError({
+              content: error,
+              duration: 2,
+            });
+          });
       };
-
       fetchDataVillage(targetOption.value);
     }
   };

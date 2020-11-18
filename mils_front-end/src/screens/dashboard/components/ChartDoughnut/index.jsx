@@ -5,6 +5,7 @@ import { Doughnut } from "react-chartjs-2";
 import CascaderFilter from "./components/CascaderFilter";
 import dashBoardApi from "../../../../api/dashBoardApi";
 import { useState } from "react";
+import { messageError } from "../../../../components/MessageError";
 
 export default function ChartDoughnut(props) {
   const { t } = useTranslation();
@@ -26,6 +27,12 @@ export default function ChartDoughnut(props) {
         .then((res) => {
           setLoading(false);
           setValueChart(res.data);
+        })
+        .catch((error) => {
+          messageError({
+            content: error,
+            duration: 2,
+          });
         });
     };
     fetchDataChartLine();
@@ -40,6 +47,13 @@ export default function ChartDoughnut(props) {
       .then((res) => {
         setLoading(false);
         setValueChart(res.data);
+      })
+      .catch((error) => {
+        setLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 
@@ -98,7 +112,7 @@ export default function ChartDoughnut(props) {
                     labels: [`${t("High_Score")}`, `${t("Low_Score")}`],
                     datasets: [
                       {
-                        backgroundColor: ["#F97A7A", "#1890FF"],
+                        backgroundColor: ["#E5493A", "#1890FF"],
                         data: [valueChart.Higher, valueChart.Lower],
                       },
                     ],
@@ -126,7 +140,7 @@ export default function ChartDoughnut(props) {
                     {t("High_Score")}
                   </div>
                   <div className="d-flex justify-content-end">
-                    <Tag color="#F97A7A">{valueChart.Higher}</Tag>
+                    <Tag color="#E5493A">{valueChart.Higher}</Tag>
                   </div>
                   <div className="d-flex justify-content-start mt-2">
                     {t("Low_Score")}

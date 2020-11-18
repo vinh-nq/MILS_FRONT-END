@@ -97,3 +97,44 @@
 .table-row-dark {
   background-color: #f2f2f2;
 }
+
+.ant-table-thead {
+  .ant-table-cell {
+    font-weight: 600;
+    font-size: 15px;
+    color: #7f869eb5;
+  }
+}
+
+.ant-btn-primary {
+  background-color: #0052cc !important;
+  border-color: #0052cc !important;
+  color: #f2f2f2 !important;
+
+  span {
+    font-weight: 600 !important;
+    // color: #f2f2f2 !important;
+  }
+}
+
+.ant-btn-primary[disabled] {
+  background-color: #f5f5f5 !important;
+  border-color: #d9d9d9 !important;
+  color: black !important;
+}
+
+.ant-menu-item-selected::after {
+  border-color: #0052cc !important;
+}
+
+.ant-menu-item-selected {
+  svg {
+    color: #0052cc !important;
+    font-weight: 600;
+  }
+
+  span {
+    font-weight: 600;
+    color: #0052cc !important;
+  }
+}

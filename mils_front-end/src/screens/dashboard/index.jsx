@@ -9,6 +9,7 @@ import ChartDoughnut from "./components/ChartDoughnut";
 import dashBoardApi from "../../api/dashBoardApi";
 import "./styles.scss";
 import { useEffect } from "react";
+import { messageError } from "../../components/MessageError";
 
 export default function DashBoard(props) {
   const { t } = useTranslation();
@@ -66,19 +67,27 @@ export default function DashBoard(props) {
 
   useEffect(() => {
     const fetchDataDashboard = async () => {
-      return await dashBoardApi.CountHH({}).then((res) => {
-        setArrayDashboard((arrayDashboard) => {
-          return arrayDashboard.map((el) => {
-            if (el.id === 1) {
-              return {
-                ...el,
-                value: res.data,
-              };
-            }
-            return el;
+      return await dashBoardApi
+        .CountHH({})
+        .then((res) => {
+          setArrayDashboard((arrayDashboard) => {
+            return arrayDashboard.map((el) => {
+              if (el.id === 1) {
+                return {
+                  ...el,
+                  value: res.data,
+                };
+              }
+              return el;
+            });
+          });
+        })
+        .catch((error) => {
+          messageError({
+            content: error,
+            duration: 2,
           });
         });
-      });
     };
     fetchDataDashboard();
   }, []);

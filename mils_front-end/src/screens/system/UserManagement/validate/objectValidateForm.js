@@ -34,11 +34,12 @@ export const objectValidateForm = {
     nameLabel: "Department",
   },
   Type: {
-    maxLength: 1,
+    maxLength: 100,
     checkEmpty: true,
     nameLabel: "Type",
   },
   DeviceId: {
+    maxLength: 100,
     checkEmpty: true,
     nameLabel: "DeviceId",
     checkDuplicate: true,

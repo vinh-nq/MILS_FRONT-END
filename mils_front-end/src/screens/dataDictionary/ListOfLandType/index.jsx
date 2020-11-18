@@ -14,6 +14,7 @@ import dataDictionaryApi from "../../../api/dataDictionaryApi";
 import { PATH } from "../../../routers/Path";
 import ModaItem from "./components/ModaItem";
 import "./styles.scss";
+import { messageError } from "../../../components/MessageError";
 
 let timeOut = "";
 export default function ListOflandType(props) {
@@ -47,20 +48,26 @@ export default function ListOflandType(props) {
 
   useEffect(() => {
     setKeyword(getValueFromLink(props.location, "keyword", "STRING"));
+    const fetchDataProvince = async (location) => {
+      setCheckLoading(true);
+      await dataDictionaryApi
+        .GetAllLandType({
+          keyword: getValueFromLink(location, "keyword", "STRING"),
+        })
+        .then((res) => {
+          setCheckLoading(false);
+          setListWallMetarial(res.data.Data);
+        })
+        .catch((error) => {
+          setCheckLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
+        });
+    };
     fetchDataProvince(props.location);
-  }, [props.location]);
-
-  const fetchDataProvince = async (location) => {
-    setCheckLoading(true);
-    await dataDictionaryApi
-      .GetAllLandType({
-        keyword: getValueFromLink(location, "keyword", "STRING"),
-      })
-      .then((res) => {
-        setCheckLoading(false);
-        setListWallMetarial(res.data.Data);
-      });
-  };
+  }, [props.location, t]);
 
   const columns = [
     {
@@ -178,9 +185,10 @@ export default function ListOflandType(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 8,
+          pageSize: 12,
           total: listWallMetarial.length,
           onChange: (page) => {
             onChangePage(page);

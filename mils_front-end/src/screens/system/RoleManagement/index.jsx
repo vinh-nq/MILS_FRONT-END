@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Tooltip, Button, Divider, Table, message, Input } from "antd";
-import {
-  ControlOutlined,
-  EditOutlined,
-} from "@ant-design/icons";
+import { Tooltip, Button, Divider, Table, Input } from "antd";
+import { ControlOutlined, EditOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import roleManagementApi from "../../../api/roleManagementApi";
@@ -12,6 +9,7 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import "./styles.scss";
 import { PATH } from "../../../routers/Path";
 import ModalRoleManagement from "./components/ModalRoleManagement";
+import { messageError } from "../../../components/MessageError";
 
 export default function RoleManagement(props) {
   const { t } = useTranslation();
@@ -38,7 +36,10 @@ export default function RoleManagement(props) {
       })
       .catch((error) => {
         setCheckLoading(false);
-        message.error(error);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 

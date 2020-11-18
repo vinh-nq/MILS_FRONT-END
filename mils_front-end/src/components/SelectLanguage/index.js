@@ -72,14 +72,14 @@ class SelectLanguage extends React.Component {
           />
           <span
             className="text-Container"
-            style={{ color: "#ffffff99", fontWeight: "500" }}
+            style={{ color: "#ffffff", fontWeight: "500" }}
           >
             {upperCase(value.value)}
           </span>
           <CaretDownOutlined
             className="ml-1"
             style={{
-              color: "#ffffff99",
+              color: "#ffffff",
               fontSize: "13px",
             }}
           />

@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertLandType(value, `Insert New Land Type [${value.Id}] - ${value.ValueOfEng}`)
+      .InsertLandType(
+        value,
+        `Insert New Land Type [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -44,7 +47,7 @@ function ModaItem(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-role",
           duration: 1,
         })
@@ -53,7 +56,10 @@ function ModaItem(props) {
 
   const handleEditItem = async (value) => {
     await dataDictionaryApi
-      .UpdateLandType(value, `Update Land Type [${value.Id}] - ${value.ValueOfEng}`)
+      .UpdateLandType(
+        value,
+        `Update Land Type [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -65,7 +71,7 @@ function ModaItem(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-role",
           duration: 1,
         })
@@ -73,7 +79,11 @@ function ModaItem(props) {
   };
 
   const handleSubmit = (valueForm) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    message.loading({
+      content: "Loading...",
+      key: "message-form-role",
+      duration: 20,
+    });
     if (typeModal === "add") {
       handleAddNew(valueForm);
     }

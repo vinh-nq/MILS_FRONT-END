@@ -146,7 +146,7 @@ function ModalUnit(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-unit",
           duration: 1,
         })
@@ -154,7 +154,11 @@ function ModalUnit(props) {
   };
 
   const handleSubmit = (valueForm) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    message.loading({
+      content: "Loading...",
+      key: "message-form-unit",
+      duration: 20,
+    });
     if (typeModal === "add") {
       handleAddNew({
         UnitId: null,
@@ -288,7 +292,9 @@ function ModalUnit(props) {
           >
             {listVillage.map((el) => (
               <Select.Option value={el.VillageId} key={el.VillageId}>
-                {listVillage === "la" ? el.VillageName : el.VillageNameEng}
+                {listVillage === "la"
+                  ? el.VillageName || ""
+                  : el.VillageNameEng || ""}
               </Select.Option>
             ))}
           </Select>

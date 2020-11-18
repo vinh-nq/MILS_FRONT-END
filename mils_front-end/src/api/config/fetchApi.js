@@ -57,32 +57,47 @@ export const fetchDataAndLog = async (url, method, params, data, detail) => {
         country_code: responseInfor.data.country_code,
         location: `${responseInfor.data.latitude}-${responseInfor.data.longitude}`,
       }),
-    ]).then(
-      ([response]) => {
-        if (response.data.Status) {
-          return response;
-        } else {
-          if (response.data.Status === false) {
-            throw new Error(response.data.Messages);
+    ])
+      .then(
+        ([response]) => {
+          if (response.data.Status) {
+            return response;
+          } else {
+            if (response.data.Status === false) {
+              throw new Error(response.data.Messages);
+            }
+            return response;
           }
-          return response;
+        },
+        (error) => {
+          switch (error.response.data.StatusCode) {
+            case 401:
+              window.location.href = window.location.origin + "/login";
+              break;
+            case 403:
+              window.location.href =
+                window.location.origin + "/error-authentication";
+              throw new Error(error.response.data.Message);
+            default:
+              message.error("Error");
+              break;
+          }
         }
-      },
-      (error) => {
-        switch (error.response.data.StatusCode) {
-          case 401:
-            window.location.href = window.location.origin + "/login";
-            break;
-          case 403:
-            window.location.href =
-              window.location.origin + "/error-authentication";
-            throw new Error(error.response.data.Message);
-          default:
-            message.error("Error");
-            break;
-        }
-      }
-    );
+      )
+      // .catch((error) => {
+      //   switch (error.response.data.StatusCode) {
+      //     case 401:
+      //       window.location.href = window.location.origin + "/login";
+      //       break;
+      //     case 403:
+      //       window.location.href =
+      //         window.location.origin + "/error-authentication";
+      //       throw new Error(error.response.data.Message);
+      //     default:
+      //       message.error("Error");
+      //       break;
+      //   }
+      // });
   });
 };
 

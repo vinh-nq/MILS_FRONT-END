@@ -10,6 +10,7 @@ import "./styles.scss";
 import { useState } from "react";
 import { PATH } from "../../../routers/Path";
 import { getValueFromLink } from "../../../utils/getValueFromLink";
+import { messageError } from "../../../components/MessageError";
 
 export default function PermissionManagement(props) {
   const { t } = useTranslation();
@@ -68,8 +69,12 @@ export default function PermissionManagement(props) {
             ...new Set(dataFunction.listOfObj.map((e) => e.GroupName)),
           ]);
         })
-        .catch(() => {
-          message.error("error");
+        .catch((error) => {
+          setCheckLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
         });
     };
     fetchDataRoleAndFunction(history);
@@ -165,9 +170,12 @@ export default function PermissionManagement(props) {
         setCheckLoading(false);
         message.success(t("ADD_SUCCESS"));
       })
-      .catch(() => {
+      .catch((error) => {
         setCheckLoading(false);
-        message.error(t("ERROR"));
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 
