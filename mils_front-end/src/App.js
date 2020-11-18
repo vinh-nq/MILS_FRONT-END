@@ -41,7 +41,7 @@ import ListOfCookingSource from "./screens/dataDictionary/ListOfCookingSource";
 import ListOfMainGoodAndService from "./screens/dataDictionary/ListOfMainGoodAndService";
 import ListOfVillage from "./screens/dataDictionary/ListOfVillage";
 import UpdateHousehold from "./screens/householdManagement/UpdateHousehold";
-import Account from "./screens/account";
+// import Account from "./screens/account";
 import DashBoard from "./screens/dashboard";
 import UserVillageManagement from "./screens/system/UserVillageManagement";
 import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold";
@@ -322,7 +322,7 @@ class App extends React.Component {
               path={PATH.LIST_OF_SCHOOL_ENROLL}
               exact
             />
-            <MainRouteWrapper component={Account} path={PATH.ACCOUNT} exact />
+            {/* <MainRouteWrapper component={Account} path={PATH.ACCOUNT} exact /> */}
             <MainRouteWrapper
               component={() => <div>AAA</div>}
               path={`${PATH.householdmanagement}/householdPoverty`}
