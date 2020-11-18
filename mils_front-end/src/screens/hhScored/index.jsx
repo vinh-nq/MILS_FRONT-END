@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import { Button, Col, Input, message, Row, Table, Tag, Typography } from "antd";
+import {
+  Button,
+  Col,
+  Input,
+  message,
+  Row,
+  Select,
+  Table,
+  Tag,
+  Typography,
+} from "antd";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import householdScoreApi from "../../api/householdScoreApi";
@@ -8,12 +18,19 @@ import { regexTemplate } from "../../utils/regexTemplate";
 import "./style.scss";
 
 import GenerateDataComponent from "./component/GenerateDataComponent";
+import houseHoldApi from "../../api/houseHoldApi";
 
 function HouseholdScore(props) {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [subData, setSubData] = useState([]);
+  const [province, setProvince] = useState([]);
+  const [district, setDistrict] = useState([]);
+  const [village, setVillage] = useState([]);
 
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
   const [searchText, setSearchText] = useState("");
   const [minScored, setMinScored] = useState("");
   const [maxScored, setMaxScored] = useState("");
@@ -21,6 +38,7 @@ function HouseholdScore(props) {
   const [showGenerate, setGenerate] = useState(false);
   const { t } = useTranslation();
   const { Text } = Typography;
+  const { Option } = Select;
   const [page, setPage] = useState(1);
 
   const dataLanguage =
@@ -59,6 +77,64 @@ function HouseholdScore(props) {
     getDataScored();
   }, [t]);
 
+  useEffect(() => {
+    const getAllProvince = async () => {
+      await houseHoldApi.getAllProvince().then((res) => {
+        if (res.data.Status) {
+          setProvince(res.data.Data);
+        } else {
+          message.error({
+            content: t("FETCH_DATA_FAILED"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      });
+    };
+    getAllProvince();
+  }, [t]);
+
+  const getAllDistrict = (provinceId) => {
+    houseHoldApi.getAllDistrict({ provinceId }).then((res) => {
+      if (res.data.Status) {
+        setDistrict(res.data.Data);
+      } else {
+        message.error({
+          content: t("FETCH_DATA_FAILED"),
+          key: "message-form-role",
+          duration: 1,
+        });
+      }
+    });
+  };
+
+  const getAllVillage = (districtId) => {
+    houseHoldApi.getAllVillage({ districtId }).then((res) => {
+      if (res.data.Status) {
+        setVillage(res.data.Data);
+      } else {
+        message.error({
+          content: t("FETCH_DATA_FAILED"),
+          key: "message-form-role",
+          duration: 1,
+        });
+      }
+    });
+  };
+
+  const onSelectProvince = (id) => {
+    getAllDistrict(id);
+    setSelectedProvince(id);
+    setSelectedDistrict("");
+    setSelectedVillage("");
+  };
+
+  const onDistrictSelect = (id) => {
+    getAllVillage(id);
+    setSelectedDistrict(id);
+    setSelectedVillage("");
+  };
+
   const reloadDataGenerate = async (data) => {
     data = data.sort(compare);
     setMinScored("");
@@ -80,6 +156,15 @@ function HouseholdScore(props) {
   const onClickSearch = () => {
     let array = [...data];
     setPage(1);
+    if (selectedProvince) {
+      array = array.filter((value) => value.ProvinceId === selectedProvince);
+    }
+    if (selectedDistrict) {
+      array = array.filter((value) => value.DistrictId === selectedDistrict);
+    }
+    if (selectedVillage) {
+      array = array.filter((value) => value.VillageId === selectedVillage);
+    }
     if (searchText) {
       array = array.filter((value) =>
         value.HHHeadName.includes(searchText.trim())
@@ -180,6 +265,63 @@ function HouseholdScore(props) {
       {/* Search*/}
       <section>
         <Row gutter={[16, 16]}>
+          <Col span={24} md={12} lg={6}>
+            <Text>{t("PROVINCE")}</Text>
+            <Select
+              className="w-100"
+              value={selectedProvince}
+              onChange={(value) => {
+                onSelectProvince(value);
+              }}
+            >
+              <Option value={""}>{"All"}</Option>
+              {province.map((value, index) => (
+                <Option value={value.Id} key={index}>
+                  {dataLanguage === "la"
+                    ? value.ProvinceName
+                    : value.ProvinceNameEng}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+          <Col span={24} md={12} lg={6}>
+            <Text>{t("DISTRICT")}</Text>
+            <Select
+              className="w-100"
+              value={selectedDistrict}
+              onChange={(id) => {
+                onDistrictSelect(id);
+              }}
+            >
+              <Option value={""}>{"All"}</Option>
+              {district.map((value, index) => (
+                <Option value={value.DistrictId} key={index}>
+                  {dataLanguage === "la"
+                    ? value.DistrictName
+                    : value.DistrictNameEng}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+          <Col span={24} md={12} lg={6}>
+            <Text>{t("VILLAGE")}</Text>
+            <Select
+              className="w-100"
+              value={selectedVillage}
+              onChange={(value) => {
+                setSelectedVillage(value);
+              }}
+            >
+              <Option value={""}>{"All"}</Option>
+              {village.map((value, index) => (
+                <Option value={value.VillageId} key={index}>
+                  {dataLanguage === "la"
+                    ? value.VillageName
+                    : value.VillageNameEng || t("EMPTY")}
+                </Option>
+              ))}
+            </Select>
+          </Col>
           <Col span={24} md={12} lg={6}>
             <Text className="font-13">{t("HEAD_OF_HH_NAME")}</Text>
             <Input

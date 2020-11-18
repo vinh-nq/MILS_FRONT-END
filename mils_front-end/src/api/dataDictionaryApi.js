@@ -132,9 +132,9 @@ const dataDictionaryApi = {
     const url = "api/Dictionary/UpdateLevel";
     return fetchDataAndLog(url, "POST", null, data, detail);
   },
-  GetAllClass: (params) => {
+  GetAllClass: () => {
     const url = "api/Dictionary/GetAllClass";
-    return fetchData(url, "GET", params, null);
+    return fetchData(url, "GET", null, null);
   },
   InsertClass: (data, detail) => {
     const url = "api/Dictionary/InsertClass";
