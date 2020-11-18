@@ -6,6 +6,7 @@ import {
   EditOutlined,
   // DeleteOutlined,
 } from "@ant-design/icons";
+import {messageError} from "../../../components/MessageError/index.js";
 import { getValueFromLink } from "../../../utils/getValueFromLink";
 import { regexTemplate } from "../../../utils/regexTemplate";
 import LoadingSpinner from "../../../components/LoadingSpinner";
@@ -59,6 +60,13 @@ export default function ListOfClass(props) {
       .then((res) => {
         setCheckLoading(false);
         setListWallMetarial(res.data.Data);
+      })
+      .catch((error) => {
+        setCheckLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 
@@ -178,9 +186,10 @@ export default function ListOfClass(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 8,
+          pageSize: 12,
           total: listWallMetarial.length,
           onChange: (page) => {
             onChangePage(page);

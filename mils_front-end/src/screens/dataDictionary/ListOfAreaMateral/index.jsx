@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Tooltip, Button, Divider, Table, Input } from "antd";
+import { messageError } from "../../../components/MessageError/index.js";
 import {
   EditOutlined,
   // DeleteOutlined,
@@ -61,6 +62,13 @@ export default function ListOfAreaMateral(props) {
       .then((res) => {
         setCheckLoading(false);
         setListWallMetarial(res.data.Data);
+      })
+      .catch((error) => {
+        setCheckLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 
@@ -180,9 +188,10 @@ export default function ListOfAreaMateral(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 8,
+          pageSize: 12,
           total: listWallMetarial.length,
           onChange: (page) => {
             onChangePage(page);

@@ -13,6 +13,7 @@ import Highlighter from "react-highlight-words";
 import dataDictionaryApi from "../../../api/dataDictionaryApi";
 import { PATH } from "../../../routers/Path";
 import ModaItem from "./components/ModaItem";
+import { messageError } from "../../../components/MessageError/index.js";
 import "./styles.scss";
 
 let timeOut = "";
@@ -61,6 +62,13 @@ export default function ListOfCookingSource(props) {
       .then((res) => {
         setCheckLoading(false);
         setListWallMetarial(res.data.Data);
+      })
+      .catch((error) => {
+        setCheckLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 
@@ -180,9 +188,10 @@ export default function ListOfCookingSource(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 8,
+          pageSize: 12,
           total: listWallMetarial.length,
           onChange: (page) => {
             onChangePage(page);

@@ -11,6 +11,7 @@ import dataDictionaryApi from "../../../api/dataDictionaryApi";
 import { PATH } from "../../../routers/Path";
 import { useSelector } from "react-redux";
 import ModaItem from "./components/ModaItem";
+import { messageError } from "../../../components/MessageError/index.js";
 import "./styles.scss";
 
 let timeOut = "";
@@ -51,14 +52,19 @@ export default function ListOfDistrict(props) {
   useEffect(() => {
     const fetchDataAll = async (location) => {
       setCheckLoading(true);
-      await Promise.all([
-        fetchDataDistrict(location),
-        fetchDataProvince(),
-      ]).then(([resDistrict, resProvince]) => {
-        setCheckLoading(false);
-        setListProvince(resProvince.data.Data);
-        setListDistrict(resDistrict.data.Data);
-      });
+      await Promise.all([fetchDataDistrict(location), fetchDataProvince()])
+        .then(([resDistrict, resProvince]) => {
+          setCheckLoading(false);
+          setListProvince(resProvince.data.Data);
+          setListDistrict(resDistrict.data.Data);
+        })
+        .catch((error) => {
+          setCheckLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
+        });
     };
     const fetchDataDistrict = (location) => {
       return dataDictionaryApi.GetAllDistrict({
@@ -234,9 +240,10 @@ export default function ListOfDistrict(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 8,
+          pageSize: 12,
           total: filterProvince(listDistrict || []).length,
           onChange: (page) => {
             onChangePage(page);

@@ -11,6 +11,7 @@ import GoogleMapReact from "google-map-react";
 import { PATH } from "../../../routers/Path";
 import { getValueFromLink } from "../../../utils/getValueFromLink";
 import { regexTemplate } from "../../../utils/regexTemplate";
+import { messageError } from "../../../components/MessageError";
 
 let timeOut = "";
 export default function UserTrackingLog(props) {
@@ -65,6 +66,13 @@ export default function UserTrackingLog(props) {
         setCheckLoading(false);
         setTotalItem(res.data.Total);
         setListUserLog(res.data.listOfObj);
+      })
+      .catch((error) => {
+        setCheckLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 

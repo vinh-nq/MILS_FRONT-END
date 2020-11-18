@@ -23,17 +23,17 @@ export default function MenuComponent(props) {
 
   return (
     <>
-      <div
+      {/* <div
         style={{
           marginBottom: "10px",
           padding: "2px 2px 10px 22px",
           borderBottom: "1px #f3f3f3 solid",
         }}
       >
-        <span style={{ color: "#98a6ad", fontWeight: "300", fontSize: "12px" }}>
+        <span style={{ color: "#98a6ad", fontWeight: "600", fontSize: "11px" }}>
           MENU NAVIGATION
         </span>
-      </div>
+      </div> */}
       <Menu
         mode="inline"
         selectedKeys={[`${listBreadcrumb[0]}`]}
@@ -52,8 +52,11 @@ export default function MenuComponent(props) {
             });
           }}
         >
-          <i className="fas fa-chart-line" style={{ color: "#6e768e" }}></i>
-          <span className="ml-2" style={{ fontSize: "15px", color: "#6e768e" }}>
+          <i
+            className="fas fa-chart-line"
+            style={{ color: "#6e768e", width: "25px" }}
+          ></i>
+          <span className="ml-2" style={{ fontSize: "16px", color: "#6e768e" }}>
             {t("DASHBOARD")}
           </span>
         </Menu.Item>
@@ -80,10 +83,13 @@ export default function MenuComponent(props) {
                 }
               }}
             >
-              <i className={elemente.icon} style={{ color: "#6e768e" }}></i>
+              <i
+                className={elemente.icon}
+                style={{ color: "#6e768e", width: "25px" }}
+              ></i>
               <span
                 className="ml-2"
-                style={{ fontSize: "15px", color: "#6e768e" }}
+                style={{ fontSize: "16px", color: "#6e768e" }}
               >
                 {dataLanguage === "la"
                   ? elemente.header_name_lao

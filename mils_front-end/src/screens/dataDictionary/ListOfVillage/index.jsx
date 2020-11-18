@@ -282,9 +282,10 @@ export default function ListOfVillage(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 8,
+          pageSize: 12,
           total: filterProvince(listVillage || []).length,
           onChange: (page) => {
             onChangePage(page);

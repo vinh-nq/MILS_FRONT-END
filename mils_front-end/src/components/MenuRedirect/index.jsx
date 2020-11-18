@@ -43,7 +43,7 @@ export default function MenuRedirect(props) {
       {checkLoading ? (
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
       ) : null}
-      <span className="h6" style={{ color: "#343a40" }}>
+      <span className="h5" style={{ color: "#b0b1b1" }}>
         {t(
           _.upperCase(
             history.location.pathname.replace(/\//g, "") || "DASHBOARD"
@@ -97,7 +97,7 @@ export default function MenuRedirect(props) {
                 >
                   <span
                     style={{
-                      fontWeight: "500",
+                      fontWeight: "600",
                       fontSize: "15px",
                     }}
                   >

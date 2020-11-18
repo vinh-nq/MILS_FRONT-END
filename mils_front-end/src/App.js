@@ -348,11 +348,11 @@ class App extends React.Component {
               path={`${PATH.USER_MANAGEMENT}`}
               exact
             />
-            <MainRouteWrapper
-              component={() => <div>AAA</div>}
+            {/* <MainRouteWrapper
+              component={SystemParameters}
               path={`${PATH.SYSTEMS_PARAMETERS}`}
               exact
-            />
+            /> */}
             <MainRouteWrapper
               component={() => <div>AAA</div>}
               path={`${PATH.BACKUP_DATABASE}`}
@@ -363,11 +363,6 @@ class App extends React.Component {
               path={`${PATH.PERMISSIONS_MANAGEMENT}`}
               exact
             />
-            {/* <MainRouteWrapper
-                component={ListHouseholdForCCTProgram}
-                path={"/pmtscoredcomfirm"}
-                exact
-            /> */}
             <Route component={Page403} path={PATH.PAGE_403} exact />
             <Route component={Page404} />
           </Switch>

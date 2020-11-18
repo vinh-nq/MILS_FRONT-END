@@ -12,6 +12,7 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import "./styles.scss";
 import ModalUserVillage from "./components/ModalUserVillage";
 import { useSelector } from "react-redux";
+import { messageError } from "../../../components/MessageError";
 
 export default function UserVillageManagement(props) {
   const { t } = useTranslation();
@@ -43,7 +44,10 @@ export default function UserVillageManagement(props) {
       })
       .catch((error) => {
         setCheckLoading(false);
-        message.error(error);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 

@@ -632,6 +632,36 @@ function ManageAssessment(props) {
                   });
               }}
             >
+              Export Excel 2
+            </Button>
+            <Button
+              className="set-center-content mr-2"
+              icon={<i className="fas fa-file-excel mr-2"></i>}
+              style={{ color: "#0c960c", border: "1px #0c960c solid" }}
+              onClick={async () => {
+                setLoading(true);
+                await downloadFileExcelApi
+                  .ExportMembers({
+                    villageId: selectedVillage === "-1" ? "" : selectedVillage,
+                  })
+                  .then((res) => {
+                    fetch(
+                      `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${res.data}`
+                    )
+                      .then((ress) => {
+                        return ress.blob();
+                      })
+                      .then((blobs) => {
+                        const fileExtension = ".xlsx";
+                        setLoading(false);
+                        saveAs(
+                          blobs,
+                          `${t("Member&PlotLand")}` + fileExtension
+                        );
+                      });
+                  });
+              }}
+            >
               Export Excel
             </Button>
             <Button
@@ -753,6 +783,7 @@ function ManageAssessment(props) {
           pagination={false}
           rowKey="Id"
           style={{ overflowX: "auto", overflowY: "hidden" }}
+          size="small"
         />
         <div className="mt-3 d-flex">
           <Pagination

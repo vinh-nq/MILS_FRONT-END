@@ -4,6 +4,7 @@ import { DatePicker, Skeleton, Button } from "antd";
 import dashBoardApi from "../../../../api/dashBoardApi";
 import moment from "moment";
 import { Line } from "react-chartjs-2";
+import { messageError } from "../../../../components/MessageError";
 
 export default function ChartLine(props) {
   const { t } = useTranslation();
@@ -31,6 +32,13 @@ export default function ChartLine(props) {
               return (objData || {}).NumberInterview || 0;
             })
           );
+        })
+        .catch((error) => {
+          setLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
         });
     };
     fetchDataChartLine(
@@ -55,6 +63,12 @@ export default function ChartLine(props) {
             return (objData || {}).NumberInterview || 0;
           })
         );
+      })
+      .catch((error) => {
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 
@@ -157,9 +171,9 @@ export default function ChartLine(props) {
                   {
                     data: listDataDate,
                     label: `${t("household_interview")}`,
-                    borderColor: "#96ef3e",
+                    borderColor: "#0747a6",
                     fill: false,
-                    backgroundColor: "#96ef3e",
+                    backgroundColor: "#0747a6",
                   },
                 ],
               }}
