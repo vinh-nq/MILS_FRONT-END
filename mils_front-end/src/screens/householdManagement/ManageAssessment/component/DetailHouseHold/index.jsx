@@ -173,21 +173,24 @@ function DetailBeneficiary(props) {
 
   const columns = [
     {
-      title: t("ITEM"),
+      title: <span className="font-weight-600">{t("ITEM")}</span>,
       dataIndex: "item",
       key: "item ",
+      align: "center",
       render: (data, record, index) => index + 1,
     },
     {
-      title: t("MEMBER_NAME"),
+      title: <span className="font-weight-600">{t("MEMBER_NAME")}</span>,
       dataIndex: "MemberName",
       key: "MemberName",
+      align: "center",
       render: (data) => <div style={{ minWidth: 100 }}>{data}</div>,
     },
     {
-      title: t("MARITAL_STATUS"),
+      title: <span className="font-weight-600">{t("MARITAL_STATUS")}</span>,
       dataIndex: "maritalStatus",
       key: "maritalStatus",
+      align: "center",
       render: (data, record) => (
         <div style={{ minWidth: 100 }}>
           {dataLanguage === "la"
@@ -197,9 +200,12 @@ function DetailBeneficiary(props) {
       ),
     },
     {
-      title: t("RELATION_TO_HOUSEHOLD"),
+      title: (
+        <span className="font-weight-600">{t("RELATION_TO_HOUSEHOLD")}</span>
+      ),
       dataIndex: "RelationToHosueHold",
       key: "RelationToHosueHold",
+      align: "center",
       render: (data, record) => (
         <div style={{ minWidth: 100 }}>
           {dataLanguage === "la"
@@ -209,9 +215,10 @@ function DetailBeneficiary(props) {
       ),
     },
     {
-      title: t("GENDER"),
+      title: <span className="font-weight-600">{t("GENDER")}</span>,
       dataIndex: "gender",
       key: "gender",
+      align: "center",
       render: (data, record) => (
         <div style={{ minWidth: 100 }}>
           {dataLanguage === "la" ? record.Gender : record.GenderEng}
@@ -219,9 +226,10 @@ function DetailBeneficiary(props) {
       ),
     },
     {
-      title: t("DOB"),
+      title: <span className="font-weight-600">{t("DOB")}</span>,
       dataIndex: "DateOfBirth",
       key: "DateOfBirth",
+      align: "center",
       render: (data) => <div style={{ minWidth: 100 }}>{data}</div>,
     },
     {
@@ -229,7 +237,7 @@ function DetailBeneficiary(props) {
       align: "center",
       dataIndex: "view",
       render: (data, record) => (
-        <div className="d-flex justify-content-end" style={{ minWidth: 120 }}>
+        <div className="d-flex justify-content-end" style={{ minWidth: 60 }}>
           <Button
             className="set-center-content mr-1"
             icon={<EditOutlined />}
@@ -264,27 +272,31 @@ function DetailBeneficiary(props) {
 
   const columnsPlotLandList = [
     {
-      title: t("ITEM"),
+      title: <span className="font-weight-600">{t("ITEM")}</span>,
       dataIndex: "index",
       key: "index",
+      align: "center",
       render: (data, record, index) => index + 1,
     },
     {
-      title: t("NAME_OF_PLOT"),
+      title: <span className="font-weight-600">{t("NAME_OF_PLOT")}</span>,
       dataIndex: "NameOfPlot",
       key: "NameOfPlot ",
+      align: "center",
       render: (data) => <div style={{ minWidth: 150 }}>{data}</div>,
     },
     {
-      title: t("NO_OF_PLOT"),
+      title: <span className="font-weight-600">{t("NO_OF_PLOT")}</span>,
       dataIndex: "NoOfPlot",
       key: "NoOfPlot",
+      align: "center",
       render: (data) => <div style={{ minWidth: 100 }}>{data}</div>,
     },
     {
-      title: t("OWNED_OR_LEASED"),
+      title: <span className="font-weight-600">{t("OWNED_OR_LEASED")}</span>,
       dataIndex: "OwnedOrLeased",
       key: "OwnedOrLeased",
+      align: "center",
       render: (data, record) => (
         <div style={{ minWidth: 120 }}>
           {dataLanguage === "la"
@@ -294,9 +306,10 @@ function DetailBeneficiary(props) {
       ),
     },
     {
-      title: t("KIND_OF_LAND"),
+      title: <span className="font-weight-600">{t("KIND_OF_LAND")}</span>,
       dataIndex: "kindOfLand",
       key: "kindOfLand",
+      align: "center",
       render: (data, record) => (
         <div style={{ minWidth: 120 }}>
           {dataLanguage === "la" ? record.KindOfLand : record.KindOfLandEng}
@@ -304,9 +317,10 @@ function DetailBeneficiary(props) {
       ),
     },
     {
-      title: t("TYPE_OF_LAND"),
+      title: <span className="font-weight-600">{t("TYPE_OF_LAND")}</span>,
       dataIndex: "TypeOfLand",
       key: "TypeOfLand",
+      align: "center",
       render: (data, record) => (
         <div style={{ minWidth: 120 }}>
           {dataLanguage === "la" ? record.TypeOfLand : record.TypeOfLandEng}
@@ -318,7 +332,7 @@ function DetailBeneficiary(props) {
       align: "center",
       dataIndex: "view",
       render: (data, record) => (
-        <div className="d-flex justify-content-end" style={{ minWidth: 120 }}>
+        <div className="d-flex justify-content-end" style={{ minWidth: 60 }}>
           <Button
             className="set-center-content mr-1"
             size={"small"}

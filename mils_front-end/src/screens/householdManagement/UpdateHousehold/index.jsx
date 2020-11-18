@@ -237,7 +237,7 @@ function UpdateHousehold(props) {
         <section className="border-bottom mb-3">
           <div className="d-md-flex align-items-center mb-3">
             <span className="h5 mb-0">
-              {typeModal === "ADD" ? t("add") : t("update")} Household
+              {typeModal === "ADD" ? t("add") : t("update")} {t("HOUSEHOLD_F1")}
             </span>
             <div className="d-flex ml-auto align-items-center mt-md-0 mt-2">
               <Button
@@ -279,7 +279,9 @@ function UpdateHousehold(props) {
             onFinishFailed={submitFailed}
           >
             <section className="mb-3">
-              <div className="mb-3 p-2 title-add-household">I. Location</div>
+              <div className="mb-3 p-2 title-add-household">
+                I. {t("Location")}
+              </div>
               <LocationComponent
                 detailHouseHold={detailHouseHold}
                 form={form}
@@ -288,7 +290,7 @@ function UpdateHousehold(props) {
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                II. General Information
+                II. {t("GENERAL_INFORMATION")}
               </div>
               <GeneralInformationComponent
                 detailHouseHold={detailHouseHold}
@@ -308,7 +310,7 @@ function UpdateHousehold(props) {
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                V. Clean water and permanent energy use
+                V. {t("CLEAN_WATER_AND_PERMANENT_ENERGY_USE")}
               </div>
               <EnergyUsedComponent />
             </section>
@@ -330,21 +332,23 @@ function UpdateHousehold(props) {
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.3 Having property and tools necessary for living and making a
-                living
+                7.3{" "}
+                {t(
+                  "HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING_AND_MAKING_A_LIVING"
+                )}
               </div>
               <PropertyAndToolsComponent />
             </section>
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.4 Have a stable job and occupation or source of income
+                7.4 {t("ACCESS_TO_BASIC_HEALTH_SERVICES")}
               </div>
               <SourceSurvivalComponent />
             </section>
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.4 Location in map
+                7.5 {t("LOCATION_IN_MAP")}
               </div>
               <LocationMapComponent />
             </section>

@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
-  Dropdown,
   Input,
-  Menu,
+  // Dropdown,
+  // Menu,
+  // Modal,
   Pagination,
-  Modal,
   Row,
   Select,
   Table,
   Typography,
   message,
+  Popconfirm,
 } from "antd";
-import HouseHoldMemberList from "./component/HHMemberList";
-import PlotLandList from "./component/PlotLandList";
+
+// import HouseHoldMemberList from "./component/HHMemberList";
+// import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../../api/houseHoldApi";
 import downloadFileExcelApi from "../../../api/downloadFileExcelApi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
@@ -24,16 +26,17 @@ import { useTranslation } from "react-i18next";
 import { PATH } from "../../../routers/Path";
 import { saveAs } from "file-saver";
 import {
-  UserOutlined,
-  InfoCircleOutlined,
-  BankOutlined,
-  EllipsisOutlined,
+  // UserOutlined,
+  // InfoCircleOutlined,
+  // BankOutlined,
+  // EllipsisOutlined,
   DeleteOutlined,
+  EditOutlined,
 } from "@ant-design/icons/lib/icons";
 
 function ManageAssessment(props) {
-  const [visibleMemberList, setVisibleMemberList] = useState(false);
-  const [visiblePlotLand, setVisiblePlotLand] = useState(false);
+  // const [visibleMemberList, setVisibleMemberList] = useState(false);
+  // const [visiblePlotLand, setVisiblePlotLand] = useState(false);
   const [data, setData] = useState([]);
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
@@ -53,11 +56,11 @@ function ManageAssessment(props) {
   const history = useHistory();
 
   //get member in household state
-  const [memberInHouseHold, setMemberInHouseHold] = useState([]);
-  const [plotLandInHouseHold, setPlotLandInHouseHold] = useState([]);
+  // const [memberInHouseHold, setMemberInHouseHold] = useState([]);
+  // const [plotLandInHouseHold, setPlotLandInHouseHold] = useState([]);
 
   //delete member in household
-  const confirm = Modal.confirm;
+  // const confirm = Modal.confirm;
 
   const { Option } = Select;
   const { Text } = Typography;
@@ -148,55 +151,86 @@ function ManageAssessment(props) {
       align: "center",
       dataIndex: "actions",
       render: (data, record) => {
-        const menu = (
-          <Menu>
-            <Menu.Item
-              key="1"
-              icon={<UserOutlined className="ant--icon__middle" />}
-              onClick={() => {
-                showModalMemberInHouseHold(record.HHCode);
-              }}
-            >
-              {t("MEMBER_IN_FAMILY")}
-            </Menu.Item>
-            <Menu.Item
-              key="2"
-              icon={<BankOutlined className="ant--icon__middle" />}
-              onClick={() => {
-                getPlotLandByHouseHold(record.HHCode);
-              }}
-            >
-              {t("LAND_PLOT")}
-            </Menu.Item>
-            <Menu.Item
-              key="3"
-              icon={<InfoCircleOutlined className="ant--icon__middle" />}
+        // const menu = (
+        //   <Menu>
+        //     <Menu.Item
+        //       key="1"
+        //       icon={<UserOutlined className="ant--icon__middle" />}
+        //       onClick={() => {
+        //         showModalMemberInHouseHold(record.HHCode);
+        //       }}
+        //     >
+        //       {t("MEMBER_IN_FAMILY")}
+        //     </Menu.Item>
+        //     <Menu.Item
+        //       key="2"
+        //       icon={<BankOutlined className="ant--icon__middle" />}
+        //       onClick={() => {
+        //         getPlotLandByHouseHold(record.HHCode);
+        //       }}
+        //     >
+        //       {t("LAND_PLOT")}
+        //     </Menu.Item>
+        //     <Menu.Item
+        //       key="3"
+        //       icon={<InfoCircleOutlined className="ant--icon__middle" />}
+        //       onClick={() => {
+        //         history.push(
+        //           `${PATH.DETAIL_HOUSEHOLD}?hh_code=${record.HHCode}`
+        //         );
+        //       }}
+        //     >
+        //       {t("DESCRIPTION")}
+        //     </Menu.Item>
+        //     <Menu.Item
+        //       key="4"
+        //       icon={
+        //         <DeleteOutlined className="ant--icon__middle text-danger" />
+        //       }
+        //       onClick={() => {
+        //         showConfirm(record.HHCode);
+        //       }}
+        //     >
+        //       <span className="text-danger">{t("DELETE")}</span>
+        //     </Menu.Item>
+        //   </Menu>
+        // );
+        // return (
+        //   <div className="d-flex justify-content-end">
+        //     <Dropdown overlay={menu}>
+        //       <EllipsisOutlined className="font-weight-bold text-primary font-24 pointer" />
+        //     </Dropdown>
+        //   </div>
+        // );
+        return (
+          <div className="d-flex justify-content-end" style={{ minWidth: 80 }}>
+            <Button
+              className="set-center-content mr-1"
+              icon={<EditOutlined />}
+              size={"small"}
+              type={"primary"}
+              ghost
               onClick={() => {
                 history.push(
                   `${PATH.DETAIL_HOUSEHOLD}?hh_code=${record.HHCode}`
                 );
               }}
-            >
-              {t("DESCRIPTION")}
-            </Menu.Item>
-            <Menu.Item
-              key="4"
-              icon={
-                <DeleteOutlined className="ant--icon__middle text-danger" />
-              }
-              onClick={() => {
-                showConfirm(record.HHCode);
+            />
+            <Popconfirm
+              title="Are you sure？"
+              okText="Yes"
+              cancelText="No"
+              onConfirm={() => {
+                handleDeleteHouseHold(record.HHCode);
               }}
             >
-              <span className="text-danger">{t("DELETE")}</span>
-            </Menu.Item>
-          </Menu>
-        );
-        return (
-          <div className="d-flex justify-content-end">
-            <Dropdown overlay={menu}>
-              <EllipsisOutlined className="font-weight-bold text-primary font-24 pointer" />
-            </Dropdown>
+              <Button
+                className="set-center-content"
+                danger
+                size={"small"}
+                icon={<DeleteOutlined />}
+              />
+            </Popconfirm>
           </div>
         );
       },
@@ -401,44 +435,48 @@ function ManageAssessment(props) {
       .then((res) => setUnit(res.data.Data));
   };
 
-  const getMemberInHouseHold = async (HHCode) => {
-    setLoading(true);
-    await houseHoldApi
-      .getMembersInHouseHold({ householdId: HHCode })
-      .then((res) => {
-        setMemberInHouseHold(res.data.Data);
-      });
-    setLoading(false);
-  };
+  //Xem thông tin chi tiết của từng thành viên trong gia đình
+  // const getMemberInHouseHold = async (HHCode) => {
+  //   setLoading(true);
+  //   await houseHoldApi
+  //     .getMembersInHouseHold({ householdId: HHCode })
+  //     .then((res) => {
+  //       setMemberInHouseHold(res.data.Data);
+  //     });
+  //   setLoading(false);
+  // };
 
-  const getPlotLandByHouseHold = async (id) => {
-    setLoading(true);
-    await houseHoldApi
-      .getPlotLandsByHouseHold({ houseHoldId: id })
-      .then((res) => {
-        setPlotLandInHouseHold(res.data.Data);
-      });
-    setVisiblePlotLand(true);
-    setLoading(false);
-  };
+  //lấy dữ liệu khi muốn xem thông tin của từng cá nhân và plotland
+  // const getPlotLandByHouseHold = async (id) => {
+  //   setLoading(true);
+  //   await houseHoldApi
+  //     .getPlotLandsByHouseHold({ houseHoldId: id })
+  //     .then((res) => {
+  //       setPlotLandInHouseHold(res.data.Data);
+  //     });
+  //   setVisiblePlotLand(true);
+  //   setLoading(false);
+  // };
+  //
+  // const showModalMemberInHouseHold = async (id) => {
+  //   await getMemberInHouseHold(id);
+  //   setVisibleMemberList(true);
+  // };
+  //
 
-  const showModalMemberInHouseHold = async (id) => {
-    await getMemberInHouseHold(id);
-    setVisibleMemberList(true);
-  };
-
-  const showConfirm = (hhCode) => {
-    setTimeout(() => {
-      confirm({
-        title: "Do you want to delete this household?",
-        okText: t("DELETE"),
-        onOk: () => {
-          handleDeleteHouseHold(hhCode);
-        },
-        onCancel: () => {},
-      });
-    }, 400);
-  };
+  //Xóa một household
+  // const showConfirm = (hhCode) => {
+  //   setTimeout(() => {
+  //     confirm({
+  //       title: "Do you want to delete this household?",
+  //       okText: t("DELETE"),
+  //       onOk: () => {
+  //         handleDeleteHouseHold(hhCode);
+  //       },
+  //       onCancel: () => {},
+  //     });
+  //   }, 400);
+  // };
 
   const handleDeleteHouseHold = async (hhCode) => {
     setLoading(true);
@@ -632,7 +670,34 @@ function ManageAssessment(props) {
                   });
               }}
             >
-              Export Excel
+              Export F1_V2_Form
+            </Button>
+            <Button
+              className="set-center-content mr-2"
+              icon={<i className="fas fa-file-excel mr-2"></i>}
+              style={{ color: "#0c960c", border: "1px #0c960c solid" }}
+              onClick={async () => {
+                setLoading(true);
+                await downloadFileExcelApi
+                  .ExportF1ResultForm({
+                    villageId: selectedVillage === "-1" ? "" : selectedVillage,
+                  })
+                  .then((res) => {
+                    fetch(
+                      `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${res.data}`
+                    )
+                      .then((ress) => {
+                        return ress.blob();
+                      })
+                      .then((blobs) => {
+                        const fileExtension = ".xlsx";
+                        setLoading(false);
+                        saveAs(blobs, `${t("F1ResultForm")}` + fileExtension);
+                      });
+                  });
+              }}
+            >
+              Export F1_Result_Form
             </Button>
             <Button
               className="set-center-content"
@@ -767,17 +832,21 @@ function ManageAssessment(props) {
         </div>
       </section>
       {/*Modal*/}
-      <HouseHoldMemberList
-        memberInHouseHold={memberInHouseHold}
-        visibleMemberList={visibleMemberList}
-        setVisibleMemberList={setVisibleMemberList}
-        dataLanguage={dataLanguage}
-      />
-      <PlotLandList
-        plotLandInHouseHold={plotLandInHouseHold}
-        visiblePlotLand={visiblePlotLand}
-        setVisiblePlotLand={setVisiblePlotLand}
-      />
+      {/*Modal danh sách hộ gia đình*/}
+
+      {/*<HouseHoldMemberList*/}
+      {/*  memberInHouseHold={memberInHouseHold}*/}
+      {/*  visibleMemberList={visibleMemberList}*/}
+      {/*  setVisibleMemberList={setVisibleMemberList}*/}
+      {/*  dataLanguage={dataLanguage}*/}
+      {/*/>*/}
+
+      {/*Danh sách plot land của từng hộ gia đình/}
+      {/*<PlotLandList*/}
+      {/*  plotLandInHouseHold={plotLandInHouseHold}*/}
+      {/*  visiblePlotLand={visiblePlotLand}*/}
+      {/*  setVisiblePlotLand={setVisiblePlotLand}*/}
+      {/*/>*/}
     </div>
   );
 }
