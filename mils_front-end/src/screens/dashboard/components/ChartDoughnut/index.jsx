@@ -83,36 +83,34 @@ export default function ChartDoughnut(props) {
 
   return (
     <div className="col-xl-5 col-lg-5 col-xm-12 col-12 mb-3 pointer">
+      <div className="w-100 justify-content-end d-flex mb-2">
+        <CascaderFilter
+          valueLocation={valueLocation}
+          setValueLocation={setValueLocation}
+        />
+        <Button
+          className="ml-2"
+          type="primary"
+          onClick={() => {
+            genderDataHH();
+          }}
+        >
+          {t("Get Data")}
+        </Button>
+      </div>
       <div className="card">
         <div className="card-body p-1">
-          <div className="w-100 d-flex justify-content-center mb-4">
-            <span>{t("PMT Score Structure Chart")}</span>
-          </div>
-          <div className="w-100 justify-content-end d-flex mb-2">
-            <CascaderFilter
-              valueLocation={valueLocation}
-              setValueLocation={setValueLocation}
-            />
-            <Button
-              className="ml-2"
-              type="primary"
-              onClick={() => {
-                genderDataHH();
-              }}
-            >
-              {t("Get Data")}
-            </Button>
-          </div>
           <Skeleton loading={loading} active>
             <div className="row">
               <div className="col-lg-9 col-12">
                 <Doughnut
-                  height={154}
+                  // height={154}
+                  height={200}
                   data={{
                     labels: [`${t("High_Score")}`, `${t("Low_Score")}`],
                     datasets: [
                       {
-                        backgroundColor: ["#E5493A", "#1890FF"],
+                        backgroundColor: ["#ee324d", "#1890FF"],
                         data: [valueChart.Higher, valueChart.Lower],
                       },
                     ],
@@ -140,7 +138,7 @@ export default function ChartDoughnut(props) {
                     {t("High_Score")}
                   </div>
                   <div className="d-flex justify-content-end">
-                    <Tag color="#E5493A">{valueChart.Higher}</Tag>
+                    <Tag color="#ee324d">{valueChart.Higher}</Tag>
                   </div>
                   <div className="d-flex justify-content-start mt-2">
                     {t("Low_Score")}
@@ -152,7 +150,7 @@ export default function ChartDoughnut(props) {
                     {t("Total")}
                   </div>
                   <div className="d-flex justify-content-end">
-                    <Tag color="#F97A7A">{valueChart.Total}</Tag>
+                    <Tag color="#159a80">{valueChart.Total}</Tag>
                   </div>
                 </div>
               </div>
