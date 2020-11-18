@@ -215,8 +215,6 @@
   "A_GOOD_DEFENSE_FAMILY_H25": "ເປັນຄອບຄົວປ້ອງກັນຊາດດີ H25",
   "A_GOOD_SECURITY_FAMILY_H26": "ເປັນຄອບຄົວປ້ອງກັນຄວາມສະຫງົບດີ H26",
 
-  "LOCATION_IN_MAP": "ບັນທຶກການເກັບຂໍ້ມູນ",
-
   "UNDER_14_YEARS": "ຈຳນວນສະມາຊິກໃນຄອບຄົວ ອາຍຸຕໍ່າກວ່າ 14 ປີລົງມາ",
   "BETWEEN_15-60": "ຈຳນວນສະມາຊິກໃນຄອບຄົວ ອາຍຸ ລະຫວ່າງ 14-60 ປີ",
   "OVER_60": "ຈຳນວນສະມາຊິກໃນຄອບຄົວ ອາຍຸສູງກວ່າ 60 ປີ ຂຶ້ນໄປ",
@@ -397,6 +395,13 @@
   "HOUSEHOLD REGISTRATION": "Household registration",
   "GO_TO_ENROLLMENT_ON_DEMAND": "Go to Enrollment On Demand",
   "HOUSEHOLD_F1": "ບັນຊີລາຍຊື່ຄອບຄົວ(F1)",
+  "Total Forms":"ແບບຟອມທັງໝົດ",
+  "Total Approved":"ລວມການອະນຸມັດ",
+  "Total Rejected":"ລວມຖືກປະຕິເສດ",
+  "Total Pending":"ລວມລໍຖ້າອະນຸມັດ",
+  "Daily Form Submissions":"ລາຍການນຳສະເໜີປະຈຳວັນ",
+  "Beneficiary Segreggations":"ການແບ່ງແຍກຜົນປະໂຫຍດ",
+  "Total Daily Form":"ລວມການນຳສະເໜີປະຈຳວັນ",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."
