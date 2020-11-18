@@ -13,7 +13,7 @@ import {
 
 import { handleValidateFrom } from "../../../../../../utils/handleValidateFrom";
 import { objectValidateForm } from "../validate/objectValidateForm";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import dataDictionaryApi from "../../../../../../api/dataDictionaryApi";
 import { useSelector } from "react-redux";
@@ -87,6 +87,8 @@ function MemberInHouseHold(props) {
   const [age, setAge] = useState("");
   const [checkGender, setCheckGender] = useState("");
   const [typeOfSchool, setTypeOfSchool] = useState("");
+
+  const [ref, setRef] = useState(null);
 
   const [disabilities, setDisabilities] = useState(true);
   const [isLoading, setLoading] = useState(false);
@@ -228,6 +230,10 @@ function MemberInHouseHold(props) {
   const getAllClass = () => {
     return dataDictionaryApi.GetAllClass();
   };
+
+  const onRefChange = useCallback((node) => {
+    setRef(node);
+  }, []);
 
   const disabledDate = (current) => {
     return current > moment();
@@ -687,7 +693,7 @@ function MemberInHouseHold(props) {
             {haveGoToSchool &&
             (enrollInSchool === "1" || enrollInSchool === "2") ? (
               <>
-                <Col span={24}>
+                <Col span={24} ref={onRefChange}>
                   <Text className="font-13 font-weight-500">
                     9.{t("WHAT_IS_THE_CURRENT_LEVEL_OF_EDUCATION")}{" "}
                     {/*<span style={{ paddingLeft: "3px", color: "red" }}>*</span>*/}
@@ -919,7 +925,8 @@ function MemberInHouseHold(props) {
                     </Col>
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
-                        11.2.{`${t("HIGHEST_PRIMARY")}`}
+                        11.2.{`${t("HIGHEST_PRIMARY")}`}{" "}
+                        {ref ? "(Value <= section 9.3)" : null}
                       </Text>
                       <Form.Item name={"HHClassLcPrimary"} className="mb-0">
                         <Select
@@ -942,7 +949,8 @@ function MemberInHouseHold(props) {
                     </Col>
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
-                        11.3.{` ${t("HIGHEST_LOWER_SECONDARY")}`}
+                        11.3.{` ${t("HIGHEST_LOWER_SECONDARY")}`}{" "}
+                        {ref ? "(Value <= section 9.4)" : null}
                       </Text>
                       <Form.Item name={"HHClassLcLs"} className="mb-0">
                         <Select
@@ -965,6 +973,7 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         11.4.{`${t("HIGHEST_UPPER_SECONDARY")}`}{" "}
+                        {ref ? "(Value <= section 9.5)" : null}
                       </Text>
                       <Form.Item name={"HHClassLcUs"} className="mb-0">
                         <Select
@@ -986,6 +995,7 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         11.5.{`${t("HIGHEST_VOCATIONAL_SCHOOL")}`}{" "}
+                        {ref ? "(Value <= section 9.6)" : null}
                       </Text>
                       <Form.Item name={"HHClassLcVoc"} className="mb-0">
                         <Select
@@ -1009,6 +1019,7 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         11.6.{`${t("HIGHEST_UNIVERSITY_INSTITUTE")} `}{" "}
+                        {ref ? "(Value <= section 9.7)" : null}
                       </Text>
                       <Form.Item name={"HHClassLcUniv"} className="mb-0">
                         <Select

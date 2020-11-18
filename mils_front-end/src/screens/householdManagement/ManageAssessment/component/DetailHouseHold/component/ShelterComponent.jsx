@@ -26,10 +26,6 @@ function ShelterComponent(props) {
         {dataLanguage === "la" ? Shelter.RoofMaterial : Shelter.RoofMaterialEng}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("AREA_MATERIAL")}</span>:{" "}
-        {dataLanguage === "la" ? Shelter.AreaMaterial : Shelter.AreaMaterialEng}
-      </Col>
-      <Col span={24} md={12}>
         <span className="font-weight-500">{t("ROOF_SAFETY_AREA")}</span>:{" "}
         {dataLanguage === "la" ? Shelter.SafetyArea : Shelter.SafetyAreaEng}
       </Col>

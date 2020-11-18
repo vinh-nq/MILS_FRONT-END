@@ -18,7 +18,6 @@ function ShelterComponent(props) {
   const [wall, setWall] = useState([]);
   const [roof, setRoof] = useState([]);
   const [floor, setFloor] = useState([]);
-  const [area, setArea] = useState([]);
   const [roofSafety, setRoofSafety] = useState([]);
 
   useEffect(() => {
@@ -73,24 +72,6 @@ function ShelterComponent(props) {
         });
     };
     getFloorMaterial();
-  }, [t]);
-
-  useEffect(() => {
-    const getAreaMaterial = async () => {
-      await dataDictionaryApi
-        .GetAllAreaMateral({ keyword: "" })
-        .then((res) => {
-          setArea(res.data.Data);
-        })
-        .catch(() => {
-          message.error({
-            content: t("FETCH_DATA_FAILED"),
-            key: "message-form-role",
-            duration: 1,
-          });
-        });
-    };
-    getAreaMaterial();
   }, [t]);
 
   useEffect(() => {
@@ -220,24 +201,6 @@ function ShelterComponent(props) {
             ]}
           >
             <Select>{renderSelect(roof)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("AREA_MATERIAL")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={["Shelter", "AreaMaterialId"]}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("AREA_MATERIAL")} ${t("is_not_empty")}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(area)}</Select>
           </Form.Item>
         </Col>
       </Row>

@@ -190,6 +190,13 @@ function HouseholdScore(props) {
       },
     },
     {
+      title: t("HHCode"),
+      dataIndex: "HHCode",
+      key: "HHCode",
+      align: "center",
+      render: (data) => <div style={{ minWidth: 100 }}>{data}</div>,
+    },
+    {
       title: t("HEAD_OF_HH_NAME"),
       dataIndex: "HHHeadName",
       key: "HHHeadName",
@@ -236,7 +243,9 @@ function HouseholdScore(props) {
       align: "center",
       render: (data) => (
         <div style={{ minWidth: 80 }}>
-          <Tag color={"green"}>{data}</Tag>
+          <Tag color={"green"}>
+            <span className="font-weight-600">{data}</span>
+          </Tag>
         </div>
       ),
     },
