@@ -18,49 +18,49 @@ export default function DashBoard(props) {
       id: 1,
       title: "Total Forms",
       value: 0,
-      color: "#89e6fb",
+      color: "#4a81d4",
       icon: "fas fa-address-card",
     },
     {
       id: 2,
       title: "Total Approved",
       value: 0,
-      color: "#96ef3e",
+      color: "#159a80",
       icon: "fas fa-user-check",
     },
     {
       id: 3,
       title: "Total Rejected",
       value: 0,
-      color: "#FA8072",
+      color: "#ee324d",
       icon: "fas fa-user-times",
     },
     {
       id: 4,
       title: "Total Pending",
       value: 0,
-      color: "#ffe10b",
+      color: "#f5aa26",
       icon: "fas fa-user-clock",
     },
     {
       id: 5,
       title: "Total Daily Form",
       value: 0,
-      color: "#cf89fb",
+      color: "#4938d7",
       icon: "fas fa-clipboard-list",
     },
     {
       id: 6,
       title: "Daily Form Submissions",
       value: 0,
-      color: "#9fc5fd",
+      color: "#2ebbdb",
       icon: "fab fa-wpforms",
     },
     {
       id: 7,
       title: "Beneficiary Segreggations",
       value: 0,
-      color: "#1890ff",
+      color: "#5a6268",
       icon: "fas fa-user-shield",
     },
   ]);
@@ -128,7 +128,11 @@ export default function DashBoard(props) {
                   end={el.value}
                   duration={2}
                   separator=","
-                  style={{ fontSize: "22px" }}
+                  style={{
+                    fontSize: "25px",
+                    fontWeight: "600",
+                    color: el.color,
+                  }}
                 />
               </div>
             </div>

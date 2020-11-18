@@ -132,39 +132,33 @@ export default function ChartLine(props) {
 
   return (
     <div className="col-xl-7 col-lg-7 col-xm-12 col-12 mb-3 pointer">
+      <div className="w-100 justify-content-end d-flex mb-2">
+        <DatePicker
+          picker="month"
+          value={dataDate}
+          format={"MM/YYYY"}
+          onChange={(value) => {
+            setDataDate(value);
+          }}
+          inputReadOnly={true}
+          allowClear={false}
+        />
+        <Button
+          type="primary"
+          className="ml-2"
+          onClick={(event) => {
+            event.preventDefault();
+            fetchDataChartLine(dataDate.format("MM"), dataDate.format("YYYY"));
+          }}
+        >
+          {t("Get Data")}
+        </Button>
+      </div>
       <div className="card">
         <div className="card-body p-1 divToPDF">
-          <div className="w-100 d-flex justify-content-center mb-4">
-            <span>{t("New household chart by month")}</span>
-          </div>
-          <div className="w-100 justify-content-end d-flex mb-2">
-            <DatePicker
-              picker="month"
-              value={dataDate}
-              format={"MM/YYYY"}
-              onChange={(value) => {
-                setDataDate(value);
-              }}
-              inputReadOnly={true}
-              allowClear={false}
-            />
-            <Button
-              type="primary"
-              className="ml-2"
-              onClick={(event) => {
-                event.preventDefault();
-                fetchDataChartLine(
-                  dataDate.format("MM"),
-                  dataDate.format("YYYY")
-                );
-              }}
-            >
-              {t("Get Data")}
-            </Button>
-          </div>
           <Skeleton loading={loading} active>
             <Line
-              height={80}
+              height={103}
               data={{
                 labels: listDate,
                 datasets: [
