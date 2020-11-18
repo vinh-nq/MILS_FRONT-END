@@ -461,8 +461,6 @@ function MemberInHouseHold(props) {
           <Button
             className="set-center-content mr-2"
             icon={<ArrowLeftOutlined />}
-            type={"primary"}
-            ghost
             onClick={() => {
               if (typeModal === "ADD") {
                 history.push(`${PATH.DETAIL_HOUSEHOLD}?hh_code=${hh_code}`);

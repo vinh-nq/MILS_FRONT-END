@@ -208,8 +208,7 @@ function ManageAssessment(props) {
               className="set-center-content mr-1"
               icon={<EditOutlined />}
               size={"small"}
-              type={"primary"}
-              ghost
+              type="primary"
               onClick={() => {
                 history.push(
                   `${PATH.DETAIL_HOUSEHOLD}?hh_code=${record.HHCode}`

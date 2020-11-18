@@ -243,7 +243,6 @@ function DetailBeneficiary(props) {
             icon={<EditOutlined />}
             size={"small"}
             type={"primary"}
-            ghost
             onClick={() => {
               history.push(
                 `${PATH.UPDATE_MEMBER_IN_HOUSEHOLD}?memberId=${record.MemberId}`
@@ -337,7 +336,6 @@ function DetailBeneficiary(props) {
             className="set-center-content mr-1"
             size={"small"}
             type={"primary"}
-            ghost
             icon={<EditOutlined />}
             onClick={() => {
               setValuePlotLandModal("UPDATE", record);
