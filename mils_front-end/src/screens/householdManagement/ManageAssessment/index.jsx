@@ -818,6 +818,7 @@ function ManageAssessment(props) {
           pagination={false}
           rowKey="Id"
           style={{ overflowX: "auto", overflowY: "hidden" }}
+          size="small"
         />
         <div className="mt-3 d-flex">
           <Pagination

@@ -7,6 +7,7 @@ import houseHoldApi from "../../../../api/houseHoldApi";
 import userManagementApi from "../../../../api/userManagementApi";
 import userVillageApi from "../../../../api/userVillageApi";
 import { useSelector } from "react-redux";
+import { messageError } from "../../../../components/MessageError";
 
 function ModalUserVillage(props) {
   const {
@@ -42,16 +43,23 @@ function ModalUserVillage(props) {
           fetchDataProvinceData(),
           fetchDataDistrictData(idProvince),
           fetchDataVillageData(idDistrict),
-        ]).then(([resUser, resProvince, resDistrict, resVillage]) => {
-          setListProvince(resProvince.data.Data);
-          if (typeModal === "add") {
-            setCheckDisale(false);
-            setCheckDisaleVillage(false);
-          }
-          setListDistrict(resDistrict.data.Data);
-          setListVillage(resVillage.data.Data);
-          setListUser(resUser.data);
-        });
+        ])
+          .then(([resUser, resProvince, resDistrict, resVillage]) => {
+            setListProvince(resProvince.data.Data);
+            if (typeModal === "add") {
+              setCheckDisale(false);
+              setCheckDisaleVillage(false);
+            }
+            setListDistrict(resDistrict.data.Data);
+            setListVillage(resVillage.data.Data);
+            setListUser(resUser.data);
+          })
+          .catch((error) => {
+            messageError({
+              content: error,
+              duration: 2,
+            });
+          });
       };
       fetchAllDataEdit(
         objectEdit.village_id.substr(0, 2),
@@ -66,12 +74,17 @@ function ModalUserVillage(props) {
       });
     } else {
       const fetchAllDataEdit = async () => {
-        await Promise.all([fetchDataUserData(), fetchDataProvinceData()]).then(
-          ([resUser, resProvince]) => {
+        await Promise.all([fetchDataUserData(), fetchDataProvinceData()])
+          .then(([resUser, resProvince]) => {
             setListProvince(resProvince.data.Data);
             setListUser(resUser.data);
-          }
-        );
+          })
+          .catch((error) => {
+            messageError({
+              content: error,
+              duration: 2,
+            });
+          });
       };
       fetchAllDataEdit();
       setCheckDisale(true);
@@ -180,7 +193,7 @@ function ModalUserVillage(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-role",
           duration: 1,
         })
@@ -201,7 +214,7 @@ function ModalUserVillage(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-role",
           duration: 1,
         })

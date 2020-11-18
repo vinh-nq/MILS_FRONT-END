@@ -43,29 +43,24 @@ export default function MenuRedirect(props) {
       {checkLoading ? (
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
       ) : null}
-      <span className="h6" style={{ color: "#343a40" }}>
+      <span className="h5" style={{ color: "#b0b1b1" }}>
         {t(
           _.upperCase(
             history.location.pathname.replace(/\//g, "") || "DASHBOARD"
           )
         )}
       </span>
-      {/* <Divider /> */}
       <List
         className="mt-4"
         header={null}
         footer={null}
         size="small"
-        // bordered
-        dataSource={(listFunctionOfGroup || []).map((el) =>
-          dataLanguage === "la" ? el.list_name_lao : el.list_name_eng
-        )}
+        dataSource={(listFunctionOfGroup || []).map((el) => `${el.list_id}`)}
         renderItem={(item) => {
           return (
             <List.Item
               key={item}
               className="d-flex flex-row align-items-center listItem"
-              // style={{ paddingLeft: "0px !important" }}
             >
               <div className="d-flex flex-row align-items-center listItemHover">
                 <i
@@ -79,13 +74,7 @@ export default function MenuRedirect(props) {
                   type="link"
                   onClick={() => {
                     const textSearch = (listFunctionOfGroup || []).find(
-                      (el) => {
-                        if (dataLanguage === "la") {
-                          return el.list_name_lao === item;
-                        } else {
-                          return el.list_name_eng === item;
-                        }
-                      }
+                      (el) => `${el.list_id}` === `${item}`
                     ).list_name_eng;
                     history.push(
                       `/${listBreadcrumb[0]}/${textSearch
@@ -97,11 +86,17 @@ export default function MenuRedirect(props) {
                 >
                   <span
                     style={{
-                      fontWeight: "500",
+                      fontWeight: "600",
                       fontSize: "15px",
                     }}
                   >
-                    {item}
+                    {dataLanguage !== "la"
+                      ? (listFunctionOfGroup || []).find(
+                          (el) => `${el.list_id}` === `${item}`
+                        ).list_name_eng
+                      : (listFunctionOfGroup || []).find(
+                          (el) => `${el.list_id}` === `${item}`
+                        ).list_name_lao}
                   </span>
                 </Button>
               </div>

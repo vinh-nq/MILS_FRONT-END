@@ -32,7 +32,10 @@ function ModaItem(props) {
 
   const handleAddNew = async (value) => {
     await dataDictionaryApi
-      .InsertClass(value, `Insert New Class [${value.Id}] - ${value.ValueOfEng}`)
+      .InsertClass(
+        value,
+        `Insert New Class [${value.Id}] - ${value.ValueOfEng}`
+      )
       .then((res) => {
         handleCanncel();
         message.success({
@@ -44,7 +47,7 @@ function ModaItem(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-role",
           duration: 1,
         })
@@ -65,7 +68,7 @@ function ModaItem(props) {
       })
       .catch((error) =>
         message.error({
-          content: t("Error"),
+          content: (error || {}).message || t("Error"),
           key: "message-form-role",
           duration: 1,
         })
@@ -73,7 +76,11 @@ function ModaItem(props) {
   };
 
   const handleSubmit = (valueForm) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    message.loading({
+      content: "Loading...",
+      key: "message-form-role",
+      duration: 20,
+    });
     if (typeModal === "add") {
       handleAddNew(valueForm);
     }

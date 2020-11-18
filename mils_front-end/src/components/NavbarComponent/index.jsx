@@ -18,9 +18,7 @@ function NavbarComponent(props) {
           </span>
         </div>
       ) : null}
-      <span className="font-weight-bold h5 mb-0 text-container">
-        MISLAOS.COM
-      </span>
+      <span className="font-weight-bold h5 mb-0 text-container">MISLAOS</span>
       <div className="d-inline-block my-2 ml-auto">
         <SelectLanguage />
       </div>

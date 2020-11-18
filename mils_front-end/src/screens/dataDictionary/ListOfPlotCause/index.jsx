@@ -14,6 +14,7 @@ import dataDictionaryApi from "../../../api/dataDictionaryApi";
 import { PATH } from "../../../routers/Path";
 import ModaItem from "./components/ModaItem";
 import "./styles.scss";
+import { messageError } from "../../../components/MessageError";
 
 let timeOut = "";
 export default function ListOfPlotCause(props) {
@@ -61,6 +62,13 @@ export default function ListOfPlotCause(props) {
       .then((res) => {
         setCheckLoading(false);
         setListWallMetarial(res.data.Data);
+      })
+      .catch((error) => {
+        setCheckLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 
@@ -148,7 +156,7 @@ export default function ListOfPlotCause(props) {
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
       ) : null}
       <div className="d-flex flex-row align-items-center justify-content-between">
-        <span className="h5 mb-0">{t("LISTOFplotCause")}</span>
+        <span className="h5 mb-0">{t("LISTOFPLOTCAUSE")}</span>
         <Tooltip placement="bottom" title={t("ADD")}>
           <Button
             type="primary"
@@ -180,9 +188,10 @@ export default function ListOfPlotCause(props) {
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 8,
+          pageSize: 12,
           total: listWallMetarial.length,
           onChange: (page) => {
             onChangePage(page);

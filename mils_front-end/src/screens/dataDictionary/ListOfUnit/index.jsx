@@ -11,6 +11,7 @@ import dataDictionaryApi from "../../../api/dataDictionaryApi";
 import { PATH } from "../../../routers/Path";
 import ModalUnit from "./components/ModalUnit";
 import "./styles.scss";
+import { messageError } from "../../../components/MessageError";
 
 let timeOut = "";
 export default function ListOfVillage(props) {
@@ -46,13 +47,19 @@ export default function ListOfVillage(props) {
   useEffect(() => {
     const fetchDataAll = async (location) => {
       setCheckLoading(true);
-      await Promise.all([GetAllUnit(location)]).then(
-        ([resVilla]) => {
+      await Promise.all([GetAllUnit(location)])
+        .then(([resVilla]) => {
           setCheckLoading(false);
           setListVillage(resVilla.data.listOfObj);
           setTotalPage(resVilla.data.Total);
-        }
-      );
+        })
+        .catch((error) => {
+          setCheckLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
+        });
     };
     const GetAllUnit = (location) => {
       return dataDictionaryApi.GetAllUnit({
@@ -182,13 +189,14 @@ export default function ListOfVillage(props) {
         </div>
       </div>
       <Table
-        dataSource={(listVillage || [])}
+        dataSource={listVillage || []}
         columns={columns}
         style={{ overflow: "auto" }}
         rowKey="Id"
+        size="small"
         pagination={{
           current: Number(page),
-          pageSize: 10,
+          pageSize: 12,
           total: totalPage,
           onChange: (page) => {
             onChangePage(page);

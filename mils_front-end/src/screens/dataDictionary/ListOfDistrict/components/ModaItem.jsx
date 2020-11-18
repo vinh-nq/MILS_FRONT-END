@@ -92,7 +92,11 @@ function ModaItem(props) {
   };
 
   const handleSubmit = (valueForm) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    message.loading({
+      content: "Loading...",
+      key: "message-form-role",
+      duration: 20,
+    });
     if (typeModal === "add") {
       handleAddNew({
         ...valueForm,

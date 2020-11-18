@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Tooltip, Button, Divider, Table, message, Input, Tag } from "antd";
+import { Tooltip, Button, Divider, Table, Input, Tag } from "antd";
 import {
   // ControlOutlined,
   EditOutlined,
@@ -15,6 +15,7 @@ import "./styles.scss";
 import { useState } from "react";
 import { PATH } from "../../../routers/Path";
 import ModalUserManagement from "./components/ModalUserManagement";
+import { messageError } from "../../../components/MessageError";
 
 let timeOut = "";
 export default function UserManagement(props) {
@@ -49,7 +50,10 @@ export default function UserManagement(props) {
         })
         .catch((error) => {
           setCheckLoading(false);
-          message.error(error);
+          messageError({
+            content: error,
+            duration: 2,
+          });
         });
     };
     setKeyword(getValueFromLink(props.location, "keyword", "STRING"));
@@ -68,7 +72,10 @@ export default function UserManagement(props) {
       })
       .catch((error) => {
         setCheckLoading(false);
-        message.error(error);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 

@@ -138,7 +138,7 @@ function ModalUserManagement(props) {
       handleAddNew({
         ...valueForm,
         Password: valueForm.PasswordUser,
-        UserId: valueForm.UserId ? valueForm.UserId : null,
+        UserId: null,
         Device_ID: valueForm.Device_ID ? valueForm.Device_ID : null,
         CreatedBy: cookies.UserName,
         Active: valueForm.Active ? 1 : 0,
@@ -182,36 +182,17 @@ function ModalUserManagement(props) {
     >
       <Form id="form-role-management" form={form} onFinish={handleSubmit}>
         <div className="row">
-          <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
-            <div>
-              <span>{t("UserId")}</span>
-              {/* <span style={{ paddingLeft: "3px", color: "red" }}>*</span> */}
+          {typeModal === "edit" ? (
+            <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
+              <div>
+                <span>{t("UserId")}</span>
+                {/* <span style={{ paddingLeft: "3px", color: "red" }}>*</span> */}
+              </div>
+              <Form.Item name="UserId">
+                <Input disabled={typeModal === "edit"} />
+              </Form.Item>
             </div>
-            <Form.Item
-              name="UserId"
-              // rules={[
-              //   {
-              //     validator(rule, value) {
-              //       return handleValidateFrom(
-              //         rule,
-              //         value,
-              //         {
-              //           ...objectValidateForm.UserId,
-              //           arrayDuplicate: listFunctionUserId || [],
-              //           authCodeOld:
-              //             typeModal !== "add"
-              //               ? objectEdit.UserId.toLowerCase()
-              //               : null,
-              //         },
-              //         t
-              //       );
-              //     },
-              //   },
-              // ]}
-            >
-              <Input disabled={typeModal === "edit"} />
-            </Form.Item>
-          </div>
+          ) : null}
           <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
             <div>
               <span>{t("UserName")}</span>
@@ -440,7 +421,7 @@ function ModalUserManagement(props) {
               </Form.Item>
             )}
           </div>
-          <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
+          <div className="col-xl-3 col-lg-3 col-sm-6 col-6">
             <Form.Item name="Active" valuePropName="checked">
               <Switch
                 checkedChildren={t("ACTIVE")}
@@ -448,7 +429,7 @@ function ModalUserManagement(props) {
               />
             </Form.Item>
           </div>
-          <div className="col-xl-6 col-lg-6 col-sm-12 col-12">
+          <div className="col-xl-3 col-lg-3 col-sm-6 col-6">
             <Form.Item name="Enabled" valuePropName="checked">
               <Switch
                 checkedChildren={t("ENABLE")}

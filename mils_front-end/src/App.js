@@ -41,7 +41,7 @@ import ListOfCookingSource from "./screens/dataDictionary/ListOfCookingSource";
 import ListOfMainGoodAndService from "./screens/dataDictionary/ListOfMainGoodAndService";
 import ListOfVillage from "./screens/dataDictionary/ListOfVillage";
 import UpdateHousehold from "./screens/householdManagement/UpdateHousehold";
-import Account from "./screens/account";
+// import Account from "./screens/account";
 import DashBoard from "./screens/dashboard";
 import UserVillageManagement from "./screens/system/UserVillageManagement";
 import DetailBeneficiary from "./screens/householdManagement/ManageAssessment/component/DetailHouseHold";
@@ -322,7 +322,7 @@ class App extends React.Component {
               path={PATH.LIST_OF_SCHOOL_ENROLL}
               exact
             />
-            <MainRouteWrapper component={Account} path={PATH.ACCOUNT} exact />
+            {/* <MainRouteWrapper component={Account} path={PATH.ACCOUNT} exact /> */}
             <MainRouteWrapper
               component={() => <div>AAA</div>}
               path={`${PATH.householdmanagement}/householdPoverty`}
@@ -348,11 +348,11 @@ class App extends React.Component {
               path={`${PATH.USER_MANAGEMENT}`}
               exact
             />
-            <MainRouteWrapper
-              component={() => <div>AAA</div>}
+            {/* <MainRouteWrapper
+              component={SystemParameters}
               path={`${PATH.SYSTEMS_PARAMETERS}`}
               exact
-            />
+            /> */}
             <MainRouteWrapper
               component={() => <div>AAA</div>}
               path={`${PATH.BACKUP_DATABASE}`}
@@ -363,11 +363,6 @@ class App extends React.Component {
               path={`${PATH.PERMISSIONS_MANAGEMENT}`}
               exact
             />
-            {/* <MainRouteWrapper
-                component={ListHouseholdForCCTProgram}
-                path={"/pmtscoredcomfirm"}
-                exact
-            /> */}
             <Route component={Page403} path={PATH.PAGE_403} exact />
             <Route component={Page404} />
           </Switch>

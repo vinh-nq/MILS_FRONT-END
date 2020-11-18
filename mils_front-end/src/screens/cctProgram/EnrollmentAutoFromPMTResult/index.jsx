@@ -22,6 +22,7 @@ import CCTProgramApi from "../../../api/CCTProgramApi";
 import CascaderFilter from "./components/CascaderFilter";
 import "./styles.scss";
 import { PATH } from "../../../routers/Path";
+import { messageError } from "../../../components/MessageError";
 
 export default function ENROLLONDEMAND(props) {
   const { t } = useTranslation();
@@ -59,10 +60,18 @@ export default function ENROLLONDEMAND(props) {
   useEffect(() => {
     const fetchDataPMTScore = async () => {
       setCheckLoading(true);
-      return await CCTProgramApi.GetScoreConfig({}).then((res) => {
-        setCheckLoading(false);
-        setPMTScore(Number(res.data.Data));
-      });
+      return await CCTProgramApi.GetScoreConfig({})
+        .then((res) => {
+          setCheckLoading(false);
+          setPMTScore(Number(res.data.Data));
+        })
+        .catch((error) => {
+          setCheckLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
+        });
     };
     fetchDataPMTScore();
   }, []);
@@ -71,16 +80,24 @@ export default function ENROLLONDEMAND(props) {
     setCheckLoading(true);
     return await CCTProgramApi.GenPMTScored({
       id: id,
-    }).then((res) => {
-      setCheckLoading(false);
-      setDataHH(res.data.Data);
-      setMinScore(
-        Math.min(...res.data.Data.map((el) => Number(el.PMTScored))) || 0
-      );
-      setMaxScore(
-        Math.max(...res.data.Data.map((el) => Number(el.PMTScored))) || 0
-      );
-    });
+    })
+      .then((res) => {
+        setCheckLoading(false);
+        setDataHH(res.data.Data);
+        setMinScore(
+          Math.min(...res.data.Data.map((el) => Number(el.PMTScored))) || 0
+        );
+        setMaxScore(
+          Math.max(...res.data.Data.map((el) => Number(el.PMTScored))) || 0
+        );
+      })
+      .catch((error) => {
+        setCheckLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
+      });
   };
   //Gender Data HH when have PMT score
   const genderDataHH = () => {
