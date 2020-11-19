@@ -32,9 +32,11 @@ function UpdateHousehold(props) {
   const [EnumSignImage, setEnumSignImage] = useState("");
   const [RespSignImage, setRespSignImage] = useState("");
   const [ImageUrl, setImageUrl] = useState("");
+  const [HHImageUrl, setHHImageUrl] = useState("");
   const [EnumSignImageExtension, setEnumSignImageExtension] = useState("");
   const [RespSignImageExtension, setRespSignImageExtension] = useState("");
   const [ImageUrlExtension, setImageUrlExtension] = useState("");
+  const [HHImageUrlExtension, setHHImageUrlExtension] = useState("");
 
   const [form] = Form.useForm();
 
@@ -53,7 +55,10 @@ function UpdateHousehold(props) {
         await houseHoldApi
           .getDetailHouseHold({ householdId: hh_code })
           .then((res) => {
-            const { GeneralInformationBeneficiary } = res.data.Data;
+            const {
+              GeneralInformationBeneficiary,
+              LatLongForBeneficiary,
+            } = res.data.Data;
             const {
               DateOfEnumeration,
             } = res.data.Data.GeneralInformationBeneficiary;
@@ -73,6 +78,11 @@ function UpdateHousehold(props) {
             setRespSignImage(
               GeneralInformationBeneficiary.RespSignImage
                 ? `${API_URL}${GeneralInformationBeneficiary.RespSignImage}`
+                : ""
+            );
+            setHHImageUrl(
+              LatLongForBeneficiary.HHImageUrl
+                ? `${API_URL}${LatLongForBeneficiary.HHImageUrl}`
                 : ""
             );
             setDetailHouseHold(res.data.Data);
@@ -116,9 +126,11 @@ function UpdateHousehold(props) {
       ImageUrl: formatBase64(ImageUrl),
       RespSignImage: formatBase64(RespSignImage),
       EnumSignImage: formatBase64(EnumSignImage),
+      HHImageUrl: formatBase64(HHImageUrl),
       EnumSignImageExtension,
       RespSignImageExtension,
       ImageUrlExtension,
+      HHImageUrlExtension,
     };
     objCover.HHNumber = formatHHNumberAndHHLevel(objCover.HHNumber, 3);
     objCover.HHLevel = formatHHNumberAndHHLevel(objCover.HHLevel, 4);
@@ -176,9 +188,11 @@ function UpdateHousehold(props) {
       ImageUrl: formatBase64(ImageUrl),
       RespSignImage: formatBase64(RespSignImage),
       EnumSignImage: formatBase64(EnumSignImage),
+      HHImageUrl: formatBase64(HHImageUrl),
       EnumSignImageExtension,
       RespSignImageExtension,
       ImageUrlExtension,
+      HHImageUrlExtension,
     };
     objCover.HHNumber = formatHHNumberAndHHLevel(objCover.HHNumber, 3);
     objCover.HHLevel = formatHHNumberAndHHLevel(objCover.HHLevel, 4);
@@ -360,7 +374,11 @@ function UpdateHousehold(props) {
               <div className="mb-3 p-2 title-add-household">
                 7.6 {t("LOCATION_IN_MAP")}
               </div>
-              <LocationMapComponent />
+              <LocationMapComponent
+                hhImageUrl={HHImageUrl}
+                setHHImageUrl={setHHImageUrl}
+                setHHImageUrlExtension={setHHImageUrlExtension}
+              />
             </section>
           </Form>
         )}

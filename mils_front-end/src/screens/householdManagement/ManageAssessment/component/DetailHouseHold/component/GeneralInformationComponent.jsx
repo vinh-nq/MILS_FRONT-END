@@ -41,9 +41,23 @@ function GeneralInformationComponent(props) {
         <span className="font-weight-500">{t("ENUMERATION")}</span>:{" "}
         {GeneralInformationBeneficiary.Enumeration}
       </Col>
-      <Col span={24} md={12}>
+      <Col span={24}>
         <span className="font-weight-500">{t("TELEPHONE")}</span>:{" "}
         {GeneralInformationBeneficiary.TelePhone2}
+      </Col>
+      <Col span={24}>
+        <div className="signature-image">
+          <p className="font-weight-500 mb-0">{t("SIGNATURE")}:</p>
+          <div className="border text-center w-100 py-2">
+            <Image
+              className="pointer"
+              width={250}
+              height={160}
+              src={`${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`}
+              alt={t("NOT_FOUND")}
+            />
+          </div>
+        </div>
       </Col>
       <Col span={24} md={12}>
         <span className="font-weight-500">{t("RESPONDENT")}</span>:{" "}
@@ -53,55 +67,33 @@ function GeneralInformationComponent(props) {
         <span className="font-weight-500">{t("TELEPHONE")}</span>:{" "}
         {GeneralInformationBeneficiary.TelePhone3}
       </Col>
-      <Col span={24} md={12}>
-        <span className="font-weight-500">{t("UPLOAD_IMAGE")}</span>:{" "}
-        {GeneralInformationBeneficiary.ImageUrl ? (
-          <Image
-            className="ml-2 pointer detail-hh-image"
-            width={40}
-            height={40}
-            src={`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`}
-            alt={t("NOT_FOUND")}
-          />
-        ) : (
-          t("EMPTY")
-        )}
-      </Col>
-      <Col span={24} md={12}>
-        {GeneralInformationBeneficiary.EnumSignImage ? (
-          <div className="signature-image">
-            <p className="font-weight-500 mb-0">{t("SIGNATURE")}:</p>
+      <Col span={24}>
+        <div className="signature-image">
+          <p className="font-weight-500 mb-0">{t("SIGNATURE")}:</p>
+          <div className="border text-center w-100 py-2">
             <Image
               className="pointer"
-              width={180}
-              height={120}
-              src={`${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`}
-              alt={t("NOT_FOUND")}
-            />
-          </div>
-        ) : (
-          <span className="font-weight-500">
-            {t("SIGNATURE")}: {t("EMPTY")}
-          </span>
-        )}
-      </Col>
-      <Col span={24} md={12}>
-        {GeneralInformationBeneficiary.RespSignImage ? (
-          <div className="signature-image">
-            <p className="font-weight-500 mb-0">{t("SIGNATURE")}:</p>
-            <Image
-              className="pointer"
-              width={180}
-              height={120}
+              width={250}
+              height={160}
               src={`${API_URL}${GeneralInformationBeneficiary.RespSignImage}`}
               alt={t("NOT_FOUND")}
             />
           </div>
-        ) : (
-          <span className="font-weight-500">
-            {t("SIGNATURE")}: {t("EMPTY")}
-          </span>
-        )}
+        </div>
+      </Col>
+      <Col span={24}>
+        <div className="signature-image">
+          <p className="font-weight-500 mb-0">{t("UPLOAD_IMAGE")}:</p>
+          <div className="border text-center w-100 py-2">
+            <Image
+              className="pointer"
+              width={250}
+              height={160}
+              src={`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`}
+              alt={t("NOT_FOUND")}
+            />
+          </div>
+        </div>
       </Col>
     </Row>
   );

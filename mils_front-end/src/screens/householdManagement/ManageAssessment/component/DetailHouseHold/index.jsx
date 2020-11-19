@@ -30,6 +30,7 @@ import GeneralInformationComponent from "./component/GeneralInformationComponent
 import AddressComponent from "./component/AddressComponent";
 import "./scss/style.scss";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
+import { API_URL } from "../../../../../constants/config";
 
 const Marker = (props) => {
   const { name } = props;
@@ -370,6 +371,7 @@ function DetailBeneficiary(props) {
     WaterAndPermanentEnergyBeneficiary = {},
     PrimaryPublicServiceForBeneficiary = {},
     DevelopmentFamilyViewModel = {},
+    LatLongForBeneficiary = {},
   } = detailHouseHold;
 
   const setValuePlotLandModal = async (value, obj = {}) => {
@@ -605,17 +607,21 @@ function DetailBeneficiary(props) {
           </div>
           <Row gutter={16}>
             <Col span={8}>
-              <p className="mb-0 font-weight-500 font-16">Data Description</p>
-              {/*<div className="mb-2">*/}
-              {/*  Photo*/}
-              {/*  <Image*/}
-              {/*    className="ml-2 pointer"*/}
-              {/*    width={40}*/}
-              {/*    height={40}*/}
-              {/*    src={LatLongForBeneficiary.ImageUrl}*/}
-              {/*    alt={t("NOT_FOUND")}*/}
-              {/*  />*/}
-              {/*</div>*/}
+              <p className="mb-0 font-weight-500 font-16">
+                Data Description: {LatLongForBeneficiary.Description}
+              </p>
+              <div className="mb-2">
+                <div className="signature-image">
+                  <p className="font-weight-500 mb-0">{t("HH_IMAGE")}:</p>
+                  <Image
+                    className="pointer"
+                    width={240}
+                    height={120}
+                    src={`${API_URL}${LatLongForBeneficiary.HHImageUrl}`}
+                    alt={t("NOT_FOUND")}
+                  />
+                </div>
+              </div>
               <p className="mb-2 font-weight-500 font-15">Location(GPS):</p>
               <p className="mb-2">Latitude: {defaultProps.center.lat}</p>
               <p className="mb-2">Longitude:{defaultProps.center.lng}</p>
