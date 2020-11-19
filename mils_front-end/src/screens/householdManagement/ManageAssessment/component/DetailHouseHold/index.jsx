@@ -369,7 +369,7 @@ function DetailBeneficiary(props) {
     Shelter = {},
     WaterAndPermanentEnergyBeneficiary = {},
     PrimaryPublicServiceForBeneficiary = {},
-    LatLongForBeneficiary = {},
+    DevelopmentFamilyViewModel = {},
   } = detailHouseHold;
 
   const setValuePlotLandModal = async (value, obj = {}) => {
@@ -592,7 +592,10 @@ function DetailBeneficiary(props) {
               "DEVELOPMENT_FAMILIES_HAVE_8_STANDARD_GROUPS_11_CONTENTS_19_INDICATORS"
             )}
           </div>
-          <DevelopmentComponent />
+          <DevelopmentComponent
+            DevelopmentFamilyViewModel={DevelopmentFamilyViewModel}
+            changeYesNoForQuestion={changeYesNoForQuestion}
+          />
         </div>
 
         {/*Map*/}
@@ -603,16 +606,16 @@ function DetailBeneficiary(props) {
           <Row gutter={16}>
             <Col span={8}>
               <p className="mb-0 font-weight-500 font-16">Data Description</p>
-              <div className="mb-2">
-                Photo
-                <Image
-                  className="ml-2 pointer"
-                  width={40}
-                  height={40}
-                  src={LatLongForBeneficiary.ImageUrl}
-                  alt={t("NOT_FOUND")}
-                />
-              </div>
+              {/*<div className="mb-2">*/}
+              {/*  Photo*/}
+              {/*  <Image*/}
+              {/*    className="ml-2 pointer"*/}
+              {/*    width={40}*/}
+              {/*    height={40}*/}
+              {/*    src={LatLongForBeneficiary.ImageUrl}*/}
+              {/*    alt={t("NOT_FOUND")}*/}
+              {/*  />*/}
+              {/*</div>*/}
               <p className="mb-2 font-weight-500 font-15">Location(GPS):</p>
               <p className="mb-2">Latitude: {defaultProps.center.lat}</p>
               <p className="mb-2">Longitude:{defaultProps.center.lng}</p>

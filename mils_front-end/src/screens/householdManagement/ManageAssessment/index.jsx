@@ -31,7 +31,8 @@ import {
   // BankOutlined,
   // EllipsisOutlined,
   DeleteOutlined,
-  EditOutlined,
+  // EditOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons/lib/icons";
 
 function ManageAssessment(props) {
@@ -206,7 +207,7 @@ function ManageAssessment(props) {
           <div className="d-flex justify-content-end" style={{ minWidth: 80 }}>
             <Button
               className="set-center-content mr-1"
-              icon={<EditOutlined />}
+              icon={<i className="fas fa-info-circle"></i>}
               size={"small"}
               type="primary"
               onClick={() => {

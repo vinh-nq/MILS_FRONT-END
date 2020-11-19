@@ -20,6 +20,7 @@ import LocationMapComponent from "./component/LocationMapComponent";
 import { PATH } from "../../../routers/Path";
 import { API_URL } from "../../../constants/config";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
+import ContentAndIndicatorsComponent from "./component/ContentAndIndicatorsComponent";
 
 function UpdateHousehold(props) {
   const { typeModal } = props;
@@ -110,6 +111,7 @@ function UpdateHousehold(props) {
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.PrimaryPublicServiceForBeneficiary,
       ...value.WaterAndPermanentEnergyBeneficiary,
+      ...value.DevelopmentFamilyViewModel,
       ...value.LatLongForBeneficiary,
       ImageUrl: formatBase64(ImageUrl),
       RespSignImage: formatBase64(RespSignImage),
@@ -169,6 +171,7 @@ function UpdateHousehold(props) {
       ...value.PrimaryPublicServiceForBeneficiary,
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.LatLongForBeneficiary,
+      ...value.DevelopmentFamilyViewModel,
       HHCode: detailHouseHold.HouseholdId,
       ImageUrl: formatBase64(ImageUrl),
       RespSignImage: formatBase64(RespSignImage),
@@ -346,7 +349,16 @@ function UpdateHousehold(props) {
             </section>
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.5 {t("LOCATION_IN_MAP")}
+                7.5{" "}
+                {t(
+                  "DEVELOPMENT_FAMILIES_HAVE_8_STANDARD_GROUPS_11_CONTENTS_19_INDICATORS"
+                )}
+              </div>
+              <ContentAndIndicatorsComponent />
+            </section>
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-add-household">
+                7.6 {t("LOCATION_IN_MAP")}
               </div>
               <LocationMapComponent />
             </section>
