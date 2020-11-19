@@ -36,6 +36,9 @@ function GeneralInformationComponent(props) {
     setEnumSignImageExtension,
     setRespSignImageExtension,
     setImageUrlExtension,
+    hhImageUrl,
+    setHHImageUrl,
+    setHHImageUrlExtension,
   } = props;
 
   const { Text } = Typography;
@@ -74,6 +77,9 @@ function GeneralInformationComponent(props) {
       if (type === "IMAGE") {
         setImageUrl(imageUrl);
         setImageUrlExtension(name.split(".")[1]);
+      } else if (type === "HOUSEHOLD") {
+        setHHImageUrl(imageUrl);
+        setHHImageUrlExtension(name.split(".")[1]);
       } else if (type === "ENUMSIGN") {
         setEnumSignImage(imageUrl);
         setEnumSignImageExtension(name.split(".")[1]);
@@ -335,7 +341,27 @@ function GeneralInformationComponent(props) {
       </Row>
       <Row className="mb-2" gutter={16}>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">{t("SIGNATURE")}</Text>
+          <Text className="font-13 font-weight-500">{t("HH_IMAGE")}</Text>
+          <Upload
+            name="avatar"
+            listType="picture-card"
+            className="avatar-uploader hh-registration-image-upload"
+            showUploadList={false}
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            beforeUpload={beforeUpload}
+            onChange={(info) => {
+              handleChange(info, "HOUSEHOLD");
+            }}
+          >
+            {hhImageUrl ? (
+              <img src={hhImageUrl} alt="avatar" style={{ width: "100%" }} />
+            ) : (
+              <UploadButton text={t("UPLOAD_SIGNATURE_HH")} />
+            )}
+          </Upload>
+        </Col>
+        <Col span={24} md={12}>
+          <Text className="font-13 font-weight-500">{t("SIGNATURE_COLLECTOR")}</Text>
           <Upload
             name="avatar"
             listType="picture-card"
@@ -350,12 +376,12 @@ function GeneralInformationComponent(props) {
             {EnumSignImage ? (
               <img src={EnumSignImage} alt="avatar" style={{ width: "100%" }} />
             ) : (
-              <UploadButton text={t("UPLOAD_SIGNATURE")} />
+              <UploadButton text={t("UPLOAD_SIGNATURE_COLLECTOR")} />
             )}
           </Upload>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">{t("SIGNATURE")}</Text>
+          <Text className="font-13 font-weight-500">{t("SIGNATURE_RESPONDENT")}</Text>
           <Upload
             name="avatar"
             listType="picture-card"
@@ -370,7 +396,7 @@ function GeneralInformationComponent(props) {
             {RespSignImage ? (
               <img src={RespSignImage} alt="avatar" style={{ width: "100%" }} />
             ) : (
-              <UploadButton text={t("UPLOAD_SIGNATURE")} />
+              <UploadButton text={t("UPLOAD_SIGNATURE_RESPONDENT")} />
             )}
           </Upload>
         </Col>

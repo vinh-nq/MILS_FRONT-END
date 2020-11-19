@@ -18,7 +18,7 @@ import EnergyUsedComponent from "./component/EneryUsedComponent";
 import { useHistory } from "react-router-dom";
 import LocationMapComponent from "./component/LocationMapComponent";
 import { PATH } from "../../../routers/Path";
-import { API_URL } from "../../../constants/config";
+import { API_URL, API_URL_IMG, API_URL_SIGN } from "../../../constants/config";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import ContentAndIndicatorsComponent from "./component/ContentAndIndicatorsComponent";
 
@@ -41,6 +41,20 @@ function UpdateHousehold(props) {
   const [form] = Form.useForm();
 
   const { t } = useTranslation();
+
+  const checkUrlImgIsLaosOrJb = (value = "", type = null) => {
+    if (value.includes("Upload")) {
+      return `${API_URL}${value}`;
+    } else if (!value) {
+      return "";
+    } else {
+      if (type === "SIGN") {
+        return `${API_URL_SIGN}${value}`;
+      } else {
+        return `${API_URL_IMG}${value}`;
+      }
+    }
+  };
 
   useEffect(() => {
     if (typeModal === "UPDATE") {
@@ -66,24 +80,22 @@ function UpdateHousehold(props) {
               ? moment(DateOfEnumeration, "DD-MM-YYYY")
               : undefined;
             setImageUrl(
-              GeneralInformationBeneficiary.ImageUrl
-                ? `${API_URL}${GeneralInformationBeneficiary.ImageUrl}`
-                : ""
+              checkUrlImgIsLaosOrJb(GeneralInformationBeneficiary.ImageUrl)
             );
             setEnumSignImage(
-              GeneralInformationBeneficiary.EnumSignImage
-                ? `${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`
-                : ""
+              checkUrlImgIsLaosOrJb(
+                GeneralInformationBeneficiary.EnumSignImage,
+                "SIGN"
+              )
             );
             setRespSignImage(
-              GeneralInformationBeneficiary.RespSignImage
-                ? `${API_URL}${GeneralInformationBeneficiary.RespSignImage}`
-                : ""
+              checkUrlImgIsLaosOrJb(
+                GeneralInformationBeneficiary.RespSignImage,
+                "SIGN"
+              )
             );
             setHHImageUrl(
-              LatLongForBeneficiary.HHImageUrl
-                ? `${API_URL}${LatLongForBeneficiary.HHImageUrl}`
-                : ""
+              checkUrlImgIsLaosOrJb(GeneralInformationBeneficiary.HHImageUrl)
             );
             setDetailHouseHold(res.data.Data);
             form.setFieldsValue(res.data.Data);
@@ -106,7 +118,9 @@ function UpdateHousehold(props) {
     value = value
       .replace("data:image/jpeg;base64,", "")
       .replace("data:image/png;base64,", "")
-      .replace(API_URL, "");
+      .replace(API_URL, "")
+      .replace(API_URL_SIGN, "")
+      .replace(API_URL_IMG, "");
     return value;
   };
 
@@ -320,6 +334,9 @@ function UpdateHousehold(props) {
                 setEnumSignImageExtension={setEnumSignImageExtension}
                 setRespSignImageExtension={setRespSignImageExtension}
                 setImageUrlExtension={setImageUrlExtension}
+                hhImageUrl={HHImageUrl}
+                setHHImageUrl={setHHImageUrl}
+                setHHImageUrlExtension={setHHImageUrlExtension}
               />
             </section>
 
@@ -374,11 +391,7 @@ function UpdateHousehold(props) {
               <div className="mb-3 p-2 title-add-household">
                 7.6 {t("LOCATION_IN_MAP")}
               </div>
-              <LocationMapComponent
-                hhImageUrl={HHImageUrl}
-                setHHImageUrl={setHHImageUrl}
-                setHHImageUrlExtension={setHHImageUrlExtension}
-              />
+              <LocationMapComponent />
             </section>
           </Form>
         )}

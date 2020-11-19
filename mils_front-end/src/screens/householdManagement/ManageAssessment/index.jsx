@@ -339,6 +339,12 @@ function ManageAssessment(props) {
     setHeadName(headName);
     setPage(pageUrl);
 
+    let id = "";
+    if (unitId && unitId !== "-1") id = unitId;
+    else if (villageId && villageId !== "-1") id = villageId;
+    else if (districtId && districtId !== "-1") id = districtId;
+    else if (provinceId && provinceId !== "-1") id = provinceId;
+
     const objectParams = {
       currentPage: pageUrl,
       provinceId: provinceId,
@@ -346,6 +352,7 @@ function ManageAssessment(props) {
       villageId: villageId,
       unitId: unitId,
       child: child,
+      id: id,
       pregnant: pregnant,
       headName: headName,
     };
@@ -374,7 +381,14 @@ function ManageAssessment(props) {
   }, [history.location]);
 
   const getHouseHoldList = (params) => {
-    return houseHoldApi.searchHouseHold(params);
+    const obj = {
+      currentPage: params.currentPage,
+      child: params.child,
+      id: params.id,
+      pregnant: params.pregnant,
+      headName: params.headName,
+    };
+    return houseHoldApi.searchHouseHold(obj);
   };
 
   const getProvincePromiseAll = () => {
@@ -801,10 +815,7 @@ function ManageAssessment(props) {
               }}
             />
           </Col>
-          <Col span={24} md={12} lg={6}>
-            <div>
-              <Text className="font-13">{t("SEARCH")}</Text>
-            </div>
+          <Col span={24} md={12} lg={6} className="align-self-end">
             <Button type="primary" onClick={onSearchChange}>
               <i className="fas fa-search mr-2"></i> {t("SEARCH")}
             </Button>

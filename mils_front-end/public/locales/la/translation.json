@@ -384,7 +384,8 @@
   "UPLOAD_IMAGE": "Upload image",
   "UPLOAD_SIGNATURE": "Upload signature",
   "IMAGE": "Image",
-  "SIGNATURE": "Signature",
+  "SIGNATURE_COLLECTOR": "ລາຍເຊັນຜູ້ເກັບກຳຂໍ້ມູນ",
+  "SIGNATURE_RESPONDENT": "ລາຍເຊັນຜູ້ຕອບຂໍ້ມູນ",
   "INPUT": "Input",
   "PROVINCE_EMPTY": "Province is empty",
   "CLASS_OF": "ລະດັບການສຶກສາ",
@@ -403,7 +404,7 @@
   "Daily Form Submissions": "ລາຍການນຳສະເໜີປະຈຳວັນ",
   "Beneficiary Segreggations": "ການແບ່ງແຍກຜົນປະໂຫຍດ",
   "Total Daily Form": "ລວມການນຳສະເໜີປະຈຳວັນ",
-  "HH_IMAGE": "Household Image",
+  "HH_IMAGE": "ຮູບພາບຂອງຄອບຄົວ",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

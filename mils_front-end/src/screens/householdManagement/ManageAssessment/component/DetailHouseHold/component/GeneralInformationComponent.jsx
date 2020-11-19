@@ -1,12 +1,28 @@
 import { Col, Image, Row } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { API_URL } from "../../../../../../constants/config";
+import {
+  API_URL,
+  API_URL_IMG,
+  API_URL_SIGN,
+} from "../../../../../../constants/config";
 
 function GeneralInformationComponent(props) {
   const { GeneralInformationBeneficiary } = props;
   const { t } = useTranslation();
-  // console.log("run here");
+
+  const checkUrlImgIsLaosOrJb = (value = "", type = null) => {
+    if (value.includes("Upload")) {
+      return `${API_URL}${value}`;
+    } else {
+      if (type === "SIGN") {
+        return `${API_URL_SIGN}${value}`;
+      } else {
+        return `${API_URL_IMG}${value}`;
+      }
+    }
+  };
+
   return (
     <Row className="px-2" gutter={[16, 16]}>
       <Col span={24} md={12}>
@@ -47,15 +63,49 @@ function GeneralInformationComponent(props) {
       </Col>
       <Col span={24}>
         <div className="signature-image">
-          <p className="font-weight-500 mb-0">{t("SIGNATURE")}:</p>
-          <div className="border text-center w-100 py-2">
-            <Image
-              className="pointer"
-              width={250}
-              height={160}
-              src={`${API_URL}${GeneralInformationBeneficiary.EnumSignImage}`}
-              alt={t("NOT_FOUND")}
-            />
+          <p className="font-weight-500 mb-0">{t("HH_IMAGE")}:</p>
+          <div
+            className="border text-center w-100 py-2"
+            style={{ minHeight: "160px" }}
+          >
+            {GeneralInformationBeneficiary.HHImageUrl ? (
+              <Image
+                className="pointer"
+                width={250}
+                height={160}
+                src={checkUrlImgIsLaosOrJb(
+                  GeneralInformationBeneficiary.HHImageUrl,
+                  "SIGN"
+                )}
+                alt={t("NOT_FOUND")}
+              />
+            ) : (
+              t("EMPTY")
+            )}
+          </div>
+        </div>
+      </Col>
+      <Col span={24}>
+        <div className="signature-image">
+          <p className="font-weight-500 mb-0">{t("SIGNATURE_COLLECTOR")}:</p>
+          <div
+            className="border text-center w-100 py-2"
+            style={{ minHeight: "160px" }}
+          >
+            {GeneralInformationBeneficiary.EnumSignImage ? (
+              <Image
+                className="pointer"
+                width={250}
+                height={160}
+                src={checkUrlImgIsLaosOrJb(
+                  GeneralInformationBeneficiary.EnumSignImage,
+                  "SIGN"
+                )}
+                alt={t("NOT_FOUND")}
+              />
+            ) : (
+              t("EMPTY")
+            )}
           </div>
         </div>
       </Col>
@@ -69,29 +119,49 @@ function GeneralInformationComponent(props) {
       </Col>
       <Col span={24}>
         <div className="signature-image">
-          <p className="font-weight-500 mb-0">{t("SIGNATURE")}:</p>
-          <div className="border text-center w-100 py-2">
-            <Image
-              className="pointer"
-              width={250}
-              height={160}
-              src={`${API_URL}${GeneralInformationBeneficiary.RespSignImage}`}
-              alt={t("NOT_FOUND")}
-            />
+          <p className="font-weight-500 mb-0">{t("SIGNATURE_RESPONDENT")}:</p>
+          <div
+            className="border text-center w-100 py-2"
+            style={{ minHeight: "160px" }}
+          >
+            {GeneralInformationBeneficiary.RespSignImage ? (
+              <Image
+                className="pointer"
+                width={250}
+                height={160}
+                src={checkUrlImgIsLaosOrJb(
+                  GeneralInformationBeneficiary.RespSignImage,
+                  "SIGN"
+                )}
+                alt={t("NOT_FOUND")}
+              />
+            ) : (
+              t("EMPTY")
+            )}
           </div>
         </div>
       </Col>
       <Col span={24}>
         <div className="signature-image">
           <p className="font-weight-500 mb-0">{t("UPLOAD_IMAGE")}:</p>
-          <div className="border text-center w-100 py-2">
-            <Image
-              className="pointer"
-              width={250}
-              height={160}
-              src={`${API_URL}${GeneralInformationBeneficiary.ImageUrl}`}
-              alt={t("NOT_FOUND")}
-            />
+          <div
+            className="border text-center w-100 py-2"
+            style={{ minHeight: "160px" }}
+          >
+            {GeneralInformationBeneficiary.ImageUrl ? (
+              <Image
+                className="pointer"
+                width={250}
+                height={160}
+                src={checkUrlImgIsLaosOrJb(
+                  GeneralInformationBeneficiary.ImageUrl,
+                  "IMAGE"
+                )}
+                alt={t("NOT_FOUND")}
+              />
+            ) : (
+              t("EMPTY")
+            )}
           </div>
         </div>
       </Col>
