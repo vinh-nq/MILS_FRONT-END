@@ -7,9 +7,13 @@ import { objectValidateForm } from "../validate/objectValidateForm";
 import { useSelector } from "react-redux";
 import dataDictionaryApi from "../../../../api/dataDictionaryApi";
 
-function PropertyAndToolsComponent() {
+function PropertyAndToolsComponent(props) {
+  const { form, value = {} } = props;
   const [borrowingReason, setBorrowingReason] = useState([]);
   const [lenderType, setLenderType] = useState([]);
+  const [mainJob, setMainJob] = useState([]);
+  const [mainGood, setMainGood] = useState([]);
+  const [borrowReason, setBorrowReason] = useState(false);
 
   const { t } = useTranslation();
   const { Option } = Select;
@@ -20,6 +24,9 @@ function PropertyAndToolsComponent() {
   useEffect(() => {
     getBorrowingReason();
     getLenderType();
+    getMainJob();
+    getMainGood();
+    setBorrowReason(value.OweCredit ? value.OweCredit : false);
   }, []);
 
   const getBorrowingReason = async () => {
@@ -32,6 +39,20 @@ function PropertyAndToolsComponent() {
     await dataDictionaryApi.GetAllTypeOfLender({ keyword: "" }).then((res) => {
       setLenderType(res.data.Data);
     });
+  };
+
+  const getMainJob = async () => {
+    await dataDictionaryApi.GetAllMainJob({ keyword: "" }).then((res) => {
+      setMainJob(res.data.Data);
+    });
+  };
+
+  const getMainGood = async () => {
+    await dataDictionaryApi
+      .GetAllMainGoodsServices({ keyword: "" })
+      .then((res) => {
+        setMainGood(res.data.Data);
+      });
   };
 
   const renderSelect = (array) => {
@@ -151,7 +172,7 @@ function PropertyAndToolsComponent() {
               },
             ]}
           >
-            <Input />
+            <Select>{renderSelect(mainJob)}</Select>
           </Form.Item>
         </Col>
       </Row>
@@ -182,7 +203,7 @@ function PropertyAndToolsComponent() {
               },
             ]}
           >
-            <Input />
+            <Select>{renderSelect(mainGood)}</Select>
           </Form.Item>
         </Col>
         <Col className="mb-2" span={24}>
@@ -211,25 +232,38 @@ function PropertyAndToolsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch
+              onChange={(value) => {
+                setBorrowReason(value);
+                if (!value) {
+                  form.setFields([
+                    {
+                      name: ["StableOccupationAndIncome", "TypeOfLenderId"],
+                      value: "",
+                      errors: [],
+                    },
+                    {
+                      name: ["StableOccupationAndIncome", "BorrowingReasonId"],
+                      value: "",
+                      errors: [],
+                    },
+                  ]);
+                }
+              }}
+              checkedChildren="Yes"
+              unCheckedChildren="No"
+            />
           </Form.Item>
         </Col>
         <Col className="mb-2" span={24}>
-          <Text className="font-13 font-weight-500">
-            {t("TYPE_OF_LENDER")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("TYPE_OF_LENDER")}</Text>
           <Form.Item
             name={["StableOccupationAndIncome", "TypeOfLenderId"]}
             className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("TYPE_OF_LENDER")} ${t("is_not_empty")}`,
-              },
-            ]}
           >
-            <Select>{renderSelect(lenderType)}</Select>
+            <Select disabled={borrowReason ? false : true}>
+              {renderSelect(lenderType)}
+            </Select>
           </Form.Item>
         </Col>
       </Row>
@@ -238,21 +272,14 @@ function PropertyAndToolsComponent() {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("WHY_FAMILY_MEMBERS_BORROW_MONEY")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "BorrowingReasonId"]}
             className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("WHY_FAMILY_MEMBERS_BORROW_MONEY")} ${t(
-                  "is_not_empty"
-                )}`,
-              },
-            ]}
           >
-            <Select>{renderSelect(borrowingReason)}</Select>
+            <Select disabled={borrowReason ? false : true}>
+              {renderSelect(borrowingReason)}
+            </Select>
           </Form.Item>
         </Col>
         <Col className="mb-2" span={24}>

@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  BackTop,
-  Button,
-  Col,
-  Image,
-  message,
-  Popconfirm,
-  Row,
-  Table,
-} from "antd";
+import { BackTop, Button, Col, message, Popconfirm, Row, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons/lib/icons";
 import { useTranslation } from "react-i18next";
 import houseHoldApi from "../../../../../api/houseHoldApi";
@@ -30,7 +21,6 @@ import GeneralInformationComponent from "./component/GeneralInformationComponent
 import AddressComponent from "./component/AddressComponent";
 import "./scss/style.scss";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
-import { API_URL } from "../../../../../constants/config";
 
 const Marker = (props) => {
   const { name } = props;

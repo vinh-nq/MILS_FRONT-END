@@ -69,10 +69,7 @@ function UpdateHousehold(props) {
         await houseHoldApi
           .getDetailHouseHold({ householdId: hh_code })
           .then((res) => {
-            const {
-              GeneralInformationBeneficiary,
-              LatLongForBeneficiary,
-            } = res.data.Data;
+            const { GeneralInformationBeneficiary } = res.data.Data;
             const {
               DateOfEnumeration,
             } = res.data.Data.GeneralInformationBeneficiary;
@@ -164,9 +161,11 @@ function UpdateHousehold(props) {
             setEnumSignImage("");
             setRespSignImage("");
             setImageUrl("");
+            setHHImageUrl("");
             setEnumSignImageExtension("");
             setRespSignImageExtension("");
             setImageUrlExtension("");
+            setHHImageUrlExtension("");
             message.success({
               content: t("ADD_SUCCESS"),
               key: "message-form-role",
@@ -341,10 +340,7 @@ function UpdateHousehold(props) {
             </section>
 
             <section className="mb-3">
-              <div className="mb-3 p-2 title-add-household">
-                V. {t("CLEAN_WATER_AND_PERMANENT_ENERGY_USE")}
-              </div>
-              <EnergyUsedComponent />
+              <div className="mb-3 p-2 title-add-household">V.</div>
             </section>
 
             <section className="mb-3">
@@ -369,18 +365,25 @@ function UpdateHousehold(props) {
                   "HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING_AND_MAKING_A_LIVING"
                 )}
               </div>
-              <PropertyAndToolsComponent />
+              <PropertyAndToolsComponent form={form} value={detailHouseHold.StableOccupationAndIncome}/>
             </section>
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.4 {t("ACCESS_TO_BASIC_HEALTH_SERVICES")}
+                7.4 {t("CLEAN_WATER_AND_PERMANENT_ENERGY_USE")}
+              </div>
+              <EnergyUsedComponent />
+            </section>
+
+            <section className="mb-3">
+              <div className="mb-3 p-2 title-add-household">
+                7.5 {t("ACCESS_TO_BASIC_HEALTH_SERVICES")}
               </div>
               <SourceSurvivalComponent />
             </section>
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.5{" "}
+                7.6{" "}
                 {t(
                   "DEVELOPMENT_FAMILIES_HAVE_8_STANDARD_GROUPS_11_CONTENTS_19_INDICATORS"
                 )}
@@ -389,7 +392,7 @@ function UpdateHousehold(props) {
             </section>
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.6 {t("LOCATION_IN_MAP")}
+                7.7 {t("LOCATION_IN_MAP")}
               </div>
               <LocationMapComponent />
             </section>

@@ -305,8 +305,7 @@ function ListHouseholdForCCTProgram(props) {
               <Option value={"2"}>{t("UNLOCKED")}</Option>
             </Select>
           </Col>
-          <Col lg={6} md={12} sm={24}>
-            <Text className="font-13 d-block">{t("SEARCH")}</Text>
+          <Col lg={6} md={12} sm={24} className="align-self-end">
             <Button
               type="primary"
               icon={<SearchOutlined className="ant--icon__middle" />}

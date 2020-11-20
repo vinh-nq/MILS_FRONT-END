@@ -102,8 +102,8 @@ function ShelterComponent(props) {
 
   return (
     <>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} md={12}>
+      <Row className="mb-2" gutter={[16, 16]}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
             {t("TOTAL_ROOMS")}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
@@ -127,27 +127,7 @@ function ShelterComponent(props) {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("ROOF_SAFETY_AREA")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={["Shelter", "SafetyAreaId"]}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `Roof safety area ${t("is_not_empty")}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(roofSafety)}</Select>
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} md={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
             {t("WALL_MATERIAL")}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
@@ -165,7 +145,7 @@ function ShelterComponent(props) {
             <Select>{renderSelect(wall)}</Select>
           </Form.Item>
         </Col>
-        <Col span={24} md={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
             {t("FLOOR_MATERIAL")}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
@@ -183,9 +163,7 @@ function ShelterComponent(props) {
             <Select>{renderSelect(floor)}</Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} md={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
             {t("ROOF_MATERIAL")}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
@@ -201,6 +179,24 @@ function ShelterComponent(props) {
             ]}
           >
             <Select>{renderSelect(roof)}</Select>
+          </Form.Item>
+        </Col>
+        <Col span={24}>
+          <Text className="font-13 font-weight-500">
+            {t("ROOF_SAFETY_AREA")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={["Shelter", "SafetyAreaId"]}
+            className="mb-0"
+            rules={[
+              {
+                required: true,
+                message: `Roof safety area ${t("is_not_empty")}`,
+              },
+            ]}
+          >
+            <Select>{renderSelect(roofSafety)}</Select>
           </Form.Item>
         </Col>
       </Row>

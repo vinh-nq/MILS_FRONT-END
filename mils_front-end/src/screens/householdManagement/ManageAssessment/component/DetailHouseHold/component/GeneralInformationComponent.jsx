@@ -41,13 +41,9 @@ function GeneralInformationComponent(props) {
         <span className="font-weight-500">{t("NUMBER_OF_HH")}</span>:{" "}
         {GeneralInformationBeneficiary.NumberOfHH}
       </Col>
-      <Col span={24} md={12}>
+      <Col span={24}>
         <span className="font-weight-500">{t("FEMALE")}</span>:{" "}
         {GeneralInformationBeneficiary.Female}
-      </Col>
-      <Col span={24} md={12}>
-        <span className="font-weight-500">{t("NUMBER_PLOTS")}</span>:{" "}
-        {GeneralInformationBeneficiary.NumberPlots}
       </Col>
       <Col span={24} md={12}>
         <span className="font-weight-500">{t("DATE_OF_ENUMERATION")}</span>:{" "}

@@ -625,7 +625,7 @@ function MemberInHouseHold(props) {
           </Form.Item>
         </Col>
         {/*Nếu tuổi lớn hơn 2 thì hiển thị các câu hỏi từ 6 tới 9*/}
-        {age >= 2 ? (
+        {age > 2 ? (
           <>
             <Col span={24}>
               <Text className="font-13 font-weight-500">

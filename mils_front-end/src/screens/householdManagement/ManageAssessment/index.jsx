@@ -32,7 +32,7 @@ import {
   // EllipsisOutlined,
   DeleteOutlined,
   // EditOutlined,
-  InfoCircleOutlined,
+  // InfoCircleOutlined,
 } from "@ant-design/icons/lib/icons";
 
 function ManageAssessment(props) {
