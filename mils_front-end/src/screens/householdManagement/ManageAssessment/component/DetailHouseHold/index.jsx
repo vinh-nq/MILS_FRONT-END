@@ -597,10 +597,11 @@ function DetailBeneficiary(props) {
           </div>
           <Row gutter={16}>
             <Col span={8}>
-              <p className="mb-0 font-weight-500 font-16">
-                Data Description: {LatLongForBeneficiary.Description}
+              <p className="mb-0">
+                <span className="font-weight-600">Data Description:</span>{" "}
+                {LatLongForBeneficiary.Description}
               </p>
-              <p className="mb-2 font-weight-500 font-15">Location(GPS):</p>
+              <p className="mb-2 font-weight-600 font-15">Location(GPS):</p>
               <p className="mb-2">Latitude: {defaultProps.center.lat}</p>
               <p className="mb-2">Longitude:{defaultProps.center.lng}</p>
             </Col>

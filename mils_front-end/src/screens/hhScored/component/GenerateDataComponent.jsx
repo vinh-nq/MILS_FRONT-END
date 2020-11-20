@@ -78,34 +78,27 @@ function GenerateDataComponent(props) {
   };
 
   const onGenerate = async () => {
-    let location = "";
     let error = true;
-    if (!selectedProvince) {
+    if (!selectedVillage) {
+      error = false;
       message.error({
-        content: t("PROVINCE_EMPTY"),
+        content: t("VILLAGE_EMPTY"),
         key: "message-form-role",
         duration: 1,
       });
     }
 
-    if (selectedVillage) {
-      error = false;
-      location = selectedVillage;
-    } else if (selectedDistrict) {
-      error = false;
-      location = selectedDistrict;
-    } else if (selectedProvince) {
-      error = false;
-      location = selectedProvince;
-    }
     if (!error) {
       setLoading(true);
       await CCTProgramApi.GenPMTScored({
-        id: location,
+        id: selectedVillage,
       }).then((res) => {
         if (res.data.Status) {
-          reloadData(res.data.Data);
+          setLoading(false);
+          setVisible(false);
+          reloadData();
         } else {
+          setVisible(false);
           message.error({
             content: t("FETCH_DATA_FAILED"),
             key: "message-form-role",
@@ -113,8 +106,6 @@ function GenerateDataComponent(props) {
           });
         }
       });
-      setLoading(false);
-      setVisible(false);
     }
   };
 

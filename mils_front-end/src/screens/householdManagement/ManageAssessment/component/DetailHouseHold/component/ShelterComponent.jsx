@@ -8,25 +8,25 @@ function ShelterComponent(props) {
   return (
     <Row className="px-2" gutter={[16, 16]}>
       <Col span={24}>
-        <span className="font-weight-500">{t("TOTAL_ROOMS")}</span>:{" "}
+        <span className="font-weight-600">{t("TOTAL_ROOMS")}</span>:{" "}
         {Shelter.TotalRooms}
       </Col>
       <Col span={24}>
-        <span className="font-weight-500">{t("WALL_MATERIAL")}</span>:{" "}
+        <span className="font-weight-600">{t("WALL_MATERIAL")}</span>:{" "}
         {dataLanguage === "la" ? Shelter.WallMaterial : Shelter.WallMaterialEng}
       </Col>
       <Col span={24}>
-        <span className="font-weight-500">{t("FLOOR_MATERIAL")}</span>:{" "}
+        <span className="font-weight-600">{t("FLOOR_MATERIAL")}</span>:{" "}
         {dataLanguage === "la"
           ? Shelter.FloorMaterial
           : Shelter.FloorMaterialEng}
       </Col>
       <Col span={24}>
-        <span className="font-weight-500">{t("ROOF_MATERIAL")}</span>:{" "}
+        <span className="font-weight-600">{t("ROOF_MATERIAL")}</span>:{" "}
         {dataLanguage === "la" ? Shelter.RoofMaterial : Shelter.RoofMaterialEng}
       </Col>
       <Col span={24}>
-        <span className="font-weight-500">{t("ROOF_SAFETY_AREA")}</span>:{" "}
+        <span className="font-weight-600">{t("ROOF_SAFETY_AREA")}</span>:{" "}
         {dataLanguage === "la" ? Shelter.SafetyArea : Shelter.SafetyAreaEng}
       </Col>
     </Row>

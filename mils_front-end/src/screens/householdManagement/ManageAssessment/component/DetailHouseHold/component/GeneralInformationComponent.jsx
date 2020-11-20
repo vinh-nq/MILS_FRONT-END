@@ -26,40 +26,40 @@ function GeneralInformationComponent(props) {
   return (
     <Row className="px-2" gutter={[16, 16]}>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("HEAD_OF_HH_NAME")}</span>:{" "}
+        <span className="font-weight-600">{t("HEAD_OF_HH_NAME")}</span>:{" "}
         {GeneralInformationBeneficiary.HeadOfHHName}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("GENDER")}</span>:{" "}
+        <span className="font-weight-600">{t("GENDER")}</span>:{" "}
         {GeneralInformationBeneficiary.Gender}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("TELEPHONE")}</span>:{" "}
+        <span className="font-weight-600">{t("TELEPHONE")}</span>:{" "}
         {GeneralInformationBeneficiary.Telephone1}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("NUMBER_OF_HH")}</span>:{" "}
+        <span className="font-weight-600">{t("NUMBER_OF_HH")}</span>:{" "}
         {GeneralInformationBeneficiary.NumberOfHH}
       </Col>
       <Col span={24}>
-        <span className="font-weight-500">{t("FEMALE")}</span>:{" "}
+        <span className="font-weight-600">{t("FEMALE")}</span>:{" "}
         {GeneralInformationBeneficiary.Female}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("DATE_OF_ENUMERATION")}</span>:{" "}
+        <span className="font-weight-600">{t("DATE_OF_ENUMERATION")}</span>:{" "}
         {GeneralInformationBeneficiary.DateOfEnumeration}
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("ENUMERATION")}</span>:{" "}
+        <span className="font-weight-600">{t("ENUMERATION")}</span>:{" "}
         {GeneralInformationBeneficiary.Enumeration}
       </Col>
       <Col span={24}>
-        <span className="font-weight-500">{t("TELEPHONE")}</span>:{" "}
+        <span className="font-weight-600">{t("TELEPHONE")}</span>:{" "}
         {GeneralInformationBeneficiary.TelePhone2}
       </Col>
       <Col span={24}>
         <div className="signature-image">
-          <p className="font-weight-500 mb-0">{t("HH_IMAGE")}:</p>
+          <p className="font-weight-600 mb-0">{t("HH_IMAGE")}:</p>
           <div
             className="border text-center w-100 py-2"
             style={{ minHeight: "160px" }}
@@ -71,7 +71,7 @@ function GeneralInformationComponent(props) {
                 height={160}
                 src={checkUrlImgIsLaosOrJb(
                   GeneralInformationBeneficiary.HHImageUrl,
-                  "SIGN"
+                  "IMAGE"
                 )}
                 alt={t("NOT_FOUND")}
               />
@@ -83,7 +83,7 @@ function GeneralInformationComponent(props) {
       </Col>
       <Col span={24}>
         <div className="signature-image">
-          <p className="font-weight-500 mb-0">{t("SIGNATURE_COLLECTOR")}:</p>
+          <p className="font-weight-600 mb-0">{t("SIGNATURE_COLLECTOR")}:</p>
           <div
             className="border text-center w-100 py-2"
             style={{ minHeight: "160px" }}
@@ -106,16 +106,16 @@ function GeneralInformationComponent(props) {
         </div>
       </Col>
       <Col span={24} md={12}>
-        <span className="font-weight-500">{t("RESPONDENT")}</span>:{" "}
+        <span className="font-weight-600">{t("RESPONDENT")}</span>:{" "}
         {GeneralInformationBeneficiary.Respondent}
       </Col>
       <Col span={24} md={12} className="align-self-md-center">
-        <span className="font-weight-500">{t("TELEPHONE")}</span>:{" "}
+        <span className="font-weight-600">{t("TELEPHONE")}</span>:{" "}
         {GeneralInformationBeneficiary.TelePhone3}
       </Col>
       <Col span={24}>
         <div className="signature-image">
-          <p className="font-weight-500 mb-0">{t("SIGNATURE_RESPONDENT")}:</p>
+          <p className="font-weight-600 mb-0">{t("SIGNATURE_RESPONDENT")}:</p>
           <div
             className="border text-center w-100 py-2"
             style={{ minHeight: "160px" }}
@@ -139,7 +139,7 @@ function GeneralInformationComponent(props) {
       </Col>
       <Col span={24}>
         <div className="signature-image">
-          <p className="font-weight-500 mb-0">{t("UPLOAD_IMAGE")}:</p>
+          <p className="font-weight-600 mb-0">{t("UPLOAD_IMAGE")}:</p>
           <div
             className="border text-center w-100 py-2"
             style={{ minHeight: "160px" }}

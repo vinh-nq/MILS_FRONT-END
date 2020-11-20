@@ -57,30 +57,10 @@ function EnergyUsedComponent(props) {
 
   return (
     <>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} md={12}>
+      <Row className="mb-2" gutter={[16, 16]}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
-            Drinking water facility during dry season
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={["WaterAndPermanentEnergyBeneficiary", "WaterDryId"]}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("Drinking water facility during dry season")} ${t(
-                  "is_not_empty"
-                )}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(water)}</Select>
-          </Form.Item>
-        </Col>
-        <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            Drinking water facility during rainy
+            {t("DURING_RAINING")}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -98,11 +78,47 @@ function EnergyUsedComponent(props) {
             <Select>{renderSelect(water)}</Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} md={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
-            Main source for cooking
+            {t("DURING_DRY")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={["WaterAndPermanentEnergyBeneficiary", "WaterDryId"]}
+            className="mb-0"
+            rules={[
+              {
+                required: true,
+                message: `${t("Drinking water facility during dry season")} ${t(
+                  "is_not_empty"
+                )}`,
+              },
+            ]}
+          >
+            <Select>{renderSelect(water)}</Select>
+          </Form.Item>
+        </Col>
+        <Col span={24}>
+          <Text className="font-13 font-weight-500">
+            {t("TYPE_OF_TOILET")}
+            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
+          </Text>
+          <Form.Item
+            name={["WaterAndPermanentEnergyBeneficiary", "ToiletTypeId"]}
+            className="mb-0"
+            rules={[
+              {
+                required: true,
+                message: `${t("Type of toilet")} ${t("is_not_empty")}`,
+              },
+            ]}
+          >
+            <Select>{renderSelect(toilet)}</Select>
+          </Form.Item>
+        </Col>
+        <Col span={24}>
+          <Text className="font-13 font-weight-500">
+            {t("SOURCE_FOR_COOKING")}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -118,9 +134,9 @@ function EnergyUsedComponent(props) {
             <Select>{renderSelect(cooking)}</Select>
           </Form.Item>
         </Col>
-        <Col span={24} md={12}>
+        <Col span={24}>
           <Text className="font-13 font-weight-500">
-            Main source of energy for lighting
+            {t("SOURCE_FOR_LIGHTING")}
             <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
@@ -136,26 +152,6 @@ function EnergyUsedComponent(props) {
             ]}
           >
             <Select>{renderSelect(energy)}</Select>
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
-        <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            Type of toilet
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
-          <Form.Item
-            name={["WaterAndPermanentEnergyBeneficiary", "ToiletTypeId"]}
-            className="mb-0"
-            rules={[
-              {
-                required: true,
-                message: `${t("Type of toilet")} ${t("is_not_empty")}`,
-              },
-            ]}
-          >
-            <Select>{renderSelect(toilet)}</Select>
           </Form.Item>
         </Col>
       </Row>

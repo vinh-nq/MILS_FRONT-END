@@ -470,6 +470,7 @@
   "UNLOCKED": "Unlocked",
   "INPUT": "Input",
   "PROVINCE_EMPTY": "Province is empty",
+  "VILLAGE_EMPTY": "Village is empty",
   "CLASS_OF": "Class",
   "UPDATEMEMBERHOUSEHOLD": "Update member household",
   "ROOF_SAFETY_AREA": "House locates in safety area",
