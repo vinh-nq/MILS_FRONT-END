@@ -19,6 +19,12 @@ function GenerateDataComponent(props) {
   const { Text } = Typography;
 
   useEffect(() => {
+    setSelectedProvince("");
+    setSelectedDistrict("");
+    setSelectedVillage("");
+  }, [visible]);
+
+  useEffect(() => {
     const getAllProvince = async () => {
       await houseHoldApi.getAllProvince().then((res) => {
         if (res.data.Status) {
@@ -78,9 +84,9 @@ function GenerateDataComponent(props) {
   };
 
   const onGenerate = async () => {
-    let error = true;
+    let isError = false;
     if (!selectedVillage) {
-      error = false;
+      isError = true;
       message.error({
         content: t("VILLAGE_EMPTY"),
         key: "message-form-role",
@@ -88,7 +94,7 @@ function GenerateDataComponent(props) {
       });
     }
 
-    if (!error) {
+    if (!isError) {
       setLoading(true);
       await CCTProgramApi.GenPMTScored({
         id: selectedVillage,
@@ -111,7 +117,7 @@ function GenerateDataComponent(props) {
 
   return (
     <Modal
-      title="Generate new data"
+      title="Generate new data household PMT Scored"
       visible={visible}
       width="400px"
       okButtonProps={{

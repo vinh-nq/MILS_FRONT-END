@@ -10,7 +10,8 @@ import "./style.scss";
 import GenerateDataComponent from "./component/GenerateDataComponent";
 import houseHoldApi from "../../api/houseHoldApi";
 import { getValueOfQueryParams } from "../../utils/getValueOfQueryParams";
-import {PATH} from "../../routers/Path";
+import { PATH } from "../../routers/Path";
+import CutOffComponent from "./component/CutOffComponent";
 
 function HouseholdScore(props) {
   const [isLoading, setLoading] = useState(false);
@@ -25,6 +26,7 @@ function HouseholdScore(props) {
   const [searchText, setSearchText] = useState("");
   const [totalPage, setTotalPage] = useState(0);
   const [showGenerate, setGenerate] = useState(false);
+  const [showCutOff, setCutOff] = useState(false);
   const { t } = useTranslation();
   const { Text } = Typography;
   const { Option } = Select;
@@ -34,16 +36,6 @@ function HouseholdScore(props) {
   const dataLanguage =
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
     localStorage.getItem("i18nextLng");
-
-  const compare = (a, b) => {
-    if (a.PMTScored < b.PMTScored) {
-      return -1;
-    }
-    if (a.PMTScored > b.PMTScored) {
-      return 1;
-    }
-    return 0;
-  };
 
   const getDataFromUrl = useCallback(() => {
     const provinceId = getValueOfQueryParams(
@@ -167,6 +159,10 @@ function HouseholdScore(props) {
     history.push(PATH.GENERATION_OF_PMT_SCORE_CARD);
   };
 
+  const reloadCutOff = () => {
+    history.push(PATH.GENERATION_OF_PMT_SCORE_CARD);
+  };
+
   const onClickSearch = () => {
     let url = "?page=1";
     if (selectedProvince) url = `${url}&provinceId=${selectedProvince}`;
@@ -266,14 +262,25 @@ function HouseholdScore(props) {
       <section className="mb-3">
         <div className="d-flex flex-row align-items-center justify-content-between">
           <span className="h5 mb-0">{t("HH_LIST_SCORED")}</span>
-          <Button
-            type="primary"
-            onClick={() => {
-              setGenerate(true);
-            }}
-          >
-            <i className="fas fa-download mr-2"></i> {t("GENERATE")}
-          </Button>
+          <div>
+            <Button
+              type="primary"
+              onClick={() => {
+                setGenerate(true);
+              }}
+              className="mr-1"
+            >
+              <i className="fas fa-download mr-2"></i> {t("GENERATE")}
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                setCutOff(true);
+              }}
+            >
+              <i className="fas fa-cut mr-2"></i> {t("CUTOFF")}
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -341,7 +348,7 @@ function HouseholdScore(props) {
             <Text className="font-13">{t("KEYWORD")}</Text>
             <Input
               value={searchText}
-              placeholder={t("HEAD_OF_HH_NAME")}
+              placeholder={`${t("HEAD_OF_HH_NAME")} / ${t("HHCode")}`}
               onChange={(e) => {
                 setSearchText(e.target.value);
               }}
@@ -384,6 +391,11 @@ function HouseholdScore(props) {
         setVisible={setGenerate}
         reloadData={reloadDataGenerate}
         dataLanguage={dataLanguage}
+      />
+      <CutOffComponent
+        visible={showCutOff}
+        setVisible={setCutOff}
+        reloadData={reloadCutOff}
       />
     </>
   );
