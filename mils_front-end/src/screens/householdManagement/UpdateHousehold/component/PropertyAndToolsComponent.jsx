@@ -110,7 +110,7 @@ function PropertyAndToolsComponent(props) {
                   return handleValidateFrom(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(10, 0, "BETWEEN_15", true),
+                    objectValidateForm.checkNumber(10, 0, "BETWEEN_15-60", true),
                     t
                   );
                 },

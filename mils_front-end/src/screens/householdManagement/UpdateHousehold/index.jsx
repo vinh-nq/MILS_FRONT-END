@@ -308,7 +308,7 @@ function UpdateHousehold(props) {
           >
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                I. {t("Location")}
+                I. {t("LOCATION")}
               </div>
               <LocationComponent
                 detailHouseHold={detailHouseHold}
@@ -365,7 +365,10 @@ function UpdateHousehold(props) {
                   "HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING_AND_MAKING_A_LIVING"
                 )}
               </div>
-              <PropertyAndToolsComponent form={form} value={detailHouseHold.StableOccupationAndIncome}/>
+              <PropertyAndToolsComponent
+                form={form}
+                value={detailHouseHold.StableOccupationAndIncome}
+              />
             </section>
 
             <section className="mb-3">
@@ -394,7 +397,12 @@ function UpdateHousehold(props) {
               <div className="mb-3 p-2 title-add-household">
                 7.7 {t("LOCATION_IN_MAP")}
               </div>
-              <LocationMapComponent />
+              <LocationMapComponent
+                typeModal={typeModal}
+                LatLongForBeneficiary={
+                  detailHouseHold.LatLongForBeneficiary || {}
+                }
+              />
             </section>
           </Form>
         )}

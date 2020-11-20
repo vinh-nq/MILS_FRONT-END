@@ -356,7 +356,7 @@ function GeneralInformationComponent(props) {
             {hhImageUrl ? (
               <img src={hhImageUrl} alt="avatar" style={{ width: "100%" }} />
             ) : (
-              <UploadButton text={t("UPLOAD_SIGNATURE_HH")} />
+              <UploadButton text={t("HH_IMAGE")} />
             )}
           </Upload>
         </Col>
@@ -376,7 +376,7 @@ function GeneralInformationComponent(props) {
             {EnumSignImage ? (
               <img src={EnumSignImage} alt="avatar" style={{ width: "100%" }} />
             ) : (
-              <UploadButton text={t("UPLOAD_SIGNATURE_COLLECTOR")} />
+              <UploadButton text={t("SIGNATURE_COLLECTOR")} />
             )}
           </Upload>
         </Col>
@@ -396,12 +396,12 @@ function GeneralInformationComponent(props) {
             {RespSignImage ? (
               <img src={RespSignImage} alt="avatar" style={{ width: "100%" }} />
             ) : (
-              <UploadButton text={t("UPLOAD_SIGNATURE_RESPONDENT")} />
+              <UploadButton text={t("SIGNATURE_RESPONDENT")} />
             )}
           </Upload>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">{t("IMAGE")}</Text>
+          <Text className="font-13 font-weight-500">{t("UPLOAD_IMAGE")}</Text>
           <Upload
             name="avatar"
             listType="picture-card"

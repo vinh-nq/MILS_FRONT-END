@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 function EnergyUsedComponent(props) {
   const { Text } = Typography;
   const [water, setWater] = useState([]);
+  const [waterDry, setWaterDry] = useState([]);
   const [toilet, setToilet] = useState([]);
   const [cooking, setCooking] = useState([]);
   const [energy, setEnergy] = useState([]);
@@ -22,11 +23,18 @@ function EnergyUsedComponent(props) {
     getToiletType();
     getEnergyLighting();
     getSourceCooking();
+    getDryWater();
   }, []);
 
   const getRainingWater = async () => {
     await dataDictionaryApi.GetAllDrinkingWater({ keyword: "" }).then((res) => {
       setWater(res.data.Data);
+    });
+  };
+
+  const getDryWater = async () => {
+    await dataDictionaryApi.GetAllWaterDry({ keyword: "" }).then((res) => {
+      setWaterDry(res.data.Data);
     });
   };
 
@@ -69,9 +77,7 @@ function EnergyUsedComponent(props) {
             rules={[
               {
                 required: true,
-                message: `${t("Drinking water facility during dry season")} ${t(
-                  "is_not_empty"
-                )}`,
+                message: `${t("DURING_RAINING")} ${t("is_not_empty")}`,
               },
             ]}
           >
@@ -89,13 +95,11 @@ function EnergyUsedComponent(props) {
             rules={[
               {
                 required: true,
-                message: `${t("Drinking water facility during dry season")} ${t(
-                  "is_not_empty"
-                )}`,
+                message: `${t("DURING_DRY")} ${t("is_not_empty")}`,
               },
             ]}
           >
-            <Select>{renderSelect(water)}</Select>
+            <Select>{renderSelect(waterDry)}</Select>
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -109,7 +113,7 @@ function EnergyUsedComponent(props) {
             rules={[
               {
                 required: true,
-                message: `${t("Type of toilet")} ${t("is_not_empty")}`,
+                message: `${t("TYPE_OF_TOILET")} ${t("is_not_empty")}`,
               },
             ]}
           >
@@ -127,7 +131,7 @@ function EnergyUsedComponent(props) {
             rules={[
               {
                 required: true,
-                message: `${t("Main source for cooking")} ${t("is_not_empty")}`,
+                message: `${t("SOURCE_FOR_COOKING")} ${t("is_not_empty")}`,
               },
             ]}
           >
@@ -145,9 +149,7 @@ function EnergyUsedComponent(props) {
             rules={[
               {
                 required: true,
-                message: `${t("Main source of energy for lighting")} ${t(
-                  "is_not_empty"
-                )}`,
+                message: `${t("SOURCE_FOR_LIGHTING")} ${t("is_not_empty")}`,
               },
             ]}
           >

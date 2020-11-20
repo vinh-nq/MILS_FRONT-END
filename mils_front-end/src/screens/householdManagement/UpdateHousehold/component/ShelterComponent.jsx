@@ -192,7 +192,7 @@ function ShelterComponent(props) {
             rules={[
               {
                 required: true,
-                message: `Roof safety area ${t("is_not_empty")}`,
+                message: `${t("ROOF_SAFETY_AREA")} ${t("is_not_empty")}`,
               },
             ]}
           >
