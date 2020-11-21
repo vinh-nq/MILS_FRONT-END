@@ -366,244 +366,270 @@ function DetailBeneficiary(props) {
     <div className="detail-beneficiary-form">
       {isLoading ? (
         <LoadingSpinner typeSpinner="Bars" colorSpinner="#8A2BE2" />
-      ) : null}
-      <BackTop
-        className="scroll-top"
-        target={() => document.getElementById("my-layout")}
-      />
-      {/*Header and title*/}
-      <section className="border-bottom mb-3">
-        <div className="d-md-flex align-items-center mb-3">
-          <span className="h5 mb-0">{t("BENEFICIARY_FORM")}</span>
-          {HHCode ? (
-            <div className="d-flex ml-auto">
-              <Button
-                className="set-center-content mr-lg-4 mr-1"
-                icon={<ArrowLeftOutlined />}
-                onClick={() => {
-                  props.history.push(PATH.HOUSEHOLD_REGISTRATION);
-                }}
-              >
-                {t("BACK")}
-              </Button>
-              <Button
-                className="set-center-content mr-1"
-                type={"primary"}
-                onClick={() => {
-                  props.history.push(PATH.ADD_HOUSEHOLD);
-                }}
-              >
-                <i className="fas fa-plus mr-2"></i> {t("ADD")}
-              </Button>
-              <Button
-                className="set-center-content mr-1"
-                type={"primary"}
-                onClick={() => {
-                  props.history.push(
-                    `${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`
-                  );
-                }}
-              >
-                <i className="fas fa-edit mr-2"></i> {t("EDIT")}
-              </Button>
-            </div>
-          ) : null}
-        </div>
-      </section>
-
-      {/*Content*/}
-      <section>
-        <div className="hh-location">
-          <div className="mb-2 p-2 title-detail-household">
-            I. {t("BENEFICIARY_FORM")}
-          </div>
-          <AddressComponent
-            LocationBeneficiary={LocationBeneficiary}
-            dataLanguage={dataLanguage}
+      ) : (
+        <>
+          <BackTop
+            className="scroll-top"
+            target={() => document.getElementById("my-layout")}
           />
-        </div>
-
-        {/*General Information*/}
-        <div className="general-information">
-          <div className="mb-2 p-2 title-detail-household">
-            II. {t("GENERAL_INFORMATION")}
-          </div>
-          <GeneralInformationComponent
-            GeneralInformationBeneficiary={GeneralInformationBeneficiary}
-            LatLongForBeneficiary={LatLongForBeneficiary}
-          />
-        </div>
-
-        {/*Household Member*/}
-        <div className="household-member">
-          <div className="d-flex align-items-center mb-2 p-2 title-detail-household">
-            III. {t("HOUSEHOLD_MEMBER_LIST")}
-            {HHCode ? (
-              <Button
-                className="ml-auto set-center-content"
-                type="dashed"
-                onClick={() => {
-                  history.push(`${PATH.MEMBER_IN_HOUSEHOLD}?hh_code=${HHCode}`);
-                }}
-              >
-                <i className="fas fa-plus mr-2"></i> {t("ADD")}
-              </Button>
-            ) : null}
-          </div>
-          <Table
-            columns={columns}
-            dataSource={detailHouseHold.Members || []}
-            pagination={{ hideOnSinglePage: true }}
-            style={{ overflowX: "auto", overflowY: "hidden" }}
-            rowKey="MemberId"
-          />
-        </div>
-
-        {/*Plot land List*/}
-        <div className="plot-land-list">
-          <div className="d-flex align-items-center mb-2 p-2 title-detail-household">
-            IV. {t("PLOT_LAND_LIST")}
-            {HHCode ? (
-              <Button
-                className="ml-auto set-center-content"
-                type="dashed"
-                onClick={() => {
-                  setValuePlotLandModal("ADD");
-                }}
-              >
-                <i className="fas fa-plus mr-2"></i> {t("ADD")}
-              </Button>
-            ) : null}
-          </div>
-
-          <Table
-            columns={columnsPlotLandList}
-            dataSource={detailHouseHold.PlotLands || []}
-            pagination={{ hideOnSinglePage: true }}
-            style={{ overflowX: "auto", overflowY: "hidden" }}
-            rowKey="PlotLandId"
-          />
-        </div>
-
-        <div className="survival-indicator">
-          <div className="mb-2 p-2 title-detail-household">V.</div>
-        </div>
-
-        {/*Solidly and safety house*/}
-        <div className="safety-indicator">
-          <div className="mb-2 p-2 title-detail-household">
-            5.1 {t("SHELTER")}
-          </div>
-          <ShelterComponent dataLanguage={dataLanguage} Shelter={Shelter} />
-        </div>
-
-        {/*Having Essential Property and insrtruments for daily life*/}
-        <div className="insrtruments-indicator">
-          <div className="mb-2 p-2 title-detail-household">
-            5.2 {t("HAVING_ESSENTIAL_PROPERTY_AND_INSRTRUMENTS_FOR_DAILY_LIFE")}
-          </div>
-
-          <EssentialPropertyAndInstrumentsComponent
-            changeYesNoForQuestion={changeYesNoForQuestion}
-            Machine={Machine}
-          />
-        </div>
-
-        {/*Having property and tools necessary for living and making a living*/}
-        <div className="tools-indicator">
-          <div className="mb-2 p-2 title-detail-household">
-            5.3 {t("HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING")}
-          </div>
-
-          <ToolsForLivingComponent
-            StableOccupationAndIncome={StableOccupationAndIncome}
-            dataLanguage={dataLanguage}
-            changeYesNoForQuestion={changeYesNoForQuestion}
-          />
-        </div>
-        {/*Have stable occupation and income*/}
-        <div className="income-indicator">
-          <div className="mb-2 p-2 title-detail-household">
-            5.4 {t("HAVE_STABLE_OCCUPATION_AND_INCOME")}
-          </div>
-          <OccupationAndIncomeComponent
-            WaterAndPermanentEnergyBeneficiary={
-              WaterAndPermanentEnergyBeneficiary
-            }
-            dataLanguage={dataLanguage}
-          />
-        </div>
-
-        {/*Accessing to primary public service*/}
-        <div className="primary-public-service-indicator">
-          <div className="mb-2 p-2 title-detail-household">
-            5.5 {t("ACCESSING_TO_PRIMARY_PUBLIC_SERVICE")}
-          </div>
-          <PrimaryPublicServiceComponent
-            PrimaryPublicServiceForBeneficiary={
-              PrimaryPublicServiceForBeneficiary
-            }
-            changeYesNoForQuestion={changeYesNoForQuestion}
-          />
-        </div>
-
-        {/*Development families have 8 standard groups, 11 contents, 19 indicators*/}
-        <div className="primary-public-service-indicator">
-          <div className="mb-2 p-2 title-detail-household">
-            5.6{" "}
-            {t(
-              "DEVELOPMENT_FAMILIES_HAVE_8_STANDARD_GROUPS_11_CONTENTS_19_INDICATORS"
-            )}
-          </div>
-          <DevelopmentComponent
-            DevelopmentFamilyViewModel={DevelopmentFamilyViewModel}
-            changeYesNoForQuestion={changeYesNoForQuestion}
-          />
-        </div>
-
-        {/*Map*/}
-        <div className="tools-indicator">
-          <div className="mb-3 p-2 title-detail-household">
-            VI. {t("LOCATION_IN_MAP")}
-          </div>
-          <Row gutter={16}>
-            <Col span={8}>
-              <p className="mb-2 font-weight-600 font-15">Location(GPS):</p>
-              <p className="mb-2">Latitude: {LatLongForBeneficiary.lat}</p>
-              <p className="mb-2">Longitude:{LatLongForBeneficiary.Long}</p>
-            </Col>
-            <Col span={16}>
-              <div style={{ height: "400px", width: "100%" }}>
-                <GoogleMapReact
-                  bootstrapURLKeys={{
-                    key: "AIzaSyDFscFGDtZL1daD8iYZKxFrGn2FXdHbMbw",
-                  }}
-                  center={defaultProps.center}
-                  defaultZoom={defaultProps.zoom}
-                >
-                  {LatLongForBeneficiary.lat && LatLongForBeneficiary.Long ? (
-                    <Marker
-                      lat={defaultProps.center.lat}
-                      lng={defaultProps.center.lng}
-                      name="Location"
-                    />
+          {/*Neu HHcode null thi k hien thi*/}
+          {detailHouseHold.HHCode ? (
+            <>
+              <section className="border-bottom mb-3">
+                <div className="d-md-flex align-items-center mb-3">
+                  <span className="h5 mb-0">{t("BENEFICIARY_FORM")}</span>
+                  {HHCode ? (
+                    <div className="d-flex ml-auto">
+                      <Button
+                        className="set-center-content mr-lg-4 mr-1"
+                        icon={<ArrowLeftOutlined />}
+                        onClick={() => {
+                          props.history.push(PATH.HOUSEHOLD_REGISTRATION);
+                        }}
+                      >
+                        {t("BACK")}
+                      </Button>
+                      <Button
+                        className="set-center-content mr-1"
+                        type={"primary"}
+                        onClick={() => {
+                          props.history.push(PATH.ADD_HOUSEHOLD);
+                        }}
+                      >
+                        <i className="fas fa-plus mr-2"></i> {t("ADD")}
+                      </Button>
+                      <Button
+                        className="set-center-content mr-1"
+                        type={"primary"}
+                        onClick={() => {
+                          props.history.push(
+                            `${PATH.UPDATE_HOUSEHOLD}?hh_code=${HHCode}`
+                          );
+                        }}
+                      >
+                        <i className="fas fa-edit mr-2"></i> {t("EDIT")}
+                      </Button>
+                    </div>
                   ) : null}
-                </GoogleMapReact>
-              </div>
-            </Col>
-          </Row>
-        </div>
-      </section>
+                </div>
+              </section>
 
-      <PlotLandComponent
-        typeModal={typeModalPlotLand}
-        visible={visiblePlotLand}
-        setVisible={setVisiblePlotLand}
-        objectValue={objectPlotLand}
-        HHCode={HHCode}
-        detailHouseHold={detailHouseHold}
-        setDetailHouseHold={setDetailHouseHold}
-      />
+              {/*Content*/}
+              <section>
+                <div className="hh-location">
+                  <div className="mb-2 p-2 title-detail-household">
+                    I. {t("BENEFICIARY_FORM")}
+                  </div>
+                  <AddressComponent
+                    LocationBeneficiary={LocationBeneficiary}
+                    dataLanguage={dataLanguage}
+                  />
+                </div>
+
+                {/*General Information*/}
+                <div className="general-information">
+                  <div className="mb-2 p-2 title-detail-household">
+                    II. {t("GENERAL_INFORMATION")}
+                  </div>
+                  <GeneralInformationComponent
+                    GeneralInformationBeneficiary={
+                      GeneralInformationBeneficiary
+                    }
+                    LatLongForBeneficiary={LatLongForBeneficiary}
+                  />
+                </div>
+
+                {/*Household Member*/}
+                <div className="household-member">
+                  <div className="d-flex align-items-center mb-2 p-2 title-detail-household">
+                    III. {t("HOUSEHOLD_MEMBER_LIST")}
+                    {HHCode ? (
+                      <Button
+                        className="ml-auto set-center-content"
+                        type="dashed"
+                        onClick={() => {
+                          history.push(
+                            `${PATH.MEMBER_IN_HOUSEHOLD}?hh_code=${HHCode}`
+                          );
+                        }}
+                      >
+                        <i className="fas fa-plus mr-2"></i> {t("ADD")}
+                      </Button>
+                    ) : null}
+                  </div>
+                  <Table
+                    columns={columns}
+                    dataSource={detailHouseHold.Members || []}
+                    pagination={{ hideOnSinglePage: true }}
+                    style={{ overflowX: "auto", overflowY: "hidden" }}
+                    rowKey="MemberId"
+                  />
+                </div>
+
+                {/*Plot land List*/}
+                <div className="plot-land-list">
+                  <div className="d-flex align-items-center mb-2 p-2 title-detail-household">
+                    IV. {t("PLOT_LAND_LIST")}
+                    {HHCode ? (
+                      <Button
+                        className="ml-auto set-center-content"
+                        type="dashed"
+                        onClick={() => {
+                          setValuePlotLandModal("ADD");
+                        }}
+                      >
+                        <i className="fas fa-plus mr-2"></i> {t("ADD")}
+                      </Button>
+                    ) : null}
+                  </div>
+
+                  <Table
+                    columns={columnsPlotLandList}
+                    dataSource={detailHouseHold.PlotLands || []}
+                    pagination={{ hideOnSinglePage: true }}
+                    style={{ overflowX: "auto", overflowY: "hidden" }}
+                    rowKey="PlotLandId"
+                  />
+                </div>
+
+                <div className="survival-indicator">
+                  <div className="mb-2 p-2 title-detail-household">V.</div>
+                </div>
+
+                {/*Solidly and safety house*/}
+                <div className="safety-indicator">
+                  <div className="mb-2 p-2 title-detail-household">
+                    5.1 {t("SHELTER")}
+                  </div>
+                  <ShelterComponent
+                    dataLanguage={dataLanguage}
+                    Shelter={Shelter}
+                  />
+                </div>
+
+                {/*Having Essential Property and insrtruments for daily life*/}
+                <div className="insrtruments-indicator">
+                  <div className="mb-2 p-2 title-detail-household">
+                    5.2{" "}
+                    {t(
+                      "HAVING_ESSENTIAL_PROPERTY_AND_INSRTRUMENTS_FOR_DAILY_LIFE"
+                    )}
+                  </div>
+
+                  <EssentialPropertyAndInstrumentsComponent
+                    changeYesNoForQuestion={changeYesNoForQuestion}
+                    Machine={Machine}
+                  />
+                </div>
+
+                {/*Having property and tools necessary for living and making a living*/}
+                <div className="tools-indicator">
+                  <div className="mb-2 p-2 title-detail-household">
+                    5.3 {t("HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING")}
+                  </div>
+
+                  <ToolsForLivingComponent
+                    StableOccupationAndIncome={StableOccupationAndIncome}
+                    dataLanguage={dataLanguage}
+                    changeYesNoForQuestion={changeYesNoForQuestion}
+                  />
+                </div>
+                {/*Have stable occupation and income*/}
+                <div className="income-indicator">
+                  <div className="mb-2 p-2 title-detail-household">
+                    5.4 {t("HAVE_STABLE_OCCUPATION_AND_INCOME")}
+                  </div>
+                  <OccupationAndIncomeComponent
+                    WaterAndPermanentEnergyBeneficiary={
+                      WaterAndPermanentEnergyBeneficiary
+                    }
+                    dataLanguage={dataLanguage}
+                  />
+                </div>
+
+                {/*Accessing to primary public service*/}
+                <div className="primary-public-service-indicator">
+                  <div className="mb-2 p-2 title-detail-household">
+                    5.5 {t("ACCESSING_TO_PRIMARY_PUBLIC_SERVICE")}
+                  </div>
+                  <PrimaryPublicServiceComponent
+                    PrimaryPublicServiceForBeneficiary={
+                      PrimaryPublicServiceForBeneficiary
+                    }
+                    changeYesNoForQuestion={changeYesNoForQuestion}
+                  />
+                </div>
+
+                {/*Development families have 8 standard groups, 11 contents, 19 indicators*/}
+                <div className="primary-public-service-indicator">
+                  <div className="mb-2 p-2 title-detail-household">
+                    5.6{" "}
+                    {t(
+                      "DEVELOPMENT_FAMILIES_HAVE_8_STANDARD_GROUPS_11_CONTENTS_19_INDICATORS"
+                    )}
+                  </div>
+                  <DevelopmentComponent
+                    DevelopmentFamilyViewModel={DevelopmentFamilyViewModel}
+                    changeYesNoForQuestion={changeYesNoForQuestion}
+                  />
+                </div>
+
+                {/*Map*/}
+                <div className="tools-indicator">
+                  <div className="mb-3 p-2 title-detail-household">
+                    VI. {t("LOCATION_IN_MAP")}
+                  </div>
+                  <Row gutter={16}>
+                    <Col span={8}>
+                      <p className="mb-2 font-weight-600 font-15">
+                        Location(GPS):
+                      </p>
+                      <p className="mb-2">
+                        Latitude: {LatLongForBeneficiary.lat}
+                      </p>
+                      <p className="mb-2">
+                        Longitude:{LatLongForBeneficiary.Long}
+                      </p>
+                    </Col>
+                    <Col span={16}>
+                      <div style={{ height: "400px", width: "100%" }}>
+                        <GoogleMapReact
+                          bootstrapURLKeys={{
+                            key: "AIzaSyDFscFGDtZL1daD8iYZKxFrGn2FXdHbMbw",
+                          }}
+                          center={defaultProps.center}
+                          defaultZoom={defaultProps.zoom}
+                        >
+                          {LatLongForBeneficiary.lat &&
+                          LatLongForBeneficiary.Long ? (
+                            <Marker
+                              lat={defaultProps.center.lat}
+                              lng={defaultProps.center.lng}
+                              name="Location"
+                            />
+                          ) : null}
+                        </GoogleMapReact>
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+              </section>
+
+              <PlotLandComponent
+                typeModal={typeModalPlotLand}
+                visible={visiblePlotLand}
+                setVisible={setVisiblePlotLand}
+                objectValue={objectPlotLand}
+                HHCode={HHCode}
+                detailHouseHold={detailHouseHold}
+                setDetailHouseHold={setDetailHouseHold}
+              />
+            </>
+          ) : (
+            <div className="h2 text-danger text-center">{t("NOT_FOUND")}</div>
+          )}
+        </>
+      )}
     </div>
   );
 }
