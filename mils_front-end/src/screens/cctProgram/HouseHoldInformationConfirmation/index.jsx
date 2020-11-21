@@ -216,7 +216,7 @@ export default function HouseHoldInformationConfirmation(props) {
         </div>
       </section>
       <div className="row">
-        <div className="col">
+        <div className="col-sm-8 col-12">
           <DetailHouseHold
             defaultProps={defaultProps}
             detailHouseHold={detailHouseHold}
