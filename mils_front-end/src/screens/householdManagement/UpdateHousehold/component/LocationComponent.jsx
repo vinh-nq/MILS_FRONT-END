@@ -6,6 +6,7 @@ import Input from "antd/es/input";
 import houseHoldApi from "../../../../api/houseHoldApi";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+// import { regexTemplate } from "../../../../utils/regexTemplate";
 
 function LocationComponent(props) {
   const { detailHouseHold, form } = props;
@@ -22,7 +23,8 @@ function LocationComponent(props) {
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedVillage, setSelectedVillage] = useState("");
   const [selectedUnit, setSelectedUnit] = useState("");
-
+  // const [HHLevel, setHHLevel] = useState("");
+  // const [HHNumber, setHHNumber] = useState("");
   const dataLanguage =
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
     localStorage.getItem("i18nextLng");
@@ -35,6 +37,45 @@ function LocationComponent(props) {
       getUnit(detailHouseHold.LocationBeneficiary.VillageId);
     }
   }, [detailHouseHold.LocationBeneficiary]);
+
+  // const formatHHNumberAndHHLevel = (value, length) => {
+  //   const checkLength = length - value.length;
+  //   for (let i = 0; i < checkLength; i++) {
+  //     value = "0" + value;
+  //   }
+  //   return value;
+  // };
+
+  // useEffect(() => {
+  //   let location = "";
+  //   if (selectedUnit) location = selectedUnit;
+  //   else if (selectedVillage) location = selectedVillage;
+  //   else if (selectedDistrict) location = selectedDistrict;
+  //   else if (selectedProvince) location = selectedProvince;
+  //
+  //   if (HHNumber && regexTemplate.NUMBER.test(HHNumber)) {
+  //     location = location + formatHHNumberAndHHLevel(HHNumber, 3);
+  //   }
+  //
+  //   if (HHLevel && regexTemplate.NUMBER.test(HHLevel)) {
+  //     location = location + formatHHNumberAndHHLevel(HHLevel, 4);
+  //   }
+  //   form.setFields([
+  //     {
+  //       name: "HouseholdId",
+  //       value: location,
+  //       errors: [],
+  //     },
+  //   ]);
+  // }, [
+  //   selectedProvince,
+  //   selectedDistrict,
+  //   selectedVillage,
+  //   selectedUnit,
+  //   HHLevel,
+  //   HHNumber,
+  //   form,
+  // ]);
 
   const getProvince = async () => {
     await houseHoldApi.getAllProvince().then((res) => {
@@ -77,6 +118,9 @@ function LocationComponent(props) {
         value: null,
       },
     ]);
+    setSelectedDistrict("");
+    setSelectedVillage("");
+    setSelectedUnit("");
   };
 
   const onSelectDistrict = (id) => {
@@ -92,6 +136,8 @@ function LocationComponent(props) {
         value: null,
       },
     ]);
+    setSelectedVillage("");
+    setSelectedUnit("");
   };
 
   const onSelectVillage = (id) => {
@@ -103,6 +149,7 @@ function LocationComponent(props) {
       },
     ]);
     getUnit(id);
+    setSelectedUnit("");
   };
 
   const renderProvinceSelect = () => {
@@ -147,7 +194,7 @@ function LocationComponent(props) {
 
   return (
     <div className="hh-location">
-      <Row className="mb-2" gutter={16}>
+      <Row className="mb-2" gutter={[16, 16]}>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             {t("PROVINCE")}
@@ -196,8 +243,6 @@ function LocationComponent(props) {
             </Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             {t("VILLAGE")}
@@ -248,8 +293,6 @@ function LocationComponent(props) {
             </Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             {t("HH_NUMBER")}
@@ -271,7 +314,11 @@ function LocationComponent(props) {
               },
             ]}
           >
-            <Input />
+            <Input
+            // onChange={(e) => {
+            //   setHHNumber(e.target.value);
+            // }}
+            />
           </Form.Item>
         </Col>
         <Col span={24} md={12}>
@@ -295,9 +342,37 @@ function LocationComponent(props) {
               },
             ]}
           >
-            <Input />
+            <Input
+            // onChange={(e) => {
+            //   setHHLevel(e.target.value);
+            // }}
+            />
           </Form.Item>
         </Col>
+        {/*<Col span={24} md={12}>*/}
+        {/*  <Text className="font-13 font-weight-500">*/}
+        {/*    {t("HH_CODE")}*/}
+        {/*    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>*/}
+        {/*  </Text>*/}
+        {/*  <Form.Item*/}
+        {/*    name={["HouseholdId"]}*/}
+        {/*    className="mb-0"*/}
+        {/*    rules={[*/}
+        {/*      {*/}
+        {/*        validator(rule, value) {*/}
+        {/*          return handleValidateFrom(*/}
+        {/*            rule,*/}
+        {/*            value,*/}
+        {/*            objectValidateForm.checkString(30, true, "HH_CODE"),*/}
+        {/*            t*/}
+        {/*          );*/}
+        {/*        },*/}
+        {/*      },*/}
+        {/*    ]}*/}
+        {/*  >*/}
+        {/*    <Input />*/}
+        {/*  </Form.Item>*/}
+        {/*</Col>*/}
       </Row>
     </div>
   );

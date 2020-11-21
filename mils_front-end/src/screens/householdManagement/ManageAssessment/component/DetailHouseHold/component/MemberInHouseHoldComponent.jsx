@@ -521,7 +521,7 @@ function MemberInHouseHold(props) {
             rules={[
               {
                 required: true,
-                message: `${t("MARITAL_STATUS")} ${t("Marital status")}`,
+                message: `${t("MARITAL_STATUS")} ${t("is_not_empty")}`,
               },
             ]}
           >
