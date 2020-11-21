@@ -10,7 +10,7 @@ import {
   message,
 } from "antd";
 import React from "react";
-import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
+import {handleValidateFields} from "../../../../utils/handleValidateFields";
 import { objectValidateForm } from "../validate/objectValidateForm";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
@@ -104,12 +104,12 @@ function GeneralInformationComponent(props) {
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkString(
-                      100,
-                      true,
+                      objectValidateForm.checkString(
+                      50,
+                      false,
                       "HEAD_OF_HH_NAME"
                     ),
                     t
@@ -122,10 +122,7 @@ function GeneralInformationComponent(props) {
           </Form.Item>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("GENDER")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("GENDER")}</Text>
           <Form.Item
             name={["GeneralInformationBeneficiary", "Gender"]}
             className="mb-0"
@@ -144,20 +141,17 @@ function GeneralInformationComponent(props) {
           </Form.Item>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("TELEPHONE")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("TELEPHONE")}</Text>
           <Form.Item
             name={["GeneralInformationBeneficiary", "Telephone1"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(20, 0, "TELEPHONE", true),
+                    objectValidateForm.checkNumber(20, 0, "TELEPHONE", false),
                     t
                   );
                 },
@@ -168,20 +162,22 @@ function GeneralInformationComponent(props) {
           </Form.Item>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("NUMBER_OF_HH")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("NUMBER_OF_HH")}</Text>
           <Form.Item
             name={["GeneralInformationBeneficiary", "NumberOfHH"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(20, 0, "TELEPHONE", true),
+                    objectValidateForm.checkNumber(
+                      20,
+                      0,
+                      "NUMBER_OF_HH",
+                        false
+                    ),
                     t
                   );
                 },
@@ -192,20 +188,17 @@ function GeneralInformationComponent(props) {
           </Form.Item>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("FEMALE")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("FEMALE")}</Text>
           <Form.Item
             name={["GeneralInformationBeneficiary", "Female"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(10, 0, "FEMALE", true),
+                    objectValidateForm.checkNumber(20, 0, "FEMALE", false),
                     t
                   );
                 },
@@ -218,7 +211,6 @@ function GeneralInformationComponent(props) {
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             {t("DATE_OF_ENUMERATION")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["GeneralInformationBeneficiary", "DateOfEnumeration"]}
@@ -235,20 +227,17 @@ function GeneralInformationComponent(props) {
           </Form.Item>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("ENUMERATION")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("ENUMERATION")}</Text>
           <Form.Item
             name={["GeneralInformationBeneficiary", "Enumeration"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkString(20, true, "ENUMERATION"),
+                    objectValidateForm.checkString(20, false, "ENUMERATION"),
                     t
                   );
                 },
@@ -259,20 +248,17 @@ function GeneralInformationComponent(props) {
           </Form.Item>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("TELEPHONE")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("TELEPHONE")}</Text>
           <Form.Item
             name={["GeneralInformationBeneficiary", "TelePhone2"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(20, 0, "TELEPHONE", true),
+                    objectValidateForm.checkNumber(20, 0, "TELEPHONE", false),
                     t
                   );
                 },
@@ -283,20 +269,17 @@ function GeneralInformationComponent(props) {
           </Form.Item>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("RESPONDENT")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("RESPONDENT")}</Text>
           <Form.Item
             name={["GeneralInformationBeneficiary", "Respondent"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkString(20, true, "RESPONDENT"),
+                    objectValidateForm.checkString(20, false, "RESPONDENT"),
                     t
                   );
                 },
@@ -307,20 +290,17 @@ function GeneralInformationComponent(props) {
           </Form.Item>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">
-            {t("TELEPHONE")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("TELEPHONE")}</Text>
           <Form.Item
             name={["GeneralInformationBeneficiary", "TelePhone3"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(20, 0, "TELEPHONE", true),
+                    objectValidateForm.checkNumber(20, 0, "TELEPHONE", false),
                     t
                   );
                 },

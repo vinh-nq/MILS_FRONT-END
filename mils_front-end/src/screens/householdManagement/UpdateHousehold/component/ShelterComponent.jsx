@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import dataDictionaryApi from "../../../../api/dataDictionaryApi";
 import { useSelector } from "react-redux";
-import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
+import {handleValidateFields} from "../../../../utils/handleValidateFields";
 import { objectValidateForm } from "../validate/objectValidateForm";
 
 function ShelterComponent(props) {
@@ -104,20 +104,17 @@ function ShelterComponent(props) {
     <>
       <Row className="mb-2" gutter={[16, 16]}>
         <Col span={24}>
-          <Text className="font-13 font-weight-500">
-            {t("TOTAL_ROOMS")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("TOTAL_ROOMS")}</Text>
           <Form.Item
             name={["Shelter", "TotalRooms"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(20, 0, "TOTAL_ROOMS", true),
+                    objectValidateForm.checkNumber(20, 0, "TOTAL_ROOMS", false),
                     t
                   );
                 },

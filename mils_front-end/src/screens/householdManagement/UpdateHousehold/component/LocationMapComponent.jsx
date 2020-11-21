@@ -1,6 +1,6 @@
 import { Col, Form, Input, Row, Typography } from "antd";
-import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
 import { objectValidateForm } from "../validate/objectValidateForm";
+import {handleValidateFields} from "../../../../utils/handleValidateFields";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GoogleMapReact from "google-map-react";
@@ -34,8 +34,8 @@ function LocationMapComponent(props) {
 
   useEffect(() => {
     if (typeModal === "UPDATE") {
-      setLat(Number(LatLongForBeneficiary.Lat) || 0);
-      setLong(Number(LatLongForBeneficiary.Long) || 0);
+      setLat(Number(LatLongForBeneficiary.Lat) || 17.974855);
+      setLong(Number(LatLongForBeneficiary.Long) || 102.630867);
     }
   }, [LatLongForBeneficiary.Lat, LatLongForBeneficiary.Long, typeModal]);
 
@@ -64,21 +64,18 @@ function LocationMapComponent(props) {
 
   return (
     <Row className="mb-2" gutter={[16, 16]}>
-
       <Col span={24} md={12}>
-        <Text className="font-13 font-weight-500">
-          Latitude<span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-        </Text>
+        <Text className="font-13 font-weight-500">Latitude</Text>
         <Form.Item
           name={["LatLongForBeneficiary", "Lat"]}
           className="mb-0"
           rules={[
             {
               validator(rule, value) {
-                return handleValidateFrom(
+                return handleValidateFields(
                   rule,
                   value,
-                  objectValidateForm.checkString(20, true, "Latitude"),
+                  objectValidateForm.checkString(20, false, "Latitude"),
                   t
                 );
               },
@@ -93,19 +90,17 @@ function LocationMapComponent(props) {
         </Form.Item>
       </Col>
       <Col span={24} md={12}>
-        <Text className="font-13 font-weight-500">
-          Longitude<span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-        </Text>
+        <Text className="font-13 font-weight-500">Longitude</Text>
         <Form.Item
           name={["LatLongForBeneficiary", "Long"]}
           className="mb-0"
           rules={[
             {
               validator(rule, value) {
-                return handleValidateFrom(
+                return handleValidateFields(
                   rule,
                   value,
-                  objectValidateForm.checkString(20, true, "Longitude"),
+                  objectValidateForm.checkString(20, false, "Longitude"),
                   t
                 );
               },
@@ -129,8 +124,8 @@ function LocationMapComponent(props) {
             defaultZoom={defaultProps.zoom}
           >
             <Marker
-              lat={defaultProps.center.lat || 0}
-              lng={defaultProps.center.lng || 0}
+              lat={defaultProps.center.lat}
+              lng={defaultProps.center.lng}
               name="Location"
             />
           </GoogleMapReact>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select, Switch } from "antd";
 import Text from "antd/es/typography/Text";
 import { useTranslation } from "react-i18next";
-import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
+import {handleValidateFields} from "../../../../utils/handleValidateFields";
 import { objectValidateForm } from "../validate/objectValidateForm";
 import { useSelector } from "react-redux";
 import dataDictionaryApi from "../../../../api/dataDictionaryApi";
@@ -26,8 +26,11 @@ function PropertyAndToolsComponent(props) {
     getLenderType();
     getMainJob();
     getMainGood();
-    setBorrowReason(value.OweCredit ? value.OweCredit : false);
   }, []);
+
+  useEffect(() => {
+    setBorrowReason(value.OweCredit ? value.OweCredit : false);
+  }, [value.OweCredit]);
 
   const getBorrowingReason = async () => {
     await dataDictionaryApi.GetAllBorrowReason({ keyword: "" }).then((res) => {
@@ -68,24 +71,21 @@ function PropertyAndToolsComponent(props) {
       {/*1-2*/}
       <Row className="mb-2" gutter={16}>
         <Col className="mb-2" span={24}>
-          <Text className="font-13 font-weight-500">
-            {t("UNDER_14_YEARS")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("UNDER_14_YEARS")}</Text>
           <Form.Item
             name={["StableOccupationAndIncome", "TotalBellow_14"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
                     objectValidateForm.checkNumber(
-                      10,
+                      20,
                       0,
                       "UNDER_14_YEARS",
-                      true
+                      false
                     ),
                     t
                   );
@@ -97,20 +97,22 @@ function PropertyAndToolsComponent(props) {
           </Form.Item>
         </Col>
         <Col className="mb-2" span={24}>
-          <Text className="font-13 font-weight-500">
-            {t("BETWEEN_15-60")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("BETWEEN_15-60")}</Text>
           <Form.Item
             name={["StableOccupationAndIncome", "TotalBetween_15_60"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(10, 0, "BETWEEN_15-60", true),
+                    objectValidateForm.checkNumber(
+                      20,
+                      0,
+                      "BETWEEN_15-60",
+                      false
+                    ),
                     t
                   );
                 },
@@ -124,20 +126,17 @@ function PropertyAndToolsComponent(props) {
       {/*3-4*/}
       <Row className="mb-2" gutter={16}>
         <Col className="mb-2" span={24}>
-          <Text className="font-13 font-weight-500">
-            {t("OVER_60")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-          </Text>
+          <Text className="font-13 font-weight-500">{t("OVER_60")}</Text>
           <Form.Item
             name={["StableOccupationAndIncome", "TotalAbove_60"]}
             className="mb-0"
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
-                    objectValidateForm.checkNumber(10, 0, "OVER_60", true),
+                    objectValidateForm.checkNumber(20, 0, "OVER_60", false),
                     t
                   );
                 },
@@ -150,7 +149,6 @@ function PropertyAndToolsComponent(props) {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("WORKING_GROUPS_OF_REGULAR_FAMILY_MEMBERS")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "MainJobId"]}
@@ -158,12 +156,12 @@ function PropertyAndToolsComponent(props) {
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
                     objectValidateForm.checkString(
                       50,
-                      true,
+                      false,
                       "WORKING_GROUPS_OF_REGULAR_FAMILY_MEMBERS"
                     ),
                     t
@@ -181,7 +179,6 @@ function PropertyAndToolsComponent(props) {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("MAIN_OCCUPATIONS_OF_MOST_FAMILY_MEMBERS")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "MainGoodsId"]}
@@ -189,12 +186,12 @@ function PropertyAndToolsComponent(props) {
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
                     objectValidateForm.checkString(
                       50,
-                      true,
+                      false,
                       "MAIN_OCCUPATIONS_OF_MOST_FAMILY_MEMBERS"
                     ),
                     t
@@ -316,7 +313,6 @@ function PropertyAndToolsComponent(props) {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("SPECIFY_THE_NUMBER_OF_PLOTS")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "NumberPlots"]}
@@ -324,14 +320,14 @@ function PropertyAndToolsComponent(props) {
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
                     objectValidateForm.checkNumber(
                       10,
                       0,
                       "SPECIFY_THE_NUMBER_OF_PLOTS",
-                      true
+                      false
                     ),
                     t
                   );
@@ -348,7 +344,6 @@ function PropertyAndToolsComponent(props) {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("NUMBER_OF_RELATED_PLOTS")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "PlotRepeatCount"]}
@@ -356,14 +351,14 @@ function PropertyAndToolsComponent(props) {
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
                     objectValidateForm.checkNumber(
                       10,
                       0,
                       "NUMBER_OF_RELATED_PLOTS",
-                      true
+                      false
                     ),
                     t
                   );
@@ -392,7 +387,6 @@ function PropertyAndToolsComponent(props) {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("LOWER_SECONDARY_EDUCATION")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["StableOccupationAndIncome", "CompletedPrimarySchool"]}
@@ -400,14 +394,14 @@ function PropertyAndToolsComponent(props) {
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
                     objectValidateForm.checkNumber(
                       10,
                       0,
                       "LOWER_SECONDARY_EDUCATION",
-                      true
+                      false
                     ),
                     t
                   );

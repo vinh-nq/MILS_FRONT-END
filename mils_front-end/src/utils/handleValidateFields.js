@@ -1,12 +1,16 @@
 import { paserValue } from "./formatNumber";
 
-export const handleValidateFrom = (rule, value, objectValidate, t) => {
+export const handleValidateFields = (rule, value, objectValidate, t) => {
   if (objectValidate.checkEmpty && !value) {
     if (value !== 0) {
       return Promise.reject(
         `${t(objectValidate.nameLabel)} ${t("is_not_empty")}`
       );
     }
+  }
+
+  if (!objectValidate.checkEmpty && !value) {
+    return Promise.resolve();
   }
 
   if (!value) {
@@ -83,63 +87,3 @@ export const handleValidateFrom = (rule, value, objectValidate, t) => {
   }
   return Promise.resolve();
 };
-
-// export const handleValidateArray = (rule, value, objectValidate, t) => {
-//   if (objectValidate.checkArrayEmpty && !value) {
-//     if (value !== 0) {
-//       return Promise.reject(
-//         `${t(objectValidate.nameLabel)} ${t("is_not_empty")}`
-//       );
-//     }
-//   }
-//   if (!value) {
-//     return Promise.reject();
-//   }
-//   if (objectValidate.checkArrayEmpty && value.length === 0) {
-//     return Promise.reject(
-//       `${t(objectValidate.nameLabel)} ${t("is_not_empty")}`
-//     );
-//   }
-//   return Promise.resolve();
-// };
-
-// export const handleValidateBoolean = (value, objectValidate) => {
-//   if (objectValidate.checkEmpty) {
-//     if (value === undefined) {
-//       return true;
-//     } else {
-//       if (!value) {
-//         return false;
-//       }
-//     }
-//   }
-//   if (!value) {
-//     return true;
-//   }
-//   const valueParser = paserValue(`${value}`);
-//   if (
-//     objectValidate.type === "number" &&
-//     !RegExp("^[-]?[0-9.]*$").test(valueParser)
-//   ) {
-//     return false;
-//   }
-//   if (
-//     (objectValidate.minValue !== null) &
-//     (valueParser < objectValidate.minValue)
-//   ) {
-//     return false;
-//   }
-//   if (
-//     objectValidate.maxValue !== null &&
-//     valueParser > objectValidate.maxValue
-//   ) {
-//     return false;
-//   }
-//   if (
-//     objectValidate.maxLength !== null &&
-//     [...valueParser].length > objectValidate.maxLength
-//   ) {
-//     return false;
-//   }
-//   return true;
-// };

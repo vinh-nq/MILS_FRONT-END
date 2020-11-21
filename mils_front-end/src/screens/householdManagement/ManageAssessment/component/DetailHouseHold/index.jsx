@@ -40,8 +40,8 @@ function DetailBeneficiary(props) {
   const [objectPlotLand, setObjectPlotLand] = useState({});
   const [defaultProps, setDefaultProps] = useState({
     center: {
-      lat: 0,
-      lng: 0,
+      lat: 17.974855,
+      lng: 102.630867,
     },
     zoom: 10,
   });
@@ -70,8 +70,12 @@ function DetailBeneficiary(props) {
             return {
               ...defaultProps,
               center: {
-                lat: Number(LatLongForBeneficiary.Lat),
-                lng: Number(LatLongForBeneficiary.Long),
+                lat: LatLongForBeneficiary.Lat
+                  ? Number(LatLongForBeneficiary.Lat)
+                  : 17.974855,
+                lng: LatLongForBeneficiary.Long
+                  ? Number(LatLongForBeneficiary.Long)
+                  : 102.630867,
               },
             };
           });
@@ -565,8 +569,8 @@ function DetailBeneficiary(props) {
           <Row gutter={16}>
             <Col span={8}>
               <p className="mb-2 font-weight-600 font-15">Location(GPS):</p>
-              <p className="mb-2">Latitude: {defaultProps.center.lat}</p>
-              <p className="mb-2">Longitude:{defaultProps.center.lng}</p>
+              <p className="mb-2">Latitude: {LatLongForBeneficiary.lat}</p>
+              <p className="mb-2">Longitude:{LatLongForBeneficiary.Long}</p>
             </Col>
             <Col span={16}>
               <div style={{ height: "400px", width: "100%" }}>
@@ -577,11 +581,13 @@ function DetailBeneficiary(props) {
                   center={defaultProps.center}
                   defaultZoom={defaultProps.zoom}
                 >
-                  <Marker
-                    lat={defaultProps.center.lat}
-                    lng={defaultProps.center.lng}
-                    name="Location"
-                  />
+                  {LatLongForBeneficiary.lat && LatLongForBeneficiary.Long ? (
+                    <Marker
+                      lat={defaultProps.center.lat}
+                      lng={defaultProps.center.lng}
+                      name="Location"
+                    />
+                  ) : null}
                 </GoogleMapReact>
               </div>
             </Col>

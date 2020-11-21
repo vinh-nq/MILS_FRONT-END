@@ -2,7 +2,7 @@ import { Col, Form, Input, Row, Switch } from "antd";
 import Text from "antd/es/typography/Text";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
+import {handleValidateFields} from "../../../../utils/handleValidateFields";
 import { objectValidateForm } from "../validate/objectValidateForm";
 
 function SourceSurvivalComponent(props) {
@@ -55,7 +55,6 @@ function SourceSurvivalComponent(props) {
             {t(
               "TIME_FROM_HOME_TO_HEALTH_CENTER_OR_BASIC_HEALTH_SERVICE_OR_PHARMACY"
             )}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["PrimaryPublicServiceForBeneficiary", "TimeDispensary"]}
@@ -63,14 +62,14 @@ function SourceSurvivalComponent(props) {
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
                     objectValidateForm.checkNumber(
                       10,
                       0,
                       "TIME_FROM_HOME_TO_HEALTH_CENTER_OR_BASIC_HEALTH_SERVICE_OR_PHARMACY",
-                      true
+                      false
                     ),
                     t
                   );
@@ -97,7 +96,6 @@ function SourceSurvivalComponent(props) {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("THE_DISTANCE_FROM_HOME_TO_THE_HOSPITAL")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={[
@@ -108,14 +106,14 @@ function SourceSurvivalComponent(props) {
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
                     objectValidateForm.checkNumber(
                       10,
                       0,
                       "THE_DISTANCE_FROM_HOME_TO_THE_HOSPITAL",
-                      true
+                      false
                     ),
                     t
                   );
@@ -129,7 +127,6 @@ function SourceSurvivalComponent(props) {
         <Col className="mb-2" span={24}>
           <Text className="font-13 font-weight-500">
             {t("TIME_FROM_HOME_TO_HOSPITAL")}
-            <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
           </Text>
           <Form.Item
             name={["PrimaryPublicServiceForBeneficiary", "TImeNearestHospital"]}
@@ -137,14 +134,14 @@ function SourceSurvivalComponent(props) {
             rules={[
               {
                 validator(rule, value) {
-                  return handleValidateFrom(
+                  return handleValidateFields(
                     rule,
                     value,
                     objectValidateForm.checkNumber(
                       10,
                       true,
                       "TIME_FROM_HOME_TO_HOSPITAL",
-                      true
+                      false
                     ),
                     t
                   );
