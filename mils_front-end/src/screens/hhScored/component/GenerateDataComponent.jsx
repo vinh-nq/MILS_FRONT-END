@@ -84,20 +84,25 @@ function GenerateDataComponent(props) {
   };
 
   const onGenerate = async () => {
+    let location = "";
     let isError = false;
-    if (!selectedVillage) {
+    if (!selectedProvince) {
       isError = true;
       message.error({
-        content: t("VILLAGE_EMPTY"),
+        content: t("PROVINCE_EMPTY"),
         key: "message-form-role",
         duration: 1,
       });
     }
 
+    if (selectedVillage) location = selectedVillage;
+    else if (selectedDistrict) location = selectedDistrict;
+    else if (selectedProvince) location = selectedProvince;
+
     if (!isError) {
       setLoading(true);
       await CCTProgramApi.GenPMTScored({
-        id: selectedVillage,
+        id: location,
       }).then((res) => {
         if (res.data.Status) {
           setLoading(false);

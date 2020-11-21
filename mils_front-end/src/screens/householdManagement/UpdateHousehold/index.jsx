@@ -134,6 +134,7 @@ function UpdateHousehold(props) {
       ...value.WaterAndPermanentEnergyBeneficiary,
       ...value.DevelopmentFamilyViewModel,
       ...value.LatLongForBeneficiary,
+      // HouseholdId: value.HouseholdId,
       ImageUrl: formatBase64(ImageUrl),
       RespSignImage: formatBase64(RespSignImage),
       EnumSignImage: formatBase64(EnumSignImage),
@@ -345,14 +346,14 @@ function UpdateHousehold(props) {
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.1 {t("SHELTER")}
+                5.1 {t("SHELTER")}
               </div>
               <ShelterComponent />
             </section>
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.2{" "}
+                5.2{" "}
                 {t("HAVING_ESSENTIAL_PROPERTY_AND_INSRTRUMENTS_FOR_DAILY_LIFE")}
               </div>
               <InstrumentsForDailyLifeComponent />
@@ -360,7 +361,7 @@ function UpdateHousehold(props) {
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.3{" "}
+                5.3{" "}
                 {t(
                   "HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING_AND_MAKING_A_LIVING"
                 )}
@@ -373,20 +374,20 @@ function UpdateHousehold(props) {
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.4 {t("CLEAN_WATER_AND_PERMANENT_ENERGY_USE")}
+                5.4 {t("CLEAN_WATER_AND_PERMANENT_ENERGY_USE")}
               </div>
               <EnergyUsedComponent />
             </section>
 
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.5 {t("ACCESS_TO_BASIC_HEALTH_SERVICES")}
+                5.5 {t("ACCESS_TO_BASIC_HEALTH_SERVICES")}
               </div>
               <SourceSurvivalComponent />
             </section>
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.6{" "}
+                5.6{" "}
                 {t(
                   "DEVELOPMENT_FAMILIES_HAVE_8_STANDARD_GROUPS_11_CONTENTS_19_INDICATORS"
                 )}
@@ -395,7 +396,7 @@ function UpdateHousehold(props) {
             </section>
             <section className="mb-3">
               <div className="mb-3 p-2 title-add-household">
-                7.7 {t("LOCATION_IN_MAP")}
+                VI. {t("LOCATION_IN_MAP")}
               </div>
               <LocationMapComponent
                 typeModal={typeModal}

@@ -120,7 +120,7 @@ function CutOffComponent(props) {
     if (!regexTemplate.NUMBER.test(text)) {
       isError = true;
       message.error({
-        content: "Only input number",
+        content: "Only input integer number",
         key: "message-form-role",
         duration: 1.5,
       });
@@ -162,7 +162,7 @@ function CutOffComponent(props) {
       : [
           <Button
             key="1"
-            onChange={() => {
+            onClick={() => {
               setVisible(false);
             }}
           >

@@ -27,7 +27,7 @@ function EnergyUsedComponent(props) {
   }, []);
 
   const getRainingWater = async () => {
-    await dataDictionaryApi.GetAllDrinkingWater({ keyword: "" }).then((res) => {
+    await dataDictionaryApi.GetAllWater({ keyword: "" }).then((res) => {
       setWater(res.data.Data);
     });
   };
