@@ -1,0 +1,31 @@
+.class-cascaderac {
+  .ant-cascader-menu {
+    min-width: 150px;
+  }
+}
+
+.available {
+  background-color: #24e60021 !important;
+}
+
+.unavailable {
+  background-color: #ff000021 !important;
+}
+
+.ant-pagination-item-ellipsis {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.container-tranfer-data {
+  .ant-transfer-operation {
+    .ant-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  
+}

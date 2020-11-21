@@ -1,4 +1,4 @@
-export const API_URL = "http://oatapi.jbtech.vn/";
+export const API_URL = "http://misapi.jbtech.vn/";
 export const API_URL_IMG = "http://oat.mislaos.com/photo/photo_img/";
 export const API_URL_SIGN = "http://oat.mislaos.com/photo/photo_sign/";
 export const PageSize = 10;

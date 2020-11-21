@@ -106,6 +106,11 @@ const houseHoldApi = {
     const url = "api/HouseHold/GetInformationOfIndividualPlotLand";
     return fetchData(url, "GET", params, null);
   },
+  GetDetailHouseHold: (params) => {
+    const url = "api/Approve/GetDetailHouseHold";
+    return fetchData(url, "GET", params, null);
+  },
+  
 };
 
 export default houseHoldApi;
