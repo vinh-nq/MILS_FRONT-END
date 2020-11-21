@@ -149,9 +149,10 @@ export default function ListHouseHoldInforMISFunction(props) {
       key: "actions",
       align: "center",
       dataIndex: "actions",
+      className: "icon-action",
       render: (data, record) => {
         return (
-          <div className="d-flex justify-content-end" style={{ minWidth: 80 }}>
+          <div className="d-flex justify-content-end" style={{ minWidth: 20 }}>
             <Button
               className="set-center-content mr-1"
               icon={<i className="fas fa-info-circle"></i>}

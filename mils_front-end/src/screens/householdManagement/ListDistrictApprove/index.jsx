@@ -161,24 +161,27 @@ export default function ListDistrictApprove(props) {
     {
       dataIndex: "district_status_name",
       title: t("district_status_name"),
+      className: "status-column",
       render: (text, record) => {
-        return renderStatusJSX(text);
+        return <div style={{ width: "60px" }}>{renderStatusJSX(text)}</div>;
       },
     },
     {
       dataIndex: "central_status_name",
       title: t("central_status_name"),
+      className: "status-column",
       render: (text, record) => {
-        return renderStatusJSX(text);
+        return <div style={{ width: "60px" }}>{renderStatusJSX(text)}</div>;
       },
     },
     {
       key: "actions",
       align: "center",
       dataIndex: "actions",
+      className: "icon-action",
       render: (data, record) => {
         return (
-          <div className="d-flex justify-content-end" style={{ minWidth: 80 }}>
+          <div className="d-flex justify-content-end" style={{ minWidth: 20 }}>
             <Button
               className="set-center-content mr-1"
               icon={<i className="fas fa-info-circle"></i>}
