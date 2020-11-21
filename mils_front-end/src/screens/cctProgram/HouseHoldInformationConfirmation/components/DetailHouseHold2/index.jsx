@@ -32,9 +32,9 @@ function DetailBeneficiary(props) {
 
   const changeYesNoForQuestion = (value) => {
     if (value === false || value === "false") {
-      return t("NO");
+      return "No";
     } else if (value === true || value === "true") {
-      return t("YES");
+      return "Yes";
     } else {
       return "";
     }
@@ -176,6 +176,7 @@ function DetailBeneficiary(props) {
 
   return (
     <div className="detail-beneficiary-form">
+      {/*Content*/}
       <section>
         <div className="hh-location">
           <div className="mb-2 p-2 title-detail-household">
@@ -194,7 +195,6 @@ function DetailBeneficiary(props) {
           </div>
           <GeneralInformationComponent
             GeneralInformationBeneficiary={GeneralInformationBeneficiary}
-            LatLongForBeneficiary={LatLongForBeneficiary}
           />
         </div>
 
@@ -310,9 +310,13 @@ function DetailBeneficiary(props) {
           </div>
           <Row gutter={16}>
             <Col span={8}>
+              <p className="mb-0">
+                <span className="font-weight-600">Data Description:</span>{" "}
+                {LatLongForBeneficiary.Description}
+              </p>
               <p className="mb-2 font-weight-600 font-15">Location(GPS):</p>
-              <p className="mb-2">Latitude: {LatLongForBeneficiary.lat}</p>
-              <p className="mb-2">Longitude:{LatLongForBeneficiary.Long}</p>
+              <p className="mb-2">Latitude: {defaultProps.center.lat}</p>
+              <p className="mb-2">Longitude:{defaultProps.center.lng}</p>
             </Col>
             <Col span={16}>
               <div style={{ height: "400px", width: "100%" }}>
@@ -323,13 +327,11 @@ function DetailBeneficiary(props) {
                   center={defaultProps.center}
                   defaultZoom={defaultProps.zoom}
                 >
-                  {LatLongForBeneficiary.lat && LatLongForBeneficiary.Long ? (
-                    <Marker
-                      lat={defaultProps.center.lat}
-                      lng={defaultProps.center.lng}
-                      name="Location"
-                    />
-                  ) : null}
+                  <Marker
+                    lat={defaultProps.center.lat}
+                    lng={defaultProps.center.lng}
+                    name="Location"
+                  />
                 </GoogleMapReact>
               </div>
             </Col>

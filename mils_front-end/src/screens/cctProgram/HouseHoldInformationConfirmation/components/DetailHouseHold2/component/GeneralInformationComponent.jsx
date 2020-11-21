@@ -8,7 +8,7 @@ import {
 } from "../../../../../../constants/config";
 
 function GeneralInformationComponent(props) {
-  const { GeneralInformationBeneficiary, LatLongForBeneficiary } = props;
+  const { GeneralInformationBeneficiary } = props;
   const { t } = useTranslation();
 
   const checkUrlImgIsLaosOrJb = (value = "", type = null) => {
@@ -53,13 +53,9 @@ function GeneralInformationComponent(props) {
         <span className="font-weight-600">{t("ENUMERATION")}</span>:{" "}
         {GeneralInformationBeneficiary.Enumeration}
       </Col>
-      <Col span={24} md={12}>
+      <Col span={24}>
         <span className="font-weight-600">{t("TELEPHONE")}</span>:{" "}
         {GeneralInformationBeneficiary.TelePhone2}
-      </Col>
-      <Col span={24} md={12}>
-        <span className="font-weight-600">{t("DESCRIPTION")}</span>:{" "}
-        {LatLongForBeneficiary.Description}
       </Col>
       <Col span={24}>
         <div className="signature-image">
