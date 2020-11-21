@@ -424,6 +424,7 @@
   "NOT_PREGNANT": "ບໍ່ແມ່ນແມ່ຍິງຖືພາ",
   "VALUE": "ຄຸນຄ່າ",
   "SECTION": "ເນື້ອຫາ",
+  "CREATELISTHOUSEHOLDREQUEST": "ເຮັດລາຍຊື່ຂອງການຮ້ອງຂໍຂອງຄົວເຮືອນ",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."
