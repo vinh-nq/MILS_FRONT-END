@@ -234,7 +234,7 @@ function DetailBeneficiary(props) {
         {/*Solidly and safety house*/}
         <div className="safety-indicator">
           <div className="mb-2 p-2 title-detail-household">
-            7.1 {t("SHELTER")}
+            5.1 {t("SHELTER")}
           </div>
           <ShelterComponent dataLanguage={dataLanguage} Shelter={Shelter} />
         </div>
@@ -242,7 +242,7 @@ function DetailBeneficiary(props) {
         {/*Having Essential Property and insrtruments for daily life*/}
         <div className="insrtruments-indicator">
           <div className="mb-2 p-2 title-detail-household">
-            7.2 {t("HAVING_ESSENTIAL_PROPERTY_AND_INSRTRUMENTS_FOR_DAILY_LIFE")}
+            5.2 {t("HAVING_ESSENTIAL_PROPERTY_AND_INSRTRUMENTS_FOR_DAILY_LIFE")}
           </div>
 
           <EssentialPropertyAndInstrumentsComponent
@@ -254,7 +254,7 @@ function DetailBeneficiary(props) {
         {/*Having property and tools necessary for living and making a living*/}
         <div className="tools-indicator">
           <div className="mb-2 p-2 title-detail-household">
-            7.3 {t("HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING")}
+            5.3 {t("HAVING_PROPERTY_AND_TOOLS_NECESSARY_FOR_LIVING")}
           </div>
 
           <ToolsForLivingComponent
@@ -266,7 +266,7 @@ function DetailBeneficiary(props) {
         {/*Have stable occupation and income*/}
         <div className="income-indicator">
           <div className="mb-2 p-2 title-detail-household">
-            7.4 {t("HAVE_STABLE_OCCUPATION_AND_INCOME")}
+            5.4 {t("HAVE_STABLE_OCCUPATION_AND_INCOME")}
           </div>
           <OccupationAndIncomeComponent
             WaterAndPermanentEnergyBeneficiary={
@@ -279,7 +279,7 @@ function DetailBeneficiary(props) {
         {/*Accessing to primary public service*/}
         <div className="primary-public-service-indicator">
           <div className="mb-2 p-2 title-detail-household">
-            7.5 {t("ACCESSING_TO_PRIMARY_PUBLIC_SERVICE")}
+            5.5 {t("ACCESSING_TO_PRIMARY_PUBLIC_SERVICE")}
           </div>
           <PrimaryPublicServiceComponent
             PrimaryPublicServiceForBeneficiary={
@@ -292,7 +292,7 @@ function DetailBeneficiary(props) {
         {/*Development families have 8 standard groups, 11 contents, 19 indicators*/}
         <div className="primary-public-service-indicator">
           <div className="mb-2 p-2 title-detail-household">
-            7.6{" "}
+            5.6{" "}
             {t(
               "DEVELOPMENT_FAMILIES_HAVE_8_STANDARD_GROUPS_11_CONTENTS_19_INDICATORS"
             )}
@@ -306,7 +306,7 @@ function DetailBeneficiary(props) {
         {/*Map*/}
         <div className="tools-indicator">
           <div className="mb-3 p-2 title-detail-household">
-            7.7 {t("LOCATION_IN_MAP")}
+            VI. {t("LOCATION_IN_MAP")}
           </div>
           <Row gutter={16}>
             <Col span={8}>
