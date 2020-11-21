@@ -335,7 +335,7 @@ function PlotLandComponent(props) {
                 rules={[
                   {
                     required: true,
-                    message: `${t("Owned or leased")} ${t("is_not_empty")}`,
+                    message: `${t("OWNED_OR_LEASED")} ${t("is_not_empty")}`,
                   },
                 ]}
               >
@@ -373,7 +373,7 @@ function PlotLandComponent(props) {
                 rules={[
                   {
                     required: true,
-                    message: `${t("Cause of plot")} ${t("is_not_empty")}`,
+                    message: `${t("CAUSE_OF_PLOT")} ${t("is_not_empty")}`,
                   },
                 ]}
               >
@@ -391,7 +391,7 @@ function PlotLandComponent(props) {
                 rules={[
                   {
                     required: true,
-                    message: `${t("Type of land")} ${t("is_not_empty")}`,
+                    message: `${t("TYPE_OF_LAND")} ${t("is_not_empty")}`,
                   },
                 ]}
               >
