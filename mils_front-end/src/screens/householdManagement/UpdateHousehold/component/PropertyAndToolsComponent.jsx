@@ -216,7 +216,7 @@ function PropertyAndToolsComponent(props) {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
       </Row>
@@ -250,8 +250,8 @@ function PropertyAndToolsComponent(props) {
                   ]);
                 }
               }}
-              checkedChildren="Yes"
-              unCheckedChildren="No"
+              checkedChildren={t("YES")}
+              unCheckedChildren={t("NO")}
             />
           </Form.Item>
         </Col>
@@ -294,7 +294,7 @@ function PropertyAndToolsComponent(props) {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
       </Row>
@@ -310,7 +310,7 @@ function PropertyAndToolsComponent(props) {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col className="mb-2" span={24}>
@@ -384,7 +384,7 @@ function PropertyAndToolsComponent(props) {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
       </Row>

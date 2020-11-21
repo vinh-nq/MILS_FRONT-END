@@ -19,7 +19,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -32,7 +32,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -45,7 +45,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -58,7 +58,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -71,7 +71,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -86,7 +86,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -99,7 +99,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -112,7 +112,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -125,7 +125,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -140,7 +140,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -153,7 +153,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -166,7 +166,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -181,7 +181,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -196,7 +196,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -211,7 +211,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>
@@ -226,7 +226,7 @@ function InstrumentsForDailyLifeComponent() {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Switch checkedChildren="Yes" unCheckedChildren="No" />
+                  <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
                 </Form.Item>
               </div>
             </li>

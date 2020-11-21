@@ -30,7 +30,6 @@ function LocationMapComponent(props) {
   const [lat, setLat] = useState("");
 
   const { t } = useTranslation();
-  const { TextArea } = Input;
   const { Text } = Typography;
 
   useEffect(() => {
@@ -65,19 +64,7 @@ function LocationMapComponent(props) {
 
   return (
     <Row className="mb-2" gutter={[16, 16]}>
-      <Col span={24}>
-        <Text className="font-13 font-weight-500">{t("DESCRIPTION")}</Text>
-        <Form.Item
-          name={["LatLongForBeneficiary", "Description"]}
-          className="mb-0"
-        >
-          <TextArea
-            autoSize={{ minRows: 2, maxRows: 3 }}
-            showCount
-            maxLength={200}
-          />
-        </Form.Item>
-      </Col>
+
       <Col span={24} md={12}>
         <Text className="font-13 font-weight-500">
           Latitude<span style={{ paddingLeft: "3px", color: "red" }}>*</span>

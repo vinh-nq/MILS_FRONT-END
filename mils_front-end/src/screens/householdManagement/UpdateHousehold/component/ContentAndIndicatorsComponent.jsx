@@ -18,7 +18,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -31,7 +31,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -44,7 +44,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -60,7 +60,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -73,7 +73,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -89,7 +89,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -105,7 +105,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -121,7 +121,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -137,7 +137,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -150,7 +150,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -163,7 +163,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -179,7 +179,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -195,7 +195,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -208,7 +208,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -221,7 +221,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -234,7 +234,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -247,7 +247,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -260,7 +260,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -273,7 +273,7 @@ function ContentAndIndicatorsComponent() {
             valuePropName="checked"
             initialValue={false}
           >
-            <Switch checkedChildren="Yes" unCheckedChildren="No" />
+            <Switch checkedChildren={t("YES")} unCheckedChildren={t("NO")} />
           </Form.Item>
         </Col>
       </Row>

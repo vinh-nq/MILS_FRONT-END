@@ -44,7 +44,7 @@ function GeneralInformationComponent(props) {
   const { Text } = Typography;
   const { t } = useTranslation();
   const { Option } = Select;
-
+  const { TextArea } = Input;
   const disabledDate = (current) => {
     return current > moment();
   };
@@ -92,7 +92,7 @@ function GeneralInformationComponent(props) {
 
   return (
     <>
-      <Row className="mb-2" gutter={16}>
+      <Row className="mb-2" gutter={[16, 16]}>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             {t("HEAD_OF_HH_NAME")}
@@ -143,8 +143,6 @@ function GeneralInformationComponent(props) {
             </Select>
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             {t("TELEPHONE")}
@@ -193,8 +191,6 @@ function GeneralInformationComponent(props) {
             <Input />
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             {t("FEMALE")}
@@ -238,8 +234,6 @@ function GeneralInformationComponent(props) {
             <DatePicker className="w-100" disabledDate={disabledDate} />
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             {t("ENUMERATION")}
@@ -288,8 +282,6 @@ function GeneralInformationComponent(props) {
             <Input />
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">
             {t("RESPONDENT")}
@@ -338,8 +330,19 @@ function GeneralInformationComponent(props) {
             <Input />
           </Form.Item>
         </Col>
-      </Row>
-      <Row className="mb-2" gutter={16}>
+        <Col span={24}>
+          <Text className="font-13 font-weight-500">{t("DESCRIPTION")}</Text>
+          <Form.Item
+            name={["LatLongForBeneficiary", "Description"]}
+            className="mb-0"
+          >
+            <TextArea
+              autoSize={{ minRows: 2, maxRows: 3 }}
+              showCount
+              maxLength={300}
+            />
+          </Form.Item>
+        </Col>
         <Col span={24} md={12}>
           <Text className="font-13 font-weight-500">{t("HH_IMAGE")}</Text>
           <Upload
@@ -361,7 +364,9 @@ function GeneralInformationComponent(props) {
           </Upload>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">{t("SIGNATURE_COLLECTOR")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("SIGNATURE_COLLECTOR")}
+          </Text>
           <Upload
             name="avatar"
             listType="picture-card"
@@ -381,7 +386,9 @@ function GeneralInformationComponent(props) {
           </Upload>
         </Col>
         <Col span={24} md={12}>
-          <Text className="font-13 font-weight-500">{t("SIGNATURE_RESPONDENT")}</Text>
+          <Text className="font-13 font-weight-500">
+            {t("SIGNATURE_RESPONDENT")}
+          </Text>
           <Upload
             name="avatar"
             listType="picture-card"

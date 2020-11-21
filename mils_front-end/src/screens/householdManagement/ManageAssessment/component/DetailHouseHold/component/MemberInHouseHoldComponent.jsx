@@ -586,6 +586,7 @@ function MemberInHouseHold(props) {
             ]}
           >
             <DatePicker
+              placeholder={t("SELECT_DATE_OF_BIRTH")}
               onChange={(value, dateString) => {
                 const years = moment().diff(dateString, "years", false);
                 setAge(years);
@@ -600,7 +601,7 @@ function MemberInHouseHold(props) {
         </Col>
         <Col span={24}>
           <Text className="font-13 font-weight-500">
-            5.1.{t("AGE")} (Choice date of birth)
+            5.1.{t("AGE")} ({t("SELECT_DATE_OF_BIRTH")})
           </Text>
           <Form.Item name={"Age"} className="mb-0">
             <Input readOnly={true} />
@@ -646,8 +647,8 @@ function MemberInHouseHold(props) {
                     }
                   }}
                 >
-                  <Option value={true}>Yes</Option>
-                  <Option value={false}>No</Option>
+                  <Option value={true}>{t("YES")}</Option>
+                  <Option value={false}>{t("NO")}</Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -715,8 +716,8 @@ function MemberInHouseHold(props) {
                 <Col span={24}>
                   <Text className="font-13 font-weight-500">
                     9.1.{t("CLASS_OF")}
-                    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>
-                    (Choice level education)
+                    <span style={{ paddingLeft: "3px", color: "red" }}>*</span>(
+                    {t("CHOICE_SELECT_LEVEL")})
                   </Text>
                   <Form.Item
                     name={"MemberLevelId"}
@@ -924,7 +925,7 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         11.2.{`${t("HIGHEST_PRIMARY")}`}{" "}
-                        {ref ? "(Value <= section 9.3)" : null}
+                        {ref ? `(${t("VALUE")} <= ${t("SECTION")} 9.3)` : null}
                       </Text>
                       <Form.Item name={"HHClassLcPrimary"} className="mb-0">
                         <Select
@@ -948,7 +949,7 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         11.3.{` ${t("HIGHEST_LOWER_SECONDARY")}`}{" "}
-                        {ref ? "(Value <= section 9.4)" : null}
+                        {ref ? `(${t("VALUE")} <= ${t("SECTION")} 9.4)` : null}
                       </Text>
                       <Form.Item name={"HHClassLcLs"} className="mb-0">
                         <Select
@@ -971,7 +972,7 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         11.4.{`${t("HIGHEST_UPPER_SECONDARY")}`}{" "}
-                        {ref ? "(Value <= section 9.5)" : null}
+                        {ref ? `(${t("VALUE")} <= ${t("SECTION")} 9.5)` : null}
                       </Text>
                       <Form.Item name={"HHClassLcUs"} className="mb-0">
                         <Select
@@ -993,7 +994,7 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         11.5.{`${t("HIGHEST_VOCATIONAL_SCHOOL")}`}{" "}
-                        {ref ? "(Value <= section 9.6)" : null}
+                        {ref ? `(${t("VALUE")} <= ${t("SECTION")} 9.6)` : null}
                       </Text>
                       <Form.Item name={"HHClassLcVoc"} className="mb-0">
                         <Select
@@ -1017,7 +1018,7 @@ function MemberInHouseHold(props) {
                     <Col span={24} md={12}>
                       <Text className="font-13 font-weight-500">
                         11.6.{`${t("HIGHEST_UNIVERSITY_INSTITUTE")} `}{" "}
-                        {ref ? "(Value <= section 9.7)" : null}
+                        {ref ? `(${t("VALUE")} <= ${t("SECTION")} 9.7)` : null}
                       </Text>
                       <Form.Item name={"HHClassLcUniv"} className="mb-0">
                         <Select
@@ -1190,8 +1191,8 @@ function MemberInHouseHold(props) {
                       initialValue={false}
                     >
                       <Select>
-                        <Option value={true}>Pregnant</Option>
-                        <Option value={false}>Not Pregnant</Option>
+                        <Option value={true}>{t("PREGNANT")}</Option>
+                        <Option value={false}>{t("NOT_PREGNANT")}</Option>
                       </Select>
                     </Form.Item>
                   </Col>
