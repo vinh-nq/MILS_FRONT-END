@@ -56,15 +56,6 @@ export default function UserVillageManagement(props) {
       title: t("UserName"),
       dataIndex: "UserName",
       key: "UserName",
-    },
-    {
-      title: t("FullName"),
-      dataIndex: "FullName",
-      style: {
-        display: "flex",
-        flexDirection: "row",
-      },
-      key: "FullName",
       render: (text) => (
         <div className="d-flex align-items-center">
           <Highlighter
@@ -75,6 +66,15 @@ export default function UserVillageManagement(props) {
           />
         </div>
       ),
+    },
+    {
+      title: t("FullName"),
+      dataIndex: "FullName",
+      style: {
+        display: "flex",
+        flexDirection: "row",
+      },
+      key: "FullName",
     },
     {
       title: t("villageLa"),
@@ -147,7 +147,7 @@ export default function UserVillageManagement(props) {
     if (keyword && keyword !== "") {
       arraySearch = arrayData.filter(
         (el) =>
-          el.RoleName.toLowerCase().indexOf(keyword.trim().toLowerCase()) >= 0
+          el.UserName.toLowerCase().indexOf(keyword.trim().toLowerCase()) >= 0
       );
     }
     return arraySearch;

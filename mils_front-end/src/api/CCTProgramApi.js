@@ -40,5 +40,9 @@ const CCTProgramApi = {
       "Get Approved Households List"
     );
   },
+  GetListHHForConfirmation: (data, detail) => {
+    const url = "api/HouseHoldCCT/GetListHHForConfirmation";
+    return fetchData(url, "POST", null, data);
+  },
 };
 export default CCTProgramApi;

@@ -72,6 +72,21 @@ export const PATH = {
   LIST_OF_WATER_DRY: "/datadictionary/listofwaterdry",
   LIST_OF_WATER: "/datadictionary/listofwater",
   LIST_OF_UNIT: "/datadictionary/listofunit",
+  HOUSEHOLD_DETAIL_ON_DEMAD:
+    "/cctprogram/enrollondemand/detailhouseholdondemand",
+  HOUSEHOLD_REQUESTED: "/householdmanagement/householdrequested",
+  HOUSEHOLD_DETAIL_ON_REQUESTED:
+    "/householdmanagement/householdrequested/detailhouseholdonrequested",
+  DISTRICT_APPROVE: "/householdmanagement/districtapprove",
+  HOUSEHOLD_DETAIL_ON_DISTRICT_APPROVE:
+    "/householdmanagement/districtapprove/detailhouseholdondistrictapprove",
+  CENTRAL_APPROVE: "/householdmanagement/centralapprove",
+  HOUSEHOLD_DETAIL_ON_CENTRAL_APPROVE:
+    "/householdmanagement/centralapprove/detailhouseholdoncentralapprove",
+  CREATE_LIST_HOUSEHOLD_REQUEST:
+    "/householdmanagement/createlisthouseholdrequest",
+  HOUSEHOLD_DETAIL_ON_CREATE_LIST_HOUSEHOLD_REQUEST:
+    "/householdmanagement/createlisthouseholdrequest/detailhouseholdcreatelisthouseholdrequest",
 };
 
 export const PATH_BREADCRUM = {
@@ -145,4 +160,17 @@ export const PATH_BREADCRUM = {
   listofwaterdry: "/datadictionary/listofwaterdry",
   listofwater: "/datadictionary/listofwater",
   listofunit: "/datadictionary/listofunit",
+  detailhouseholdondemand: "/cctprogram/enrollondemand/detailhouseholdondemand",
+  householdrequested: "/householdmanagement/householdrequested",
+  detailhouseholdonrequested:
+    "/householdmanagement/householdrequested/detailhouseholdonrequested",
+  districtapprove: "/householdmanagement/districtapprove",
+  detailhouseholdondistrictapprove:
+    "/householdmanagement/districtapprove/detailhouseholdondistrictapprove",
+  centralapprove: "/householdmanagement/centralapprove",
+  detailhouseholdoncentralapprove:
+    "/householdmanagement/centralapprove/detailhouseholdoncentralapprove",
+  createlisthouseholdrequest: "/householdmanagement/createlisthouseholdrequest",
+  detailhouseholdcreatelisthouseholdrequest:
+    "/householdmanagement/createlisthouseholdrequest/detailhouseholdcreatelisthouseholdrequest",
 };

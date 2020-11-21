@@ -222,7 +222,11 @@ function ModalUserVillage(props) {
   };
 
   const handleSubmit = (valueForm) => {
-    message.loading({ content: "Loading...", key: "message-form-role" });
+    message.loading({
+      content: "Loading...",
+      key: "message-form-role",
+      duration: "30",
+    });
     if (typeModal === "add") {
       handleAddNew({
         Id: null,
@@ -256,6 +260,7 @@ function ModalUserVillage(props) {
         htmlType: "submit",
         type: "primary",
         disabled: typeModal === "edit",
+        style: { display: typeModal === "edit" ? "none" : null },
       }}
       onCancel={handleCanncel}
       okText={`${typeModal === "add" ? t("add") : t("update")}`}

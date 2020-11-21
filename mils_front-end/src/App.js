@@ -53,7 +53,7 @@ import ListOfSchoolEnroll from "./screens/dataDictionary/ListOfSchoolEnroll";
 import ListOfAreaMateral from "./screens/dataDictionary/ListOfAreaMateral";
 import ListOfSafetyArea from "./screens/dataDictionary/ListOfSafetyArea";
 import ListOfCCTConfirmStatus from "./screens/dataDictionary/ListOfCCTConfirmStatus";
-import EnrollmentAutoFromPMTResult from "./screens/cctProgram/EnrollmentAutoFromPMTResult";
+// import EnrollmentAutoFromPMTResult from "./screens/cctProgram/EnrollmentAutoFromPMTResult";
 import Enrollment from "./screens/cctProgram/Enrollment";
 import HouseholdScore from "./screens/hhScored";
 import ListHouseholdForCCTProgram from "./screens/cctProgram/ListHouseHoldForCCTProgram";
@@ -63,6 +63,11 @@ import ListMemberInCCTProgram from "./screens/cctProgram/ListMemberInCCTProgram"
 import ListOfWaterDry from "./screens/dataDictionary/ListOfWaterDry";
 import ListOfWater from "./screens/dataDictionary/ListOfWater";
 import ListOfUnit from "./screens/dataDictionary/ListOfUnit";
+import HouseHoldInformationConfirmation from "./screens/cctProgram/HouseHoldInformationConfirmation";
+import ListHouseHoldInforMISFunction from "./screens/cctProgram/ListHouseHoldInforMISFunction";
+import ListHouseHoldRequestCM from "./screens/cctProgram/ListHouseHoldRequestCM";
+import ListDistrictApprove from "./screens/householdManagement/ListDistrictApprove";
+import ListCentralApprove from "./screens/householdManagement/ListCentralApprove";
 class App extends React.Component {
   render() {
     return (
@@ -193,8 +198,8 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
-              component={EnrollmentAutoFromPMTResult}
-              path={PATH.ENROLL_ON_DEMAND}
+              component={ListHouseHoldInforMISFunction}
+              path={PATH.CREATE_LIST_HOUSEHOLD_REQUEST}
               exact
             />
             <MainRouteWrapper
@@ -278,6 +283,26 @@ class App extends React.Component {
               exact
             />
             <MainRouteWrapper
+              component={ListDistrictApprove}
+              path={`${PATH.DISTRICT_APPROVE}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={HouseHoldInformationConfirmation}
+              path={`${PATH.HOUSEHOLD_DETAIL_ON_DISTRICT_APPROVE}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={ListCentralApprove}
+              path={`${PATH.CENTRAL_APPROVE}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={HouseHoldInformationConfirmation}
+              path={`${PATH.HOUSEHOLD_DETAIL_ON_CENTRAL_APPROVE}`}
+              exact
+            />
+            <MainRouteWrapper
               component={ListOfLanderType}
               path={`${PATH.LIST_OF_LANDER_TYPE}`}
               exact
@@ -348,11 +373,21 @@ class App extends React.Component {
               path={`${PATH.USER_MANAGEMENT}`}
               exact
             />
-            {/* <MainRouteWrapper
-              component={SystemParameters}
-              path={`${PATH.SYSTEMS_PARAMETERS}`}
+            <MainRouteWrapper
+              component={HouseHoldInformationConfirmation}
+              path={PATH.HOUSEHOLD_DETAIL_ON_CREATE_LIST_HOUSEHOLD_REQUEST}
               exact
-            /> */}
+            />
+            <MainRouteWrapper
+              component={ListHouseHoldRequestCM}
+              path={`${PATH.HOUSEHOLD_REQUESTED}`}
+              exact
+            />
+            <MainRouteWrapper
+              component={HouseHoldInformationConfirmation}
+              path={PATH.HOUSEHOLD_DETAIL_ON_REQUESTED}
+              exact
+            />
             <MainRouteWrapper
               component={() => <div>AAA</div>}
               path={`${PATH.BACKUP_DATABASE}`}

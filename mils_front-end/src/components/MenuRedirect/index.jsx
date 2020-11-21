@@ -4,10 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import menuManagementApi from "../../api/menuManagementApi";
+import { actionRedux } from "../../redux/actions";
 import "./styles.scss";
 import { useEffect } from "react";
 import * as _ from "lodash";
 import LoadingSpinner from "../LoadingSpinner";
+import { messageError } from "../MessageError";
+import { useDispatch } from "react-redux";
 
 export default function MenuRedirect(props) {
   const { t } = useTranslation();
@@ -15,6 +18,7 @@ export default function MenuRedirect(props) {
   const [checkLoading, setCheckLoading] = useState(false);
   const [listFunctionOfGroup, setListFunctionOfGroup] = useState([]);
   const idItem = useSelector((state) => state.historyReducer.id);
+  const dispatch = useDispatch();
   const dataLanguage =
     useSelector((state) => state.languageReducer.objectLanguage.value) ||
     localStorage.getItem("i18nextLng");
@@ -33,6 +37,13 @@ export default function MenuRedirect(props) {
         .then((res) => {
           setCheckLoading(false);
           setListFunctionOfGroup(res.data.Data);
+        })
+        .catch((error) => {
+          setCheckLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
         });
     };
     fetchDataFunction();
@@ -76,6 +87,63 @@ export default function MenuRedirect(props) {
                     const textSearch = (listFunctionOfGroup || []).find(
                       (el) => `${el.list_id}` === `${item}`
                     ).list_name_eng;
+                    if (
+                      textSearch.replace(/ /g, "").toLowerCase() ===
+                      "createlisthouseholdrequest"
+                    ) {
+                      dispatch({
+                        type: actionRedux.UPDATE_STATUS_PAGE_ON_DEMEND,
+                        payload: {
+                          page: 1,
+                          region: "all",
+                          keyword: "",
+                          listItems: [],
+                        },
+                      });
+                    }
+                    if (
+                      textSearch.replace(/ /g, "").toLowerCase() ===
+                      "householdrequested"
+                    ) {
+                      dispatch({
+                        type: actionRedux.UPDATE_STATUS_PAGE_ON_REQUESTED,
+                        payload: {
+                          page: 1,
+                          region: "all",
+                          keyword: "",
+                          listItems: [],
+                        },
+                      });
+                    }
+                    if (
+                      textSearch.replace(/ /g, "").toLowerCase() ===
+                      "districtapprove"
+                    ) {
+                      dispatch({
+                        type:
+                          actionRedux.UPDATE_STATUS_PAGE_ON_DISTRICT_APPROVE,
+                        payload: {
+                          page: 1,
+                          region: "all",
+                          keyword: "",
+                          listItems: [],
+                        },
+                      });
+                    }
+                    if (
+                      textSearch.replace(/ /g, "").toLowerCase() ===
+                      "centralapprove"
+                    ) {
+                      dispatch({
+                        type: actionRedux.UPDATE_STATUS_PAGE_ON_CENTRAL_APPROVE,
+                        payload: {
+                          page: 1,
+                          region: "all",
+                          keyword: "",
+                          listItems: [],
+                        },
+                      });
+                    }
                     history.push(
                       `/${listBreadcrumb[0]}/${textSearch
                         .replace(/ /g, "")
