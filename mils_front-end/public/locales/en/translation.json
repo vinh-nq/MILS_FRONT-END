@@ -591,6 +591,15 @@
   "NOT_PREGNANT": "Not Pregnant",
   "VALUE": "Value",
   "SECTION": "SECTION",
+  "APPROVED_SUCCESS":"Approved Success",
+  "CCT_PROGRAM": "CCT Program",
+  "GO_TO_EROLLMENT_ON_DEMAND": "Go to Enrollment On Demend",
+  "GRIEVANCE_MANAGEMENT": "Grievance Management",
+  "HOUSEHOLD_MANAGEMENT": "Household Management",
+  "PAYMENT": "Payment",
+  "REPORT_BI": "Report BI",
+  "SMS_BROADCAST": "SMS Broadcast",
+  "UPLOAD_SIGNATURE": "Upload Signature",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

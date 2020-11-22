@@ -109,7 +109,7 @@ export default function UserTrackingLog(props) {
         <div className="d-flex align-items-center">
           <i className="far fa-clock mr-2" style={{ color: "#a2a6b7" }}></i>
           <span style={{ fontSize: "12px" }}>
-            {moment(text).format("DD/MM/YYYY HH:mm:ss")}
+            {text ? moment(text).format("DD/MM/YYYY HH:mm:ss") : "-"}
           </span>
         </div>
       ),

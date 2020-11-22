@@ -23,6 +23,7 @@ import LockOutlined from "@ant-design/icons/lib/icons/LockOutlined";
 import UnlockOutlined from "@ant-design/icons/lib/icons/UnlockOutlined";
 import ExportExcelComponent from "./component/ExportExelComponent";
 import { PATH } from "../../../routers/Path";
+import { messageError } from "../../../components/MessageError";
 
 function ListHouseholdForCCTProgram(props) {
   const [data, setData] = useState([]);
@@ -99,19 +100,27 @@ function ListHouseholdForCCTProgram(props) {
     };
     const getDataConfirm = async (objParams) => {
       setLoading(true);
-      await GetHHCCTConfirms.GetHHCCTConfirms(objParams).then((res) => {
-        if (res.data.Status) {
-          setData(res.data.Data.hhCCTConfirms);
-          setTotalPage(res.data.Data.TotalPage);
-        } else {
-          message.error({
-            content: t("FETCH_DATA_FAILED"),
-            key: "message-form-role",
-            duration: 1,
+      await GetHHCCTConfirms.GetHHCCTConfirms(objParams)
+        .then((res) => {
+          setLoading(false);
+          if (res.data.Status) {
+            setData(res.data.Data.hhCCTConfirms);
+            setTotalPage(res.data.Data.TotalPage);
+          } else {
+            message.error({
+              content: t("FETCH_DATA_FAILED"),
+              key: "message-form-role",
+              duration: 1,
+            });
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
           });
-        }
-      });
-      setLoading(false);
+        });
     };
     getDataConfirm(objParams);
   }, [history.location, t]);
@@ -130,6 +139,12 @@ function ListHouseholdForCCTProgram(props) {
               duration: 1,
             });
           }
+        })
+        .catch((error) => {
+          messageError({
+            content: error,
+            duration: 2,
+          });
         });
     };
     getAllStatusConfirm();
