@@ -56,7 +56,7 @@ import ListOfCCTConfirmStatus from "./screens/dataDictionary/ListOfCCTConfirmSta
 // import EnrollmentAutoFromPMTResult from "./screens/cctProgram/EnrollmentAutoFromPMTResult";
 import Enrollment from "./screens/cctProgram/Enrollment";
 import HouseholdScore from "./screens/hhScored";
-import ListHouseholdForCCTProgram from "./screens/cctProgram/ListHouseHoldForCCTProgram";
+// import ListHouseholdForCCTProgram from "./screens/cctProgram/ListHouseHoldForCCTProgram";
 import CertifiesListOfTheBeneficiaries from "./screens/cctProgram/CertifiesListOfTheBeneficiaries";
 import UserTrackingLog from "./screens/system/UserTrackingLog";
 import ListMemberInCCTProgram from "./screens/cctProgram/ListMemberInCCTProgram";
@@ -192,11 +192,11 @@ class App extends React.Component {
               path={PATH.EROLLMENT_AUTO_FROM_PMT_RESULT}
               exact
             />
-            <MainRouteWrapper
-              component={ListHouseholdForCCTProgram}
-              path={PATH.EROLLMENT}
-              exact
-            />
+            {/*<MainRouteWrapper*/}
+            {/*  component={ListHouseholdForCCTProgram}*/}
+            {/*  path={PATH.EROLLMENT}*/}
+            {/*  exact*/}
+            {/*/>*/}
             <MainRouteWrapper
               component={ListHouseHoldInforMISFunction}
               path={PATH.CREATE_LIST_HOUSEHOLD_REQUEST}

@@ -247,7 +247,7 @@ function CutOffComponent(props) {
       ) : (
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <Text>{t("CUTOFF")}</Text>
+            <Text>{t("CUTOFF")} (%)</Text>
             <Input
               className="w-100"
               value={text}

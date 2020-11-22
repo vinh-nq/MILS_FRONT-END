@@ -1,6 +1,6 @@
 import { Col, Form, Input, Row, Typography } from "antd";
 import { objectValidateForm } from "../validate/objectValidateForm";
-import {handleValidateFields} from "../../../../utils/handleValidateFields";
+import { handleValidateFields } from "../../../../utils/handleValidateFields";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GoogleMapReact from "google-map-react";

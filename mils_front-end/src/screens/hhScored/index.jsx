@@ -102,8 +102,8 @@ function HouseholdScore(props) {
         setData(resHouseHoldPMT.data.Data.PMTScoreds);
         setTotalPage(resHouseHoldPMT.data.Data.TotalPage);
         setProvince(resProvince.data.Data);
-        setDistrict(resDistrict.data.Data);
-        setVillage(resVillage.data.Data);
+        if (params.provinceId) setDistrict(resDistrict.data.Data);
+        if (params.districtId) setVillage(resVillage.data.Data);
       });
       setLoading(false);
     };
@@ -339,7 +339,7 @@ function HouseholdScore(props) {
                 <Option value={value.VillageId} key={index}>
                   {dataLanguage === "la"
                     ? value.VillageName
-                    : value.VillageNameEng || t("EMPTY")}
+                    : value.VillageNameEng}
                 </Option>
               ))}
             </Select>

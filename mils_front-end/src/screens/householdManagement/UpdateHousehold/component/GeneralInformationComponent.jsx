@@ -10,7 +10,7 @@ import {
   message,
 } from "antd";
 import React from "react";
-import {handleValidateFields} from "../../../../utils/handleValidateFields";
+import { handleValidateFields } from "../../../../utils/handleValidateFields";
 import { objectValidateForm } from "../validate/objectValidateForm";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
@@ -107,7 +107,7 @@ function GeneralInformationComponent(props) {
                   return handleValidateFields(
                     rule,
                     value,
-                      objectValidateForm.checkString(
+                    objectValidateForm.checkString(
                       50,
                       false,
                       "HEAD_OF_HH_NAME"
@@ -176,7 +176,7 @@ function GeneralInformationComponent(props) {
                       20,
                       0,
                       "NUMBER_OF_HH",
-                        false
+                      false
                     ),
                     t
                   );
@@ -330,7 +330,9 @@ function GeneralInformationComponent(props) {
             listType="picture-card"
             className="avatar-uploader hh-registration-image-upload"
             showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            customRequest={({ file, onSuccess }) => {
+              setTimeout(() => {}, 0);
+            }}
             beforeUpload={beforeUpload}
             onChange={(info) => {
               handleChange(info, "HOUSEHOLD");
@@ -352,7 +354,9 @@ function GeneralInformationComponent(props) {
             listType="picture-card"
             className="avatar-uploader hh-registration-image-upload"
             showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            customRequest={({ file, onSuccess }) => {
+              setTimeout(() => {}, 0);
+            }}
             beforeUpload={beforeUpload}
             onChange={(info) => {
               handleChange(info, "ENUMSIGN");
@@ -374,7 +378,9 @@ function GeneralInformationComponent(props) {
             listType="picture-card"
             className="avatar-uploader hh-registration-image-upload"
             showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            customRequest={({ file, onSuccess }) => {
+              setTimeout(() => {}, 0);
+            }}
             beforeUpload={beforeUpload}
             onChange={(info) => {
               handleChange(info, "RESPSIGN");
@@ -394,7 +400,9 @@ function GeneralInformationComponent(props) {
             listType="picture-card"
             className="avatar-uploader hh-registration-image-upload"
             showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            customRequest={({ file, onSuccess }) => {
+              setTimeout(() => {}, 0);
+            }}
             beforeUpload={beforeUpload}
             onChange={(info) => {
               handleChange(info, "IMAGE");
