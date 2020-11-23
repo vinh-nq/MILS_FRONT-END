@@ -44,5 +44,9 @@ const CCTProgramApi = {
     const url = "api/HouseHoldCCT/GetListHHForConfirmation";
     return fetchData(url, "POST", null, data);
   },
+  GetCutOffLevel: (data) => {
+    const url = "api/HouseHoldCCT/GetCutOffLevel";
+    return fetchData(url, "GET", data, null);
+  },
 };
 export default CCTProgramApi;

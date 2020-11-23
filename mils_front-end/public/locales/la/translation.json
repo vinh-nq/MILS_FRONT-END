@@ -597,6 +597,7 @@
   "waterId": "Water Rain ID",
   "waterLao": "Water Rain (Laos)",
   "APPROVED_SUCCESS": "Approved Success",
+  "CUTOFFPOINT":"CutOff Point",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

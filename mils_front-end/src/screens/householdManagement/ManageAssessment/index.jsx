@@ -3,9 +3,6 @@ import {
   Button,
   Col,
   Input,
-  // Dropdown,
-  // Menu,
-  // Modal,
   Pagination,
   Row,
   Select,
@@ -15,8 +12,6 @@ import {
   Popconfirm,
 } from "antd";
 
-// import HouseHoldMemberList from "./component/HHMemberList";
-// import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../../api/houseHoldApi";
 import downloadFileExcelApi from "../../../api/downloadFileExcelApi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
@@ -26,19 +21,11 @@ import { useTranslation } from "react-i18next";
 import { PATH } from "../../../routers/Path";
 import { saveAs } from "file-saver";
 import {
-  // UserOutlined,
-  // InfoCircleOutlined,
-  // BankOutlined,
-  // EllipsisOutlined,
   DeleteOutlined,
-  // EditOutlined,
-  // InfoCircleOutlined,
 } from "@ant-design/icons/lib/icons";
 import { messageError } from "../../../components/MessageError";
 
 function ManageAssessment(props) {
-  // const [visibleMemberList, setVisibleMemberList] = useState(false);
-  // const [visiblePlotLand, setVisiblePlotLand] = useState(false);
   const [data, setData] = useState([]);
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
@@ -56,13 +43,6 @@ function ManageAssessment(props) {
   const [selectPregnant, setSelectPregnant] = useState(-1);
   const [headName, setHeadName] = useState("");
   const history = useHistory();
-
-  //get member in household state
-  // const [memberInHouseHold, setMemberInHouseHold] = useState([]);
-  // const [plotLandInHouseHold, setPlotLandInHouseHold] = useState([]);
-
-  //delete member in household
-  // const confirm = Modal.confirm;
 
   const { Option } = Select;
   const { Text } = Typography;
@@ -483,50 +463,7 @@ function ManageAssessment(props) {
         });
       });
   };
-
-  //Xem thông tin chi tiết của từng thành viên trong gia đình
-  // const getMemberInHouseHold = async (HHCode) => {
-  //   setLoading(true);
-  //   await houseHoldApi
-  //     .getMembersInHouseHold({ householdId: HHCode })
-  //     .then((res) => {
-  //       setMemberInHouseHold(res.data.Data);
-  //     });
-  //   setLoading(false);
-  // };
-
-  //lấy dữ liệu khi muốn xem thông tin của từng cá nhân và plotland
-  // const getPlotLandByHouseHold = async (id) => {
-  //   setLoading(true);
-  //   await houseHoldApi
-  //     .getPlotLandsByHouseHold({ houseHoldId: id })
-  //     .then((res) => {
-  //       setPlotLandInHouseHold(res.data.Data);
-  //     });
-  //   setVisiblePlotLand(true);
-  //   setLoading(false);
-  // };
-  //
-  // const showModalMemberInHouseHold = async (id) => {
-  //   await getMemberInHouseHold(id);
-  //   setVisibleMemberList(true);
-  // };
-  //
-
-  //Xóa một household
-  // const showConfirm = (hhCode) => {
-  //   setTimeout(() => {
-  //     confirm({
-  //       title: "Do you want to delete this household?",
-  //       okText: t("DELETE"),
-  //       onOk: () => {
-  //         handleDeleteHouseHold(hhCode);
-  //       },
-  //       onCancel: () => {},
-  //     });
-  //   }, 400);
-  // };
-
+  
   const handleDeleteHouseHold = async (hhCode) => {
     setLoading(true);
     await houseHoldApi
