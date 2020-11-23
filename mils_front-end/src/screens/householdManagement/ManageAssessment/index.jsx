@@ -546,9 +546,15 @@ function ManageAssessment(props) {
   };
 
   const onSearchChange = () => {
-    history.push(
-      `/householdmanagement/householdregistration?page=1&provinceId=${selectedProvince}&districtId=${selectedDistrict}&villageId=${selectedVillage}&unitId=${selectedUnit}&child=${selectChildren}&pregnant=${selectPregnant}&headName=${headName}`
-    );
+    let path = `${PATH.HOUSEHOLD_REGISTRATION}?page=1`;
+    if (selectedProvince !== "-1") path += `&provinceId=${selectedProvince}`;
+    if (selectedDistrict !== "-1") path += `&districtId=${selectedDistrict}`;
+    if (selectedVillage !== "-1") path += `&villageId=${selectedVillage}`;
+    if (selectedUnit !== "-1") path += `&unitId=${selectedUnit}`;
+    if (selectChildren !== -1) path += `&child=${selectChildren}`;
+    if (selectPregnant !== -1) path += `&pregnant=${selectPregnant}`;
+    if (headName) path += `&headName=${headName}`;
+    history.push(path);
   };
 
   const onSelectProvince = (id) => {
@@ -591,7 +597,6 @@ function ManageAssessment(props) {
   };
 
   const onPageChange = (currentPage) => {
-    setPage(currentPage);
     const {
       provinceId,
       districtId,
@@ -601,9 +606,15 @@ function ManageAssessment(props) {
       pregnant,
       headName,
     } = getDataFromUrl();
-    history.push(
-      `/householdmanagement/householdregistration?page=${currentPage}&provinceId=${provinceId}&districtId=${districtId}&villageId=${villageId}&unitId=${unitId}&child=${child}&pregnant=${pregnant}&headName=${headName}`
-    );
+    let path = `${PATH.HOUSEHOLD_REGISTRATION}?page=${currentPage}`;
+    if (provinceId !== "-1") path += `&provinceId=${provinceId}`;
+    if (districtId !== "-1") path += `&districtId=${districtId}`;
+    if (villageId !== "-1") path += `&villageId=${villageId}`;
+    if (unitId !== "-1") path += `&unitId=${unitId}`;
+    if (child !== -1) path += `&child=${child}`;
+    if (pregnant !== -1) path += `&pregnant=${pregnant}`;
+    if (headName) path += `&headName=${headName}`;
+    history.push(path);
   };
 
   const renderProvinceSelect = () => {
