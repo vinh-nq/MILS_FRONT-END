@@ -149,6 +149,7 @@ function CutOffComponent(props) {
     return showTable
       ? [
           <Button
+            key={"1"}
             type={"primary"}
             className="ml-auto"
             onClick={() => {
@@ -168,7 +169,7 @@ function CutOffComponent(props) {
           >
             {t("CANCEL")}
           </Button>,
-          <Button key="3" type="primary" loading={isLoading} onClick={onCutOff}>
+          <Button key="2" type="primary" loading={isLoading} onClick={onCutOff}>
             {t("CUTOFF")}
           </Button>,
         ];
