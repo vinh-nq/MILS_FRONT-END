@@ -34,6 +34,7 @@ import {
   // EditOutlined,
   // InfoCircleOutlined,
 } from "@ant-design/icons/lib/icons";
+import { messageError } from "../../../components/MessageError";
 
 function ManageAssessment(props) {
   // const [visibleMemberList, setVisibleMemberList] = useState(false);
@@ -365,17 +366,31 @@ function ManageAssessment(props) {
         getDistrictPromiseAll(params.provinceId),
         getDistrictVillageAll(params.districtId),
         getUnitPromiseAll(params.villageId),
-      ]).then(
-        ([resHouseHoldList, resProvince, resDistrict, resVillage, resUnit]) => {
-          setData(resHouseHoldList.data.Data.houseHoldViewModels);
-          setTotalPage(resHouseHoldList.data.Data.TotalPage);
-          setProvince(resProvince.data.Data);
-          setDistrict(resDistrict.data.Data);
-          setVillage(resVillage.data.Data);
-          setUnit(resUnit.data.Data);
-        }
-      );
-      setLoading(false);
+      ])
+        .then(
+          ([
+            resHouseHoldList,
+            resProvince,
+            resDistrict,
+            resVillage,
+            resUnit,
+          ]) => {
+            setLoading(false);
+            setData(resHouseHoldList.data.Data.houseHoldViewModels);
+            setTotalPage(resHouseHoldList.data.Data.TotalPage);
+            setProvince(resProvince.data.Data);
+            setDistrict(resDistrict.data.Data);
+            setVillage(resVillage.data.Data);
+            setUnit(resUnit.data.Data);
+          }
+        )
+        .catch((error) => {
+          setLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
+        });
     };
     getDataHouseHold(objectParams);
   }, [history.location]);
@@ -432,21 +447,41 @@ function ManageAssessment(props) {
   };
 
   const getDistrict = async (provinceId) => {
-    await houseHoldApi.getAllDistrict({ provinceId }).then((res) => {
-      setDistrict(res.data.Data);
-    });
+    await houseHoldApi
+      .getAllDistrict({ provinceId })
+      .then((res) => {
+        setDistrict(res.data.Data);
+      })
+      .catch((error) => {
+        messageError({
+          content: error,
+          duration: 2,
+        });
+      });
   };
 
   const getVillage = async (districtId) => {
     await houseHoldApi
       .getAllVillage({ districtId })
-      .then((res) => setVillage(res.data.Data));
+      .then((res) => setVillage(res.data.Data))
+      .catch((error) => {
+        messageError({
+          content: error,
+          duration: 2,
+        });
+      });
   };
 
   const getUnit = async (villageId) => {
     await houseHoldApi
       .getAllUnit({ villageId })
-      .then((res) => setUnit(res.data.Data));
+      .then((res) => setUnit(res.data.Data))
+      .catch((error) => {
+        messageError({
+          content: error,
+          duration: 2,
+        });
+      });
   };
 
   //Xem thông tin chi tiết của từng thành viên trong gia đình
@@ -494,17 +529,25 @@ function ManageAssessment(props) {
 
   const handleDeleteHouseHold = async (hhCode) => {
     setLoading(true);
-    await houseHoldApi.deleteHouseHold({ householdId: hhCode }).then((res) => {
-      if (res.data.Status) {
-        reloadApi();
-      } else {
-        message.error({
-          content: t("DELETE_FAILED"),
-          key: "message-form-role",
-          duration: 1,
+    await houseHoldApi
+      .deleteHouseHold({ householdId: hhCode })
+      .then((res) => {
+        if (res.data.Status) {
+          reloadApi();
+        } else {
+          message.error({
+            content: t("DELETE_FAILED"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      })
+      .catch((error) => {
+        messageError({
+          content: error,
+          duration: 2,
         });
-      }
-    });
+      });
   };
 
   const reloadApi = async () => {
@@ -531,6 +574,7 @@ function ManageAssessment(props) {
         currentPage: pageUrl,
       })
       .then((res) => {
+        setLoading(false);
         if (res.data.Status) {
           setData(res.data.Data.houseHoldViewModels);
           setTotalPage(res.data.Data.TotalPage);
@@ -541,8 +585,14 @@ function ManageAssessment(props) {
             duration: 1,
           });
         }
+      })
+      .catch((error) => {
+        setLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
-    setLoading(false);
   };
 
   const onSearchChange = () => {
@@ -680,7 +730,21 @@ function ManageAssessment(props) {
                           blobs,
                           `${t("Member&PlotLand")}` + fileExtension
                         );
+                      })
+                      .catch((error) => {
+                        setLoading(false);
+                        messageError({
+                          content: error,
+                          duration: 2,
+                        });
                       });
+                  })
+                  .catch((error) => {
+                    setLoading(false);
+                    messageError({
+                      content: error,
+                      duration: 2,
+                    });
                   });
               }}
             >
@@ -707,7 +771,21 @@ function ManageAssessment(props) {
                         const fileExtension = ".xlsx";
                         setLoading(false);
                         saveAs(blobs, `${t("F1ResultForm")}` + fileExtension);
+                      })
+                      .catch((error) => {
+                        setLoading(false);
+                        messageError({
+                          content: error,
+                          duration: 2,
+                        });
                       });
+                  })
+                  .catch((error) => {
+                    setLoading(false);
+                    messageError({
+                      content: error,
+                      duration: 2,
+                    });
                   });
               }}
             >

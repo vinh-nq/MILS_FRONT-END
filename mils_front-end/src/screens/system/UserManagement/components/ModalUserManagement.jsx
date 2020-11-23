@@ -6,6 +6,7 @@ import { handleValidateFrom } from "../../../../utils/handleValidateFrom";
 import roleManagementApi from "../../../../api/roleManagementApi";
 import userManagementApi from "../../../../api/userManagementApi";
 import { regexTemplate } from "../../../../utils/regexTemplate";
+import { messageError } from "../../../../components/MessageError";
 import Cookies from "universal-cookie";
 
 function ModalUserManagement(props) {
@@ -48,6 +49,13 @@ function ModalUserManagement(props) {
             ...dataUser,
             Active: dataUser.Active === 1 ? true : false,
             Enabled: dataUser.Enabled === 1 ? true : false,
+          });
+        })
+        .catch((error) => {
+          setCheckLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
           });
         });
     };

@@ -21,6 +21,7 @@ import GeneralInformationComponent from "./component/GeneralInformationComponent
 import AddressComponent from "./component/AddressComponent";
 import "./scss/style.scss";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
+import { messageError } from "../../../../../components/MessageError";
 
 const Marker = (props) => {
   const { name } = props;
@@ -65,6 +66,7 @@ function DetailBeneficiary(props) {
       await houseHoldApi
         .getDetailHouseHold({ householdId: hh_code })
         .then((res) => {
+          setLoading(false);
           const { LatLongForBeneficiary } = res.data.Data;
           setDefaultProps((defaultProps) => {
             return {
@@ -80,8 +82,14 @@ function DetailBeneficiary(props) {
             };
           });
           setDetailHouseHold(res.data.Data);
+        })
+        .catch((error) => {
+          setLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
         });
-      setLoading(false);
     };
     getDetailHouseHold(hh_code);
   }, [history.location]);
@@ -98,50 +106,68 @@ function DetailBeneficiary(props) {
 
   const handleDeletePlotLand = async (id) => {
     setLoading(true);
-    await plotLandApi.delete({ plotlandId: id }).then((res) => {
-      if (res.data.Status) {
+    await plotLandApi
+      .delete({ plotlandId: id })
+      .then((res) => {
+        if (res.data.Status) {
+          setLoading(false);
+          message.success({
+            content: t("DELETE_SUCCESS"),
+            key: "message-form-role",
+            duration: 1,
+          });
+          const plotLandArray = { ...detailHouseHold };
+          plotLandArray.PlotLands = res.data.Data;
+          setDetailHouseHold(plotLandArray);
+        } else {
+          setLoading(false);
+          message.error({
+            content: t("DELETE_FAILED"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      })
+      .catch((error) => {
         setLoading(false);
-        message.success({
-          content: t("DELETE_SUCCESS"),
-          key: "message-form-role",
-          duration: 1,
+        messageError({
+          content: error,
+          duration: 2,
         });
-        const plotLandArray = { ...detailHouseHold };
-        plotLandArray.PlotLands = res.data.Data;
-        setDetailHouseHold(plotLandArray);
-      } else {
-        setLoading(false);
-        message.error({
-          content: t("DELETE_FAILED"),
-          key: "message-form-role",
-          duration: 1,
-        });
-      }
-    });
+      });
   };
 
   const handleDeleteMember = async (id) => {
     setLoading(true);
-    await houseHoldApi.deleteMember({ memberId: id }).then((res) => {
-      if (res.data.Status) {
+    await houseHoldApi
+      .deleteMember({ memberId: id })
+      .then((res) => {
+        if (res.data.Status) {
+          setLoading(false);
+          message.success({
+            content: t("DELETE_SUCCESS"),
+            key: "message-form-role",
+            duration: 1,
+          });
+          const memberArray = { ...detailHouseHold };
+          memberArray.Members = res.data.Data;
+          setDetailHouseHold(memberArray);
+        } else {
+          setLoading(false);
+          message.error({
+            content: t("DELETE_FAILED"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      })
+      .catch((error) => {
         setLoading(false);
-        message.success({
-          content: t("DELETE_SUCCESS"),
-          key: "message-form-role",
-          duration: 1,
+        messageError({
+          content: error,
+          duration: 2,
         });
-        const memberArray = { ...detailHouseHold };
-        memberArray.Members = res.data.Data;
-        setDetailHouseHold(memberArray);
-      } else {
-        setLoading(false);
-        message.error({
-          content: t("DELETE_FAILED"),
-          key: "message-form-role",
-          duration: 1,
-        });
-      }
-    });
+      });
   };
 
   const columns = [
@@ -353,9 +379,16 @@ function DetailBeneficiary(props) {
       await houseHoldApi
         .getInformationOfIndividualPlotLand({ plotlandId: obj.PlotLandId })
         .then((res) => {
+          setLoading(false);
           setObjectPlotLand(res.data.Data);
+        })
+        .catch((error) => {
+          setLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
         });
-      setLoading(false);
     } else {
       setObjectPlotLand(obj);
     }

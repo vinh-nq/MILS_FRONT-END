@@ -70,6 +70,7 @@ function UpdateHousehold(props) {
         await houseHoldApi
           .getDetailHouseHold({ householdId: hh_code })
           .then((res) => {
+            setLoading(false);
             const { GeneralInformationBeneficiary } = res.data.Data;
             const {
               DateOfEnumeration,
@@ -97,8 +98,14 @@ function UpdateHousehold(props) {
             );
             setDetailHouseHold(res.data.Data);
             form.setFieldsValue(res.data.Data);
+          })
+          .catch((error) => {
+            setLoading(false);
+            messageError({
+              content: error,
+              duration: 2,
+            });
           });
-        setLoading(false);
       };
       getDetailHouseHold(hh_code);
     }
@@ -218,40 +225,49 @@ function UpdateHousehold(props) {
     };
     objCover.HHNumber = formatHHNumberAndHHLevel(objCover.HHNumber, 3);
     objCover.HHLevel = formatHHNumberAndHHLevel(objCover.HHLevel, 4);
-    await houseHoldApi.updateHouseHold(objCover).then((res) => {
-      if (res.data.Status) {
-        setLoading(false);
-        if (res.data.Messages === "Household Code already exists") {
-          message.error({
-            content: t("CODE_DUPLICATE"),
-            key: "message-form-role",
-            duration: 2,
-          });
+    await houseHoldApi
+      .updateHouseHold(objCover)
+      .then((res) => {
+        if (res.data.Status) {
+          setLoading(false);
+          if (res.data.Messages === "Household Code already exists") {
+            message.error({
+              content: t("CODE_DUPLICATE"),
+              key: "message-form-role",
+              duration: 2,
+            });
+          } else {
+            const {
+              DateOfEnumeration,
+            } = res.data.Data.GeneralInformationBeneficiary;
+            res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration
+              ? moment(DateOfEnumeration, "DD-MM-YYYY")
+              : undefined;
+            setDetailHouseHold(res.data.Data);
+            setHHCode(res.data.Data.HouseholdId);
+            form.setFieldsValue(res.data.Data);
+            message.success({
+              content: t("EDIT_SUCCESS"),
+              key: "message-form-role",
+              duration: 1,
+            });
+          }
         } else {
-          const {
-            DateOfEnumeration,
-          } = res.data.Data.GeneralInformationBeneficiary;
-          res.data.Data.GeneralInformationBeneficiary.DateOfEnumeration = DateOfEnumeration
-            ? moment(DateOfEnumeration, "DD-MM-YYYY")
-            : undefined;
-          setDetailHouseHold(res.data.Data);
-          setHHCode(res.data.Data.HouseholdId);
-          form.setFieldsValue(res.data.Data);
-          message.success({
-            content: t("EDIT_SUCCESS"),
+          setLoading(false);
+          message.error({
+            content: t("EDIT_FAILED"),
             key: "message-form-role",
             duration: 1,
           });
         }
-      } else {
+      })
+      .catch((error) => {
         setLoading(false);
-        message.error({
-          content: t("EDIT_FAILED"),
-          key: "message-form-role",
-          duration: 1,
+        messageError({
+          content: error,
+          duration: 2,
         });
-      }
-    });
+      });
   };
 
   const submitFailed = async () => {
