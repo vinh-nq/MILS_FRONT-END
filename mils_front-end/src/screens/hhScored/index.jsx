@@ -12,6 +12,7 @@ import houseHoldApi from "../../api/houseHoldApi";
 import { getValueOfQueryParams } from "../../utils/getValueOfQueryParams";
 import { PATH } from "../../routers/Path";
 import CutOffComponent from "./component/CutOffComponent";
+import { messageError } from "../../components/MessageError";
 
 function HouseholdScore(props) {
   const [isLoading, setLoading] = useState(false);
@@ -98,14 +99,22 @@ function HouseholdScore(props) {
         getAllProvince(),
         getAllDistrict(params.provinceId),
         getAllVillage(params.districtId),
-      ]).then(([resHouseHoldPMT, resProvince, resDistrict, resVillage]) => {
-        setData(resHouseHoldPMT.data.Data.PMTScoreds);
-        setTotalPage(resHouseHoldPMT.data.Data.TotalPage);
-        setProvince(resProvince.data.Data);
-        if (params.provinceId) setDistrict(resDistrict.data.Data);
-        if (params.districtId) setVillage(resVillage.data.Data);
-      });
-      setLoading(false);
+      ])
+        .then(([resHouseHoldPMT, resProvince, resDistrict, resVillage]) => {
+          setLoading(false);
+          setData(resHouseHoldPMT.data.Data.PMTScoreds);
+          setTotalPage(resHouseHoldPMT.data.Data.TotalPage);
+          setProvince(resProvince.data.Data);
+          if (params.provinceId) setDistrict(resDistrict.data.Data);
+          if (params.districtId) setVillage(resVillage.data.Data);
+        })
+        .catch((error) => {
+          setLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
+        });
     };
 
     getDataHouseHoldPMT({

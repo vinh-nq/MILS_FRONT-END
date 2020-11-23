@@ -19,6 +19,7 @@ import { useHistory } from "react-router-dom";
 import LocationMapComponent from "./component/LocationMapComponent";
 import { PATH } from "../../../routers/Path";
 import { API_URL, API_URL_IMG, API_URL_SIGN } from "../../../constants/config";
+import { messageError } from "../../../components/MessageError";
 import ArrowLeftOutlined from "@ant-design/icons/lib/icons/ArrowLeftOutlined";
 import ContentAndIndicatorsComponent from "./component/ContentAndIndicatorsComponent";
 
@@ -181,6 +182,13 @@ function UpdateHousehold(props) {
             duration: 1,
           });
         }
+      })
+      .catch((error) => {
+        setLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
   };
 
