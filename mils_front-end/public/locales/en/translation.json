@@ -591,7 +591,7 @@
   "NOT_PREGNANT": "Not Pregnant",
   "VALUE": "Value",
   "SECTION": "SECTION",
-  "APPROVED_SUCCESS":"Approved Success",
+  "APPROVED_SUCCESS": "Approved Success",
   "CCT_PROGRAM": "CCT Program",
   "GO_TO_EROLLMENT_ON_DEMAND": "Go to Enrollment On Demend",
   "GRIEVANCE_MANAGEMENT": "Grievance Management",
@@ -600,6 +600,7 @@
   "REPORT_BI": "Report BI",
   "SMS_BROADCAST": "SMS Broadcast",
   "UPLOAD_SIGNATURE": "Upload Signature",
+  "GOOGLE_MAP_NOT_FOUND": "Location not found",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

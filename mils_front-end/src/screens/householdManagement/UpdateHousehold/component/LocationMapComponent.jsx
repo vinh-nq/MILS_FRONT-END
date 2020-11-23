@@ -34,8 +34,8 @@ function LocationMapComponent(props) {
 
   useEffect(() => {
     if (typeModal === "UPDATE") {
-      setLat(Number(LatLongForBeneficiary.Lat) || 17.974855);
-      setLong(Number(LatLongForBeneficiary.Long) || 102.630867);
+      setLat(Number(LatLongForBeneficiary.Lat));
+      setLong(Number(LatLongForBeneficiary.Long));
     }
   }, [LatLongForBeneficiary.Lat, LatLongForBeneficiary.Long, typeModal]);
 
@@ -59,6 +59,18 @@ function LocationMapComponent(props) {
       setLong(e.target.value);
     } else {
       setLat(e.target.value);
+    }
+  };
+
+  const checkNumber = () => {
+    if (long && lat) {
+      if (isNaN(long) || isNaN(lat)) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
     }
   };
 
@@ -123,11 +135,13 @@ function LocationMapComponent(props) {
             center={defaultProps.center}
             defaultZoom={defaultProps.zoom}
           >
-            <Marker
-              lat={defaultProps.center.lat}
-              lng={defaultProps.center.lng}
-              name="Location"
-            />
+            {!checkNumber() ? null : (
+              <Marker
+                lat={defaultProps.center.lat}
+                lng={defaultProps.center.lng}
+                name="Location"
+              />
+            )}
           </GoogleMapReact>
         </div>
       </Col>
