@@ -3,9 +3,6 @@ import {
   Button,
   Col,
   Input,
-  // Dropdown,
-  // Menu,
-  // Modal,
   Pagination,
   Row,
   Select,
@@ -15,8 +12,6 @@ import {
   Popconfirm,
 } from "antd";
 
-// import HouseHoldMemberList from "./component/HHMemberList";
-// import PlotLandList from "./component/PlotLandList";
 import houseHoldApi from "../../../api/houseHoldApi";
 import downloadFileExcelApi from "../../../api/downloadFileExcelApi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
@@ -26,18 +21,11 @@ import { useTranslation } from "react-i18next";
 import { PATH } from "../../../routers/Path";
 import { saveAs } from "file-saver";
 import {
-  // UserOutlined,
-  // InfoCircleOutlined,
-  // BankOutlined,
-  // EllipsisOutlined,
   DeleteOutlined,
-  // EditOutlined,
-  // InfoCircleOutlined,
 } from "@ant-design/icons/lib/icons";
+import { messageError } from "../../../components/MessageError";
 
 function ManageAssessment(props) {
-  // const [visibleMemberList, setVisibleMemberList] = useState(false);
-  // const [visiblePlotLand, setVisiblePlotLand] = useState(false);
   const [data, setData] = useState([]);
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
@@ -55,13 +43,6 @@ function ManageAssessment(props) {
   const [selectPregnant, setSelectPregnant] = useState(-1);
   const [headName, setHeadName] = useState("");
   const history = useHistory();
-
-  //get member in household state
-  // const [memberInHouseHold, setMemberInHouseHold] = useState([]);
-  // const [plotLandInHouseHold, setPlotLandInHouseHold] = useState([]);
-
-  //delete member in household
-  // const confirm = Modal.confirm;
 
   const { Option } = Select;
   const { Text } = Typography;
@@ -365,17 +346,31 @@ function ManageAssessment(props) {
         getDistrictPromiseAll(params.provinceId),
         getDistrictVillageAll(params.districtId),
         getUnitPromiseAll(params.villageId),
-      ]).then(
-        ([resHouseHoldList, resProvince, resDistrict, resVillage, resUnit]) => {
-          setData(resHouseHoldList.data.Data.houseHoldViewModels);
-          setTotalPage(resHouseHoldList.data.Data.TotalPage);
-          setProvince(resProvince.data.Data);
-          setDistrict(resDistrict.data.Data);
-          setVillage(resVillage.data.Data);
-          setUnit(resUnit.data.Data);
-        }
-      );
-      setLoading(false);
+      ])
+        .then(
+          ([
+            resHouseHoldList,
+            resProvince,
+            resDistrict,
+            resVillage,
+            resUnit,
+          ]) => {
+            setLoading(false);
+            setData(resHouseHoldList.data.Data.houseHoldViewModels);
+            setTotalPage(resHouseHoldList.data.Data.TotalPage);
+            setProvince(resProvince.data.Data);
+            setDistrict(resDistrict.data.Data);
+            setVillage(resVillage.data.Data);
+            setUnit(resUnit.data.Data);
+          }
+        )
+        .catch((error) => {
+          setLoading(false);
+          messageError({
+            content: error,
+            duration: 2,
+          });
+        });
     };
     getDataHouseHold(objectParams);
   }, [history.location]);
@@ -432,79 +427,64 @@ function ManageAssessment(props) {
   };
 
   const getDistrict = async (provinceId) => {
-    await houseHoldApi.getAllDistrict({ provinceId }).then((res) => {
-      setDistrict(res.data.Data);
-    });
+    await houseHoldApi
+      .getAllDistrict({ provinceId })
+      .then((res) => {
+        setDistrict(res.data.Data);
+      })
+      .catch((error) => {
+        messageError({
+          content: error,
+          duration: 2,
+        });
+      });
   };
 
   const getVillage = async (districtId) => {
     await houseHoldApi
       .getAllVillage({ districtId })
-      .then((res) => setVillage(res.data.Data));
+      .then((res) => setVillage(res.data.Data))
+      .catch((error) => {
+        messageError({
+          content: error,
+          duration: 2,
+        });
+      });
   };
 
   const getUnit = async (villageId) => {
     await houseHoldApi
       .getAllUnit({ villageId })
-      .then((res) => setUnit(res.data.Data));
+      .then((res) => setUnit(res.data.Data))
+      .catch((error) => {
+        messageError({
+          content: error,
+          duration: 2,
+        });
+      });
   };
-
-  //Xem thông tin chi tiết của từng thành viên trong gia đình
-  // const getMemberInHouseHold = async (HHCode) => {
-  //   setLoading(true);
-  //   await houseHoldApi
-  //     .getMembersInHouseHold({ householdId: HHCode })
-  //     .then((res) => {
-  //       setMemberInHouseHold(res.data.Data);
-  //     });
-  //   setLoading(false);
-  // };
-
-  //lấy dữ liệu khi muốn xem thông tin của từng cá nhân và plotland
-  // const getPlotLandByHouseHold = async (id) => {
-  //   setLoading(true);
-  //   await houseHoldApi
-  //     .getPlotLandsByHouseHold({ houseHoldId: id })
-  //     .then((res) => {
-  //       setPlotLandInHouseHold(res.data.Data);
-  //     });
-  //   setVisiblePlotLand(true);
-  //   setLoading(false);
-  // };
-  //
-  // const showModalMemberInHouseHold = async (id) => {
-  //   await getMemberInHouseHold(id);
-  //   setVisibleMemberList(true);
-  // };
-  //
-
-  //Xóa một household
-  // const showConfirm = (hhCode) => {
-  //   setTimeout(() => {
-  //     confirm({
-  //       title: "Do you want to delete this household?",
-  //       okText: t("DELETE"),
-  //       onOk: () => {
-  //         handleDeleteHouseHold(hhCode);
-  //       },
-  //       onCancel: () => {},
-  //     });
-  //   }, 400);
-  // };
-
+  
   const handleDeleteHouseHold = async (hhCode) => {
     setLoading(true);
-    await houseHoldApi.deleteHouseHold({ householdId: hhCode }).then((res) => {
-      if (res.data.Status) {
-        reloadApi();
-      } else {
-        message.error({
-          content: t("DELETE_FAILED"),
-          key: "message-form-role",
-          duration: 1,
+    await houseHoldApi
+      .deleteHouseHold({ householdId: hhCode })
+      .then((res) => {
+        if (res.data.Status) {
+          reloadApi();
+        } else {
+          message.error({
+            content: t("DELETE_FAILED"),
+            key: "message-form-role",
+            duration: 1,
+          });
+        }
+      })
+      .catch((error) => {
+        messageError({
+          content: error,
+          duration: 2,
         });
-      }
-    });
+      });
   };
 
   const reloadApi = async () => {
@@ -531,6 +511,7 @@ function ManageAssessment(props) {
         currentPage: pageUrl,
       })
       .then((res) => {
+        setLoading(false);
         if (res.data.Status) {
           setData(res.data.Data.houseHoldViewModels);
           setTotalPage(res.data.Data.TotalPage);
@@ -541,8 +522,14 @@ function ManageAssessment(props) {
             duration: 1,
           });
         }
+      })
+      .catch((error) => {
+        setLoading(false);
+        messageError({
+          content: error,
+          duration: 2,
+        });
       });
-    setLoading(false);
   };
 
   const onSearchChange = () => {
@@ -691,7 +678,21 @@ function ManageAssessment(props) {
                           blobs,
                           `${t("Member&PlotLand")}` + fileExtension
                         );
+                      })
+                      .catch((error) => {
+                        setLoading(false);
+                        messageError({
+                          content: error,
+                          duration: 2,
+                        });
                       });
+                  })
+                  .catch((error) => {
+                    setLoading(false);
+                    messageError({
+                      content: error,
+                      duration: 2,
+                    });
                   });
               }}
             >
@@ -718,7 +719,21 @@ function ManageAssessment(props) {
                         const fileExtension = ".xlsx";
                         setLoading(false);
                         saveAs(blobs, `${t("F1ResultForm")}` + fileExtension);
+                      })
+                      .catch((error) => {
+                        setLoading(false);
+                        messageError({
+                          content: error,
+                          duration: 2,
+                        });
                       });
+                  })
+                  .catch((error) => {
+                    setLoading(false);
+                    messageError({
+                      content: error,
+                      duration: 2,
+                    });
                   });
               }}
             >

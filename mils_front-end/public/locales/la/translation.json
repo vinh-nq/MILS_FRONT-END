@@ -598,6 +598,7 @@
   "waterLao": "ໃຊ້ນ້ ຳ ໃນລະດູຝົນ (Laos)",
   "APPROVED_SUCCESS": "ການອະນຸມັດຄວາມ ສຳ ເລັດ",
   "GOOGLE_MAP_NOT_FOUND": "Location not found",
+  "CUTOFFPOINT":"CutOff Point",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

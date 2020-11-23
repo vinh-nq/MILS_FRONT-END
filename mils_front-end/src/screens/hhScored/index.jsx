@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import householdScoreApi from "../../api/householdScoreApi";
 import { useHistory } from "react-router-dom";
 import "./style.scss";
-
 import GenerateDataComponent from "./component/GenerateDataComponent";
 import houseHoldApi from "../../api/houseHoldApi";
 import { getValueOfQueryParams } from "../../utils/getValueOfQueryParams";
@@ -116,7 +115,7 @@ function HouseholdScore(props) {
           });
         });
     };
-
+    
     getDataHouseHoldPMT({
       provinceId,
       districtId,
