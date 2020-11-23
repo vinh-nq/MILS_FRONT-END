@@ -157,6 +157,7 @@ function GenerateDataComponent(props) {
               onSelectProvince(value);
             }}
           >
+            <Option value={""}>{"ALL"}</Option>
             {province.map((value, index) => (
               <Option value={value.Id} key={index}>
                 {dataLanguage === "la"
@@ -174,8 +175,9 @@ function GenerateDataComponent(props) {
             onChange={(id) => {
               onDistrictSelect(id);
             }}
+            disabled={district.length > 0 ? false : true}
           >
-            <Option value={""}>{""}</Option>
+            <Option value={""}>{"ALL"}</Option>
             {district.map((value, index) => (
               <Option value={value.DistrictId} key={index}>
                 {dataLanguage === "la"
@@ -193,8 +195,9 @@ function GenerateDataComponent(props) {
             onChange={(value) => {
               setSelectedVillage(value);
             }}
+            disabled={district.length > 0 ? false : true}
           >
-            <Option value={""}>{""}</Option>
+            <Option value={""}>{"ALL"}</Option>
             {village.map((value, index) => (
               <Option value={value.VillageId} key={index}>
                 {dataLanguage === "la"

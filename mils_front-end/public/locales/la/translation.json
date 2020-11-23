@@ -394,7 +394,7 @@
   "SIGNATURE_COLLECTOR": "ລາຍເຊັນຜູ້ເກັບກຳຂໍ້ມູນ",
   "SIGNATURE_RESPONDENT": "ລາຍເຊັນຜູ້ຕອບຂໍ້ມູນ",
   "INPUT": "​ຕື່ມ",
-  "PROVINCE_EMPTY": "ແຂວງ​ທີ່​ຫວ່າງ",
+  "PROVINCE_EMPTY": "ເລືອກແຂວງ",
   "VILLAGE_EMPTY": "ບ້ານ​ທີ່​ຫວ່າງ",
   "CLASS_OF": "ລະດັບການສຶກສາ",
   "UPDATEMEMBERHOUSEHOLD": "ອັບ​ເດດ​ສະ​ມາ​ຊິກ​ຄອບ​ຄົວ",
@@ -597,8 +597,8 @@
   "waterId": "ໃຊ້ນ້ ຳ ໃນລະດູຝົນ ID",
   "waterLao": "ໃຊ້ນ້ ຳ ໃນລະດູຝົນ (Laos)",
   "APPROVED_SUCCESS": "ການອະນຸມັດຄວາມ ສຳ ເລັດ",
-  "GOOGLE_MAP_NOT_FOUND": "Location not found",
-  "CUTOFFPOINT":"CutOff Point",
+  "GOOGLE_MAP_NOT_FOUND": "ບໍ່ພົບສະຖານທີ່",
+  "CUTOFFPOINT": "CutOff Point",
   "description": {
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using buttons above."

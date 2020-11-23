@@ -668,7 +668,7 @@ function DetailBeneficiary(props) {
                             />
                           </GoogleMapReact>
                         ) : (
-                          <div className="w-100 h-100 d-flex justify-content-center align-items-center flex-column">
+                          <div className="w-100 h-100 d-flex justify-content-center align-items-center flex-column border">
                             <i
                               style={{ fontSize: "40px" }}
                               className="fas fa-map-marked-alt"
